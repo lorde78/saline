@@ -1,8 +1,8 @@
 # DEFAULT SETTINGS
 FROM node:20-alpine as base
 
-WORKDIR /src
-COPY ../../backend/package*.json /
+WORKDIR /var/www
+COPY package*.json /
 EXPOSE 3000
 # DEFAULT SETTINGS
 

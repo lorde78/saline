@@ -2,14 +2,22 @@ version: '3.8'
 
 services:
   express:
+    restart: always
     build:
-      context: ./docker/nodejs/
+      context: ./backend
+      dockerfile: ../docker/nodejs/Dockerfile
       target: ${ENV_TARGET}
-    volumes:
-      - ./backend:/src
+    container_name: saline_express
+    volumes: ['./backend:/var/www/salinebackend']
     command: npm run start:dev
-    ports:
-      - "3000:3000"
+    ports: ['3000:3000']
     environment:
       NODE_ENV: development
       DEBUG: nodejs-docker-express:*
+
+  nginx:
+    restart: always
+    build: ./docker/nginx
+    container_name: saline_nginx
+    ports: ['80:80','443:443']
+    volumes: ['./backend:/var/www/salinebackend']
