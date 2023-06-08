@@ -21,3 +21,16 @@ services:
     container_name: saline_nginx
     ports: ['80:80','443:443']
     volumes: ['./backend:/var/www/salinebackend']
+
+  remix:
+    restart: always
+    build:
+      context: ./frontend
+      dockerfile: ../docker/remix/Dockerfile
+      target: ${ENV_TARGET}
+    container_name: saline_remix
+    volumes: ['./frontend:/var/www/salinefrontend']
+    command: npm run dev
+    ports: ['3001:3001']
+    environment:
+      NODE_ENV: development
