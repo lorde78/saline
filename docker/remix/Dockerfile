@@ -1,23 +1,23 @@
 # DEFAULT SETTINGS
-FROM node:20-alpine as base
+FROM node:18-alpine as base
 
-WORKDIR /var/www
-COPY package*.json /
+WORKDIR /var/www/salinefrontend
+COPY package*.json .
 EXPOSE 3001
 # DEFAULT SETTINGS
 
 # SETTINGS FOR PROD ENV
 FROM base as production
 ENV NODE_ENV=production
-RUN npm ci
-COPY . /
+COPY . .
+RUN npm install
+CMD ["npm", "run", "build"]
 CMD ["npm", "start"]
 # SETTINGS FOR PROD ENV
 
 # SETTINGS FOR DEV ENV
 FROM base as dev
 ENV NODE_ENV=development
+RUN npm cache clean --force
 RUN npm install
-COPY . /
-CMD ["npm", "start"]
 # SETTINGS FOR DEV ENV
