@@ -25,9 +25,12 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
 				</Link>
 				<div className={menuClass}>
 					<ul>
-						<li>Page</li>
-						<li>Page</li>
-						<li>Page</li>
+						<li>A propos</li>
+						<li>Contact</li>
+						<li>Masterclasses</li>
+						<li>Offres</li>
+						<li>FAQ</li>
+						<li>Professeurs</li>
 					</ul>
 				</div>
 

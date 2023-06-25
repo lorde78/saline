@@ -33,10 +33,6 @@ ul {
 	transition: opacity 0.3s ease-in-out;
 }
 
-li {
-	margin-right: 20px;
-}
-
 a {
 	text-decoration: none;
 }
@@ -79,11 +75,16 @@ header {
 		justify-content: center;
 		align-items: center;
 		left: 0;
-	}
+        background-color: rgba(255, 255, 255, 0.75);	
+    }
 
 	.menu_responsive ul {
 		opacity: 1;
 		transition: all 0.4s ease-in-out;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		padding: 20px;
 	}
 
 	.menu_initiale {
