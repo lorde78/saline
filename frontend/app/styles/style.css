@@ -13,7 +13,6 @@ body {
     background-color: var(--main-color);
     color: var(--text-color);
     font-family: 'Rubik', sans-serif;
-    padding: 0 2rem;
 }
 
 ::-webkit-scrollbar-track
