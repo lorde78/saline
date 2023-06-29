@@ -4,11 +4,11 @@ header {
 	padding: 20px 40px;
 }
 
-nav {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
+body {
+    background-color: var(--main-color);
+    color: var(--text-color);
+    font-family: 'Rubik', sans-serif;
+    margin: 0px;
 }
 
 ul {
@@ -35,11 +35,17 @@ a {
 	display: none;
 }
 
-header {
+.header_nav {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
+
+/* header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+} */
 
 @media (max-width: 430px) {
 	.burger {
@@ -80,16 +86,18 @@ header {
 	.burger .line {
 		transition: all 0.5s ease-in-out;
 		width: 100%;
-		height: 2px;
-		background-color: #333;
+		height: 4px;
+		background-color: #121525;
 	}
 
+	
+
 	.burger.croix .line.top {
-		transform: translateY(10px) rotate(45deg);
+		transform: translateY(7px) rotate(45deg);
 	}
 
 	.burger.croix .line.bottom {
-		transform: translateY(-8px) rotate(-45deg);
+		transform: translateY(-9px) rotate(-45deg);
 	}
 
 	.burger.croix .line.middle {
