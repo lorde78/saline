@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
                     <li>A propos</li>
                     <li>Contact</li>
                 </ul>
-                <ul>
+                <ul className='footer_nav_principal'>
                     <h3>Masterclasses</h3>
                     <li>Offres</li>
                     <li>FAQ</li>

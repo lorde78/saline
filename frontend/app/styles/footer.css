@@ -7,12 +7,14 @@ footer {
 	padding: 25px 40px;
 }
 
-.footer_nav_principal {
+footer nav{
 	display: flex;
 	flex-direction: row;
-	width: 100%;
-	align-items: baseline;
-	gap: 20px;
+}
+
+.footer_nav_principal {
+	display: flex;
+    flex-direction: column;
 }
 
 .footer_nav_principal ul h3 {
