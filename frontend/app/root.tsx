@@ -8,6 +8,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+// import { I18nextProvider } from 'react-i18next';
+// import i18n from './i18n.ts';
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -23,10 +25,12 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        {/* <I18nextProvider i18n={i18n}> */}
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        {/* </I18nextProvider> */}
       </body>
     </html>
   );
