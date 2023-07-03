@@ -1,0 +1,47 @@
+.formule {
+    width: 100%;
+    padding: 25px 0;
+}
+
+
+.formule_infos > * + *  {
+    margin-top: 15px;
+}
+
+.formule_title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.formule_sub {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1000px;
+    border: solid 1px #E5DF52;
+    padding: 5px 50px;
+}
+
+.formule_sub > p {
+    font-size: 0.875rem;
+}
+
+.formule_edit-sub {
+    color: #E5DF52;
+    font-size: 0.75rem;
+}
+
+.formule_choice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.formule_price_value {
+    font-size: 1.125rem;
+    font-weight: bold;
+}
+
+.formule_price_total {
+    font-size: 0.75rem;
+}
