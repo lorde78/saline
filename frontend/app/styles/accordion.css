@@ -1,0 +1,38 @@
+.accordion-container {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    transition: height 0.3s ease;
+}
+
+.accordion-title {
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    padding: 0 25px;
+}
+
+.accordion-content {
+    max-height: 0;
+    padding: 0 40px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.accordion-icon {
+    font-size: 1.25rem;
+}
+
+.accordion-arrow {
+    font-size: 1.25rem;
+    transition: 0.5s ease;
+}
+  
+.accordion-icon > img, .accordion-arrow > img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.rotate-arrow {
+    transform: rotate(90deg);
+}
