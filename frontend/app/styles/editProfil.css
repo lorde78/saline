@@ -1,0 +1,34 @@
+.input_content {
+    width: 100%;
+    height: 40px;
+    background-color: #121525;
+    border-radius: 5px;
+    color: white;
+    padding: 0 20px;
+}
+
+.edit-profile_form > * + * {
+    margin-top: 10px;
+}
+
+.form_section {
+    text-align: center;
+}
+
+/* .input_select {
+    border-right: 20px solid transparent
+} */
+
+.input_select {
+    position: relative;
+    -webkit-appearance: none;
+            appearance: none;
+}
+
+.input_select::after {
+    content: "&#xEA4E;";
+    top: 10px;
+    right: 20px;
+    position: absolute;
+  }
+
