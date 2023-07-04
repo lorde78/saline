@@ -1,5 +1,5 @@
 import React from "react";
-import "~/style/popupProfil.css";
+import "~/styles/popupProfil.css";
 
 type PopupProfilProps = {
   };
