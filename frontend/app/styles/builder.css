@@ -1,0 +1,18 @@
+.builder_block_button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+
+    width: 250px;
+    height: 150px;
+
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    font-size: 1.125rem;
+}
+.builder_block_button i {
+    margin-top: -20px;
+    font-size: 50px;
+}
