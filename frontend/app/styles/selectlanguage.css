@@ -1,0 +1,83 @@
+#language-select {
+	color: #121525;
+	font-size: 12px;
+	font-weight: 600;
+	border: none;
+}
+
+#language-select option {
+	border: none;
+	appearance: none;
+	line-height: normal;
+}
+
+.custom-select {
+	color: #121525;
+	font-size: 12px;
+	font-weight: 600;
+	gap: 10px;
+	display: flex;
+	cursor: pointer;
+	padding: 10px;
+	align-items: baseline;
+	line-height: 1;
+}
+
+.custom-select-container {
+	position: relative;
+}
+
+.custom-select.open svg {
+	transform: rotate(180deg);
+}
+
+.custom-select svg {
+	transition: transform 0.3s ease;
+}
+
+.options {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	max-height: 150px;
+	overflow-y: auto;
+	background-color: #fff;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	opacity: 0;
+	transition: opacity 0.4s ease;
+}
+
+.option {
+	padding: 10px;
+	cursor: pointer;
+	font-size: 12px;
+	color: #121525;
+	font-weight: 600;
+}
+
+.option:hover {
+	background-color: #f4f4f4;
+}
+
+.custom-select.open {
+	border-bottom: 2px solid #f4f4f4;
+}
+
+.custom-select.open + .options {
+	opacity: 1;
+}
+
+.option:not(:last-child) {
+	border-bottom: 2px solid #f4f4f4;
+}
+
+.option:hover {
+	background-color: #f2f2f2;
+}
+
+.selected-option{
+	width: 40px;
+}
