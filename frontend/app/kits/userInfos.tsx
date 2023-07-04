@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "~/style/userInfos.css";
+import "~/styles/userInfos.css";
 import Tag from "./tag";
 import PopupProfil from "./popupProfil";
 

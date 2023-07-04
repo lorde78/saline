@@ -1,6 +1,5 @@
-// EditUserProfile.tsx
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import "~/style/editProfil.css";
+import "~/styles/editProfil.css";
 
 type UserInfo = {
   firstName: string;
@@ -34,7 +33,9 @@ const EditUserProfile: React.FC<EditUserProfileProps> = ({ userInfo }) => {
   return (
     <div>
       <form className="edit-profile_form" onSubmit={handleSubmit}>
+        
         <p className="form_section">Infos personnel</p>
+ 
         <input
           className="input_content"
           type="email"
@@ -86,7 +87,7 @@ const EditUserProfile: React.FC<EditUserProfileProps> = ({ userInfo }) => {
           onChange={handleChange}
         />
         
-        <button type="submit">Valider</button>
+        <button className='button' type="submit">Valider</button>
       </form>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import "~/style/formule.css";
+import "~/styles/formule.css";
 
 type FormuleProps = {
   subscription: string;
