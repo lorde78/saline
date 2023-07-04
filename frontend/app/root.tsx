@@ -8,6 +8,8 @@ import {
 	Outlet,
 	ScrollRestoration,
 } from "@remix-run/react";
+// import { I18nextProvider } from 'react-i18next';
+// import i18n from './i18n.ts';
 
 export const links: LinksFunction = () => [
 	...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
