@@ -35,17 +35,6 @@ footer {
 	flex: 1;
 }
 
-/* .footer_nav_principal ul li {
-	font-size: 12px;
-	margin-bottom: 10px;
-}
-
-.footer_nav_principal ul {
-	display: flex;
-	flex-direction: column;
-	width: 50%;
-} */
-
 .footer_social_media {
 	margin-top: 40px;
 	width: 100%;
@@ -67,13 +56,14 @@ footer {
 .footer_nav_secondaire {
 	display: flex;
 	gap: 40px;
-	width: calc(100% - 40px);
+   
 }
 
 .footer_nav_secondaire_premier,
 .footer_nav_secondaire_second {
-	width: 50%;
 	font-size: 12px;
+	flex-direction: column;
+	display: flex;
 }
 
 .footer_nav_secondaire_premier ul,
