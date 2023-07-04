@@ -5,13 +5,13 @@ import '../styles/footer.css';
 const Footer: React.FC = () => {
     return (
         <footer>
-            <nav >
-                <ul className='footer_nav_principal'>
+            <nav className='footer_nav_principal'>
+                <ul className='footer_nav_principal_premier'>
                     <h3>Saline royale academy</h3>
                     <li>A propos</li>
                     <li>Contact</li>
                 </ul>
-                <ul className='footer_nav_principal'>
+                <ul className='footer_nav_principal_second'>
                     <h3>Masterclasses</h3>
                     <li>Offres</li>
                     <li>FAQ</li>
