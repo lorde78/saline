@@ -10,7 +10,7 @@ const LanguageSelect: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedLanguage, setselectedLanguage] = useState<Language | null>({
         value: 'FR',
-        label: 'France',
+        label: 'Français',
     });
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
