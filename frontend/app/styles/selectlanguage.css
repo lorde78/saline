@@ -25,7 +25,6 @@
 
 .custom-select-container {
 	position: relative;
-	width: 80px;
 }
 
 .custom-select.open svg {
@@ -77,4 +76,8 @@
 
 .option:hover {
 	background-color: #f2f2f2;
+}
+
+.selected-option{
+	width: 40px;
 }
