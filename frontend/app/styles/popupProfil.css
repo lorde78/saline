@@ -1,0 +1,25 @@
+.popup-profil_container {
+    position: absolute;
+    top: calc(35px + 1.25rem);
+    right: 25px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 2px 10px 0px #00000040;
+    backdrop-filter: blur(5px);
+    border-radius: 5px;
+    color: #121525;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.popup-profil_container > p {
+    cursor: pointer;
+}
+
+.popup-profil_container > p + p {
+    padding-top: 10px;
+}
+
+.popup-profil_container > .delete-button {
+    color: #FF5050;
+}
