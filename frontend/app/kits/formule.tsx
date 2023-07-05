@@ -1,5 +1,5 @@
 import React from "react";
-import "~/styles/formule.css";
+import FormuleTag from "./formuleTag";
 
 type FormuleProps = {
   subscription: string;
@@ -12,11 +12,9 @@ const Formule: React.FC<FormuleProps> = ({ subscription }) => {
 
       <div className="formule_infos">
         <p className="formule_title">Votre formule</p>
-
         <div className="formule_choice">
-          <div className="formule_sub">
-            <p>{subscription}</p>
-          </div>
+          
+          <FormuleTag subscription={subscription} />
           <div className="formule_price">
             <p className="formule_price_value">9.9€/Mois</p>
             <p className="formule_price_total">Paiement annuel de 118.8€</p>
