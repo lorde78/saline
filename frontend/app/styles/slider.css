@@ -1,0 +1,14 @@
+.swiper-container {
+	width: 100%;
+	max-width: 100%;
+	overflow: auto;
+}
+
+.swiper-list {
+	min-width: 100%;
+	display: flex;
+	flex-direction: row;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
