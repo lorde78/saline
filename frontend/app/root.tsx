@@ -6,6 +6,7 @@ import {
 	Outlet,
 	ScrollRestoration,
 } from "@remix-run/react";
+import banner from ".public/assets/images/1000x1500-pour-site12.png";
 
 export const links: LinksFunction = () => [
 	...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -24,6 +25,7 @@ export default function App() {
 				<Outlet />
 				<ScrollRestoration />
 				<Scripts />
+				<img src={banner} alt="" />
 				<LiveReload />
 			</body>
 		</html>
