@@ -3,6 +3,7 @@ import Footer from "~/components/footer";
 import Header from "~/components/header";
 import { Slider } from "~/components/slider";
 import { SectionInstrument } from "~/components/section_instrument";
+import { SectionPartenaires } from "~/components/section_partenaires";
 
 
 export const meta: V2_MetaFunction = () => {
@@ -40,11 +41,14 @@ export default function Index() {
     },
 
   ];
+
+ 
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
       <Header title={""} />
       <Slider slides={slides} />
       <SectionInstrument />
+      <SectionPartenaires />
       <Footer />
     </div>
   );
