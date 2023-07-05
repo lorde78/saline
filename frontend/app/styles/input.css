@@ -154,7 +154,7 @@ textarea {
     width: 100%;
 }
 
-.drop_container {
+.select_image_container .drop_container {
     position: relative;
     display: flex;
     justify-content: center;
@@ -170,20 +170,20 @@ textarea {
     transition: background .2s ease-in-out, border .2s ease-in-out;
 }
 
-.drop_container input {
+.select_image_container .drop_container input {
     display: none;
 }
-.drop_container i::before {
+.select_image_container .drop_container i::before {
     width: 30px;
     height: 30px;
 }
 
-.drop_container:hover {
+.select_image_container .drop_container:hover {
     background-color: var(--action-color);
     cursor: pointer;
 }
 
-.drop_container img {
+.select_image_container .drop_container img {
     display: none;
     position: absolute;
     top: 50%;
