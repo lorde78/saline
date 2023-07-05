@@ -1,5 +1,6 @@
 import * as React from "react";
 import "swiper/swiper-bundle.min.css";
+import '../styles/slider.css';
 
 interface Slide {
     src: string;
@@ -25,38 +26,13 @@ export const Slider: React.FunctionComponent<SliderProps> = ({ slides }) => {
 
     const { Swiper: SwiperComponent, SwiperSlide } = Swiper;
 
-    const defaultSlides: Slide[] = [
-        {
-            src: "path/to/image1.jpg",
-            title: "Image 1",
-        },
-        {
-            src: "path/to/image2.jpg",
-            title: "Image 2",
-        },
-        {
-            src: "path/to/image3.jpg",
-            title: "Image 3",
-        },
-        // Add more images here
-    ];
+    const defaultSlides: Slide[] = [];
 
     const allSlides = slides.length > 0 ? slides : defaultSlides;
 
     return (
         <SwiperComponent
-            spaceBetween={50}
             slidesPerView={1}
-            navigation
-            onSlideChange={() => console.log("slide change")}
-            onSwiper={(swiper: any) => console.log(swiper)}
-            effect="cube"
-            cubeEffect={{
-                shadow: true,
-                slideShadows: true,
-                shadowOffset: 20,
-                shadowScale: 0.94,
-            }}
         >
             {allSlides.map((slide, index) => (
                 <SwiperSlide key={index}>
