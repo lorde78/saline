@@ -1,7 +1,7 @@
 import type { V2_MetaFunction } from "@remix-run/node";
 import Footer from "~/components/footer";
 import Header from "~/components/header";
-// import { Slider } from "~/components/slider";
+import { Slider } from "~/components/slider";
 
 
 export const meta: V2_MetaFunction = () => {
@@ -12,25 +12,37 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export default function Index() {
-  // const slides = [
-  //   {
-  //     src: banner,
-  //     title: "Image 1",
-  //   },
-  //   {
-  //     src: "path/to/image2.jpg",
-  //     title: "Image 2",
-  //   },
-  //   {
-  //     src: "path/to/image3.jpg",
-  //     title: "Image 3",
-  //   },
-  //   // Add more slide objects as needed
-  // ];
+  const slides = [
+    {
+      src: "/assets/images/first.png",
+      title: "Image 1",
+    },
+    {
+      src: "assets/images/1000x1500-pour-site14.png",
+      title: "Image 2",
+    },
+    {
+      src: "assets/images/1000x1500-pour-site18.png",
+      title: "Image 3",
+    },
+    {
+      src: "assets/images/1000x1500-pour-site22.png",
+      title: "Image 4",
+    },
+    {
+      src: "assets/images/1000x1500-pour-site23.png",
+      title: "Image 5",
+    },
+    {
+      src: "assets/images/1000x1500-pour-site48.png",
+      title: "Image 6",
+    },
+
+  ];
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
       <Header title={""} />
-      {/* <Slider slides={slides} /> */}
+      <Slider slides={slides} />
      
       <Footer />
     </div>
