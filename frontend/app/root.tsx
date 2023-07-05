@@ -1,7 +1,5 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
 import { Meta, Links, Scripts, useLoaderData } from '@remix-run/react';
-import Header from './components/header/header';
-import Footer from './components/footer/footer';
 import type { LinksFunction } from "@remix-run/node";
 import {
 	LiveReload,
@@ -26,12 +24,12 @@ export default function App() {
 				<Links />
 			</head>
 			<body>
-				<Header title={"blabla"} />
+
 				<Outlet />
 				<ScrollRestoration />
 				<Scripts />
 				<LiveReload />
-				<Footer />
+
 			</body>
 		</html>
 	);
