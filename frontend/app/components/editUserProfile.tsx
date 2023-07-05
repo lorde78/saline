@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import HeaderNav from "~/kits/headerNav";
-import "~/styles/editProfil.css";
+import "~/styles/editProfile.css";
 
 type UserInfo = {
   firstName: string;
