@@ -1,14 +1,14 @@
 import React from "react";
-import "~/styles/popupProfil.css";
+import "~/styles/popupProfile.css";
 
-type PopupProfilProps = {
+type PopupProfileProps = {
   };
   
-  const PopupProfil: React.FC<PopupProfilProps> = ({  }) => {
+  const PopupProfile: React.FC<PopupProfileProps> = ({  }) => {
     
   
     return (
-      <div className="popup-profil_container">
+      <div className="popup-profile_container">
         <p>Modifier mon profil</p>
         <p>Changer mon mot de passe</p>
         <p>Changer mon abonnement</p>
@@ -17,5 +17,5 @@ type PopupProfilProps = {
     );
   };
   
-  export default PopupProfil;
+  export default PopupProfile;
   

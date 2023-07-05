@@ -1,4 +1,4 @@
-.popup-profil_container {
+.popup-profile_container {
     position: absolute;
     top: calc(35px + 1.25rem);
     right: 25px;
@@ -12,14 +12,14 @@
     font-weight: 500;
 }
 
-.popup-profil_container > p {
+.popup-profile_container > p {
     cursor: pointer;
 }
 
-.popup-profil_container > p + p {
+.popup-profile_container > p + p {
     padding-top: 10px;
 }
 
-.popup-profil_container > .delete-button {
+.popup-profile_container > .delete-button {
     color: #FF5050;
 }
