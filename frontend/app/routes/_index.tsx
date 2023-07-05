@@ -4,6 +4,7 @@ import Header from "~/components/header";
 import { Slider } from "~/components/slider";
 import { SectionInstrument } from "~/components/section_instrument";
 import { SectionPartenaires } from "~/components/section_partenaires";
+import { SectionSalinePlus } from "~/components/section_plus_saline";
 
 
 export const meta: V2_MetaFunction = () => {
@@ -49,6 +50,7 @@ export default function Index() {
       <Slider slides={slides} />
       <SectionInstrument />
       <SectionPartenaires />
+      <SectionSalinePlus />
       <Footer />
     </div>
   );
