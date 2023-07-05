@@ -110,9 +110,10 @@ textarea {
 .options {
     position: absolute;
     top: 100%;
-
+    flex-direction: column;
     width: 100%;
     height: auto;
+    max-height: 200px;
     border-radius: 0 0 5px 5px;
 
 
@@ -140,6 +141,9 @@ textarea {
 }
 
 .options-visible {
+    overflow-y: scroll;
+}
+.option-visible {
     opacity: 100%;
     height: 100%;
     padding: 10px 20px;

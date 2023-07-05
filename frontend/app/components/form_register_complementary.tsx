@@ -8,7 +8,7 @@ export default function Form_register_complementary() {
         <form action="" method="post">
             <h1>Inscription</h1>
             <Select_image />
-            <Select id={"Gender"} name={"Gender"} contents={[{value:"Men", option:"Homme"},{value:"Woman", option:"Femme"}, {value:"Other", option:"Autre"}]} />
+            <Select defaultContent={"Quel est ton genre ?"} contents={[{value:"Men", option:"Homme"},{value:"Woman", option:"Femme"}, {value:"Other", option:"Autre"}]} />
             <Input name={"BirthDate"} type={"date"} placeholder={"Date de naissance"} />
             <Input name={"Country"} type={"text"} placeholder={"Pays"} />
             <Input name={"Address"} type={"text"} placeholder={"Adresse"} />
