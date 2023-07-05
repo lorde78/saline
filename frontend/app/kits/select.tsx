@@ -7,37 +7,41 @@ interface ContentProps {
 }
 
 interface Props {
-    id: string
-    name: string
+    defaultContent: string
     contents: ContentProps[]
 }
 
-export default function Select({id, name, contents}: Props) {
+/***
+ * exemple de contente: 
+ * [{value:"Men", option:"Homme"},{value:"Woman", option:"Femme"}, {value:"Other", option:"Autre"}]
+ */
+export default function Select({defaultContent, contents}: Props) {
     const [showOptionTrue, setShowOptionTrue] = useState(false)
-    const [genderSelect, setGenderSelect] = useState("Quel est votre Genre ?")
-    const [genderSelectValue, setGenderSelectValue] = useState("")
+    const [optionSelect, setOptionSelect] = useState(defaultContent)
+    const [optionSelectValue, setOptionSelectValue] = useState("")
 
     const showOptions = () => {
         setShowOptionTrue(!showOptionTrue)
     }
 
-    const selctOption = (value: string, option:string) => {
-        setGenderSelect(option)
-        setGenderSelectValue(value)
+    const selctOption = (value: string, option: string) => {
+        setOptionSelect(option)
+        setOptionSelectValue(value)
         setShowOptionTrue(false)
     }
+
 
     return (
         <div className="input-container" id={"select_container"}>
             <div onClick={showOptions} className="select_button">
-                <span>{genderSelect}</span>
+                <span>{optionSelect}</span>
                 <i className="ri-expand-up-down-line"></i>
             </div>
-            <ul className={"options"}>
+            <ul className={showOptionTrue ? "options options-visible" : "options"}>
                 {contents.map((content) => {
                     return (
                         <li onClick={() => selctOption(content.value, content.option)}
-                            className={showOptionTrue ? "option options-visible" : "option"}>
+                            className={showOptionTrue ? "option option-visible" : "option"}>
                             {content.option}
                         </li>
                     )
