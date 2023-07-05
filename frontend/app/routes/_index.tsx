@@ -2,6 +2,7 @@ import type { V2_MetaFunction } from "@remix-run/node";
 import Footer from "~/components/footer";
 import Header from "~/components/header";
 import { Slider } from "~/components/slider";
+import { SectionInstrument } from "~/components/section_instrument";
 
 
 export const meta: V2_MetaFunction = () => {
@@ -43,7 +44,7 @@ export default function Index() {
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
       <Header title={""} />
       <Slider slides={slides} />
-     
+      <SectionInstrument />
       <Footer />
     </div>
   );

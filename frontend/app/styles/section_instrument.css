@@ -1,0 +1,21 @@
+.section_instrument_container {
+	padding-left: 40px;
+	padding-right: 40px;
+	margin-bottom: 40px;
+}
+
+.secion_instrument_list {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 10px;
+	align-items: baseline;
+}
+
+.secion_instrument_list_item {
+	width: calc(33.33% - 10px);
+}
+
+.secion_instrument_list_item p {
+	margin: 0;
+}
