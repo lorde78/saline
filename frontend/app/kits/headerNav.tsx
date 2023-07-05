@@ -2,16 +2,16 @@ import "~/styles/headerNav.css";
 
 
 type HeaderNavProps = {
-  text: string;
+  namePage: string;
 };
 
-const HeaderNav: React.FC<HeaderNavProps> = ({ text }) => {
+const HeaderNav: React.FC<HeaderNavProps> = ({ namePage }) => {
   
 
   return (
-    <div>
-        <i className="ri-arrow-left-s-line arrow-return"></i>
-        <h1>{text}</h1>
+    <div className="header-nav">
+        <i className={`ri-arrow-left-s-line arrow-return`}></i>
+        <h1 className="name_page">{namePage}</h1>
     </div>
   );
 };

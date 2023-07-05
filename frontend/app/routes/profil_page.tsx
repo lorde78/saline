@@ -9,6 +9,7 @@ import Form_login from "~/components/form_login";
 import Form_register from "~/components/form_register";
 import Form_register_complementary from "~/components/form_register_complementary";
 import inputStyles from "~/styles/input.css";
+import 'remixicon/fonts/remixicon.css'
 
 
 const userInfo = {

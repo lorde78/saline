@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
+import HeaderNav from "~/kits/headerNav";
 import "~/styles/editProfil.css";
 
 type UserInfo = {
@@ -32,6 +33,7 @@ const EditUserProfile: React.FC<EditUserProfileProps> = ({ userInfo }) => {
 
   return (
     <div>
+      <HeaderNav namePage="Modifier mon profil"/>
       <form className="edit-profile_form" onSubmit={handleSubmit}>
         
         <p className="form_section">Infos personnel</p>
