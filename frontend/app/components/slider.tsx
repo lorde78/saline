@@ -10,7 +10,7 @@ interface SliderProps {
     slides: Slide[];
 }
 
-export const Slider: React.FC<SliderProps> = ({ slides }) => {
+export const Slider: React.FunctionComponent<SliderProps> = ({ slides }) => {
     const [Swiper, setSwiper] = React.useState<any>(null);
 
     React.useEffect(() => {
@@ -25,13 +25,29 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
 
     const { Swiper: SwiperComponent, SwiperSlide } = Swiper;
 
+    const defaultSlides: Slide[] = [
+        {
+            src: "path/to/image1.jpg",
+            title: "Image 1",
+        },
+        {
+            src: "path/to/image2.jpg",
+            title: "Image 2",
+        },
+        {
+            src: "path/to/image3.jpg",
+            title: "Image 3",
+        },
+        // Add more images here
+    ];
+
+    const allSlides = slides.length > 0 ? slides : defaultSlides;
+
     return (
         <SwiperComponent
             spaceBetween={50}
             slidesPerView={1}
             navigation
-            pagination={{ clickable: true }}
-            scrollbar={{ draggable: true }}
             onSlideChange={() => console.log("slide change")}
             onSwiper={(swiper: any) => console.log(swiper)}
             effect="cube"
@@ -41,9 +57,8 @@ export const Slider: React.FC<SliderProps> = ({ slides }) => {
                 shadowOffset: 20,
                 shadowScale: 0.94,
             }}
-            freeMode={true} // Add the freeMode property here
         >
-            {slides.map((slide, index) => (
+            {allSlides.map((slide, index) => (
                 <SwiperSlide key={index}>
                     <img src={slide.src} alt={slide.title} />
                 </SwiperSlide>
