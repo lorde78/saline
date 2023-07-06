@@ -1,6 +1,7 @@
 import 'remixicon/fonts/remixicon.css'
 import {useState} from "react";
 import {preview} from "vite";
+import {html} from "mdast-util-to-markdown/lib/handle/html";
 
 
 interface Props {
@@ -9,14 +10,25 @@ interface Props {
     idType: string
     buttonMessage: string
 }
+
+/***
+ *
+ * @param icon
+ * @param folderType
+ * @param idType
+ * @param buttonMessage
+ * @constructor
+ *
+ * <Builder_select_folder icon={"ri-file-2-line"} folderType={"application/pdf"} idType={"pdf"} buttonMessage={"Choisi un fichier pour ton énoncé"} />
+ *
+ */
+
 export default function Builder_select_folder({icon, folderType, idType, buttonMessage}: Props) {
     const [inputSet, setInputSet] = useState(false)
 
     const showPreview = (input) => {
         setInputSet(true)
-        console.log(input);
         var url = URL.createObjectURL(input);
-        console.log(' lien : ' + url)
         var preview = document.getElementById("preview_" + idType);
         preview.src = url;
         preview.style.display = "block";
@@ -25,19 +37,16 @@ export default function Builder_select_folder({icon, folderType, idType, buttonM
     const typePreview = () => {
       switch (idType) {
           case "video":
-              console.log(idType)
               return (
                   <video id={"preview_" + idType} className={"preview"}>
                       <source src="" />
                   </video>
               )
           case "pdf":
-              console.log(idType)
               return (
                   <iframe src="" id={"preview_" + idType} className={"preview"}> </iframe>
               )
           default :
-              console.log(idType)
               return
       }
     }

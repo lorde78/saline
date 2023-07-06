@@ -8,7 +8,6 @@ export default function Builder_navigation() {
     const addStep = () => {
         var numberSteps = steps.length+1
         setSteps([...steps, {value: "step" + numberSteps, option: "étape " + numberSteps}])
-        console.log(steps)
     }
     return (
         <nav className={"builder_navigation_container"}>
