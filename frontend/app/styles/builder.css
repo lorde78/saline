@@ -23,8 +23,24 @@
     justify-content: center;
     align-items: center;
     gap: 40px;
+    padding: 20px;
     flex: 1 0 0;
     align-self: stretch;
+}
+
+@media screen and (min-width: 800px) {
+    .builder_container {
+        flex-direction: row;
+    }
+    .builder_step_container {
+        padding: 50px;
+    }
+}
+@media screen and (min-width: 1100px) {
+
+    .builder_step_container {
+        flex-direction: row;
+    }
 }
 /*kits*/
 .builder_block_button {
@@ -83,4 +99,72 @@
     width: 100%;
     height: 100%;
     z-index: 1;
+}
+
+
+.builder_popup_select_video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--main-color);
+    z-index: 1000;
+}
+.builder_popup_select_video #popup {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+    padding: 30px;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    background-color: var(--text-color);
+    border-radius: 8px;
+}
+.builder_popup_select_video #popup div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+.builder_popup_select_video #popup i {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 20px;
+    color: var(--secondary-color);
+}
+
+.builder_popup_select_video #popup i:hover {
+    cursor: pointer;
+}
+
+@media screen and (min-width: 690px) {
+    .builder_popup_select_video #popup {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (min-width: 860px) {
+    .builder_popup_select_video #popup {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 80%;
+        width: 80%;
+        height: 80%;
+    }
+}
+
+@media screen and (min-width: 1260px) {
+    .builder_popup_select_video #popup {
+        grid-template-columns: 1fr 1fr  1fr;
+    }
 }
