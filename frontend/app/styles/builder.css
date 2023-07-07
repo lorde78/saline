@@ -2,7 +2,7 @@
 .builder_container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .builder_navigation_container {
@@ -20,13 +20,41 @@
 .builder_step_container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     gap: 40px;
     padding: 20px;
     flex: 1 0 0;
     align-self: stretch;
 }
+.builder_select_step_nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+
+}
+
+.builder_navigation_step_video_container {
+    width: 100%;
+}
+.builder_navigation_step_video_container nav{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.builder_navigation_step_video_container .nav_information{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+.builder_navigation_step_video_container div {
+}
+.builder_navigation_step_video_container div .input-container {
+    min-height: 300px;
+}
+
 
 @media screen and (min-width: 800px) {
     .builder_container {
@@ -36,10 +64,15 @@
         padding: 50px;
     }
 }
-@media screen and (min-width: 1100px) {
+@media screen and (min-width: 1111px) {
 
-    .builder_step_container {
+    .builder_select_step_nav {
         flex-direction: row;
+    }
+}
+@media screen and (min-width: 1200px) {
+    .builder_navigation_step_video_container .nav_information {
+        grid-template-columns: 1fr 2fr;
     }
 }
 /*kits*/
