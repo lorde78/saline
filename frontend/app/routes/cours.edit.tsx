@@ -31,6 +31,7 @@ export default function CoursEdit() {
     return (
         <div className={"builder_container"}>
             <Builder_navigation />
+            {/*<Builder_select_step />*/}
             <Builder_step_video />
         </div>
     );
