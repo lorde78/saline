@@ -5,10 +5,12 @@ type Props = {
     name: string
     type: string
     placeholder: string
+    setValue: any
+    value: any
 };
 
 
-export default function Input({type, name, placeholder}: Props) {
+export default function Input({type, name, placeholder, setValue, value}: Props) {
 
     const [typeInput, setTypeInput] = useState(type)
     const [eye, setEye] = useState("ri-eye-2-line")
@@ -31,7 +33,9 @@ export default function Input({type, name, placeholder}: Props) {
 
     return (
         <div className="input-container">
-            <input id={name} className={"input"} type={typeInput} placeholder=" "/>
+            <input onChange={(e) => {setValue(e.target.value)}} id={name} className={"input"} type={typeInput} placeholder=" ">
+                {value}
+            </input>
             <label htmlFor={name} className="placeholder">{placeholder}</label>
             {type == 'password' ? <i className={eye} onClick={showPassword}></i> : ''}
         </div>
