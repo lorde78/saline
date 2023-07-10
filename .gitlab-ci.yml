@@ -24,3 +24,21 @@ services:
 
 .deploy-job:
   stage: deploy
+
+# BUILD
+build-code-all:
+  extends: .build-job
+  except:
+    - merge_requests
+  variables:
+    URL_GIT: registry.gitlab.com/ArkhayDs/saline-web3-academy/
+  script:
+    - docker compose up -d 
+    - docker ps -a
+    - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
+    - docker tag test-ci-cd-express ${URL_GIT}express-${CI_COMMIT_REF_NAME}
+    - docker build -t ${URL_GIT}express-${CI_COMMIT_REF_NAME} backend
+    - docker push ${URL_GIT}express-${CI_COMMIT_REF_NAME}
+    - docker tag test-ci-cd-remix ${URL_GIT}remix-${CI_COMMIT_REF_NAME}
+    - docker build -t ${URL_GIT}remix-${CI_COMMIT_REF_NAME} frontend
+    - docker push ${URL_GIT}remix-${CI_COMMIT_REF_NAME}
