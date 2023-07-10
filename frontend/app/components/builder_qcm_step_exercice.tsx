@@ -1,4 +1,5 @@
 import {useState} from "react";
+import 'remixicon/fonts/remixicon.css'
 import Input from "~/kits/input";
 import Checkbox from "~/kits/checkbox";
 
@@ -9,20 +10,10 @@ export default function Builder_qcm_step_exercice() {
         "choice": [
             {
                 "answer": "",
-                "isTrue": false
+                "goodAnswer": false
             }
         ]
-    },
-        {
-            "question": "",
-            "multipleChoice": false,
-            "choice": [
-                {
-                    "answer": "",
-                    "isTrue": false
-                }
-            ]
-        }])
+    }])
 
     const setQuestion = (value, idContent) => {
         let newArr = [...qcmData]
@@ -37,46 +28,88 @@ export default function Builder_qcm_step_exercice() {
     const setMultipleChoice = (value, idContent) => {
         let newArr = [...qcmData]
         newArr[idContent].multipleChoice = value
+        qcmData[idContent].choice.map((answer) => {
+            answer.goodAnswer = false
+        })
+
         setQcmData(newArr)
     }
-    const setIsTrue = (value, idList) => {
+    const setgoodAnswer = (value, idList) => {
         let newArr = [...qcmData]
-        newArr[idList[0]].choice[idList[1]].isTrue = value
+
+        if (!qcmData[idList[0]].multipleChoice) {
+            qcmData[idList[0]].choice.map((answer) => {
+                answer.goodAnswer = false
+            })
+        }
+
+        newArr[idList[0]].choice[idList[1]].goodAnswer = value
+
         setQcmData(newArr)
     }
 
+    const addAQuestion = () => {
+        let newArr = [...qcmData]
+        newArr.push(
+            {
+                "question": "",
+                "multipleChoice": false,
+                "choice": [
+                    {
+                        "answer": "",
+                        "goodAnswer": false
+                    }
+                ]
+            }
+        )
+        setQcmData(newArr)
+    }
+    const addAnAnswer = (idContent) => {
+        let newArr = [...qcmData]
+        newArr[idContent].choice.push(
+            {
+                "answer": "",
+                "goodAnswer": false
+            }
+        )
+        setQcmData(newArr)
+    }
+
+
+    console.log("data")
     console.log(qcmData)
 
     return (
-        <section className={"builder_step_container"}>
+        <div className={"builder_qcm_step_exercice"}>
             {qcmData.map((content, idContent) => {
                 return (
-                    <div key={idContent}>
-                        <div>
+                    <div className={"question_container"} key={idContent}>
+                        <div className={"question"}>
                             <Input name={"question" + idContent} type={"text"} placeholder={"Question " + idContent}
                                    setValue={setQuestion} propsSetValue={idContent} value={content.question}/>
-                            <Checkbox name={"MultipleChoice" + idContent} text={"Choix multiple"}
+                            <Checkbox name={"MultipleChoice" + idContent} type={"checkbox"} text={"Choix multiple"}
                                       setValue={setMultipleChoice} propsSetValue={idContent}
                                       value={content.multipleChoice}/>
+                            {/*<button className={}><i className="ri-delete-bin-7-line"></i> </button>*/}
                         </div>
-                        <div>
+                        <div className={"answer_container"}>
                             {content.choice.map((answer, idAnswer) => {
                                 return (
-                                    <div key={idAnswer}>
+                                    <div className={"answer"} key={idAnswer}>
                                         <Input name={"reponse " + idContent} type={"text"}
-                                               placeholder={"Réponse " + idContent} setValue={setAnswer}
+                                               placeholder={"Réponse " + idAnswer} setValue={setAnswer}
                                                propsSetValue={[idContent, idAnswer]} value={answer.answer}/>
-                                        <Checkbox name={"IsTrue" + idAnswer} text={""} setValue={setIsTrue}
-                                                  propsSetValue={[idContent, idAnswer]} value={answer.isTrue}/>
+                                        <Checkbox name={"goodAnswer" + idContent} type={content.multipleChoice ? "checkbox":"radio"} text={""} setValue={setgoodAnswer}
+                                                  propsSetValue={[idContent, idAnswer]} value={answer.goodAnswer}/>
                                     </div>
                                 )
                             })}
-                            <button className={"button"}>Ajouter une réponse</button>
+                            <button className={"button"} onClick={() => {addAnAnswer(idContent)}}>Ajouter une réponse</button>
                         </div>
                     </div>
                 )
             })}
-            <button className={"button"}>Ajouter une question</button>
-        </section>
+            <button className={"button"} onClick={addAQuestion}>Ajouter une question</button>
+        </div>
     )
 }
