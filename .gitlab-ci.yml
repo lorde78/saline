@@ -36,10 +36,10 @@ build-code-all:
     - docker compose up -d 
     - docker ps -a
     - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
-    - docker tag test-ci-cd-express ${URL_GIT}express-${CI_COMMIT_REF_NAME}
+    - docker tag saline-express ${URL_GIT}express-${CI_COMMIT_REF_NAME}
     - docker build -t ${URL_GIT}express-${CI_COMMIT_REF_NAME} backend
     - docker push ${URL_GIT}express-${CI_COMMIT_REF_NAME}
-    - docker tag test-ci-cd-remix ${URL_GIT}remix-${CI_COMMIT_REF_NAME}
+    - docker tag saline-remix ${URL_GIT}remix-${CI_COMMIT_REF_NAME}
     - docker build -t ${URL_GIT}remix-${CI_COMMIT_REF_NAME} frontend
     - docker push ${URL_GIT}remix-${CI_COMMIT_REF_NAME}
 
@@ -67,18 +67,18 @@ merge:
     - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
     - echo "This job runs in merge request pipelines"
     - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
-    - docker tag test-ci-cd-express ${URL_GIT}express-main
+    - docker tag saline-express ${URL_GIT}express-main
     - docker build -t ${URL_GIT}express-main backend
     - docker push ${URL_GIT}express-main
-    - docker tag test-ci-cd-remix ${URL_GIT}remix-main
+    - docker tag saline-remix ${URL_GIT}remix-main
     - docker build -t ${URL_GIT}remix-main frontend
     - docker push ${URL_GIT}remix-main
     - fi
     - if [ "$CI_COMMIT_REF_NAME" = "dev" ]; then
-    - docker tag test-ci-cd-express ${URL_GIT}express-preprod
+    - docker tag saline-express ${URL_GIT}express-preprod
     - docker build -t ${URL_GIT}express-preprod backend
     - docker push ${URL_GIT}express-preprod
-    - docker tag test-ci-cd-remix ${URL_GIT}remix-preprod
+    - docker tag saline-remix ${URL_GIT}remix-preprod
     - docker build -t ${URL_GIT}remix-preprod frontend
     - docker push ${URL_GIT}remix-preprod
     - fi
