@@ -5,13 +5,13 @@ services:
     restart: always
     build:
       context: ./backend
-      dockerfile: ../docker/nodejs/Dockerfile
+      dockerfile: Dockerfile
     container_name: saline_express
     ports: ['3000:3000']
   remix:
     restart: always
     build:
       context: ./frontend
-      dockerfile: ../docker/remix/Dockerfile
+      dockerfile: Dockerfile
     container_name: saline_remix
     ports: ['3001:3001']
