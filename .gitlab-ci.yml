@@ -57,3 +57,30 @@ test-code-all:
     - echo "------------------Test Remix-----------------------------"
     - docker pull ${URL_GIT}remix-${CI_COMMIT_REF_NAME}
     - echo "------------------Success Container registry work-------------------"
+
+# MERGE ENVIRONMENTS
+merge:
+  stage: deploy-merge
+  script:
+    - docker compose up -d 
+    - docker ps -a
+    - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
+    - echo "This job runs in merge request pipelines"
+    - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
+    - docker tag test-ci-cd-express ${URL_GIT}express-main
+    - docker build -t ${URL_GIT}express-main backend
+    - docker push ${URL_GIT}express-main
+    - docker tag test-ci-cd-remix ${URL_GIT}remix-main
+    - docker build -t ${URL_GIT}remix-main frontend
+    - docker push ${URL_GIT}remix-main
+    - fi
+    - if [ "$CI_COMMIT_REF_NAME" = "dev" ]; then
+    - docker tag test-ci-cd-express ${URL_GIT}express-preprod
+    - docker build -t ${URL_GIT}express-preprod backend
+    - docker push ${URL_GIT}express-preprod
+    - docker tag test-ci-cd-remix ${URL_GIT}remix-preprod
+    - docker build -t ${URL_GIT}remix-preprod frontend
+    - docker push ${URL_GIT}remix-preprod
+    - fi
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
