@@ -9,7 +9,7 @@ image: docker
 services:
   - docker:dind
 
-# BASE JOBS
+# BASE JOBS .
 .build-job:
   stage: build
   before_script:
