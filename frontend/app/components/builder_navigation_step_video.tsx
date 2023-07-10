@@ -17,6 +17,7 @@ export default function Builder_navigation_step_video() {
                     <Textarea name={"Description"}
                               placeholder={"Description"}
                               setValue={setDescription}
+                              propsSetValue={""}
                               value={description}
                     />
                 )
@@ -28,6 +29,7 @@ export default function Builder_navigation_step_video() {
                         <Textarea name={"Description"}
                                   placeholder={"Description"}
                                   setValue={setInfoDescription}
+                                  propsSetValue={""}
                                   value={infoDescription}
                         />
                     </div>
