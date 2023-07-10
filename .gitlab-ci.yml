@@ -51,6 +51,7 @@ test-code-all:
   variables:
     URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
   script:
+    - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
     - echo "The current branch is ${CI_COMMIT_REF_NAME}"
     - echo "------------------Test Express-----------------------------"
     - docker pull ${URL_GIT}express-${CI_COMMIT_REF_NAME}
