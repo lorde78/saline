@@ -42,3 +42,18 @@ build-code-all:
     - docker tag test-ci-cd-remix ${URL_GIT}remix-${CI_COMMIT_REF_NAME}
     - docker build -t ${URL_GIT}remix-${CI_COMMIT_REF_NAME} frontend
     - docker push ${URL_GIT}remix-${CI_COMMIT_REF_NAME}
+
+# TEST
+test-code-all:
+  extends: .test-job
+  except:
+    - merge_requests
+  variables:
+    URL_GIT: registry.gitlab.com/ArkhayDs/saline-web3-academy/
+  script:
+    - echo "The current branch is ${CI_COMMIT_REF_NAME}"
+    - echo "------------------Test Express-----------------------------"
+    - docker pull ${URL_GIT}express-${CI_COMMIT_REF_NAME}
+    - echo "------------------Test Remix-----------------------------"
+    - docker pull ${URL_GIT}remix-${CI_COMMIT_REF_NAME}
+    - echo "------------------Success Container registry work-------------------"
