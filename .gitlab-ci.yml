@@ -8,3 +8,19 @@ stages:
 image: docker
 services:
   - docker:dind
+
+# BASE JOBS
+.build-job:
+  stage: build
+  before_script:
+    - apk add --no-cache docker-compose ; apk add --no-cache --upgrade bash
+  variables:
+    CMD_DOCKER:  docker compose up -d
+
+.test-job:
+  stage: test
+  variables: 
+    MAIN_APP: cd
+
+.deploy-job:
+  stage: deploy
