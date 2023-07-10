@@ -9,6 +9,7 @@ import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
 import builder from "~/styles/builder.css";
 import Builder_step_video from "~/components/builder_step_video";
+import Builder_step_exercice from "~/components/builder_step_exercice";
 
 
 export const meta: V2_MetaFunction = () => {
@@ -32,7 +33,8 @@ export default function CoursEdit() {
         <div className={"builder_container"}>
             <Builder_navigation />
             {/*<Builder_select_step />*/}
-            <Builder_step_video />
+            {/*<Builder_step_video />*/}
+            <Builder_step_exercice />
         </div>
     );
 }
