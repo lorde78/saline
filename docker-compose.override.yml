@@ -5,18 +5,12 @@ services:
     build:
       target: ${ENV_TARGET}
     command: npm run start:dev
-    volumes: ['./backend:/var/www/salinebackend','/var/www/salinebackend/node_modules/']
     environment:
       NODE_ENV: development
       DEBUG: nodejs-docker-express:*
-
-  nginx:
-    volumes: ['./backend:/var/www/salinebackend']
-
   remix:
     build:
       target: ${ENV_TARGET}
     command: npm run dev
-    volumes: ['./frontend:/var/www/salinefrontend','/var/www/salinefrontend/node_modules/']
     environment:
       NODE_ENV: development
