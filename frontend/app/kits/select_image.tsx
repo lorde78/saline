@@ -4,9 +4,7 @@ import {useState} from "react";
 export default function Select_image() {
 
     const showPreview = (input) => {
-        console.log(input);
         var url = URL.createObjectURL(input);
-        console.log(' image : ' + url)
         var preview = document.getElementById("image_preview");
         preview.src = url;
         preview.style.display = "block";
