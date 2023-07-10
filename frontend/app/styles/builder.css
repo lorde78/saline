@@ -54,6 +54,9 @@
 .builder_navigation_step_video_container div .input-container {
     min-height: 300px;
 }
+.builder_navigation_step_video_container div .input-container .input {
+    min-height: 300px;
+}
 
 
 @media screen and (min-width: 800px) {
