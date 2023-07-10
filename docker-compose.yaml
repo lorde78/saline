@@ -8,13 +8,6 @@ services:
       dockerfile: ../docker/nodejs/Dockerfile
     container_name: saline_express
     ports: ['3000:3000']
-
-  nginx:
-    restart: always
-    build: ./docker/nginx
-    container_name: saline_nginx
-    ports: ['80:80','443:443']
-
   remix:
     restart: always
     build:
