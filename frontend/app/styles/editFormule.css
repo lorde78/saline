@@ -1,0 +1,63 @@
+.all-formule {
+    background-color: var(--secondary-color);
+}
+
+.all-formule > h2 {
+    padding: 20px 0;
+}
+
+.edit_formule {
+    display: flex;
+    margin-bottom: 25px;
+}
+
+.edit_formule > div {
+    min-width: 50%;
+    margin-right: 50px;
+}
+
+.price-formule {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.unsub-button {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    padding: 10px 20px;
+    gap: 10px;
+    border-radius: 5px;
+    background-color: var(--alert-color);
+    transition: .3s ease-in-out;
+
+    align-self: flex-end;
+}
+.unsub-button::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 100%;
+    border-radius: 5px;
+    outline: var(--alert-color) solid 0;
+    z-index: -1;
+    transition: width .4s ease-in-out;
+}
+
+.unsub-button:hover {
+    cursor: pointer;
+    background-color: var(--secondary-color);
+    color: var(--alert-color);
+}
+
+.unsub-button:hover::before {
+    width: 100%;
+    outline: var(--alert-color) solid 2px;
+}
+

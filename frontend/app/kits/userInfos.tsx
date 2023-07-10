@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import "~/style/userInfos.css";
+import "~/styles/userInfos.css";
 import Tag from "./tag";
-import PopupProfil from "./popupProfil";
+import PopupProfile from "./popupProfile";
 
 type UserInfosProps = {
     src: string;
@@ -17,15 +17,15 @@ type UserInfosProps = {
   
     return (
       <div className="user-infos_container">
-        <figure className="profil-pic">
-            <img src={src} alt="photo de profil" />
+        <figure className="profile-pic">
+            <img src={src} alt="photo de profile" />
         </figure>
         <div className="user-infos">
             <div className="top">
                 <div>
                     <Tag role="étudiant"/>
                     <i className="settings-icon ri-settings-2-line" onClick={togglePopup}></i>
-                    {showPopup && <PopupProfil />}
+                    {showPopup && <PopupProfile />}
                 </div>
                 <div>
                     <p className="name">John Doe</p>
