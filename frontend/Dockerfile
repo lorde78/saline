@@ -10,9 +10,6 @@ EXPOSE 3000
 FROM base as production
 ENV NODE_ENV=production
 COPY . .
-# RUN npm install
-# CMD ["npm", "run", "build"]
-# CMD ["npm", "start"]
 # SETTINGS FOR PROD ENV
 
 # SETTINGS FOR DEV ENV
