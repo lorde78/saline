@@ -31,7 +31,7 @@ build-code-all:
   except:
     - merge_requests
   variables:
-    URL_GIT: registry.gitlab.com/ArkhayDs/saline-web3-academy/
+    URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
   script:
     - docker compose up -d 
     - docker ps -a
