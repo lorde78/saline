@@ -1,5 +1,6 @@
 type Props = {
     name: string
+    type: string
     text: string
     setValue: any
     propsSetValue: any,
@@ -16,10 +17,10 @@ type Props = {
  * @constructor
  */
 
-export default function Checkbox({name, text, setValue, propsSetValue, value}: Props) {
+export default function Checkbox({name, type, text, setValue, propsSetValue, value}: Props) {
     return (
         <label className={"checkbox"}>
-            <input  onChange={(e) => {setValue(e.target.checked, propsSetValue)}} type="checkbox" name={name} checked={value}/>
+            <input  onChange={(e) => {setValue(e.target.checked, propsSetValue)}} type={type} name={name} checked={value}/>
             <span className={"check"}>
                     <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
