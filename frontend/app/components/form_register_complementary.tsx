@@ -13,7 +13,7 @@ export default function Form_register_complementary() {
             <Input name={"Country"} type={"text"} placeholder={"Pays"} />
             <Input name={"Address"} type={"text"} placeholder={"Adresse"} />
             <Input name={"PostalCode"} type={"text"} placeholder={"Code postal"} />
-            <Checkbox text={"J’ai lue et j’accèpte la Politique de confientialité"} />
+            <Checkbox text={"J’ai lu et j’accepte la Politique de confidentialité"} />
             <button className={"button"} type="submit">Inscription</button>
         </form>
     )
