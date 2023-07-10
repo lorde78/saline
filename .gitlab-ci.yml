@@ -4,3 +4,7 @@ stages:
   - deploy
   - deploy-merge
   - after_merge
+
+image: docker
+services:
+  - docker:dind
