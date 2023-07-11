@@ -97,9 +97,8 @@ textarea {
 .checkbox {
     position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding-left: 24px;
+    padding-left: 40px;
     font-size: .75rem;
 
     color: var(--action-color);
@@ -110,6 +109,11 @@ textarea {
 .checkbox input[type=checkbox], .checkbox input[type=radio] {
     display: none;
 }
+
+.checkbox p {
+    width: max-content;
+}
+
 .check {
     position: absolute;
     top: 50%;

@@ -28,7 +28,7 @@ export default function Checkbox({name, type, text, setValue, propsSetValue, val
                         fill="#0F0F0F"/>
                     </svg>
             </span>
-            {text}
+            <p>{text}</p>
         </label>
     )
 }
