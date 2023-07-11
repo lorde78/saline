@@ -122,18 +122,19 @@ export default function Builder_qcm_step_exercice() {
                                     </div>
                                 )
                             })}
-                            <div className={"buttons_container"}>
-                                <button className={"button"} onClick={() => {
-                                    addAnAnswer(idContent)
-                                }}>Ajouter une réponse
-                                </button>
 
-                                <button className={"button button_alert"} onClick={() => {
-                                    deleteAnswer(idContent)
-                                }}>
-                                    <i className="ri-delete-bin-7-line"></i>
-                                </button>
-                            </div>
+                        </div>
+                        <div className={"buttons_container"}>
+                            <button className={"button"} onClick={() => {
+                                addAnAnswer(idContent)
+                            }}>Ajouter une réponse
+                            </button>
+
+                            <button className={"button button_alert"} onClick={() => {
+                                deleteAnswer(idContent)
+                            }}>
+                                <i className="ri-delete-bin-7-line"></i>
+                            </button>
                         </div>
                     </div>
                 )
