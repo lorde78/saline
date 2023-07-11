@@ -9,9 +9,14 @@ image: docker
 services:
   - docker:dind
 
+
 # BASE JOBS .
 .build-job:
   stage: build
+  only:
+    - main
+    - dev
+    - preprod
   before_script:
     - apk add --no-cache docker-compose ; apk add --no-cache --upgrade bash
   variables:
@@ -19,6 +24,10 @@ services:
 
 .test-job:
   stage: test
+  only:
+    - main
+    - dev
+    - preprod
   variables: 
     MAIN_APP: cd
 
@@ -85,3 +94,6 @@ merge:
     - fi
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_REF_NAME == 'main'
+    - if: $CI_COMMIT_REF_NAME == 'preprod'
+    - if: $CI_COMMIT_REF_NAME == 'dev'
