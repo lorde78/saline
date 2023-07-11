@@ -9,6 +9,7 @@ image: docker
 services:
   - docker:dind
 
+
 # BASE JOBS .
 .build-job:
   stage: build
