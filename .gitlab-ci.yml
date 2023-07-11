@@ -62,6 +62,10 @@ test-code-all:
 # MERGE ENVIRONMENTS
 merge:
   stage: deploy-merge
+  only:
+    - main
+    - dev
+    - preprod
   script:
     - docker compose up -d 
     - docker ps -a
