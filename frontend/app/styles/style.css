@@ -135,6 +135,11 @@ a:hover {
     color: var(--action-color);
 }
 
+.button_alert {
+    background-color: var(--alert-color);
+    color: var(--text-color);
+}
+
 
 /* Form style */
 form {
