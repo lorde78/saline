@@ -49,9 +49,9 @@ test-nginx-container:
     - merge_requests
   script:
     - echo "The current branch is ${CI_COMMIT_REF_NAME}"
-    - echo "------------------Test Nginx-----------------------------"
+    - echo "------------------Test Nginx------------------------------"
     - docker pull ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}
-    - echo "------------------Success Container registry work-------------------"
+    - echo "------------------Success Container registry work--------------------"
 
 # DEPLOY
 deploy-nginx-container:
