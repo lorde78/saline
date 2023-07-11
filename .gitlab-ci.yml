@@ -27,7 +27,7 @@ services:
 .deploy-job:
   stage: deploy
   before_script:
-    - command -v ssh-agent >/dev/null || ( apk update -y && apk add openssh-client -y)
+    - command -v ssh-agent >/dev/null || ( apk update --force && apk add openssh-client --force )
     - eval $(ssh-agent -s)
     - chmod 400 ${ID_RSA}
     - ssh-add ${ID_RSA}
