@@ -35,8 +35,7 @@ build-nginx-container:
   except:
     - merge_requests
   script:
-    - docker tag saline-web3-academy-nginx ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}
-    - docker build -t ${URL_GIT}nginx-${CI_COMMIT_REF_NAME} server
+    - docker build -t ${URL_GIT}nginx-${CI_COMMIT_REF_NAME} .
     - docker push ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}
 
 # TEST
