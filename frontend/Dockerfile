@@ -17,5 +17,6 @@ FROM base as dev
 ENV NODE_ENV=development
 RUN npm cache clean --force
 RUN npm install
+RUN npm install nodemon --save-dev
 EXPOSE 3000
 # SETTINGS FOR DEV ENV
