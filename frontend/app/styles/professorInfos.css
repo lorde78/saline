@@ -1,0 +1,18 @@
+.professor-infos_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.profile-pic {
+    height: 205px;
+    min-height: 205px;
+    overflow: hidden;
+}
+
+.profile-pic > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
