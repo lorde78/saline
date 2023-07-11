@@ -30,11 +30,13 @@ services:
 # BUILD
 build-nginx-container:
   extends: 
-    - .docker-login
     - .build-job
   except:
     - merge_requests
+  variables:
+    URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
   script:
+    - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN}
     - docker build -t ${URL_GIT}nginx-${CI_COMMIT_REF_NAME} .
     - docker push ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}
 
