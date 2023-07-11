@@ -106,6 +106,12 @@
     gap: 20px;
 }
 
+@media screen and (min-width: 500px) {
+    .builder_qcm_step_exercice .answer_container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
 @media screen and (min-width: 800px) {
     .builder_container {
         flex-direction: row;
@@ -118,11 +124,13 @@
 }
 
 @media screen and (min-width: 1111px) {
-
     .builder_select_step_nav {
         flex-direction: row;
     }
 
+    .builder_qcm_step_exercice .answer_container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 }
 
 @media screen and (min-width: 1200px) {
