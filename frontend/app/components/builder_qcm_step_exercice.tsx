@@ -23,7 +23,7 @@ export default function Builder_qcm_step_exercice() {
     }
     const setAnswer = (value, idList) => {
         let newArr = [...qcmData]
-        newArr[idList[0]].choice[idList[1]].answer = value
+        newArr[idList.idContent].choice[idList.idAnswer].answer = value
         setQcmData(newArr)
     }
     const setMultipleChoice = (value, idContent) => {
@@ -38,13 +38,13 @@ export default function Builder_qcm_step_exercice() {
     const setgoodAnswer = (value, idList) => {
         let newArr = [...qcmData]
 
-        if (!qcmData[idList[0]].multipleChoice) {
-            qcmData[idList[0]].choice.map((answer) => {
+        if (!qcmData[idList.idContent].multipleChoice) {
+            qcmData[idList.idContent].choice.map((answer) => {
                 answer.goodAnswer = false
             })
         }
 
-        newArr[idList[0]].choice[idList[1]].goodAnswer = value
+        newArr[idList.idContent].choice[idList.idAnswer].goodAnswer = value
 
         setQcmData(newArr)
     }
@@ -94,7 +94,7 @@ export default function Builder_qcm_step_exercice() {
     console.log(qcmData)
 
     return (
-        <div className={"builder_qcm_step_exercice"}>
+        <div className={"builder_qcm_step_exercice builder_exercise_step_exercice"}>
             {qcmData.map((content, idContent) => {
                 return (
                     <div className={"question_container"} key={idContent}>
@@ -111,12 +111,12 @@ export default function Builder_qcm_step_exercice() {
                                     <div className={"answer"} key={idAnswer}>
                                         <Input name={"reponse " + idContent} type={"text"}
                                                placeholder={"Réponse " + idAnswer} setValue={setAnswer}
-                                               propsSetValue={[idContent, idAnswer]} value={answer.answer}/>
+                                               propsSetValue={{"idContent" : idContent, "idAnswer" : idAnswer}} value={answer.answer}/>
                                         <div>
                                             <Checkbox name={"goodAnswer" + idContent}
                                                       type={content.multipleChoice ? "checkbox" : "radio"} text={""}
                                                       setValue={setgoodAnswer}
-                                                      propsSetValue={[idContent, idAnswer]} value={answer.goodAnswer}/>
+                                                      propsSetValue={{"idContent" : idContent, "idAnswer" : idAnswer}} value={answer.goodAnswer}/>
 
                                         </div>
                                     </div>
