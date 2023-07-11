@@ -58,7 +58,7 @@ deploy-nginx-container:
     - .docker-login
     - .deploy-job
   except:
-    -merge_requests
+    - merge_requests
   script:
     - docker pull ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}
     - docker stop nginx-${CI_COMMIT_REF_NAME}
