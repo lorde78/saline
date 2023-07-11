@@ -19,8 +19,7 @@ CMD ["npm", "start"]
 # SETTINGS FOR DEV ENV
 FROM base as dev
 ENV NODE_ENV=development
-# RUN npm install -g nodemon && npm install # nodemon allows the server to automatically reload after each changes
 WORKDIR /var/www/salinebackend
 EXPOSE 3001
-CMD ["npm", "start"]
+CMD ["npm", "dev"]
 # SETTINGS FOR DEV ENV
