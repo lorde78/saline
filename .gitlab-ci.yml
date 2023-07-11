@@ -62,6 +62,6 @@ deploy-nginx-container:
     - merge_requests
   script:
     - docker pull ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}
-    - docker stop nginx-${CI_COMMIT_REF_NAME}
-    - docker rm nginx-${CI_COMMIT_REF_NAME}
+    - docker stop nginx-${CI_COMMIT_REF_NAME} ||
+    - docker rm nginx-${CI_COMMIT_REF_NAME} ||
     - docker run -d --name nginx-${CI_COMMIT_REF_NAME} -p 80:80 ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}
