@@ -26,6 +26,13 @@ services:
 
 .deploy-job:
   stage: deploy
+  before_script:
+    - command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y)
+    - eval $(ssh-agent -s)
+    - chmod 400 ${ID_RSA}
+    - ssh-add ${ID_RSA}
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
 
 # BUILD
 build-nginx-container:
@@ -61,8 +68,6 @@ deploy-nginx-container:
   except:
     - merge_requests
   script:
-    - chmod og= ${ID_RSA}
-    - apk update && apk add openssh-client
     - ssh -i ${ID_RSA} -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker login -u ${USERNAME} -p ${SALINE_TOKEN}"
     - ssh -i ${ID_RSA} -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker pull ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}"
     - ssh -i ${ID_RSA} -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker stop nginx-${CI_COMMIT_REF_NAME} ||"
