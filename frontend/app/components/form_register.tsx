@@ -1,6 +1,8 @@
 import Input from "~/kits/input";
-import {NavLink} from "@remix-run/react";
+import {NavLink, Outlet} from "@remix-run/react";
 import {useState} from "react";
+import {useDispatch} from "react-redux";
+import {RegisterAction} from "~/action/registerAction";
 
 export default function Form_register() {
 
@@ -9,6 +11,18 @@ export default function Form_register() {
     const [lastName, setLastName] = useState("")
     const [password, setPassword] = useState("")
 
+    const dispatch = useDispatch()
+
+    const sendForm = () => {
+      let formData = {
+          "email" : email,
+          "firstname" : firstName,
+          "lastname" : lastName,
+          "password" : password
+      }
+
+      dispatch(RegisterAction(formData))
+    }
     return (
         <form action="" method="post">
             <h1>Inscription</h1>
@@ -24,8 +38,9 @@ export default function Form_register() {
             <Input name={"password"} type={"password"} placeholder={"Mot de passe"}
                    setValue={setPassword} propsSetValue={""} value={password}/>
 
-            <NavLink className={"button"} type="submit" to={"/authentication/register/complementary"}>Suivant</NavLink>
+            <NavLink onClick={sendForm} className={"button"} type="submit" to={"/authentication/register/complementary"}>Suivant</NavLink>
             <a href={""} className={"sub_link"}>Voir la Politique confidentialité</a>
+            <Outlet />
         </form>
     )
 }
