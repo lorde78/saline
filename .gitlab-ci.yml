@@ -31,7 +31,7 @@ services:
     - command -v ssh-agent >/dev/null || ( apk update --force && apk add openssh-client --force )
     - eval $(ssh-agent -s)
     - chmod 600 "$ID_RSA"
-    - ssh-add ${ID_RSA}
+    - echo "$ID_RSA" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
 
