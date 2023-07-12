@@ -1,0 +1,32 @@
+.card_formule {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid var(--white, #FFF);
+}
+
+.subscription-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.subscription-price {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.subscription-advantage-line {
+    display: flex;
+    margin: 10px;
+}
+
+.subscription-advantage-line > p {
+    font-size: 0.875rem;
+}
+
+.icon-check {
+    font-size: 1rem;
+}

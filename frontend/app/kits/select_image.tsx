@@ -4,9 +4,7 @@ import {useState} from "react";
 export default function Select_image() {
 
     const showPreview = (input) => {
-        console.log(input);
         var url = URL.createObjectURL(input);
-        console.log(' image : ' + url)
         var preview = document.getElementById("image_preview");
         preview.src = url;
         preview.style.display = "block";
@@ -14,7 +12,7 @@ export default function Select_image() {
     }
 
     return (
-        <div className={"Selct_image_contaienr"}>
+        <div className={"select_image_container"}>
             <label htmlFor="images" className="drop_container">
                  <img id={"image_preview"} src="" />
                 <input type="file" id="images" accept="image/*" onChange={(event: object) => {
