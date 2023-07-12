@@ -1,0 +1,22 @@
+.input_content {
+    width: 100%;
+    height: 40px;
+    background-color: #121525;
+    border-radius: 5px;
+    color: white;
+    padding: 0 20px;
+}
+
+.form_section {
+    align-self: center;
+}
+
+.input_select {
+    position: relative;
+    -webkit-appearance: none;
+            appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath d='M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z' fill='rgba(255,255,255,1)'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position-x: calc(100% - 20px);
+    background-position-y: 8px;
+}
