@@ -5,20 +5,20 @@ services:
     restart: always
     build:
       context: ./backend
-      dockerfile: ../docker/nodejs/Dockerfile
+      dockerfile: Dockerfile
     container_name: saline_express
     ports: ['3000:3000']
-
-  nginx:
-    restart: always
-    build: ./docker/nginx
-    container_name: saline_nginx
-    ports: ['80:80','443:443']
-
   remix:
     restart: always
     build:
       context: ./frontend
-      dockerfile: ../docker/remix/Dockerfile
+      dockerfile: Dockerfile
     container_name: saline_remix
     ports: ['3001:3001']
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    container_name: saline_db
+    ports: ['3006:3006']
