@@ -1,10 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/footer.css';
+import Input from '~/kits/input';
 
 const Footer: React.FC = () => {
     return (
         <footer>
+            <div className="newsletter_container">
+                <span>S'inscrire à la newsletter</span>
+                <form action="" method="post">
+                    <Input type="text" name="email" placeholder="Email" />
+                    <button className='button'>Ok</button>
+                </form>
+            </div>
             <nav className='footer_nav_principal'>
                 <ul className='footer_nav_principal_premier'>
                     <h3>Saline royale academy</h3>
