@@ -3,6 +3,8 @@ import Select from "~/kits/select";
 import Checkbox from "~/kits/checkbox";
 import Select_image from "~/kits/select_image";
 import {useState} from "react";
+import {useSelector} from "react-redux";
+import SigninReducer from "~/reducer/signinReducer";
 
 export default function Form_register_complementary() {
     const [birthDate, setBirthDate] = useState("")
@@ -11,6 +13,7 @@ export default function Form_register_complementary() {
     const [postalCode, setPostalCode] = useState("")
     const [privacy, setPrivacy] = useState(false)
 
+    console.log(useSelector(store => store.SigninReducer))
     return (
         <form action="" method="post">
             <h1>Inscription</h1>

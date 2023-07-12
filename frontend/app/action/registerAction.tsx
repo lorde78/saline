@@ -1,7 +1,7 @@
 
 export function RegisterAction(registerData) {
     return {
-        type: "Register",
+        type: "REGISTER",
         data: registerData
     }
 }
