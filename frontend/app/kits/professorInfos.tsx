@@ -26,7 +26,10 @@ type ProfessorInfosProps = {
                     <Tag role="Piano"/>
                 </div>
             </div>
-            <p>In 1990, he won the First Prize at the Geneva Competition.</p>
+            <div className="professor-reward">
+                <i className="ri-award-line"></i>
+                <p>En 1990, il gagne le Premier Prix de la "Genva Competition".</p>
+            </div>
         </div>
     );
   };

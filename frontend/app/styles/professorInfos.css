@@ -16,3 +16,16 @@
     height: 100%;
     object-fit: cover;
 }
+
+.professor-reward {
+    display: flex;
+    margin: 40px 0;
+}
+
+.professor-reward > p {
+    padding-left: 10px;
+}
+
+.professor-reward > i {
+    font-size: 1.5rem;
+}
