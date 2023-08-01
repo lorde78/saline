@@ -167,8 +167,11 @@ form div {
     width: 60px;
     height: 30px;
 }
+.switch input {
+    display: none;
+}
 
-.slider {
+.switch .slider {
     position: absolute;
     top: 0;
     left: 0;
@@ -181,7 +184,7 @@ form div {
     transition: .3s ease-in-out;
 }
 
-.slider::after {
+.switch .slider::after {
     position: absolute;
     top: 50%;
     right: 30px;
@@ -197,11 +200,11 @@ form div {
     animation: slidingReverse .3s ease-in-out forwards;
 }
 
-input:checked + .slider {
+.switch input:checked + .slider {
     background-color: var(--action-color);
 }
 
-input:checked + .slider::after {
+.switch input:checked + .slider::after {
     background-color: var(--main-color);
     animation: sliding .3s ease-in-out forwards;
 }
