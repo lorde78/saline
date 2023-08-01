@@ -16,23 +16,96 @@ export function links() {
 }
 
 export default function BackofficeBanner() {
-    const [isActive, setIsActive] = useState(false)
-    const [title, setTitle] = useState("Titre")
-    const [subTitle, setSubTitle] = useState("sous titre")
-    const [background, setBackground] = useState("#E5AA52")
 
+    const [banners, setBanners] = useState([
+        {
+            name: "Header",
+            isActive: false,
+            title: "zz",
+            subTitle: "zz",
+            background: "#121525",
+            color: "#ffffff"
+        },
+        {
+            name: "Section Instruments",
+            isActive: false,
+            title: "",
+            subTitle: "",
+            background: "#121525",
+            color: "#ffffff"
+        },
+        {
+            name: "Section Professeurs",
+            isActive: false,
+            title: "",
+            subTitle: "",
+            background: "#121525",
+            color: "#ffffff"
+        },
+        {
+            name: "Section Formules",
+            isActive: false,
+            title: "",
+            subTitle: "",
+            background: "#121525",
+            color: "#ffffff"
+        },
+        {
+            name: "Footer",
+            isActive: false,
+            title: "",
+            subTitle: "",
+            background: "#121525",
+            color: "#ffffff"
+        }
+    ])
+    const changeValue = (value, props) => {
+        let newArr = [...banners]
+        switch (props.valuToChange) {
+            case "name" :
+                newArr[props.id].name = value
+                break
+            case "isActive" :
+                newArr[props.id].isActive = value
+                break
+            case "title" :
+                newArr[props.id].title = value
+                break
+            case "subTitle" :
+                newArr[props.id].subTitle = value
+                break
+            case "background" :
+                newArr[props.id].background = value
+                break
+            case "color" :
+                newArr[props.id].color = value
+                break
+        }
+        setBanners(newArr)
+    }
 
     return (
-        <Backoffice_edit_banner
-            name={"Header"}
-            isActive={isActive}
-            title={title}
-            subTitle={subTitle}
-            background={background}
-            setIsActive={setIsActive}
-            setTitle={setTitle}
-            setSubTitle={setSubTitle}
-            setBackground={setBackground}
-        />
+        <div className={"backoffice_banner_container"}>
+            {
+                banners.map((banner, i) => {
+                    return (
+                        <Backoffice_edit_banner
+                            id={i}
+                            name={banner.name}
+                            isActive={banner.isActive}
+                            title={banner.title}
+                            subTitle={banner.subTitle}
+                            background={banner.background}
+                            color={banner.color}
+                            setValue={changeValue}
+                        />
+                    )
+                })
+            }
+            <button className={"button"}>
+                Valider les modifications
+            </button>
+        </div>
+
     )
 }
