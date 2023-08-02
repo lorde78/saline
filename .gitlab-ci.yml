@@ -29,6 +29,7 @@ services:
   before_script:
     - apk add coreutils
     - command -v ssh-agent >/dev/null || ( apk update --force && apk add openssh-client --force )
+    - echo "$ID_RSA"
     - eval $(ssh-agent -s)
     - echo "$ID_RSA" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
