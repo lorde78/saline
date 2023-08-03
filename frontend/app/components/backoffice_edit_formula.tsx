@@ -44,18 +44,20 @@ export default function Backoffice_edit_formula({
                         defaultContent={target}
                         contents={[{value: "User", option: "utilisateur"}, {value: "Professor", option: "professeur"}]}
                     />
-                    <Input
-                        name={"rates_price" + id}
-                        type={"number"}
-                        placeholder={"Tarifs"}
-                        setValue={setValue}
-                        propsSetValue={{id: id, valuToChange: "rates_price"}}
-                        value={name}
-                    />
-                    <Select
-                        defaultContent={rates_time}
-                        contents={[{value: "month", option: "mois"}, {value: "annual", option: "an"}]}
-                    />
+                    <div className={"price_content"}>
+                        <Input
+                            name={"rates_price" + id}
+                            type={"number"}
+                            placeholder={"Tarifs"}
+                            setValue={setValue}
+                            propsSetValue={{id: id, valuToChange: "rates_price"}}
+                            value={rates_price}
+                        />
+                        <Select
+                            defaultContent={rates_time}
+                            contents={[{value: "month", option: "mois"}, {value: "annual", option: "an"}]}
+                        />
+                    </div>
                     <h1>Droits</h1>
                     {
                         musts.map((must, i) => {
@@ -79,10 +81,10 @@ export default function Backoffice_edit_formula({
                     </button>
                 </>
                 :
-                <>
-                    <div className={"formula"}>
-                        <div>{name}</div>
-                        <div>{rates_price}/{rates_time}</div>
+                <div className={"formula"}>
+                    <div className={"formule_sub"}>{name}</div>
+                    <div>{rates_price}/{rates_time}</div>
+                    <div>
                         <button onClick={() => {
                             setEditing(true)
                         }}>
@@ -94,7 +96,7 @@ export default function Backoffice_edit_formula({
                             <i className="ri-delete-bin-7-line"></i>
                         </button>
                     </div>
-                </>
+                </div>
             }
         </div>
     );
