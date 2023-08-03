@@ -27,6 +27,7 @@ type Props = {
  *         placeholder={"Nom"}
  *         setValue={setValue}
  *         propsSetValue{"," + props}
+ *         propsSetValue{{"idContent" : idContent, "idAnswer" : idAnswer}}
  *         value={value}
  *  />
  *
