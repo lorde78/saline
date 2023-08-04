@@ -14,6 +14,7 @@ type Props = {
     rates_time: string
     musts: any
     setValue: any
+    deleteFormula:any
 };
 export default function Backoffice_edit_formula({
                                                     id,
@@ -22,7 +23,8 @@ export default function Backoffice_edit_formula({
                                                     rates_price,
                                                     rates_time,
                                                     musts,
-                                                    setValue
+                                                    setValue,
+                                                    deleteFormula
                                                 }: Props) {
 
     const [editing, setEditing] = useState(false)
@@ -95,7 +97,8 @@ export default function Backoffice_edit_formula({
                             <i className="ri-pencil-line"></i>
                         </button>
                         <button onClick={() => {
-                            console.log("supprimer")
+                            console.log(id)
+                            deleteFormula(id)
                         }}>
                             <i className="ri-delete-bin-7-line"></i>
                         </button>
