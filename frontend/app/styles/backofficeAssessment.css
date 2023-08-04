@@ -1,0 +1,61 @@
+.backoffice_assessments_container {
+    padding: 20px;
+}
+.assessment_container div{
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+.assessment_container {
+    display: flex;
+    gap: 10px;
+}
+.assessment_container button{
+    width: auto;
+}
+.assessment_container-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+.assessment_container-right {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 5px;
+    width: auto;
+}
+
+.assessment_container-open {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+.assessment_container-open .content {
+    width: 100%;
+    height: auto;
+}
+.assessment_container-open .assessment_section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.assessment_container-open .assessment_section div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.assessment_container-open .assessment_section div span {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 25px;
+}
+
+.assessment_container-open .assessment_section textarea {
+    height: 200px;
+}
