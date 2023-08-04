@@ -260,12 +260,65 @@ export default function BackofficeFormulas() {
         setFormulas(newArr)
     }
 
+    const addFormula = (target:string, id:number) => {
+        let newArr = [...formulas]
+        newArr.push({
+            name: "Formule"+id,
+            target: target,
+            rates_price: "0",
+            rates_time: "mois",
+            musts: [
+                {
+                    name: "Accès illimité à toutes nos masterclasses.",
+                    active: false
+                },
+                {
+                    name: "De nouvelles vidéos sont disponibles chaque mois.",
+                    active: false
+                },
+                {
+                    name: "Des interviews exclusives avec les plus grands professeurs du monde.",
+                    active: false
+                },
+                {
+                    name: "Partitions annotées par nos professeurs et prêtes à être téléchargées.",
+                    active: false
+                },
+                {
+                    name: "Vidéos multi-angles disponibles en HD sur tous vos appareils.",
+                    active: false
+                },
+                {
+                    name: "Contacter le professeurs",
+                    active: false
+                },
+                {
+                    name: "Partition expliqué par le professeur",
+                    active: false
+                }
+            ]
+        })
+        setFormulas(newArr)
+    }
+
+    const deleteFormula = (id) => {
+        let newArr = [...formulas]
+
+        if (id > -1) {
+            newArr.splice(id, 1);
+        }
+        setFormulas(newArr)
+
+    }
+
     return (
         <div className={"backoffice_formulas_container"}>
             <div className={"formulas"}>
                 <div className={"formulas_header"}>
                     <h1>Utilisateur : </h1>
-                    <button><i className="ri-add-line"></i></button>
+                    <button onClick={() => {addFormula("utilisateur", formulas.length + 1)}}>
+                        <i className="ri-add-line"></i>
+                    </button>
                 </div>
                 {
                     formulas.map((formula, i) => {
@@ -279,6 +332,7 @@ export default function BackofficeFormulas() {
                                     rates_time={formula.rates_time}
                                     musts={formula.musts}
                                     setValue={changeValue}
+                                    deleteFormula={deleteFormula}
                                 />
                             )
                         }
@@ -288,7 +342,9 @@ export default function BackofficeFormulas() {
             <div className={"formulas"}>
                 <div className={"formulas_header"}>
                     <h1>Professeur : </h1>
-                    <button><i className="ri-add-line"></i></button>
+                    <button onClick={() => {addFormula("professeur", formulas.length + 1)}}>
+                        <i className="ri-add-line"></i>
+                    </button>
                 </div>
                 {
                     formulas.map((formula, i) => {
@@ -302,6 +358,7 @@ export default function BackofficeFormulas() {
                                     rates_time={formula.rates_time}
                                     musts={formula.musts}
                                     setValue={changeValue}
+                                    deleteFormula={deleteFormula}
                                 />
                             )
                         }
