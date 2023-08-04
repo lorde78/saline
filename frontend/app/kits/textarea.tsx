@@ -5,7 +5,7 @@ type Props = {
     name: string
     placeholder: string
     setValue: any
-    propsSetValue: string
+    propsSetValue: any
     value: any
 };
 

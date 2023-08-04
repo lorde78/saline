@@ -2,7 +2,7 @@ import {useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
-import backofficeBanner from "~/styles/backofficeBanner.css";
+import assessment from "~/styles/backofficeAssessment.css";
 import Backoffice_assessment from "~/components/backoffice_assessment";
 
 
@@ -11,7 +11,7 @@ export function links() {
         {rel: 'stylesheet', href: resetStyles},
         {rel: 'stylesheet', href: styles},
         {rel: 'stylesheet', href: input},
-        {rel: 'stylesheet', href: backofficeBanner}
+        {rel: 'stylesheet', href: assessment}
     ]
 }
 
@@ -25,7 +25,9 @@ export default function BackofficeAssessments() {
             contente: "https://www.youtube.com/embed/GwhXOrygQWk",
             note: "",
             isValidate: false,
+            isNotValidate: false,
             ratragage: false,
+            noRatragage: false,
             status: "en attente"
         }
     ])
@@ -37,12 +39,40 @@ export default function BackofficeAssessments() {
                 break
             case "isValidate" :
                 newArr[props.id].isValidate = value
+                newArr[props.id].isNotValidate = false
+                changeStatus(newArr, props)
+                break
+            case "isNotValidate" :
+                newArr[props.id].isValidate = false
+                newArr[props.id].isNotValidate = value
+                changeStatus(newArr, props)
                 break
             case "ratragage" :
                 newArr[props.id].ratragage = value
+                newArr[props.id].noRatragage = false
+                break
+            case "noRatragage" :
+                newArr[props.id].ratragage = false
+                newArr[props.id].noRatragage = value
                 break
         }
         setAssessments(newArr)
+    }
+
+    const changeStatus = (newArr, props) => {
+        if (newArr[props.id].isValidate) {
+            newArr[props.id].ratragage = false
+            newArr[props.id].noRatragage = false
+            newArr[props.id].status = "validé"
+        } else if (newArr[props.id].isNotValidate) {
+            newArr[props.id].ratragage = true
+            newArr[props.id].noRatragage = false
+            newArr[props.id].status = "raté"
+        } else {
+            newArr[props.id].ratragage = false
+            newArr[props.id].noRatragage = false
+            newArr[props.id].status = "en attente"
+        }
     }
 
     return (
@@ -56,8 +86,11 @@ export default function BackofficeAssessments() {
                             course={assessment.course}
                             evaluationType={assessment.evaluationType}
                             contente={assessment.contente}
+                            note={assessment.note}
                             isValidate={assessment.isValidate}
+                            isNotValidate={assessment.isNotValidate}
                             ratragage={assessment.ratragage}
+                            noRatragage={assessment.noRatragage}
                             status={assessment.status}
                             setValue={changeValue}
                         />
