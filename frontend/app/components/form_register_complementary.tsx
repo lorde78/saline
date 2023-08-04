@@ -6,6 +6,7 @@ import {useState} from "react";
 
 export default function Form_register_complementary() {
     const [birthDate, setBirthDate] = useState("")
+    const [gender, setGender] = useState("")
     const [country, setCountry] = useState("")
     const [address, setAddress] = useState("")
     const [postalCode, setPostalCode] = useState("")
@@ -14,8 +15,12 @@ export default function Form_register_complementary() {
     return (
         <form action="" method="post">
             <h1>Inscription</h1>
-            <Select_image />
-            <Select defaultContent={"Quel est ton genre ?"} contents={[{value:"Men", option:"Homme"},{value:"Woman", option:"Femme"}, {value:"Other", option:"Autre"}]} />
+            <Select_image/>
+            <Select defaultContent={"Quel est ton genre ?"}
+                    contents={[{value: "Men", option: "Homme"}, {value: "Woman", option: "Femme"}, {value: "Other",option: "Autre"}]}
+                    setValue={setGender}
+                    propsSetValue={""}
+            />
             <Input name={"BirthDate"} type={"date"} placeholder={"Date de naissance"}
                    setValue={setBirthDate} propsSetValue={""} value={birthDate}/>
             <Input name={"Country"} type={"text"} placeholder={"Pays"}
