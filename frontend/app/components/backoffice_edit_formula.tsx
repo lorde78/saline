@@ -43,6 +43,8 @@ export default function Backoffice_edit_formula({
                     <Select
                         defaultContent={target}
                         contents={[{value: "User", option: "utilisateur"}, {value: "Professor", option: "professeur"}]}
+                        setValue={setValue}
+                        propsSetValue={{id: id, valuToChange: "target"}}
                     />
                     <div className={"price_content"}>
                         <Input
@@ -56,6 +58,8 @@ export default function Backoffice_edit_formula({
                         <Select
                             defaultContent={rates_time}
                             contents={[{value: "month", option: "mois"}, {value: "annual", option: "an"}]}
+                            setValue={setValue}
+                            propsSetValue={{id: id, valuToChange: "rates_time"}}
                         />
                     </div>
                     <h1>Droits</h1>

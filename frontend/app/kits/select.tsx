@@ -9,13 +9,15 @@ interface ContentProps {
 interface Props {
     defaultContent: string
     contents: ContentProps[]
+    setValue: any
+    propsSetValue: any
 }
 
 /***
  * exemple de contente: 
  * [{value:"Men", option:"Homme"},{value:"Woman", option:"Femme"}, {value:"Other", option:"Autre"}]
  */
-export default function Select({defaultContent, contents}: Props) {
+export default function Select({defaultContent, contents, setValue, propsSetValue}: Props) {
     const [showOptionTrue, setShowOptionTrue] = useState(false)
     const [optionSelect, setOptionSelect] = useState(defaultContent)
     const [optionSelectValue, setOptionSelectValue] = useState("")
@@ -28,6 +30,7 @@ export default function Select({defaultContent, contents}: Props) {
         setOptionSelect(option)
         setOptionSelectValue(value)
         setShowOptionTrue(false)
+        setValue(option, propsSetValue)
     }
 
 
