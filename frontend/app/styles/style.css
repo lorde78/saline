@@ -64,6 +64,23 @@ a:hover {
     color: var(--action-color);
 }
 
+/*status style,  description status */
+.status_color {
+    display: block;
+    border-radius: 4px;
+    height: 15px;
+    width: 15px;
+}
+.status_color-yellow {
+    background-color: var(--action-color);
+}
+.status_color-green {
+    background-color: var(--success-color);
+}
+.status_color-red {
+    background-color: var(--alert-color);
+}
+
 /* label and category style */
 .label {
     display:inline-block;
