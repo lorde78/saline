@@ -14,6 +14,7 @@ body {
     color: var(--text-color);
     font-family: 'Rubik', sans-serif;
     margin: 0;
+    overflow-x: hidden;
 }
 
 ::-webkit-scrollbar-track
@@ -79,6 +80,43 @@ a:hover {
 }
 .status_color-red {
     background-color: var(--alert-color);
+}
+
+/* Page loade page animation */
+.page_change_section_container {
+    position: relative;
+    min-height: 100vh;
+}
+.page_change_section {
+    position: absolute;
+    display: flex;
+    left: 0;
+    top: 0;
+    min-height: 100vh;
+}
+
+.page_in {
+    animation: .3s linear 0s page_move_in forwards;
+}
+.page_out {
+    animation: .3s linear 0s page_move_out forwards;
+}
+@keyframes page_move_in {
+    from {
+        left: 0;
+    }
+    to {
+        left: -100vw;
+    }
+}
+
+@keyframes page_move_out {
+    from {
+        left: -100vw;
+    }
+    to {
+        left: 0;
+    }
 }
 
 /* label and category style */
@@ -157,6 +195,26 @@ a:hover {
     color: var(--text-color);
 }
 
+/*header for page inter section */
+.header_section_page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    background-color: var(--secondary-color);
+    padding: 20px;
+}
+
+.header_section_page nav {
+    width: auto;
+    font-size: 20px;
+}
+.header_section_page div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 /* Form style */
 form {
