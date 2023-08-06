@@ -4,7 +4,7 @@ import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
 import assessment from "~/styles/backofficeAssessment.css";
 import Backoffice_assessment from "~/components/backoffice_assessment";
-import {Outlet} from "@remix-run/react";
+import {Outlet, useLocation} from "@remix-run/react";
 
 
 export function links() {
@@ -56,22 +56,25 @@ export default function BackofficeAssessments() {
             status: "en attente"
         }
     ])
-
     return (
-        <div className={"backoffice_assessments_container"}>
-            {
-                assessments.map((assessment, i) => {
-                    return (
-                        <Backoffice_assessment
-                            id={i}
-                            studen={assessment.studen}
-                            course={assessment.course}
-                            status={assessment.status}
-                        />
-                    )
-                })
-            }
-            <Outlet />
+        <div className={"page_change_section_container"}>
+            <div className={useLocation().pathname === "/backoffice/assessments" ? "page_change_section page_out" : "page_change_section page_in"}>
+                <div className={"backoffice_assessments_preview_container"}>
+                    {
+                        assessments.map((assessment, i) => {
+                            return (
+                                <Backoffice_assessment
+                                    id={i}
+                                    studen={assessment.studen}
+                                    course={assessment.course}
+                                    status={assessment.status}
+                                />
+                            )
+                        })
+                    }
+                </div>
+                <Outlet/>
+            </div>
         </div>
 
     )
