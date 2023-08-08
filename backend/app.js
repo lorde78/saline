@@ -8,6 +8,7 @@ var clearModule = require('clear-module');
 var indexRouter = require('./routes/index');
 var registerRouter = require('./routes/authentication/register.routes.ts');
 var loginRouter = require('./routes/authentication/login.routes.ts');
+var answerRouter = require('./routes/answer.routes.ts');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
+app.use('/answer', answerRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
