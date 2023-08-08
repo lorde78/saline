@@ -8,18 +8,198 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// model Post {
-//   id        String     @id @unique @default(uuid())
-//   title     String
-//   content   String?
-//   published Boolean @default(false)
-//   authorId  Int?
-// }
-
 model User {
-  id           String          @id @unique @default(uuid())
-  email        String        @unique
-  name         String?
-  password      String
-  token       String?
+  id             String         @id @unique @default(uuid())
+  email          String         @unique
+  name           String?
+  firstName      String?
+  password       String
+  token          String?
+  profilePicture String?
+  createdAt      DateTime       @default(now())
+  lastConnection DateTime?
+  roles          Json
+  phoneNumber    String?
+  genre          String?
+  nationality    String?
+  progress       Json
+  birthDate      DateTime?
+  postalAddress  String?
+  Certification  Certification?
+  Comment        Comment[]
+  Answer         Answer[]
+  Lesson         Lesson[]
+  Training       Training[]
+  Annotation     Annotation[]
+  Classroom      Classroom?     @relation(fields: [id], references: [id])
+  Discount       Discount[]
+  Subscription   Subscription?
+}
+
+model Certification {
+  id             String    @id @unique @default(uuid())
+  name           String?
+  graduationDate DateTime?
+  user           User?     @relation(fields: [id], references: [id])
+}
+
+model Lesson {
+  id              String         @id @unique @default(uuid())
+  title           String?
+  description     String?
+  numberSteps     Int?
+  difficultyLevel String?
+  price           Int?
+  duration        String?
+  nbViews         Int?
+  nbCompleted     Int?
+  userId          String?
+  user            User?          @relation(fields: [userId], references: [id])
+  // tags            Tag[]
+  trainings       Training[]
+  comments        Comment[]
+  classrooms      Classroom[]
+  subscriptions   Subscription[]
+  videos          Video[]
+  discounts       Discount[]
+  annotations      Annotation[]
+  // annotationId    String?
+}
+
+model Classroom {
+  id         String     @id @unique @default(uuid())
+  title      String?
+  createdAt  DateTime   @default(now())
+  lastUpdate DateTime   @default(now())
+  students   User[]
+  lessons    Lesson[]
+  trainings  Training[]
+  // comments   Comment[]
+  // autor      User?      @relation("ClassroomUser", fields: [id], references: [id])
+  // // User       User?
+  // User       User?      @relation(fields: [userId], references: [id])
+  // userId     String?
+}
+
+model Training {
+  id              String         @id @unique @default(uuid())
+  title           String?
+  description     String?
+  difficultyLevel String?
+  createdAt       DateTime       @default(now())
+  lastUpdate      DateTime       @default(now())
+  accesibility    Boolean
+  price           Int?
+  duration        String?
+  userId          String?
+  user            User?          @relation(fields: [userId], references: [id])
+  // autor           User?         @relation(fields: [id], references: [id])
+  nbViews         Int?
+  nbrCompleted    Int?
+  nbrCertified    Int?
+  Lessons         Lesson[]
+  classrooms      Classroom[]
+  Tags            Tag[]
+  Subscriptions   Subscription[]
+  Discounts       Discount[]
+}
+
+model Comment {
+  id          String   @id @unique @default(uuid())
+  content     String?
+  createdAt   DateTime @default(now())
+  lastUpdate  DateTime @default(now())
+  nbUpvotes   Int?     @default(0)
+  nbDownvotes Int?
+  userId      String?
+  lessonId      String?
+  Lesson      Lesson?    @relation(fields: [lessonId], references: [id])
+  Answer      Answer[]
+  user        User?     @relation(fields: [userId], references: [id])
+}
+
+model Answer {
+  id         String   @id @unique @default(uuid())
+  content    String?
+  createdAt  DateTime @default(now())
+  lastUpdate DateTime @default(now())
+  commentId  String?
+  userId     String?
+  validation Boolean
+  user        User?     @relation(fields: [userId], references: [id])
+  comment        Comment?     @relation(fields: [commentId], references: [id])
+}
+
+model Annotation {
+  id         String   @id @unique @default(uuid())
+  content    String?
+  createdAt  DateTime @default(now())
+  lastUpdate DateTime @default(now())
+  userId     String?
+  lessonId   String?
+  author      User?     @relation(fields: [userId], references: [id])
+  lessons     Lesson? @relation(fields: [lessonId], references: [id])
+  // User       User[]
+  // Lesson     Lesson[]
+}
+
+model Tag {
+  id          String       @id @unique @default(uuid())
+  title       String?
+  // lessons       Lesson[]
+  trainings   Training[]
+  videos      Video[]
+  shortVideos ShortVideo[]
+}
+
+model Subscription {
+  id                 String     @id @unique @default(uuid())
+  title              String?
+  subscriptionType   String?
+  subscriptionStatus Boolean
+  price              Int?
+  createdAt          DateTime   @default(now())
+  lastUpdate         DateTime   @default(now())
+  lessons            Lesson[]
+  trainings          Training[]
+  user               User?      @relation(fields: [id], references: [id])
+  nbSubscribers      Int?
+  userId             String?
+}
+
+model Discount {
+  id             String     @id @unique @default(uuid())
+  title          String?
+  percentage     Int?
+  startDate      DateTime?
+  endDate        DateTime?
+  discountStatus Boolean
+  createdAt      DateTime   @default(now())
+  lastUpdate     DateTime   @default(now())
+  userId         String?
+  author         User?      @relation(fields: [userId], references: [id])
+  lessons        Lesson[]
+  trainings      Training[]
+  nbPurchases    Int?
+}
+
+model Video {
+  id          String       @id @unique @default(uuid())
+  title       String?
+  url         String?
+  createdAt   DateTime     @default(now())
+  lastUpdate  DateTime     @default(now())
+  tags        Tag[]
+  lesssons    Lesson[]
+  shortVideos ShortVideo[]
+}
+
+model ShortVideo {
+  id         String   @id @unique @default(uuid())
+  startTime  String?
+  endTime    String?
+  createdAt  DateTime @default(now())
+  lastUpdate DateTime @default(now())
+  tags       Tag[]
+  video      Video?   @relation(fields: [id], references: [id])
 }
