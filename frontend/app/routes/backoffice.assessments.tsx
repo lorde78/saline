@@ -57,24 +57,19 @@ export default function BackofficeAssessments() {
         }
     ])
     return (
-        <div className={"page_change_section_container"}>
-            <div className={useLocation().pathname === "/backoffice/assessments" ? "page_change_section page_out" : "page_change_section page_in"}>
-                <div className={"backoffice_assessments_preview_container"}>
-                    {
-                        assessments.map((assessment, i) => {
-                            return (
-                                <Backoffice_assessment
-                                    id={i}
-                                    studen={assessment.studen}
-                                    course={assessment.course}
-                                    status={assessment.status}
-                                />
-                            )
-                        })
-                    }
-                </div>
-                <Outlet/>
-            </div>
+        <div className={"backoffice_assessments_preview_container"}>
+            {
+                assessments.map((assessment, i) => {
+                    return (
+                        <Backoffice_assessment
+                            id={i}
+                            studen={assessment.studen}
+                            course={assessment.course}
+                            status={assessment.status}
+                        />
+                    )
+                })
+            }
         </div>
 
     )

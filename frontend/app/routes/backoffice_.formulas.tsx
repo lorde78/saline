@@ -17,7 +17,7 @@ export function links() {
     ]
 }
 
-export default function BackofficeFormulas() {
+export default function Backoffice_Formulas() {
 
     const [formulas, setFormulas] = useState([
             {
