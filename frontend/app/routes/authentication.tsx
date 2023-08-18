@@ -35,7 +35,6 @@ export default function Authentication() {
                     {/*<NavLink className={"button button_dark"} to={"/cours/edit"}>*/}
                     Connexion
                 </NavLink >
-                <Outlet />
             </div>
         </section>
     );
