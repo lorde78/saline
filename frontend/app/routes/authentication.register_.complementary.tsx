@@ -3,7 +3,8 @@ import type {V2_MetaFunction} from "@remix-run/node";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
-import Form_login from "~/components/form_login";
+import Form_register from "~/components/form_register";
+import Form_register_complementary from "~/components/form_register_complementary";
 
 
 export const meta: V2_MetaFunction = () => {
@@ -21,8 +22,8 @@ export function links() {
     ]
 }
 
-export default function AuthenticationLogin() {
+export default function AuthenticationRegister_Complementary() {
     return (
-            <Form_login />
+            <Form_register_complementary />
     );
 }

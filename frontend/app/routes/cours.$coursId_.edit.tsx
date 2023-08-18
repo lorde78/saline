@@ -28,7 +28,7 @@ export function links() {
     ]
 }
 
-export default function CoursEdit() {
+export default function Cours_CoursIdEdit() {
     return (
         <div className={"builder_container"}>
             <Builder_navigation />

@@ -21,7 +21,7 @@ export function links() {
     ]
 }
 
-export default function AuthenticationRegister() {
+export default function Authentication_Register() {
     return (
             <Form_register />
     );
