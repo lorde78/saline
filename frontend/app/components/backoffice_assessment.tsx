@@ -5,7 +5,7 @@ import Input from "~/kits/input";
 import Color_picker from "~/kits/color_picker";
 import Checkbox from "~/kits/checkbox";
 import Textarea from "~/kits/textarea";
-import {NavLink, Outlet} from "@remix-run/react";
+import {NavLink, Outlet, useLocation} from "@remix-run/react";
 
 type Props = {
     id: number,
@@ -43,7 +43,7 @@ export default function Backoffice_assessment({
     return (
         <>
 
-            <NavLink className={"assessment_container"} to={"/backoffice/assessments/" + id}>
+            <NavLink className={"assessment_container"} to={useLocation().pathname + "/" + id}>
                 <div className={"assessment_container-left"}>
                     <p>{studen}</p>
                     <p>{course}</p>

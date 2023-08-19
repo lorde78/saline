@@ -5,7 +5,7 @@ import Input from "~/kits/input";
 import Color_picker from "~/kits/color_picker";
 import Checkbox from "~/kits/checkbox";
 import Textarea from "~/kits/textarea";
-import {NavLink} from "@remix-run/react";
+import {NavLink, useNavigate} from "@remix-run/react";
 import Header_section_page from "~/kits/header_section_page";
 
 export default function Backoffice_edit_assessment() {
@@ -102,7 +102,7 @@ export default function Backoffice_edit_assessment() {
     }
     return (
         <>
-            <Header_section_page title={assessment.studen} link={"/backoffice/assessments"}/>
+            <Header_section_page title={assessment.studen} />
             <div className={"assessment_container-open"}>
                 <h1>Contenu :</h1>
                 <h3>{assessment.course}</h3>
