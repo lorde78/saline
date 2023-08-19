@@ -21,6 +21,9 @@
     height: 200px;
 }
 .backoffice_classroom_container .classroom_info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     padding: 20px;
 }
 .backoffice_classroom_container .classroom_image img {
