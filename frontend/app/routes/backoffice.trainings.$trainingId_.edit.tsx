@@ -28,7 +28,7 @@ export function links() {
     ]
 }
 
-export default function Cours_CoursIdEdit() {
+export default function BackofficeTrainingsTrainingId_Edit() {
     return (
         <div className={"builder_container"}>
             <Builder_navigation />
