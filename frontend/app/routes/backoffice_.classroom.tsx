@@ -20,16 +20,16 @@ export function links() {
 export default function Backoffice_Classroom() {
 
     const [classrooms, setClassrooms] = useState([
-        {
-            title: "Jean Paul",
-            professor: "Cour de flute baroke",
-            description: "video",
+       {
+            title: "Steampunk",
+            professor: "Jean Paul",
+            description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
             imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
         }
     ])
     return (
         <>
-            <Header_section_page title={"Classes"} link={"/backoffice/"}/>
+            <Header_section_page title={"Classes"} />
             <div className={"backoffice_classroom_preview_container"}>
                 <button className={"button"}>
                     Ajouter une classe
