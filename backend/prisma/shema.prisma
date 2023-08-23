@@ -33,7 +33,7 @@ model User {
   Annotation     Annotation[]
   Classroom      Classroom?     @relation(fields: [id], references: [id])
   Discount       Discount[]
-  Subscription   Subscription?
+  Subscription   Subscription[]
 }
 
 model Certification {
@@ -163,7 +163,7 @@ model Subscription {
   lastUpdate         DateTime   @default(now())
   lessons            Lesson[]
   trainings          Training[]
-  user               User?      @relation(fields: [id], references: [id])
+  user               User?      @relation(fields: [userId], references: [id])
   nbSubscribers      Int?
   userId             String?
 }
