@@ -47,17 +47,22 @@ router.put('/', async function (req, res, next) {
 });
 
 router.get('/', async function (req, res, next) {
-
-    const answers = await database.answer.findMany({
+    const { id } = req.query;
+    // if (!id) {
+    //     res.status(400);
+    //     throw new Error('You must provide an id.');
+    // }
+    const answer = await database.answer.findMany({
         where: {
-          content: {
-            endsWith: 'test',
+            id: id,
           },
-        },
       })
 
+    // res.json({
+    //     answers: answers
+    // });
     res.json({
-        answers: answers
+        "answer": answer
     });
 });
 
