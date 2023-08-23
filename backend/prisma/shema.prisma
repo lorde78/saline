@@ -25,7 +25,7 @@ model User {
   progress       Json
   birthDate      DateTime?
   postalAddress  String?
-  Certification  Certification?
+  Certification  Certification[]
   Comment        Comment[]
   Answer         Answer[]
   Lesson         Lesson[]
@@ -40,7 +40,8 @@ model Certification {
   id             String    @id @unique @default(uuid())
   name           String?
   graduationDate DateTime?
-  user           User?     @relation(fields: [id], references: [id])
+  userId      String?
+  user        User?     @relation(fields: [userId], references: [id])
 }
 
 model Lesson {
