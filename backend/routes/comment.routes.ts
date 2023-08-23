@@ -4,60 +4,51 @@ const { database } = require('../config/db.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-
-
+    const { content, userId, nbUpVotes, nbDownVotes, lessonId  } = req.body;
     const comment = await database.comment.create({
         data: {
-            content: 'test',
-            validation: false
+            content: content,
+            userId: userId,
+            nbUpVotes: nbUpVotes,
+            nbDownVotes: nbDownVotes,
+            lessonId: lessonId,
         }
     })
 
     res.json({
-        comment: comment
+        message: 'Comment added',
     });
 
 });
-router.delete('/', async function (req, res, next) {
 
+router.delete('/', async function (req, res, next) {
+    const { id } = req.query;
     const deleteComment = await database.comment.delete({
         where: {
-            content: 'content',
-        },
+            id: id,
+          },
     })
     res.json({
         message: 'Comment deleted',
     });
 });
 
-router.put('/', async function (req, res, next) {
-
-    const updateAnswer = await database.comment.update({
-        where: {
-            email: 'viola@prisma.io',
-        },
-        data: {
-            name: 'Viola the Magnificent',
-        },
-    })
-
-    res.json({
-        message: 'Comment updated',
-    });
-});
-
 router.get('/', async function (req, res, next) {
-
+    const { id, lessonId } = req.query;
+    if (!id || !lessonId) {
+        res.status(400);
+        throw new Error('You must provide an id.');
+    }
     const comments = await database.comment.findMany({
         where: {
-          content: {
-            endsWith: 'test',
+            OR: [
+                { id: id, },
+                { lessonId: lessonId },
+              ],
           },
-        },
       })
-
     res.json({
-        comments: comments
+        "comments": comments
     });
 });
 
