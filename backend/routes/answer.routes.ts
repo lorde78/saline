@@ -32,22 +32,6 @@ router.delete('/', async function (req, res, next) {
     });
 });
 
-// router.put('/', async function (req, res, next) {
-
-//     const updateAnswer = await database.answer.update({
-//         where: {
-//             email: 'viola@prisma.io',
-//         },
-//         data: {
-//             name: 'Viola the Magnificent',
-//         },
-//     })
-
-//     res.json({
-//         message: 'Comment updated',
-//     });
-// });
-
 router.get('/', async function (req, res, next) {
     const { id, commentId } = req.query;
     if (!id || !commentId) {
