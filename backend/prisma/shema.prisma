@@ -191,7 +191,7 @@ model Video {
   createdAt   DateTime     @default(now())
   lastUpdate  DateTime     @default(now())
   tags        Tag[]
-  lesssons    Lesson[]
+  lessons    Lesson[]
   shortVideos ShortVideo[]
 }
 
