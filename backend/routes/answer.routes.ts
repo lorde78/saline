@@ -19,50 +19,49 @@ router.post('/', async function (req, res, next) {
 
 });
 router.delete('/', async function (req, res, next) {
-
+    const { id } = req.query;
     const deleteComment = await database.answer.delete({
         where: {
-            content: 'content',
-        },
+            id: id,
+          },
     })
     res.json({
         message: 'Comment deleted',
     });
 });
 
-router.put('/', async function (req, res, next) {
+// router.put('/', async function (req, res, next) {
 
-    const updateAnswer = await database.answer.update({
-        where: {
-            email: 'viola@prisma.io',
-        },
-        data: {
-            name: 'Viola the Magnificent',
-        },
-    })
+//     const updateAnswer = await database.answer.update({
+//         where: {
+//             email: 'viola@prisma.io',
+//         },
+//         data: {
+//             name: 'Viola the Magnificent',
+//         },
+//     })
 
-    res.json({
-        message: 'Comment updated',
-    });
-});
+//     res.json({
+//         message: 'Comment updated',
+//     });
+// });
 
 router.get('/', async function (req, res, next) {
-    const { id } = req.query;
-    // if (!id) {
-    //     res.status(400);
-    //     throw new Error('You must provide an id.');
-    // }
-    const answer = await database.answer.findMany({
+    const { id, comment_id } = req.query;
+    if (!id || !comment_id) {
+        res.status(400);
+        throw new Error('You must provide an id.');
+    }
+    const answers = await database.answer.findMany({
         where: {
-            id: id,
+            OR: [
+                { id: id, },
+                { comment_id: comment_id },
+              ],
           },
       })
-
-    // res.json({
-    //     answers: answers
-    // });
     res.json({
-        "answer": answer
+        "answers": answers
     });
 });
 
