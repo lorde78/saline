@@ -16,6 +16,11 @@
     outline: 0 solid var(--action-color);
 }
 
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
 .input {
     display: flex;
     flex-direction: row;

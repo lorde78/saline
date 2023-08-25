@@ -14,7 +14,6 @@ export default function Form_register_complementary() {
 
     return (
         <form className={"authentication_form_container"}  action="" method="post">
-            <h1>Inscription</h1>
             <Select_image/>
             <Select defaultContent={"Quel est ton genre ?"}
                     contents={[{value: "Men", option: "Homme"}, {value: "Woman", option: "Femme"}, {value: "Other",option: "Autre"}]}
