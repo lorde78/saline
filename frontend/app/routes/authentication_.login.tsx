@@ -26,13 +26,13 @@ export function links() {
 
 export default function Authentication_Login() {
     return (
-        <>
-            <Header_section_page title={"connexion"}/>
+        <div className={"authentication_container"}>
+            <Header_section_page title={"Connexion"}/>
             <section className={"max_width_container"}>
                 <div className={"max_width"}>
                     <Form_login/>
                 </div>
             </section>
-        </>
+        </div>
     );
 }

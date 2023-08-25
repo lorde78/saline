@@ -26,13 +26,13 @@ export function links() {
 
 export default function Authentication_Register() {
     return (
-        <>
+        <div className={"authentication_container"}>
             <Header_section_page title={"Inscription"}/>
             <section className={"max_width_container"}>
                 <div className={"max_width"}>
                     <Form_register/>
                 </div>
             </section>
-        </>
+        </div>
     );
 }

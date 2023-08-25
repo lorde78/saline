@@ -11,7 +11,6 @@ export default function Form_register() {
 
     return (
         <form className={"authentication_form_container"} action="" method="post">
-            <h1>Inscription</h1>
             <Input name={"email"} type={"email"} placeholder={"Mail"}
                    setValue={setEmail} propsSetValue={""} value={email}/>
 

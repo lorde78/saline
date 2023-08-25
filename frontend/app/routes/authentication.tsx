@@ -26,23 +26,22 @@ export function links() {
 
 export default function Authentication() {
     return (
-        <>
+        <div className={"authentication_container"}>
             <NavLink className={"image_authentication"} to={"/"} >
                 <img  src={"https://www.salineacademy.com/wp-content/uploads/2022/12/627e08e5d58166bb632daf54_logo_sra_black.svg"} />
             </NavLink>
             <section className={"max_width_container"}>
-                <div className={"authentication_container max_width"}>
+                <div className={"authentication_container-home max_width"}>
                     <div>
                         <NavLink className={"button"} to={"/authentication/register"}>
                             Inscription
                         </NavLink>
                         <NavLink className={"button button_dark"} to={"/authentication/login"}>
-                            {/*<NavLink className={"button button_dark"} to={"/cours/edit"}>*/}
                             Connexion
                         </NavLink>
                     </div>
                 </div>
             </section>
-        </>
+        </div>
     );
 }
