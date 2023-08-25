@@ -17,7 +17,7 @@ export function links() {
     ]
 }
 
-export default function BackofficeFormulas() {
+export default function Backoffice_Formulas() {
 
     const [formulas, setFormulas] = useState([
             {
@@ -260,10 +260,10 @@ export default function BackofficeFormulas() {
         setFormulas(newArr)
     }
 
-    const addFormula = (target:string, id:number) => {
+    const addFormula = (target: string, id: number) => {
         let newArr = [...formulas]
         newArr.push({
-            name: "Formule"+id,
+            name: "Formule" + id,
             target: target,
             rates_price: "0",
             rates_time: "mois",
@@ -312,63 +312,68 @@ export default function BackofficeFormulas() {
     }
 
     return (
-        <div className={"backoffice_formulas_container"}>
-            <div className={"formulas"}>
-                <div className={"formulas_header"}>
-                    <h1>Utilisateur : </h1>
-                    <button onClick={() => {addFormula("utilisateur", formulas.length + 1)}}>
-                        <i className="ri-add-line"></i>
-                    </button>
+        <section className={"max_width_container"}>
+            <div className={"backoffice_formulas_container max_width"}>
+                <div className={"formulas"}>
+                    <div className={"formulas_header"}>
+                        <h1>Utilisateur : </h1>
+                        <button onClick={() => {
+                            addFormula("utilisateur", formulas.length + 1)
+                        }}>
+                            <i className="ri-add-line"></i>
+                        </button>
+                    </div>
+                    {
+                        formulas.map((formula, i) => {
+                            if (formula.target == "utilisateur") {
+                                return (
+                                    <Backoffice_edit_formula
+                                        id={i}
+                                        name={formula.name}
+                                        target={formula.target}
+                                        rates_price={formula.rates_price}
+                                        rates_time={formula.rates_time}
+                                        musts={formula.musts}
+                                        setValue={changeValue}
+                                        deleteFormula={deleteFormula}
+                                    />
+                                )
+                            }
+                        })
+                    }
                 </div>
-                {
-                    formulas.map((formula, i) => {
-                        if (formula.target == "utilisateur") {
-                            return (
-                                <Backoffice_edit_formula
-                                    id={i}
-                                    name={formula.name}
-                                    target={formula.target}
-                                    rates_price={formula.rates_price}
-                                    rates_time={formula.rates_time}
-                                    musts={formula.musts}
-                                    setValue={changeValue}
-                                    deleteFormula={deleteFormula}
-                                />
-                            )
-                        }
-                    })
-                }
-            </div>
-            <div className={"formulas"}>
-                <div className={"formulas_header"}>
-                    <h1>Professeur : </h1>
-                    <button onClick={() => {addFormula("professeur", formulas.length + 1)}}>
-                        <i className="ri-add-line"></i>
-                    </button>
+                <div className={"formulas"}>
+                    <div className={"formulas_header"}>
+                        <h1>Professeur : </h1>
+                        <button onClick={() => {
+                            addFormula("professeur", formulas.length + 1)
+                        }}>
+                            <i className="ri-add-line"></i>
+                        </button>
+                    </div>
+                    {
+                        formulas.map((formula, i) => {
+                            if (formula.target == "professeur") {
+                                return (
+                                    <Backoffice_edit_formula
+                                        id={i}
+                                        name={formula.name}
+                                        target={formula.target}
+                                        rates_price={formula.rates_price}
+                                        rates_time={formula.rates_time}
+                                        musts={formula.musts}
+                                        setValue={changeValue}
+                                        deleteFormula={deleteFormula}
+                                    />
+                                )
+                            }
+                        })
+                    }
                 </div>
-                {
-                    formulas.map((formula, i) => {
-                        if (formula.target == "professeur") {
-                            return (
-                                <Backoffice_edit_formula
-                                    id={i}
-                                    name={formula.name}
-                                    target={formula.target}
-                                    rates_price={formula.rates_price}
-                                    rates_time={formula.rates_time}
-                                    musts={formula.musts}
-                                    setValue={changeValue}
-                                    deleteFormula={deleteFormula}
-                                />
-                            )
-                        }
-                    })
-                }
+                <button className={"button"}>
+                    Valider les modifications
+                </button>
             </div>
-            <button className={"button"}>
-                Valider les modifications
-            </button>
-        </div>
-
+        </section>
     )
 }
