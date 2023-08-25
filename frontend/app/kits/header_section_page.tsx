@@ -1,13 +1,23 @@
-import {NavLink} from "@remix-run/react";
+import {NavLink, useLocation} from "@remix-run/react";
+
 type Props = {
-    title: string,
-    link: string
+    title: string
 };
-export default function Header_section_page({title, link}: Props) {
+
+
+export default function Header_section_page({title}: Props) {
+
+    const editLink = () => {
+        let path = useLocation().pathname
+        let newPath = path.split("/")
+        let pathArray = newPath.pop()
+        return newPath.toString().replaceAll(",", "/")
+    }
+
     return (
         <header className={"header_section_page"}>
             <nav>
-                <NavLink to={link}>
+                <NavLink to={editLink()}>
                     <i className="ri-arrow-left-line"></i>
                 </NavLink>
             </nav>

@@ -15,7 +15,7 @@ export function links() {
     ]
 }
 
-export default function BackofficeBanner() {
+export default function Backoffice_Banner() {
 
     const [banners, setBanners] = useState([
         {
@@ -85,27 +85,28 @@ export default function BackofficeBanner() {
     }
 
     return (
-        <div className={"backoffice_banner_container"}>
-            {
-                banners.map((banner, i) => {
-                    return (
-                        <Backoffice_edit_banner
-                            id={i}
-                            name={banner.name}
-                            isActive={banner.isActive}
-                            title={banner.title}
-                            subTitle={banner.subTitle}
-                            background={banner.background}
-                            color={banner.color}
-                            setValue={changeValue}
-                        />
-                    )
-                })
-            }
-            <button className={"button"}>
-                Valider les modifications
-            </button>
-        </div>
-
+        <section className={"max_width_container"}>
+            <div className={"backoffice_banner_container max_width"}>
+                {
+                    banners.map((banner, i) => {
+                        return (
+                            <Backoffice_edit_banner
+                                id={i}
+                                name={banner.name}
+                                isActive={banner.isActive}
+                                title={banner.title}
+                                subTitle={banner.subTitle}
+                                background={banner.background}
+                                color={banner.color}
+                                setValue={changeValue}
+                            />
+                        )
+                    })
+                }
+                <button className={"button"}>
+                    Valider les modifications
+                </button>
+            </div>
+        </section>
     )
 }
