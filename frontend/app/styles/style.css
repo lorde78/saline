@@ -7,7 +7,9 @@
     --alert-color: #900000;
     --success-color: #68FF50;
 }
-
+header {
+    z-index: 1000;
+}
 .max_width_container {
     display: flex;
     justify-content: center;

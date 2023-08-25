@@ -13,7 +13,7 @@ export default function Form_register_complementary() {
     const [privacy, setPrivacy] = useState(false)
 
     return (
-        <form action="" method="post">
+        <form className={"authentication_form_container"}  action="" method="post">
             <h1>Inscription</h1>
             <Select_image/>
             <Select defaultContent={"Quel est ton genre ?"}

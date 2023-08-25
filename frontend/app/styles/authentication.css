@@ -1,0 +1,33 @@
+.authentication_container {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding: 40px;
+}
+.authentication_container div {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.image_authentication {
+    filter: invert(1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.authentication_form_container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.select_image_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
