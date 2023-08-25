@@ -23,7 +23,7 @@ export function links() {
     return [
         {rel: 'stylesheet', href: resetStyles},
         {rel: 'stylesheet', href: styles},
-        {rel:'stylesheet', href: input},
+        {rel: 'stylesheet', href: input},
         {rel: 'stylesheet', href: builder}
     ]
 }
@@ -31,10 +31,10 @@ export function links() {
 export default function BackofficeTrainingsTrainingId_Edit() {
     return (
         <div className={"builder_container"}>
-            <Builder_navigation />
+            <Builder_navigation/>
             {/*<Builder_select_step />*/}
             {/*<Builder_step_video />*/}
-            <Builder_step_exercice />
+            <Builder_step_exercice/>
         </div>
     );
 }
