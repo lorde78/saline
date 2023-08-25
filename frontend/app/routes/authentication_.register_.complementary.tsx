@@ -18,12 +18,16 @@ export function links() {
     return [
         {rel: 'stylesheet', href: resetStyles},
         {rel: 'stylesheet', href: styles},
-        {rel:'stylesheet', href: input}
+        {rel: 'stylesheet', href: input}
     ]
 }
 
-export default function AuthenticationRegister_Complementary() {
+export default function Authentication_Register_Complementary() {
     return (
-            <Form_register_complementary />
+        <section className={"max_width_container"}>
+            <div className={"max_width"}>
+                <Form_register_complementary/>
+            </div>
+        </section>
     );
 }

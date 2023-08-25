@@ -59,21 +59,23 @@ export default function BackofficeClassroomClassroomId_Assessments() {
     ])
     return (
         <>
-            <Header_section_page title={"évaluations"} />
-            <div className={"backoffice_assessments_preview_container"}>
-                {
-                    assessments.map((assessment, i) => {
-                        return (
-                            <Backoffice_assessment
-                                id={i}
-                                studen={assessment.studen}
-                                course={assessment.course}
-                                status={assessment.status}
-                            />
-                        )
-                    })
-                }
-            </div>
+            <Header_section_page title={"évaluations"}/>
+            <section className={"max_width_container"}>
+                <div className={"backoffice_assessments_preview_container max_width"}>
+                    {
+                        assessments.map((assessment, i) => {
+                            return (
+                                <Backoffice_assessment
+                                    id={i}
+                                    studen={assessment.studen}
+                                    course={assessment.course}
+                                    status={assessment.status}
+                                />
+                            )
+                        })
+                    }
+                </div>
+            </section>
         </>
     )
 }

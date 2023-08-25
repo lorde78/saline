@@ -19,9 +19,8 @@ export function links() {
 export default function BackofficeClassroomClassroomIdAssessments_EvaluationId() {
 
     return (
-        <div className={"backoffice_assessment_id_container"}>
-            <Backoffice_edit_assessment />
-        </div>
-
+            <div className={"backoffice_assessment_id_container"}>
+                <Backoffice_edit_assessment/>
+            </div>
     )
 }

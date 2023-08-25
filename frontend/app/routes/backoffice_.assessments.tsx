@@ -16,7 +16,7 @@ export function links() {
     ]
 }
 
-export default function BackofficeAssessments() {
+export default function Backoffice_Assessments() {
 
     const [assessments, setAssessments] = useState([
         {
@@ -71,6 +71,5 @@ export default function BackofficeAssessments() {
                 })
             }
         </div>
-
     )
 }

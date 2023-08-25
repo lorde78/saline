@@ -30,7 +30,7 @@ export function links() {
 
 export default function BackofficeClassroomClassroomIdTrainingsTrainingId_Edit() {
     return (
-        <div className={"builder_container"}>
+        <div className={"builder_container max_width"}>
             <Builder_navigation />
             {/*<Builder_select_step />*/}
             {/*<Builder_step_video />*/}

@@ -20,7 +20,7 @@ export function links() {
 export default function Backoffice_Classroom() {
 
     const [classrooms, setClassrooms] = useState([
-       {
+        {
             title: "Steampunk",
             professor: "Jean Paul",
             description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
@@ -29,25 +29,27 @@ export default function Backoffice_Classroom() {
     ])
     return (
         <>
-            <Header_section_page title={"Classes"} />
-            <div className={"backoffice_classroom_preview_container"}>
-                <button className={"button"}>
-                    Ajouter une classe
-                </button>
-                {
-                    classrooms.map((classroom, i) => {
-                        return (
-                            <Backoffice_classroom
-                                id={i}
-                                title={classroom.title}
-                                professor={classroom.professor}
-                                imgLink={classroom.imgLink}
-                                description={classroom.description}
-                            />
-                        )
-                    })
-                }
-            </div>
+            <Header_section_page title={"Classes"}/>
+            <section className={"max_width_container"}>
+                <div className={"backoffice_classroom_preview_container max_width"}>
+                    <button className={"button"}>
+                        Ajouter une classe
+                    </button>
+                    {
+                        classrooms.map((classroom, i) => {
+                            return (
+                                <Backoffice_classroom
+                                    id={i}
+                                    title={classroom.title}
+                                    professor={classroom.professor}
+                                    imgLink={classroom.imgLink}
+                                    description={classroom.description}
+                                />
+                            )
+                        })
+                    }
+                </div>
+            </section>
         </>
     )
 }
