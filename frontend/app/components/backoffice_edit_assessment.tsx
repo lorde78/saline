@@ -5,7 +5,7 @@ import Input from "~/kits/input";
 import Color_picker from "~/kits/color_picker";
 import Checkbox from "~/kits/checkbox";
 import Textarea from "~/kits/textarea";
-import {NavLink} from "@remix-run/react";
+import {NavLink, useNavigate} from "@remix-run/react";
 import Header_section_page from "~/kits/header_section_page";
 
 export default function Backoffice_edit_assessment() {
@@ -102,14 +102,15 @@ export default function Backoffice_edit_assessment() {
     }
     return (
         <>
-            <Header_section_page title={assessment.studen} link={"/backoffice/assessments"}/>
-            <div className={"assessment_container-open"}>
-                <h1>Contenu :</h1>
-                <h3>{assessment.course}</h3>
-                {displayContent()}
-                <div className={"assessment_section"}>
-                    <p>Valider</p>
-                    <div>
+            <Header_section_page title={assessment.studen}/>
+            <section className={"max_width_container"}>
+                <div className={"assessment_container-open max_width"}>
+                    <h1>Contenu :</h1>
+                    <h3>{assessment.course}</h3>
+                    {displayContent()}
+                    <div className={"assessment_section"}>
+                        <p>Valider</p>
+                        <div>
                             <span>
                                 <p>Oui</p>
                                 <Checkbox
@@ -121,7 +122,7 @@ export default function Backoffice_edit_assessment() {
                                     value={isValidate}
                                 />
                             </span>
-                        <span>
+                            <span>
                                 <p>Nom</p>
                                 <Checkbox
                                     name={"checkNo"}
@@ -132,12 +133,12 @@ export default function Backoffice_edit_assessment() {
                                     value={isNotValidate}
                                 />
                             </span>
+                        </div>
                     </div>
-                </div>
-                {assessment.isNotValidate ?
-                    <div className={"assessment_section"}>
-                        <p>Ratrapage</p>
-                        <div>
+                    {assessment.isNotValidate ?
+                        <div className={"assessment_section"}>
+                            <p>Ratrapage</p>
+                            <div>
                             <span>
                                 <p>Oui</p>
                                 <Checkbox
@@ -149,7 +150,7 @@ export default function Backoffice_edit_assessment() {
                                     value={ratragage}
                                 />
                             </span>
-                            <span>
+                                <span>
                                 <p>Nom</p>
                                 <Checkbox
                                     name={"checkNo"}
@@ -160,26 +161,27 @@ export default function Backoffice_edit_assessment() {
                                     value={noRatragage}
                                 />
                             </span>
+                            </div>
                         </div>
+                        :
+                        ""
+                    }
+                    <div className={"assessment_section"}>
+                        <Textarea
+                            name={"note"}
+                            placeholder={"Remarque"}
+                            setValue={changeValue}
+                            propsSetValue={{valuToChange: "note"}}
+                            value={assessment.note}
+                        />
                     </div>
-                    :
-                    ""
-                }
-                <div className={"assessment_section"}>
-                    <Textarea
-                        name={"note"}
-                        placeholder={"Remarque"}
-                        setValue={changeValue}
-                        propsSetValue={{valuToChange: "note"}}
-                        value={assessment.note}
-                    />
-                </div>
 
-                <button className={"button"} onClick={() => {
-                    console.log(assessment)
-                }}>Valider
-                </button>
-            </div>
+                    <button className={"button"} onClick={() => {
+                        console.log(assessment)
+                    }}>Valider
+                    </button>
+                </div>
+            </section>
         </>
     );
 }

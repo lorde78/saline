@@ -57,7 +57,7 @@ export default function Backoffice_edit_banner({
                     />
                     <button className={"button"} onClick={() => {
                         setEditing(false)
-                    }}>Valider
+                    }}>Confirmer
                     </button>
                 </>
                 :

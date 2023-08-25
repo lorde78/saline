@@ -3,7 +3,7 @@ import type {V2_MetaFunction} from "@remix-run/node";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
-import Form_register from "~/components/form_register";
+import Form_login from "~/components/form_login";
 
 
 export const meta: V2_MetaFunction = () => {
@@ -17,12 +17,16 @@ export function links() {
     return [
         {rel: 'stylesheet', href: resetStyles},
         {rel: 'stylesheet', href: styles},
-        {rel:'stylesheet', href: input}
+        {rel: 'stylesheet', href: input}
     ]
 }
 
-export default function AuthenticationRegister() {
+export default function Authentication_Login() {
     return (
-            <Form_register />
+        <section className={"max_width_container"}>
+            <div className={"max_width"}>
+                <Form_login/>
+            </div>
+        </section>
     );
 }

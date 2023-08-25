@@ -4,8 +4,8 @@ import Builder_bind_list_step_exercice from "~/components/builder_bind_list_step
 export default function Builder_step_exercice() {
     return (
         <section className={"builder_step_container"}>
-            {/*<Builder_qcm_step_exercice />*/}
-            <Builder_bind_list_step_exercice />
+            <Builder_qcm_step_exercice />
+            {/*<Builder_bind_list_step_exercice />*/}
         </section>
     )
 }

@@ -1,5 +1,5 @@
 import type {V2_MetaFunction} from "@remix-run/node";
-import { NavLink, Outlet } from "@remix-run/react";
+import {NavLink, Outlet} from "@remix-run/react";
 
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
@@ -23,19 +23,20 @@ export function links() {
 
 export default function Authentication() {
     return (
-        <section className={"Authentication_container"}>
-            <header>
+        <section className={"max_width_container"}>
+            <div className={"Authentication_container max_width"}>
+                <header>
 
-            </header>
-            <div>
-                <NavLink  className={"button"} to={"/authentication/register"}>
-                    Inscription
-                </NavLink >
-                <NavLink  className={"button button_dark"} to={"/authentication/login"}>
-                    {/*<NavLink className={"button button_dark"} to={"/cours/edit"}>*/}
-                    Connexion
-                </NavLink >
-                <Outlet />
+                </header>
+                <div>
+                    <NavLink className={"button"} to={"/authentication/register"}>
+                        Inscription
+                    </NavLink>
+                    <NavLink className={"button button_dark"} to={"/authentication/login"}>
+                        {/*<NavLink className={"button button_dark"} to={"/cours/edit"}>*/}
+                        Connexion
+                    </NavLink>
+                </div>
             </div>
         </section>
     );
