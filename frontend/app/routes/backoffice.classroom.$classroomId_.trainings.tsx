@@ -18,22 +18,22 @@ export function links() {
 export default function BackofficeClassroomClassroomId_Trainings() {
 
     const [trainings, setTrainings] = useState([
-        {
-
-        }
+        {}
     ])
     return (
         <>
-            <Header_section_page title={"Parcours"} />
-            <div className={"backoffice_trainings_preview_container"}>
-                {
-                    trainings.map((training, i) => {
-                        return (
-                            <></>
-                        )
-                    })
-                }
-            </div>
+            <Header_section_page title={"Parcours"}/>
+            <section className={"max_width_container"}>
+                <div className={"backoffice_trainings_preview_container max_width"}>
+                    {
+                        trainings.map((training, i) => {
+                            return (
+                                <></>
+                            )
+                        })
+                    }
+                </div>
+            </section>
         </>
     )
 }

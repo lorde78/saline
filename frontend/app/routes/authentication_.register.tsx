@@ -17,12 +17,16 @@ export function links() {
     return [
         {rel: 'stylesheet', href: resetStyles},
         {rel: 'stylesheet', href: styles},
-        {rel:'stylesheet', href: input}
+        {rel: 'stylesheet', href: input}
     ]
 }
 
 export default function Authentication_Register() {
     return (
-            <Form_register />
+        <section className={"max_width_container"}>
+            <div className={"max_width"}>
+                <Form_register/>
+            </div>
+        </section>
     );
 }

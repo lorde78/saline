@@ -8,6 +8,17 @@
     --success-color: #68FF50;
 }
 
+.max_width_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.max_width {
+    width: 100%;
+    max-width: 800px;
+    align-content: center;
+}
 
 body {
     background-color: var(--main-color);
@@ -161,6 +172,8 @@ a:hover {
 
 /*header for page inter section */
 .header_section_page {
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: center;
     align-items: center;
