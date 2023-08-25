@@ -4,6 +4,8 @@ import {NavLink, Outlet} from "@remix-run/react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
+import authentication from "~/styles/authentication.css";
+import Header_section_page from "~/kits/header_section_page";
 
 
 export const meta: V2_MetaFunction = () => {
@@ -17,27 +19,30 @@ export function links() {
     return [
         {rel: 'stylesheet', href: resetStyles},
         {rel: 'stylesheet', href: styles},
-        {rel: 'stylesheet', href: input}
+        {rel: 'stylesheet', href: input},
+        {rel: 'stylesheet', href: authentication}
     ]
 }
 
 export default function Authentication() {
     return (
-        <section className={"max_width_container"}>
-            <div className={"Authentication_container max_width"}>
-                <header>
-
-                </header>
-                <div>
-                    <NavLink className={"button"} to={"/authentication/register"}>
-                        Inscription
-                    </NavLink>
-                    <NavLink className={"button button_dark"} to={"/authentication/login"}>
-                        {/*<NavLink className={"button button_dark"} to={"/cours/edit"}>*/}
-                        Connexion
-                    </NavLink>
+        <>
+            <NavLink className={"image_authentication"} to={"/"} >
+                <img  src={"https://www.salineacademy.com/wp-content/uploads/2022/12/627e08e5d58166bb632daf54_logo_sra_black.svg"} />
+            </NavLink>
+            <section className={"max_width_container"}>
+                <div className={"authentication_container max_width"}>
+                    <div>
+                        <NavLink className={"button"} to={"/authentication/register"}>
+                            Inscription
+                        </NavLink>
+                        <NavLink className={"button button_dark"} to={"/authentication/login"}>
+                            {/*<NavLink className={"button button_dark"} to={"/cours/edit"}>*/}
+                            Connexion
+                        </NavLink>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
     );
 }
