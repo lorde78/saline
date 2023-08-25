@@ -4,6 +4,8 @@ import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
 import Form_register from "~/components/form_register";
+import authentication from "~/styles/authentication.css";
+import Header_section_page from "~/kits/header_section_page";
 
 
 export const meta: V2_MetaFunction = () => {
@@ -17,16 +19,20 @@ export function links() {
     return [
         {rel: 'stylesheet', href: resetStyles},
         {rel: 'stylesheet', href: styles},
-        {rel: 'stylesheet', href: input}
+        {rel: 'stylesheet', href: input},
+        {rel: 'stylesheet', href: authentication}
     ]
 }
 
 export default function Authentication_Register() {
     return (
-        <section className={"max_width_container"}>
-            <div className={"max_width"}>
-                <Form_register/>
-            </div>
-        </section>
+        <>
+            <Header_section_page title={"Inscription"}/>
+            <section className={"max_width_container"}>
+                <div className={"max_width"}>
+                    <Form_register/>
+                </div>
+            </section>
+        </>
     );
 }
