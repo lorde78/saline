@@ -29,12 +29,6 @@
 
     background-color: var(--text-color);
 }
-.builder_navigation_container div {
-    width: 100%;
-}
-.builder_navigation_container .sub_link {
-    color: var(--alert-color);
-}
 
 .builder_step_container {
     display: flex;

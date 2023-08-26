@@ -38,6 +38,19 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
     const selectTypeStep = (value: string) => {
         let newCourseData = [...courseData]
         newCourseData[stepSelected].type = value
+        if (value === "video") {
+            newCourseData[stepSelected].data = {
+            }
+        } else if (value === "exercise/qcm") {
+            newCourseData[stepSelected].data = {
+            }
+        } else if (value === "exercise/bind_list") {
+            newCourseData[stepSelected].data = {
+            }
+        } else if (value === "review") {
+            newCourseData[stepSelected].data = {
+            }
+        }
         setCoursesData(newCourseData)
     }
 
