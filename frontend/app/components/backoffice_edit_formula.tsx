@@ -97,7 +97,7 @@ export default function Backoffice_edit_formula({
                             <i className="ri-pencil-line"></i>
                         </button>
                         <button onClick={() => {
-                            console.log(id)
+                            // console.log(id)
                             deleteFormula(id)
                         }}>
                             <i className="ri-delete-bin-7-line"></i>
