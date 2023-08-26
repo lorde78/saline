@@ -10,6 +10,8 @@ import input from "~/styles/input.css";
 import builder from "~/styles/builder.css";
 import Builder_step_video from "~/components/builder_step_video";
 import Builder_step_exercice from "~/components/builder_step_exercice";
+import Builder_creation from "~/components/builder_creation";
+import Header_section_page from "~/kits/header_section_page";
 
 
 export const meta: V2_MetaFunction = () => {
@@ -28,13 +30,16 @@ export function links() {
     ]
 }
 
-export default function BackofficeTrainingsTrainingId_Edit() {
+export default function BackofficeTrainingsTrainingId_CourseId() {
     return (
-        <div className={"builder_container"}>
-            <Builder_navigation/>
-            {/*<Builder_select_step />*/}
-            {/*<Builder_step_video />*/}
-            <Builder_step_exercice/>
-        </div>
-    );
+        <>
+            <Header_section_page title={"Créer un cour"}/>
+            <section className={"max_width_container"}>
+                <div className={"builder_container max_width"}>
+                    <Builder_creation />
+                </div>
+            </section>
+        </>
+    )
+        ;
 }

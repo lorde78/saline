@@ -16,7 +16,7 @@ export function links() {
     ]
 }
 
-export default function BackofficeClassroomClassroomId_Trainings() {
+export default function Backoffice_Trainings() {
 
     const [trainings, setTrainings] = useState([
         {

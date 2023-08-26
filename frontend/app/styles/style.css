@@ -13,8 +13,9 @@ header {
 .max_width_container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     width: 100%;
+    min-height: 80vh;
 }
 .max_width {
     width: 100%;

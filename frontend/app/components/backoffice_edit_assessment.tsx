@@ -27,8 +27,8 @@ export default function Backoffice_edit_assessment() {
     const [ratragage, setRatragage] = useState(false)
     const [noRatragage, setNoRatragage] = useState(false)
 
-    const changeValue = (value, props) => {
-        let newData = assessment
+    const changeValue = (value:any, props:{valuToChange:string}) => {
+        let newData = {...assessment}
         switch (props.valuToChange) {
             case "note" :
                 newData.note = value
@@ -63,7 +63,7 @@ export default function Backoffice_edit_assessment() {
         setAssessment(newData)
     }
 
-    const changeStatus = (newData) => {
+    const changeStatus = (newData:any) => {
         if (newData.isValidate) {
             newData.ratragage = false
             newData.noRatragage = false

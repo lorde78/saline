@@ -43,7 +43,7 @@ export default function Backoffice_assessment({
     return (
         <>
 
-            <NavLink className={"assessment_container"} to={useLocation().pathname + "/" + id}>
+            <NavLink className={"assessment_container"} to={id.toString()}>
                 <div className={"assessment_container-left"}>
                     <p>{studen}</p>
                     <p>{course}</p>
