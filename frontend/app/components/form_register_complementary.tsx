@@ -28,6 +28,7 @@ export default function Form_register_complementary() {
             <Select_image/>
             <Select
                 optionSelected={genderSelected}
+                setOptionSelected={setGenderSelected}
                 contents={genderData}
                 setValue={changeGender}
                 propsSetValue={""}

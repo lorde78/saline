@@ -4,6 +4,7 @@ import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
 import backofficeBanner from "~/styles/backofficeBanner.css";
+import Header_section_page from "~/kits/header_section_page";
 
 
 export function links() {
@@ -59,7 +60,7 @@ export default function Backoffice_Banner() {
             color: "#ffffff"
         }
     ])
-    const changeValue = (value, props) => {
+    const changeValue = (value: any, props: { valuToChange: string, id: number }) => {
         let newArr = [...banners]
         switch (props.valuToChange) {
             case "name" :
@@ -85,28 +86,31 @@ export default function Backoffice_Banner() {
     }
 
     return (
-        <section className={"max_width_container"}>
-            <div className={"backoffice_banner_container max_width"}>
-                {
-                    banners.map((banner, i) => {
-                        return (
-                            <Backoffice_edit_banner
-                                id={i}
-                                name={banner.name}
-                                isActive={banner.isActive}
-                                title={banner.title}
-                                subTitle={banner.subTitle}
-                                background={banner.background}
-                                color={banner.color}
-                                setValue={changeValue}
-                            />
-                        )
-                    })
-                }
-                <button className={"button"}>
-                    Valider les modifications
-                </button>
-            </div>
-        </section>
+        <>
+            <Header_section_page title={"Bannières"}/>
+            <section className={"max_width_container"}>
+                <div className={"backoffice_banner_container max_width"}>
+                    {
+                        banners.map((banner, i) => {
+                            return (
+                                <Backoffice_edit_banner
+                                    id={i}
+                                    name={banner.name}
+                                    isActive={banner.isActive}
+                                    title={banner.title}
+                                    subTitle={banner.subTitle}
+                                    background={banner.background}
+                                    color={banner.color}
+                                    setValue={changeValue}
+                                />
+                            )
+                        })
+                    }
+                    <button className={"button"}>
+                        Valider les modifications
+                    </button>
+                </div>
+            </section>
+        </>
     )
 }
