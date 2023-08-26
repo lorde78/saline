@@ -1,10 +1,4 @@
 import 'remixicon/fonts/remixicon.css'
-import Switch_button from "~/kits/switch_button";
-import {useState} from "react";
-import Input from "~/kits/input";
-import Color_picker from "~/kits/color_picker";
-import Checkbox from "~/kits/checkbox";
-import Textarea from "~/kits/textarea";
 import {NavLink, Outlet, useLocation} from "@remix-run/react";
 
 type Props = {
@@ -14,7 +8,7 @@ type Props = {
     description: string
     imgLink: string
 };
-export default function Backoffice_classroom({
+export default function Backoffice_training({
                                                  id,
                                                  title,
                                                  professor,
@@ -24,19 +18,19 @@ export default function Backoffice_classroom({
 
 
     return (
-        <div className={"backoffice_classroom_container"}>
-            <div className={"classroom_image"}>
+        <div className={"backoffice_training_container"}>
+            <div className={"training_image"}>
                 <img src={imgLink} alt={"bannière du cour"}/>
             </div>
-            <div className={"classroom_info"}>
-                <div className={"classroom_header_info"}>
+            <div className={"training_info"}>
+                <div className={"training_header_info"}>
                     <p>{title}</p>
                     <p>{professor}</p>
                 </div>
-                <p className={"classroom_description"}>
+                <p className={"training_description"}>
                     {description}
                 </p>
-                <div className={"classroom_button"}>
+                <div className={"training_button"}>
                     <NavLink className={"button"} to={id.toString()}>
                         Modifier
                     </NavLink>

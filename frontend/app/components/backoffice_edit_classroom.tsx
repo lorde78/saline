@@ -39,13 +39,13 @@ export default function Backoffice_edit_classroom() {
                 </div>
                 <p>{classroom.description}</p>
                 <div className={"classroom_links"}>
-                    <NavLink className={"button"} to={useLocation().pathname + "/students"}>
+                    <NavLink className={"button"} to={"students"}>
                         Listes des élèves
                     </NavLink>
-                    <NavLink className={"button"} to={useLocation().pathname + "/assessments"}>
+                    <NavLink className={"button"} to={"assessments"}>
                         Consulter les évaluations
                     </NavLink>
-                    <NavLink className={"button"} to={useLocation().pathname + "/trainings"}>
+                    <NavLink className={"button"} to={"trainings"}>
                         Consulter les parcours
                     </NavLink>
                 </div>

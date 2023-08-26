@@ -5,106 +5,90 @@ import Input from "~/kits/input";
 import Color_picker from "~/kits/color_picker";
 import Select from "~/kits/select";
 import Checkbox from "~/kits/checkbox";
+import {NavLink} from "@remix-run/react";
 
 type Props = {
     id: number,
     name: string,
-    target: string,
     rates_price: string
-    rates_time: string
     musts: any
     setValue: any
-    deleteFormula:any
 };
 export default function Backoffice_edit_formula({
                                                     id,
                                                     name,
-                                                    target,
                                                     rates_price,
-                                                    rates_time,
                                                     musts,
                                                     setValue,
-                                                    deleteFormula
                                                 }: Props) {
-
-    const [editing, setEditing] = useState(false)
+    const [targets, setTargets] = useState([
+        {value: "utilisateur", option: "User"},
+        {value: "professeur", option: "Professor"}
+    ])
+    const [targetsSelected, setTargetsSelected] = useState(0)
+    const [ratesTime, setRatesTime] = useState([
+        {value: "mois", option: "month"},
+        {value: "an", option: "annual"}
+    ])
+    const [ratesTimeSelected, setRatesTimeSelected] = useState(0)
 
     return (
         <div className={"formula_edit_container"}>
-            {editing ?
-                <>
-                    <h1>Infos</h1>
+            <>
+                <h1>Infos</h1>
+                <Input
+                    name={"name" + id}
+                    type={"text"}
+                    placeholder={"Nom"}
+                    setValue={setValue}
+                    propsSetValue={{id: id, valuToChange: "name"}}
+                    value={name}
+                />
+                <Select
+                    optionSelected={targetsSelected}
+                    setOptionSelected={setTargetsSelected}
+                    contents={targets}
+                    setValue={setValue}
+                    propsSetValue={{id: id, valuToChange: "target"}}
+                />
+                <div className={"price_content"}>
                     <Input
-                        name={"name" + id}
-                        type={"text"}
-                        placeholder={"Nom"}
+                        name={"rates_price" + id}
+                        type={"number"}
+                        placeholder={"Tarifs"}
                         setValue={setValue}
-                        propsSetValue={{id: id, valuToChange: "name"}}
-                        value={name}
+                        propsSetValue={{id: id, valuToChange: "rates_price"}}
+                        value={rates_price}
                     />
                     <Select
-                        defaultContent={target}
-                        contents={[{value: "User", option: "utilisateur"}, {value: "Professor", option: "professeur"}]}
+                        optionSelected={ratesTimeSelected}
+                        setOptionSelected={setRatesTimeSelected}
+                        contents={ratesTime}
                         setValue={setValue}
-                        propsSetValue={{id: id, valuToChange: "target"}}
+                        propsSetValue={{id: id, valuToChange: "rates_time"}}
                     />
-                    <div className={"price_content"}>
-                        <Input
-                            name={"rates_price" + id}
-                            type={"number"}
-                            placeholder={"Tarifs"}
-                            setValue={setValue}
-                            propsSetValue={{id: id, valuToChange: "rates_price"}}
-                            value={rates_price}
-                        />
-                        <Select
-                            defaultContent={rates_time}
-                            contents={[{value: "month", option: "mois"}, {value: "annual", option: "an"}]}
-                            setValue={setValue}
-                            propsSetValue={{id: id, valuToChange: "rates_time"}}
-                        />
-                    </div>
-                    <h1>Droits</h1>
-                    {
-                        musts.map((must, i) => {
-                            return (
-                                <div>
-                                    <Checkbox
-                                        name={i}
-                                        type={"checkbox"}
-                                        text={must.name}
-                                        setValue={setValue}
-                                        propsSetValue={{id: id, valuToChange: "musts", mustID: i}}
-                                        value={must.active}/>
-                                </div>
-                            )
-                        })
-                    }
-
-                    <button className={"button"} onClick={() => {
-                        setEditing(false)
-                    }}>Valider
-                    </button>
-                </>
-                :
-                <div className={"formula"}>
-                    <div className={"formule_sub"}>{name}</div>
-                    <div>{rates_price}/{rates_time}</div>
-                    <div>
-                        <button onClick={() => {
-                            setEditing(true)
-                        }}>
-                            <i className="ri-pencil-line"></i>
-                        </button>
-                        <button onClick={() => {
-                            console.log(id)
-                            deleteFormula(id)
-                        }}>
-                            <i className="ri-delete-bin-7-line"></i>
-                        </button>
-                    </div>
                 </div>
-            }
+                <h1>Droits</h1>
+                {
+                    musts.map((must: any, i: number) => {
+                        return (
+                            <div>
+                                <Checkbox
+                                    name={"mustActive" + i}
+                                    type={"checkbox"}
+                                    text={must.name}
+                                    setValue={setValue}
+                                    propsSetValue={{id: id, valuToChange: "musts", mustID: i}}
+                                    value={must.active}/>
+                            </div>
+                        )
+                    })
+                }
+
+                <NavLink className={"button"} onClick={() => console.log('click')} to={"/backoffice/formulas"}>
+                    Valider
+                </NavLink>
+            </>
         </div>
     );
 }

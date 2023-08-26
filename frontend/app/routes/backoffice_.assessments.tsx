@@ -5,6 +5,7 @@ import input from "~/styles/input.css";
 import assessment from "~/styles/backofficeAssessment.css";
 import Backoffice_assessment from "~/components/backoffice_assessment";
 import {Outlet, useLocation} from "@remix-run/react";
+import Header_section_page from "~/kits/header_section_page";
 
 
 export function links() {
@@ -57,19 +58,24 @@ export default function Backoffice_Assessments() {
         }
     ])
     return (
-        <div className={"backoffice_assessments_preview_container"}>
-            {
-                assessments.map((assessment, i) => {
-                    return (
-                        <Backoffice_assessment
-                            id={i}
-                            studen={assessment.studen}
-                            course={assessment.course}
-                            status={assessment.status}
-                        />
-                    )
-                })
-            }
-        </div>
+        <>
+            <Header_section_page title={"Bannières"}/>
+            <section className={"max_width_container"}>
+                <div className={"backoffice_assessments_preview_container max_width"}>
+                    {
+                        assessments.map((assessment, i) => {
+                            return (
+                                <Backoffice_assessment
+                                    id={i}
+                                    studen={assessment.studen}
+                                    course={assessment.course}
+                                    status={assessment.status}
+                                />
+                            )
+                        })
+                    }
+                </div>
+            </section>
+        </>
     )
 }

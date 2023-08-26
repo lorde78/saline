@@ -1,5 +1,5 @@
 import Input from "~/kits/input";
-import {NavLink} from "@remix-run/react";
+import {NavLink, useLocation} from "@remix-run/react";
 import {useState} from "react";
 
 export default function Form_register() {
@@ -11,7 +11,6 @@ export default function Form_register() {
 
     return (
         <form className={"authentication_form_container"} action="" method="post">
-            <h1>Inscription</h1>
             <Input name={"email"} type={"email"} placeholder={"Mail"}
                    setValue={setEmail} propsSetValue={""} value={email}/>
 
@@ -24,7 +23,7 @@ export default function Form_register() {
             <Input name={"password"} type={"password"} placeholder={"Mot de passe"}
                    setValue={setPassword} propsSetValue={""} value={password}/>
 
-            <NavLink className={"button"} type="submit" to={"/authentication/register/complementary"}>Suivant</NavLink>
+            <NavLink className={"button"} type="submit" to={"complementary"}>Suivant</NavLink>
             <a href={""} className={"sub_link"}>Voir la Politique confidentialité</a>
         </form>
     )
