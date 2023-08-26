@@ -34,7 +34,7 @@ export default function Backoffice_edit_training({
                 </p>
                 {showButton ?
                     <div className={"training_button"}>
-                        <NavLink className={"button"} to={useLocation().pathname + '/' + id}>
+                        <NavLink className={"button"} to={useLocation().pathname + '/' + id + '/edit'}>
                             Modifier
                         </NavLink>
                         <button className={"button button_alert"}>Supprimer</button>

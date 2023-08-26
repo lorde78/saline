@@ -8,6 +8,7 @@ interface ContentProps {
 
 interface Props {
     optionSelected: number
+    setOptionSelected: any
     contents: ContentProps[]
     setValue: any
     propsSetValue: any
@@ -17,7 +18,7 @@ interface Props {
  * exemple de contente: 
  * [{value:"Men", option:"Homme"},{value:"Woman", option:"Femme"}, {value:"Other", option:"Autre"}]
  */
-export default function Select({optionSelected, contents, setValue, propsSetValue}: Props) {
+export default function Select({optionSelected, setOptionSelected, contents, setValue, propsSetValue}: Props) {
     const [showOptionTrue, setShowOptionTrue] = useState(false)
 
     const showOptions = () => {
@@ -26,6 +27,7 @@ export default function Select({optionSelected, contents, setValue, propsSetValu
 
     const selctOption = (value: string, id:number) => {
         setShowOptionTrue(false)
+        setOptionSelected(id)
         setValue(value,id, propsSetValue)
     }
 
