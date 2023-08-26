@@ -1,6 +1,6 @@
 import Select from "~/kits/select";
 import {useState} from "react";
-import {NavLink} from "@remix-run/react";
+import {NavLink, useLocation} from "@remix-run/react";
 
 type Props = {
     courseData: any
@@ -109,6 +109,15 @@ export default function Builder_navigation({
       })
     }
 
+    const removeChange = () => {
+        let path = useLocation().pathname
+        let newPath = path.split("/")
+        let pathArray = newPath.pop()
+        pathArray = newPath.pop()
+        // @ts-ignore
+        return newPath.toString().replaceAll(",", "/")
+    }
+
     return (
         <nav className={"builder_navigation_container"}>
             <Select
@@ -121,7 +130,7 @@ export default function Builder_navigation({
             <button className={"button"} onClick={addStep}>Ajouter une étape</button>
             <button className={"button button_alert"} onClick={resetStep}>Réinisialiser l'étape</button>
             <button className={"button button_alert"} onClick={deleteStep}>Supprimer l'étape</button>
-            <NavLink to={"/backoffice/trainings"} className={"button"} onClick={deleteStep}>Annuler les changement</NavLink>
+            <NavLink to={removeChange()} className={"button"}>Annuler les changement</NavLink>
             {
                 courseData[stepSelected].type.split("/")[0] === "exercise" ?
                     <Select
