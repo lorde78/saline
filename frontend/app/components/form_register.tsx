@@ -23,7 +23,7 @@ export default function Form_register() {
             <Input name={"password"} type={"password"} placeholder={"Mot de passe"}
                    setValue={setPassword} propsSetValue={""} value={password}/>
 
-            <NavLink className={"button"} type="submit" to={useLocation().pathname + "/complementary"}>Suivant</NavLink>
+            <NavLink className={"button"} type="submit" to={"complementary"}>Suivant</NavLink>
             <a href={""} className={"sub_link"}>Voir la Politique confidentialité</a>
         </form>
     )
