@@ -39,7 +39,6 @@ export default function Form_register() {
 
             <NavLink className={"button"} type="submit" to={"complementary"}>Suivant</NavLink>
             <a href={""} className={"sub_link"}>Voir la Politique confidentialité</a>
-            <Outlet />
         </form>
     )
 }
