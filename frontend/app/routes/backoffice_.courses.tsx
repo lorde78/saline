@@ -18,7 +18,7 @@ export function links() {
     ]
 }
 
-export default function BackofficeTrainings_TrainingId() {
+export default function Backoffice_Courses() {
 
     const [courses, setCourses] = useState([
         {
@@ -52,15 +52,12 @@ export default function BackofficeTrainings_TrainingId() {
     ])
     return (
         <>
-            <Header_section_page title={"Parcour"}/>
+            <Header_section_page title={"Cours"}/>
             <section className={"max_width_container"}>
                 <div className={"backoffice_training_preview_container max_width"}>
                     <div className={"button_header"}>
                         <NavLink className={"button"} to={'0'}>
                             Créer un cour
-                        </NavLink>
-                        <NavLink className={"button"} to={'add'}>
-                            Ajouter un cour
                         </NavLink>
                     </div>
                     {
