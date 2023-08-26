@@ -52,14 +52,16 @@ export default function BackofficeTrainingsTrainingId_Add() {
     ])
     const [coursesAdd, setCoursesAdd] = useState({})
 
-    const checkCourses = (value, props) => {
+    const checkCourses = (value:boolean, props:any) => {
         let newCoursesAdd = {...coursesAdd}
         if (value) {
+            // @ts-ignore
             newCoursesAdd[props.id] = {
                 id: props.id,
                 value: true
             }
         } else {
+            // @ts-ignore
             delete newCoursesAdd[props.id]
         }
         setCoursesAdd(newCoursesAdd)
@@ -82,6 +84,7 @@ export default function BackofficeTrainingsTrainingId_Add() {
                                         text={""}
                                         setValue={checkCourses}
                                         propsSetValue={{id: id}}
+                                        // @ts-ignore
                                         value={coursesAdd[id] ? coursesAdd[id].value : false}
                                     />
                                     <Backoffice_edit_training
