@@ -7,18 +7,31 @@ import {useState} from "react";
 export default function Form_register_complementary() {
     const [birthDate, setBirthDate] = useState("")
     const [gender, setGender] = useState("")
+    const [genderData, setGenderData] = useState([
+        {value: "Quel est ton Genre", option: ""},
+        {value: "Homme", option: "Men"},
+        {value: "Femme", option: "Woman"},
+        {value: "Autre", option: "Other"}
+    ])
+    const [genderSelected, setGenderSelected] = useState(0)
     const [country, setCountry] = useState("")
     const [address, setAddress] = useState("")
     const [postalCode, setPostalCode] = useState("")
     const [privacy, setPrivacy] = useState(false)
 
+    const changeGender = (value: string, id: number) => {
+        setGenderSelected(id)
+        setGender(value)
+    }
     return (
-        <form className={"authentication_form_container"}  action="" method="post">
+        <form className={"authentication_form_container"} action="" method="post">
             <Select_image/>
-            <Select defaultContent={"Quel est ton genre ?"}
-                    contents={[{value: "Men", option: "Homme"}, {value: "Woman", option: "Femme"}, {value: "Other",option: "Autre"}]}
-                    setValue={setGender}
-                    propsSetValue={""}
+            <Select
+                optionSelected={genderSelected}
+                contents={genderData}
+                setValue={changeGender}
+                propsSetValue={""}
+
             />
             <Input name={"BirthDate"} type={"date"} placeholder={"Date de naissance"}
                    setValue={setBirthDate} propsSetValue={""} value={birthDate}/>
