@@ -16,7 +16,7 @@ export function links() {
     ]
 }
 
-export default function Backoffice_Banner() {
+export default function Backoffice_Banners() {
 
     const [banners, setBanners] = useState([
         {
