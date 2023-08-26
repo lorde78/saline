@@ -16,9 +16,10 @@ services:
     container_name: saline_remix
     ports: ['3001:3001']
   db:
-    image: mysql
+    image: mysql:5.7
     restart: always
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-    container_name: saline_db
-    ports: ['3006:3006']
+      MYSQL_DATABASE: 'saline_db'
+      MYSQL_ROOT_PASSWORD: 'root'
+    container_name: saline_database
+    ports: ['3306:3306']

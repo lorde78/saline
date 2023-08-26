@@ -7,8 +7,7 @@ export default function Form_login() {
 
 
     return (
-        <form action="" method="post">
-            <h1>Connexion</h1>
+        <form className={"authentication_form_container"} action="" method="post">
             <Input name={"email"} type={"email"} placeholder={"Mail"}
                    setValue={setEmail} propsSetValue={""} value={email}/>
             <Input name={"password"} type={"password"} placeholder={"Mot de passe"}

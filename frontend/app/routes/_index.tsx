@@ -28,11 +28,6 @@ export function links() {
 export default function Index() {
     return (
         <div style={{fontFamily: "system-ui, sans-serif", lineHeight: "1.8"}}>
-
-            <Builder_block_button contents={"Vidéo"} icon={"ri-vidicon-line"}/>
-            <Builder_select_folder icon={"ri-vidicon-line"} folderType={"video/mp4"} idType={"video"} buttonMessage={"Choisi une vidéo"}/>
-            <Builder_select_folder icon={"ri-file-2-line"} folderType={"application/pdf"} idType={"pdf"} buttonMessage={"Choisi un fichier pour ton énoncé"} />
-            <Select_image/>
         </div>
     );
 }

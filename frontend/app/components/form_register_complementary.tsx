@@ -8,17 +8,34 @@ import SigninReducer from "~/reducer/signinReducer";
 
 export default function Form_register_complementary() {
     const [birthDate, setBirthDate] = useState("")
+    const [gender, setGender] = useState("")
+    const [genderData, setGenderData] = useState([
+        {value: "Quel est ton Genre", option: ""},
+        {value: "Homme", option: "Men"},
+        {value: "Femme", option: "Woman"},
+        {value: "Autre", option: "Other"}
+    ])
+    const [genderSelected, setGenderSelected] = useState(0)
     const [country, setCountry] = useState("")
     const [address, setAddress] = useState("")
     const [postalCode, setPostalCode] = useState("")
     const [privacy, setPrivacy] = useState(false)
 
-    console.log(useSelector(store => store.SigninReducer))
+    const changeGender = (value: string, id: number) => {
+        setGenderSelected(id)
+        setGender(value)
+    }
     return (
-        <form action="" method="post">
-            <h1>Inscription</h1>
-            <Select_image />
-            <Select defaultContent={"Quel est ton genre ?"} contents={[{value:"Men", option:"Homme"},{value:"Woman", option:"Femme"}, {value:"Other", option:"Autre"}]} />
+        <form className={"authentication_form_container"} action="" method="post">
+            <Select_image/>
+            <Select
+                optionSelected={genderSelected}
+                setOptionSelected={setGenderSelected}
+                contents={genderData}
+                setValue={changeGender}
+                propsSetValue={""}
+
+            />
             <Input name={"BirthDate"} type={"date"} placeholder={"Date de naissance"}
                    setValue={setBirthDate} propsSetValue={""} value={birthDate}/>
             <Input name={"Country"} type={"text"} placeholder={"Pays"}

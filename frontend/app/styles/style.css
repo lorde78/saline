@@ -7,13 +7,28 @@
     --alert-color: #900000;
     --success-color: #68FF50;
 }
-
+header {
+    z-index: 1000;
+}
+.max_width_container {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
+    min-height: 80vh;
+}
+.max_width {
+    width: 100%;
+    max-width: 800px;
+    align-content: center;
+}
 
 body {
     background-color: var(--main-color);
     color: var(--text-color);
     font-family: 'Rubik', sans-serif;
     margin: 0;
+    overflow-x: hidden;
 }
 
 ::-webkit-scrollbar-track
@@ -63,6 +78,24 @@ a:hover {
     font-size: .75rem;
     color: var(--action-color);
 }
+
+/*status style,  description status */
+.status_color {
+    display: block;
+    border-radius: 4px;
+    height: 15px;
+    width: 15px;
+}
+.status_color-yellow {
+    background-color: var(--action-color);
+}
+.status_color-green {
+    background-color: var(--success-color);
+}
+.status_color-red {
+    background-color: var(--alert-color);
+}
+
 
 /* label and category style */
 .label {
@@ -140,6 +173,28 @@ a:hover {
     color: var(--text-color);
 }
 
+/*header for page inter section */
+.header_section_page {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    background-color: var(--secondary-color);
+    padding: 20px;
+}
+
+.header_section_page nav {
+    width: auto;
+    font-size: 20px;
+}
+.header_section_page div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 /* Form style */
 form {
@@ -167,8 +222,11 @@ form div {
     width: 60px;
     height: 30px;
 }
+.switch input {
+    display: none;
+}
 
-.slider {
+.switch .slider {
     position: absolute;
     top: 0;
     left: 0;
@@ -181,7 +239,7 @@ form div {
     transition: .3s ease-in-out;
 }
 
-.slider::after {
+.switch .slider::after {
     position: absolute;
     top: 50%;
     right: 30px;
@@ -197,11 +255,11 @@ form div {
     animation: slidingReverse .3s ease-in-out forwards;
 }
 
-input:checked + .slider {
+.switch input:checked + .slider {
     background-color: var(--action-color);
 }
 
-input:checked + .slider::after {
+.switch input:checked + .slider::after {
     background-color: var(--main-color);
     animation: sliding .3s ease-in-out forwards;
 }
