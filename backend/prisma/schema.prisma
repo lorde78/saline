@@ -1,7 +1,6 @@
 datasource db {
   provider = "mysql"
-  //   url      = env("DATABASE_URL")
-  url      = "mysql://root:@localhost:3306/saline_db?schema=public"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -25,7 +24,7 @@ model User {
   progress       Json
   birthDate      DateTime?
   postalAddress  String?
-  Certification  Certification?
+  Certification  Certification[]
   Comment        Comment[]
   Answer         Answer[]
   Lesson         Lesson[]
@@ -33,14 +32,15 @@ model User {
   Annotation     Annotation[]
   Classroom      Classroom?     @relation(fields: [id], references: [id])
   Discount       Discount[]
-  Subscription   Subscription?
+  Subscription   Subscription[]
 }
 
 model Certification {
   id             String    @id @unique @default(uuid())
   name           String?
   graduationDate DateTime?
-  user           User?     @relation(fields: [id], references: [id])
+  userId      String?
+  user        User?     @relation(fields: [userId], references: [id])
 }
 
 model Lesson {
@@ -162,7 +162,7 @@ model Subscription {
   lastUpdate         DateTime   @default(now())
   lessons            Lesson[]
   trainings          Training[]
-  user               User?      @relation(fields: [id], references: [id])
+  user               User?      @relation(fields: [userId], references: [id])
   nbSubscribers      Int?
   userId             String?
 }
@@ -190,7 +190,7 @@ model Video {
   createdAt   DateTime     @default(now())
   lastUpdate  DateTime     @default(now())
   tags        Tag[]
-  lesssons    Lesson[]
+  lessons    Lesson[]
   shortVideos ShortVideo[]
 }
 
