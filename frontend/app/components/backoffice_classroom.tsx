@@ -5,7 +5,7 @@ import Input from "~/kits/input";
 import Color_picker from "~/kits/color_picker";
 import Checkbox from "~/kits/checkbox";
 import Textarea from "~/kits/textarea";
-import {NavLink, Outlet} from "@remix-run/react";
+import {NavLink, Outlet, useLocation} from "@remix-run/react";
 
 type Props = {
     id: number,
@@ -37,7 +37,7 @@ export default function Backoffice_classroom({
                     {description}
                 </p>
                 <div className={"classroom_button"}>
-                    <NavLink className={"button"} to={"/backoffice/classroom/" + id}>
+                    <NavLink className={"button"} to={useLocation().pathname + '/' + id}>
                         Modifier
                     </NavLink>
                     <button className={"button button_alert"}>Supprimer</button>
