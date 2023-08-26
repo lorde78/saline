@@ -11,6 +11,7 @@ export default function Header_section_page({title}: Props) {
         let path = useLocation().pathname
         let newPath = path.split("/")
         let pathArray = newPath.pop()
+        // @ts-ignore
         return newPath.toString().replaceAll(",", "/")
     }
 

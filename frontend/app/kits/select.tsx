@@ -7,7 +7,8 @@ interface ContentProps {
 }
 
 interface Props {
-    defaultContent: string
+    optionSelected: number
+    setOptionSelected: any
     contents: ContentProps[]
     setValue: any
     propsSetValue: any
@@ -17,35 +18,32 @@ interface Props {
  * exemple de contente: 
  * [{value:"Men", option:"Homme"},{value:"Woman", option:"Femme"}, {value:"Other", option:"Autre"}]
  */
-export default function Select({defaultContent, contents, setValue, propsSetValue}: Props) {
+export default function Select({optionSelected, setOptionSelected, contents, setValue, propsSetValue}: Props) {
     const [showOptionTrue, setShowOptionTrue] = useState(false)
-    const [optionSelect, setOptionSelect] = useState(defaultContent)
-    const [optionSelectValue, setOptionSelectValue] = useState("")
 
     const showOptions = () => {
         setShowOptionTrue(!showOptionTrue)
     }
 
-    const selctOption = (value: string, option: string) => {
-        setOptionSelect(option)
-        setOptionSelectValue(value)
+    const selctOption = (value: string, id:number) => {
         setShowOptionTrue(false)
-        setValue(option, propsSetValue)
+        setOptionSelected(id)
+        setValue(value,id, propsSetValue)
     }
 
 
     return (
         <div className="input-container" id={"select_container"}>
             <div onClick={showOptions} className="select_button">
-                <span>{optionSelect}</span>
+                <span>{contents[optionSelected].value}</span>
                 <i className="ri-expand-up-down-line"></i>
             </div>
             <ul className={showOptionTrue ? "options options-visible" : "options"}>
-                {contents.map((content) => {
+                {contents.map((content, i) => {
                     return (
-                        <li onClick={() => selctOption(content.value, content.option)}
+                        <li onClick={() => selctOption(content.value, i)}
                             className={showOptionTrue ? "option option-visible" : "option"}>
-                            {content.option}
+                            {content.value}
                         </li>
                     )
                 })}
