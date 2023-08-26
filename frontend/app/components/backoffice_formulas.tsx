@@ -28,7 +28,7 @@ export default function Backoffice_formulas({
                 <div className={"formule_sub"}>{name}</div>
                 <div>{rates_price}/{rates_time}</div>
                 <div>
-                    <NavLink to={useLocation().pathname + '/' + id}>
+                    <NavLink to={id.toString()}>
                         <i className="ri-pencil-line"></i>
                     </NavLink>
                     <button onClick={() => {
