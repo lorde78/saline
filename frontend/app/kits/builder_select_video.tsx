@@ -5,10 +5,13 @@ import {html} from "mdast-util-to-markdown/lib/handle/html";
 import Builder_popup_choose_video from "~/kits/builder_popup_choose_video";
 import {hidden} from "kleur/colors";
 
+type Props = {
+    videoSelect: string
+    setVideoSelect: any
+}
 
-export default function Builder_select_video() {
+export default function Builder_select_video({videoSelect, setVideoSelect}:Props) {
 
-    const [videoSelect, setVideoSelect] = useState("")
     const [videoSelectOpen, setVideoSelectOpen] = useState(false)
 
 
@@ -25,7 +28,9 @@ export default function Builder_select_video() {
                 <iframe src={videoSelect}
                         title="YouTube video player" frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowFullScreen className={"preview"}></iframe>
+                        allowFullScreen className={"preview"}>
+
+                </iframe>
 
                 <i className={"ri-vidicon-line"}></i>
             </div>

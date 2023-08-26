@@ -20,6 +20,7 @@ export default function Builder_navigation({
                                                setExerciseSelected
                                            }: Props) {
     const selecStep = (value: string, id: number) => {
+        // @ts-ignore
         let stepNumber = value.split(" ")[1] - 1
         setStepSelected(stepNumber)
     }
@@ -28,6 +29,25 @@ export default function Builder_navigation({
         setExerciseSelected(id)
         let newCourseData = [...courseData]
         newCourseData[stepSelected].type = "exercise/" + typeExercise[id].option
+        if (typeExercise[id].option === "qcm") {
+            newCourseData[stepSelected].data = [
+                {
+                    "question": "",
+                    "multipleChoice": false,
+                    "choice": [
+                        {
+                            "answer": "",
+                            "goodAnswer": false
+                        }
+                    ]
+                }
+            ]
+        } else if (typeExercise[id].option === "bind_list") {
+            newCourseData[stepSelected].data = [{
+                "bind1": "",
+                "bind2": "",
+            }]
+        }
         setCoursesData(newCourseData)
     }
 

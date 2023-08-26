@@ -40,13 +40,28 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
         newCourseData[stepSelected].type = value
         if (value === "video") {
             newCourseData[stepSelected].data = {
+                video: "",
+                infoDescription:"",
+                description: ""
             }
         } else if (value === "exercise/qcm") {
-            newCourseData[stepSelected].data = {
-            }
+            newCourseData[stepSelected].data = [
+                {
+                    "question": "",
+                    "multipleChoice": false,
+                    "choice": [
+                        {
+                            "answer": "",
+                            "goodAnswer": false
+                        }
+                    ]
+                }
+            ]
         } else if (value === "exercise/bind_list") {
-            newCourseData[stepSelected].data = {
-            }
+            newCourseData[stepSelected].data = [{
+                "bind1": "",
+                "bind2": "",
+            }]
         } else if (value === "review") {
             newCourseData[stepSelected].data = {
             }
@@ -71,18 +86,40 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
             />
             {
                 courseData[stepSelected].type === "video" ?
-                    <Builder_step_video/>
+                    <Builder_step_video
+                        courseData={courseData}
+                        setCoursesData={setCoursesData}
+                        stepSelected={stepSelected}
+                    />
                     :
                     courseData[stepSelected].type === "exercise/qcm" ?
-                        <Builder_step_exercice type={"qcm"}/>
+                        <Builder_step_exercice
+                            courseData={courseData}
+                            setCoursesData={setCoursesData}
+                            stepSelected={stepSelected}
+                            type={"qcm"}
+                        />
                         :
                         courseData[stepSelected].type === "exercise/bind_list" ?
-                            <Builder_step_exercice type={"bind_list"}/>
+                            <Builder_step_exercice
+                                courseData={courseData}
+                                setCoursesData={setCoursesData}
+                                stepSelected={stepSelected}
+                                type={"bind_list"}
+                            />
                             :
                             courseData[stepSelected].type === "review" ?
-                                <Builder_step_review/>
+                                <Builder_step_review
+                                    courseData={courseData}
+                                    setCoursesData={setCoursesData}
+                                    stepSelected={stepSelected}
+                                />
                                 :
-                                <Builder_select_step setValue={selectTypeStep}/>
+                                <Builder_select_step
+                                    courseData={courseData}
+                                    stepSelected={stepSelected}
+                                    setValue={selectTypeStep}
+                                />
             }
 
 

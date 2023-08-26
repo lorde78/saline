@@ -4,11 +4,15 @@ import Input from "~/kits/input";
 import Builder_select_folder from "~/kits/builder_select_folder";
 import Textarea from "~/kits/textarea";
 
+type Props = {
+    description: string
+    setDescription: any
+    infoDescription: string
+    setInfoDescription: any
+}
 
-export default function Builder_navigation_step_video() {
+export default function Builder_navigation_step_video({ description, setDescription, infoDescription, setInfoDescription }: Props) {
     const [stepsNav, setStepsNav] = useState("Description")
-    const [description, setDescription] = useState("")
-    const [infoDescription, setInfoDescription] = useState("")
 
     const displayNav = () => {
         switch (stepsNav) {
