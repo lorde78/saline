@@ -26,7 +26,6 @@ export default function Builder_navigation({
     }
 
     const selectTypeExercise = (value: string, id: number) => {
-        setExerciseSelected(id)
         let newCourseData = [...courseData]
         newCourseData[stepSelected].type = "exercise/" + typeExercise[id].option
         if (typeExercise[id].option === "qcm") {
@@ -113,6 +112,7 @@ export default function Builder_navigation({
         <nav className={"builder_navigation_container"}>
             <Select
                 optionSelected={stepSelected}
+                setOptionSelected={setStepSelected}
                 contents={courseData}
                 setValue={selecStep}
                 propsSetValue={""}
@@ -124,6 +124,7 @@ export default function Builder_navigation({
                 courseData[stepSelected].type.split("/")[0] === "exercise" ?
                     <Select
                         optionSelected={exerciseSelected}
+                        setOptionSelected={setExerciseSelected}
                         contents={typeExercise}
                         setValue={selectTypeExercise}
                         propsSetValue={""}
