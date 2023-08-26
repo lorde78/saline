@@ -33,10 +33,10 @@ export default function Authentication() {
             <section className={"max_width_container"}>
                 <div className={"authentication_container-home max_width"}>
                     <div>
-                        <NavLink className={"button"} to={useLocation().pathname + "/register"}>
+                        <NavLink className={"button"} to={"register"}>
                             Inscription
                         </NavLink>
-                        <NavLink className={"button button_dark"} to={useLocation().pathname + "/login"}>
+                        <NavLink className={"button button_dark"} to={"login"}>
                             Connexion
                         </NavLink>
                     </div>
