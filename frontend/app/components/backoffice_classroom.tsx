@@ -37,7 +37,7 @@ export default function Backoffice_classroom({
                     {description}
                 </p>
                 <div className={"classroom_button"}>
-                    <NavLink className={"button"} to={useLocation().pathname + '/' + id}>
+                    <NavLink className={"button"} to={id.toString()}>
                         Modifier
                     </NavLink>
                     <button className={"button button_alert"}>Supprimer</button>

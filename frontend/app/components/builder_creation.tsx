@@ -32,7 +32,7 @@ export default function Builder_creation() {
                 propsSetValue={""}
                 value={description}
             />
-            <NavLink onClick={() => console.log("click")} className={"button"} to={useLocation().pathname + "/edit"}>Ajouter une étape</NavLink>
+            <NavLink onClick={() => console.log("click")} className={"button"} to={"edit"}>Ajouter une étape</NavLink>
         </form>
     )
 }
