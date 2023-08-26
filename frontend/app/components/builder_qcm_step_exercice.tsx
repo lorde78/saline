@@ -4,42 +4,36 @@ import Input from "~/kits/input";
 import Checkbox from "~/kits/checkbox";
 import {list} from "postcss";
 
-export default function Builder_qcm_step_exercice() {
-    const [qcmData, setQcmData] = useState([{
-        "question": "",
-        "multipleChoice": false,
-        "choice": [
-            {
-                "answer": "",
-                "goodAnswer": false
-            }
-        ]
-    }])
+type Props = {
+    qcmData: any,
+    setQcmData: any
+}
+export default function Builder_qcm_step_exercice({qcmData, setQcmData}:Props) {
 
-    const setQuestion = (value, idContent) => {
+    const setQuestion = (value:string, idContent:number) => {
         let newArr = [...qcmData]
         newArr[idContent].question = value
         setQcmData(newArr)
     }
-    const setAnswer = (value, idList) => {
+    const setAnswer = (value:string, idList:{idContent:number,idAnswer:number}) => {
         let newArr = [...qcmData]
         newArr[idList.idContent].choice[idList.idAnswer].answer = value
         setQcmData(newArr)
     }
-    const setMultipleChoice = (value, idContent) => {
+    const setMultipleChoice = (value:boolean, idContent:number) => {
         let newArr = [...qcmData]
         newArr[idContent].multipleChoice = value
-        qcmData[idContent].choice.map((answer) => {
+        qcmData[idContent].choice.map((answer:any) => {
             answer.goodAnswer = false
         })
 
         setQcmData(newArr)
     }
-    const setgoodAnswer = (value, idList) => {
+    const setgoodAnswer = (value:boolean, idList:{idContent:number,idAnswer:number}) => {
         let newArr = [...qcmData]
 
         if (!qcmData[idList.idContent].multipleChoice) {
-            qcmData[idList.idContent].choice.map((answer) => {
+            qcmData[idList.idContent].choice.map((answer:any) => {
                 answer.goodAnswer = false
             })
         }
@@ -83,19 +77,19 @@ export default function Builder_qcm_step_exercice() {
             setQcmData(newArr)
         }
     }
-    const deleteAnswer = (idContent) => {
+    const deleteAnswer = (idContent:number) => {
         if (qcmData[idContent].choice.length > 1) {
             let newArr = [...qcmData]
             newArr[idContent].choice.pop()
             setQcmData(newArr)
         }
     }
-    console.log("data")
-    console.log(qcmData)
+    // console.log("data")
+    // console.log(qcmData)
 
     return (
         <div className={"builder_qcm_step_exercice builder_exercise_step_exercice"}>
-            {qcmData.map((content, idContent) => {
+            {qcmData.map((content:any, idContent:number) => {
                 return (
                     <div className={"question_container"} key={idContent}>
                         <div className={"question"}>
@@ -106,7 +100,7 @@ export default function Builder_qcm_step_exercice() {
                                       value={content.multipleChoice}/>
                         </div>
                         <div className={"answer_container"}>
-                            {content.choice.map((answer, idAnswer) => {
+                            {content.choice.map((answer:any, idAnswer:number) => {
                                 return (
                                     <div className={"answer"} key={idAnswer}>
                                         <Input name={"reponse " + idContent} type={"text"}

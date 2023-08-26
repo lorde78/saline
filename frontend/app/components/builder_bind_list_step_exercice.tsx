@@ -4,13 +4,12 @@ import Input from "~/kits/input";
 import Checkbox from "~/kits/checkbox";
 import {list} from "postcss";
 
-export default function Builder_bind_list_step_exercice() {
-    const [bindListData, setBindListData] = useState([{
-        "bind1": "",
-        "bind2": "",
-    }])
-
-    const setBind = (value, content) => {
+type Props = {
+    bindListData: any
+    setBindListData: any
+}
+export default function Builder_bind_list_step_exercice({bindListData, setBindListData}:Props) {
+    const setBind = (value:string, content:any) => {
         let newArr = [...bindListData]
         switch (content.input) {
             case "bind1":
@@ -47,7 +46,7 @@ export default function Builder_bind_list_step_exercice() {
 
     return (
         <div className={"builder_bind_list_step_exercice builder_exercise_step_exercice"}>
-            {bindListData.map((bind, id) => {
+            {bindListData.map((bind:any, id:number) => {
                 return (
                     <div className={"bind_container"} key={id}>
                         <Input name={"bind" + id} type={"text"} placeholder={"Lien " + id}

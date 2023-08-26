@@ -1,0 +1,78 @@
+
+.backoffice_assessments_preview_container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+
+    width: 100vw;
+    min-height: 100vh;
+}
+
+.assessment_container div{
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+.assessment_container {
+    display: flex;
+    gap: 10px;
+}
+
+.assessment_container-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+.assessment_container-right {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 5px;
+    width: auto;
+}
+
+
+.backoffice_assessment_id_container {
+    width: 100vw;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    background-color: var(--main-color);
+}
+
+.assessment_container-open {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+
+}
+.assessment_container-open .content {
+    width: 100%;
+    height: auto;
+}
+.assessment_container-open .assessment_section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.assessment_container-open .assessment_section div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.assessment_container-open .assessment_section div span {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 25px;
+}
+
+.assessment_container-open .assessment_section textarea {
+    height: 200px;
+}
