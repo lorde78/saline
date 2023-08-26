@@ -26,11 +26,13 @@ interface Props {
 export default function Builder_select_folder({icon, folderType, idType, buttonMessage}: Props) {
     const [inputSet, setInputSet] = useState(false)
 
-    const showPreview = (input) => {
+    const showPreview = (input:any) => {
         setInputSet(true)
         var url = URL.createObjectURL(input);
         var preview = document.getElementById("preview_" + idType);
+        // @ts-ignore
         preview.src = url;
+        // @ts-ignore
         preview.style.display = "block";
     }
 
@@ -60,6 +62,7 @@ export default function Builder_select_folder({icon, folderType, idType, buttonM
             <label htmlFor={idType} className="drop_container">
                 <span className={"button"}>{buttonMessage}</span>
                 <input type="file" accept={folderType}  id={idType} onChange={(event: object) => {
+                    // @ts-ignore
                     showPreview(event.target.files[0])
                 }} required />
             </label>
