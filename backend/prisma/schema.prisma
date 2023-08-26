@@ -1,7 +1,6 @@
 datasource db {
   provider = "mysql"
-  //   url      = env("DATABASE_URL")
-  url      = "mysql://root:@localhost:3306/saline_db?schema=public"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
