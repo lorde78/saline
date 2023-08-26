@@ -20,8 +20,6 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: 'saline_db'
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-    container_name: saline_db
-    ports: ['3006:3006']
-    # volumes:
-    #   - /var/lib/mysql/:backend/database/init.sql
+      MYSQL_ROOT_PASSWORD: 'root'
+    container_name: saline_database
+    ports: ['3306:3306']
