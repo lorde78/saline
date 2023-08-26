@@ -90,8 +90,8 @@ export default function Builder_qcm_step_exercice() {
             setQcmData(newArr)
         }
     }
-    console.log("data")
-    console.log(qcmData)
+    // console.log("data")
+    // console.log(qcmData)
 
     return (
         <div className={"builder_qcm_step_exercice builder_exercise_step_exercice"}>

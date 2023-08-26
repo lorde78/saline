@@ -218,6 +218,10 @@ input:checked + .check svg {
     width: 100%;
 }
 
+.select_image_container {
+    width: 100px;
+    height: 100px;
+}
 .select_image_container .drop_container {
     position: relative;
     display: flex;
@@ -225,8 +229,8 @@ input:checked + .check svg {
     align-items: center;
     overflow: hidden;
 
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: 100%;
 
     border-radius: 8px;
     color: var(--secondary-color);
