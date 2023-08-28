@@ -4,7 +4,9 @@ const { database } = require('../config/db.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { title, description,difficultyLevel, accesibility, price, duration, nbViews, nbCompleted, userId } = req.body;
+    const { title, description,difficultyLevel, accesibility, price, duration, nbViews, nbCompleted } = req.body;
+    // récupérer l'id de l'utilisateur connecté
+    const userId = 1;
     const training = await database.training.create({
         data: {
             userId: userId,
