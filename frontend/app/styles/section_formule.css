@@ -1,0 +1,37 @@
+.section_formule_container {
+    padding-top: 100px;
+    background-color: #121525;
+}
+.section_formule_container h2 {
+    margin-bottom: 40px;
+    padding-left: 40px;
+}
+
+.section_formule_item{
+    border: 1px solid #E5DF52;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+}
+
+.section_formule_item_information{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+.section_formule_item_avantage{
+    margin-bottom: 50px;
+  
+}
+
+.section_formule_item_avantage li{
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.section_formule_item{
+    width: 350px;
+}

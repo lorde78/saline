@@ -6,6 +6,7 @@ import { MiniSlider } from "~/components/mini_slider";
 import { SectionInstrument } from "~/components/section_instrument";
 import { SectionPartenaires } from "~/components/section_partenaires";
 import { SectionSalinePlus } from "~/components/section_plus_saline";
+import { Offre } from "~/components/section_formule";
 import resetStyles from "~/styles/reset.css"
 import styles from "~/styles/style.css"
 import builder from "~/styles/builder.css"
@@ -75,8 +76,10 @@ export default function Index() {
       <Slider slides={slides} />
       <SectionInstrument />
       <MiniSlider slides={slides}/>
+      <Offre />
       <SectionSalinePlus />
       <SectionPartenaires />
+      
       <Footer />
     </div>
   );

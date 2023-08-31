@@ -32,24 +32,26 @@ export const Slider: React.FunctionComponent<SliderProps> = ({ slides }) => {
     const allSlides = slides.length > 0 ? slides : defaultSlides;
 
     return (
-        <SwiperComponent
-            slidesPerView={1}
-        >
-            {allSlides.map((slide, index) => (
-                <SwiperSlide key={index}>
-                    <img src={slide.src} alt={slide.title} />
-                    <div className="custom_text_socket_container">
-                        <div className="custom_text_socket">
-                            Faites partie des meilleurs
-                            musiciens au monde.
+        <div className="swiper_home_container">
+            <SwiperComponent
+                slidesPerView={1}
+            >
+                {allSlides.map((slide, index) => (
+                    <SwiperSlide key={index}>
+                        <img src={slide.src} alt={slide.title} />
+                        <div className="custom_text_socket_container">
+                            <div className="custom_text_socket">
+                                Faites partie des meilleurs
+                                musiciens au monde.
+                            </div>
+                            <a className="button">La suite</a>
                         </div>
-                        <a className="button">La suite</a>
-                    </div>
 
-                </SwiperSlide>
-            ))}
+                    </SwiperSlide>
+                ))}
 
 
-        </SwiperComponent>
+            </SwiperComponent>
+        </div>
     );
 };
