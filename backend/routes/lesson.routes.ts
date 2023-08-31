@@ -8,7 +8,6 @@ router.post('/', async function (req, res, next) {
     const lesson = await database.lesson.create({
         data: {
             userId: userId,
-            validation: false,
             title: title,
             description: description,
             numberSteps: numberSteps,
