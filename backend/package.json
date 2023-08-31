@@ -14,7 +14,9 @@
     "prs-run": "cd node_modules/.prisma/client; npx prisma generate",
     "prs-migrate": "npx prisma migrate dev --schema=./prisma/shema.prisma",
     "faker-data": "npx prisma db seed",
-    "debug-routes": "DEBUG=express:router node app.js"
+    "debug-routes": "DEBUG=express:router node app.js",
+    "db-push": "npx prisma db push --schema=./prisma/shema.prisma",
+    "prisma-reset": "npx prisma migrate reset --schema=./prisma/shema.prisma"
   },
   "nodemonConfig": {
     "legacyWatch": true,
@@ -42,10 +44,10 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.4.1",
-    "nodemon": "^2.0.22",
+    "@types/node": "^20.5.7",
+    "nodemon": "^3.0.1",
     "ts-node": "^10.9.1",
-    "typescript": "^5.1.6"
+    "typescript": "^5.2.2"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
