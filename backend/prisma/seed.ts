@@ -13,13 +13,26 @@ async function main() {
     for (let i = 0; i < amountOfUsers; i++) {
       const firstName = faker.name.firstName()
       const lastName = faker.name.lastName()
-      let step_i_str = i.toString();
+      let step_i_str = i;
 
       const user: User = {
         id: step_i_str,
         email: faker.internet.email(firstName, lastName),
         name: faker.name.firstName(),
         password: faker.internet.password(),
+        roles: {},
+        progress: {},
+        profilePicture: faker.image.avatar(),
+        createdAt: new Date(),
+        token: faker.datatype.uuid(),
+        phoneNumber: "33",
+        birthDate: faker.date.past(),
+        lastConnection: faker.date.past(),
+        postalAddress: faker.address.streetAddress(),
+        firstName: firstName,
+        genre: 'Homme',
+        nationality: faker.address.country(),
+
       };
   
       users.push(user);
