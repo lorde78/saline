@@ -7,10 +7,10 @@
 }
 
 .secion_instrument_list {
-    gap: 55px;
 	display: grid;
     grid-template-columns: repeat(3, 1fr);
-
+	row-gap: 20px;
+	column-gap: 55px;
 }
 
 .secion_instrument_list_item p {
