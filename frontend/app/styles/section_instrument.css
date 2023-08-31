@@ -7,21 +7,23 @@
 }
 
 .secion_instrument_list {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	gap: 10px;
-	align-items: baseline;
-}
+    gap: 55px;
+	display: grid;
+    grid-template-columns: repeat(3, 1fr);
 
-.secion_instrument_list_item {
-	width: calc(33.33% - 10px);
 }
 
 .secion_instrument_list_item p {
-	margin: 0;
+	margin-top: 25px;
+	justify-content: center;
+    display: flex;
+	
 }
 
 .section_instrument_container h2 {
 	margin-bottom: 40px;
+}
+
+.secion_instrument_list svg {
+	height: 80px;
 }
