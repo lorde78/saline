@@ -28,7 +28,9 @@ router.post('/', async function (req, res, next) {
     const user = await database.user.create({ data: {
         email: email,
         password: bcrypt.hashSync(password, 12),
-        token: accessToken
+        token: accessToken,
+        roles: {},
+        progress: {}
     } })
     
     res.json({ 
