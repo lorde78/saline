@@ -185,7 +185,7 @@ model Discount {
 }
 
 model Video {
-  id          String       @id @unique @default(uuid())
+  id             Int  @id @default(autoincrement())
   title       String?
   url         String?
   createdAt   DateTime     @default(now())
@@ -202,5 +202,6 @@ model ShortVideo {
   createdAt  DateTime @default(now())
   lastUpdate DateTime @default(now())
   tags       Tag[]
-  video      Video?   @relation(fields: [id], references: [id])
+  videoId Int?
+  video      Video?   @relation(fields: [videoId], references: [id])
 }
