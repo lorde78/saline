@@ -64,7 +64,6 @@ model Lesson {
   videos          Video[]
   discounts       Discount[]
   annotations      Annotation[]
-  // annotationId    String?
 }
 
 model Classroom {
@@ -139,8 +138,6 @@ model Annotation {
   lessonId   Int?
   author      User?     @relation(fields: [userId], references: [id])
   lessons     Lesson? @relation(fields: [lessonId], references: [id])
-  // User       User[]
-  // Lesson     Lesson[]
 }
 
 model Tag {
