@@ -4,7 +4,7 @@ var router = express.Router();
 
 router.get('/', function (req, res) {
     const { user, to, subject, content } = req.body;
-
+  // Todo: configure nodemailer to send emails avec le smtp de gmail
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
