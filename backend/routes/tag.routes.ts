@@ -34,7 +34,7 @@ router.put('/', async function (req, res, next) {
 
     if (!id) {
         res.status(400);
-        throw new Error('You must provide an id or tagId.');
+        throw new Error('You must provide an id ');
     }
 
     const updatetag = await database.tag.update({

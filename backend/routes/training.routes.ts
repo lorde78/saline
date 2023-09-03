@@ -46,7 +46,7 @@ router.put('/', async function (req, res, next) {
 
     if (!id) {
         res.status(400);
-        throw new Error('You must provide an id or lessonId.');
+        throw new Error('You must provide an id ');
     }
 
     const updateTraining = await database.training.update({
