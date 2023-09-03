@@ -22,14 +22,14 @@ router.post('/', async function (req, res, next) {
     if (!existingUser) {
         return res.status(404).json({ message: 'User not found' });
     }
-    
+
     const passwordMatch = await bcrypt.compare(password, existingUser.password);
-    
+
     if (!passwordMatch) {
         return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    if(!getCookie(req)) {
+    if (!getCookie(req)) {
         const { accessToken } = generateToken({ email, password });
 
         // Create cookie
@@ -40,9 +40,9 @@ router.post('/', async function (req, res, next) {
             accessToken,
             'cookie': getCookie(req)
         });
-        
+
     }
-    
+
     res.json({
         message: 'Login successful',
         token: getCookie(req),
@@ -55,12 +55,12 @@ router.put('/', async function (req, res, next) {
     const { email, password } = req.body;
     const updateUser = await database.user.update({
         where: {
-          email: email,
+            email: email,
         },
         data: req.body,
-      });
+    });
 
-      res.json({
+    res.json({
         message: 'User updated',
     });
 });

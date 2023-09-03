@@ -25,7 +25,7 @@ router.delete('/', async function (req, res, next) {
     const deleteComment = await database.answer.delete({
         where: {
             id: id,
-          },
+        },
     })
     res.json({
         message: 'Comment deleted',
@@ -63,9 +63,9 @@ router.get('/', async function (req, res, next) {
             OR: [
                 { id: id, },
                 { commentId: commentId },
-              ],
-          },
-      })
+            ],
+        },
+    })
     res.json({
         "answers": answers
     });

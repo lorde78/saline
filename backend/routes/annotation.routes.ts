@@ -25,7 +25,7 @@ router.delete('/', async function (req, res, next) {
     const deleteAnnotation = await database.annotation.delete({
         where: {
             id: id,
-          },
+        },
     })
     res.json({
         message: 'annotation deleted',
@@ -63,9 +63,9 @@ router.get('/', async function (req, res, next) {
             OR: [
                 { id: id, },
                 { lessonId: lessonId },
-              ],
-          },
-      })
+            ],
+        },
+    })
     res.json({
         "annotations": annotations
     });

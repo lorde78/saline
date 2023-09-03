@@ -62,8 +62,8 @@ router.get('/', async function (req, res, next) {
             OR: [
                 { videoId: id },
                 { lessonId: id },
-              ],
-          },
+            ],
+        },
     })
     res.json({
         "videos": videos
