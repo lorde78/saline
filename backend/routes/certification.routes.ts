@@ -31,9 +31,29 @@ router.delete('/', async function (req, res, next) {
     });
 });
 
+router.put('/', async function (req, res, next) {
+    const { id } = req.query;
+
+    if (!id) {
+        res.status(400);
+        throw new Error('You must provide an id or lessonId.');
+    }
+
+    const updateCertification = await database.certification.update({
+        where: {
+            id: id,
+        },
+        data: req.body
+    })
+
+    res.json({
+        message: 'certification updated',
+    });
+});
+
 router.get('/', async function (req, res, next) {
     const { id, userId } = req.query;
-    if (!id, !userId) {
+    if (!id || !userId) {
         res.status(400);
         throw new Error('You must provide an id ');
     }
@@ -42,8 +62,8 @@ router.get('/', async function (req, res, next) {
             OR: [
                 { certificationId: id },
                 { userId: userId },
-              ],
-          },
+            ],
+        },
     })
     res.json({
         "certifications": certifications
