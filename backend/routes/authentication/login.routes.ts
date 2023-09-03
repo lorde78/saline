@@ -57,9 +57,7 @@ router.put('/', async function (req, res, next) {
         where: {
           email: email,
         },
-        data: {
-          name: 'Viola the Magnificent',
-        },
+        data: req.body,
       });
 
       res.json({
