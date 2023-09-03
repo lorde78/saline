@@ -20,6 +20,7 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: 'saline_db'
+      MYSQL_ROOT_USERNAME: 'root'
       MYSQL_ROOT_PASSWORD: 'root'
     container_name: saline_database
     ports: ['3306:3306']
