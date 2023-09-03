@@ -71,9 +71,7 @@ model Classroom {
   title      String?
   createdAt  DateTime   @default(now())
   lastUpdate DateTime   @updatedAt
-  // students   User[]
   lessons    Lesson[]
-  // autor      User?      @relation("ClassroomUser", fields: [id], references: [id])
   userId     Int?
   trainingId Int?
   author       User?      @relation( fields: [userId], references: [id])
