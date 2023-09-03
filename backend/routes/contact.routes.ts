@@ -1,8 +1,8 @@
+var express = require('express');
 var nodemailer = require('nodemailer');
-var nodeoutlook = require('nodejs - nodemailer - outlook');
-const app = express();
+var router = express.Router();
 
-app.get('/contact', function (req, res) {
+router.get('/', function (req, res) {
     const { user, to, subject, content } = req.body;
 
     let transporter = nodemailer.createTransport({
@@ -13,7 +13,9 @@ app.get('/contact', function (req, res) {
         }
     });
 
-    let mailOptions = {
+    if(user && to && subject && content) {
+
+      let mailOptions = {
         from: user,
         to: to.join(","),
         subject:subject ,
@@ -25,7 +27,9 @@ app.get('/contact', function (req, res) {
           console.log(err);
         }
       });
+    }
 
+      res.send(['Votre demande a été envoyée'])
 });
 
 module.exports = router;
