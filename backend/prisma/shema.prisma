@@ -56,7 +56,7 @@ model Lesson {
   nbCompleted     Int?
   userId          Int?
   user            User?          @relation(fields: [userId], references: [id])
-  // tags            Tag[]
+  tags            Tag[]
   trainings       Training[]
   comments        Comment[]
   classrooms      Classroom[]
@@ -97,9 +97,9 @@ model Training {
   nbViews         Int?
   nbrCompleted    Int?
   nbrCertified    Int?
-  Lessons         Lesson[]
+  lessons         Lesson[]
   classrooms      Classroom[]
-  Tags            Tag[]
+  tags            Tag[]
   // Subscriptions   Subscription[]
   Discounts       Discount[]
 }
@@ -146,10 +146,10 @@ model Annotation {
 model Tag {
   id             Int  @id @default(autoincrement())
   title       String?
-  // lessons       Lesson[]
   trainings   Training[]
   videos      Video[]
   shortVideos ShortVideo[]
+  lessons    Lesson[]
 }
 
 // model Subscription {
