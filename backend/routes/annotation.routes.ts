@@ -25,28 +25,32 @@ router.delete('/', async function (req, res, next) {
     const deleteAnnotation = await database.annotation.delete({
         where: {
             id: id,
-          },
+        },
     })
     res.json({
         message: 'annotation deleted',
     });
 });
 
-// router.put('/', async function (req, res, next) {
+router.put('/', async function (req, res, next) {
+    const { id } = req.query;
 
-//     const updateannotation = await database.annotation.update({
-//         where: {
-//             email: 'viola@prisma.io',
-//         },
-//         data: {
-//             name: 'Viola the Magnificent',
-//         },
-//     })
+    if (!id) {
+        res.status(400);
+        throw new Error('You must provide an id or lessonId.');
+    }
 
-//     res.json({
-//         message: 'annotation updated',
-//     });
-// });
+    const updateannotation = await database.annotation.update({
+        where: {
+            id: id,
+        },
+        data: req.body
+    })
+
+    res.json({
+        message: 'annotation updated',
+    });
+});
 
 router.get('/', async function (req, res, next) {
     const { id, lessonId } = req.query;
@@ -59,9 +63,9 @@ router.get('/', async function (req, res, next) {
             OR: [
                 { id: id, },
                 { lessonId: lessonId },
-              ],
-          },
-      })
+            ],
+        },
+    })
     res.json({
         "annotations": annotations
     });
