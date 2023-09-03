@@ -51,4 +51,20 @@ router.post('/', async function (req, res, next) {
 
 });
 
+router.put('/', async function (req, res, next) {
+    const { email, password } = req.body;
+    const updateUser = await database.user.update({
+        where: {
+          email: email,
+        },
+        data: {
+          name: 'Viola the Magnificent',
+        },
+      });
+
+      res.json({
+        message: 'User updated',
+    });
+});
+
 module.exports = router;
