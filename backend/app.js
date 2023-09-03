@@ -10,6 +10,18 @@ var loginRouter = require('./routes/authentication/login.routes.ts');
 var answerRouter = require('./routes/answer.routes.ts');
 var lessonRouter = require('./routes/lesson.routes.ts');
 var contactRouter = require('./routes/contact.routes.ts');
+var annotationRouter = require('./routes/annotation.routes.ts');
+var certificationRouter = require('./routes/certification.routes.ts');
+var classroomRouter = require('./routes/classroom.routes.ts');
+var commentRouter = require('./routes/comment.routes.ts');
+var contactRouter = require('./routes/contact.routes.ts');
+var discountRouter = require('./routes/discount.routes.ts');
+var lessonRouter = require('./routes/lesson.routes.ts');
+var shortvideoRouter = require('./routes/shortvideo.routes.ts');
+var subscriptionRouter = require('./routes/subscription.routes.ts');
+var tagRouter = require('./routes/tag.routes.ts');
+var trainingRouter = require('./routes/training.routes.ts');
+var videoRouter = require('./routes/video.routes.ts');
 
 var app = express();
 
@@ -30,10 +42,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
+app.use('/annotation', annotationRouter);
 app.use('/user', loginRouter);
 app.use('/answer', answerRouter);
 app.use('/lesson', lessonRouter);
 app.use('/contact', contactRouter);
+app.use('/certification', certificationRouter);
+app.use('/lesson', lessonRouter);
+app.use('/contact', contactRouter);
+app.use('/shortvideo', shortvideoRouter);
+app.use('/tag', tagRouter);
+app.use('/training', trainingRouter);
+app.use('/video', videoRouter);
+app.use('/comment', commentRouter);
+app.use('/discount', discountRouter);
+app.use('/subscription', subscriptionRouter);
+app.use('/classroom', classroomRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
