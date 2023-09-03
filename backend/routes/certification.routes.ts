@@ -62,8 +62,8 @@ router.get('/', async function (req, res, next) {
             OR: [
                 { certificationId: id },
                 { userId: userId },
-              ],
-          },
+            ],
+        },
     })
     res.json({
         "certifications": certifications
