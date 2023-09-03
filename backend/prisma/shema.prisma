@@ -17,6 +17,7 @@ model User {
   token          String?
   profilePicture String?
   createdAt      DateTime       @default(now())
+  lastUpdate DateTime   @updatedAt
   lastConnection DateTime?
   roles          Json
   phoneNumber    String?
@@ -70,7 +71,7 @@ model Classroom {
   id             Int  @id @default(autoincrement())
   title      String?
   createdAt  DateTime   @default(now())
-  lastUpdate DateTime   @default(now())
+  lastUpdate DateTime   @updatedAt
   // students   User[]
   lessons    Lesson[]
   // autor      User?      @relation("ClassroomUser", fields: [id], references: [id])
@@ -86,7 +87,7 @@ model Training {
   description     String?
   difficultyLevel String?
   createdAt       DateTime       @default(now())
-  lastUpdate      DateTime       @default(now())
+  lastUpdate      DateTime       @updatedAt
   accesibility    Boolean
   price           Int?
   duration        String?
@@ -107,7 +108,7 @@ model Comment {
   id             Int  @id @default(autoincrement())
   content     String?
   createdAt   DateTime @default(now())
-  lastUpdate  DateTime @default(now())
+  lastUpdate  DateTime @updatedAt
   nbUpvotes   Int?     @default(0)
   nbDownvotes Int?
   userId      Int?
@@ -121,7 +122,7 @@ model Answer {
   id         String   @id @unique @default(uuid())
   content    String?
   createdAt  DateTime @default(now())
-  lastUpdate DateTime @default(now())
+  lastUpdate DateTime @updatedAt
   commentId  Int?
   userId     Int?
   validation Boolean
@@ -133,7 +134,7 @@ model Annotation {
   id         String   @id @unique @default(uuid())
   content    String?
   createdAt  DateTime @default(now())
-  lastUpdate DateTime @default(now())
+  lastUpdate DateTime @updatedAt
   userId     Int?
   lessonId   Int?
   author      User?     @relation(fields: [userId], references: [id])
@@ -156,7 +157,7 @@ model Subscription {
   subscriptionStatus Boolean
   price              Int?
   createdAt          DateTime   @default(now())
-  lastUpdate         DateTime   @default(now())
+  lastUpdate         DateTime   @updatedAt
   lessons            Lesson[]
   trainings          Training[]
   discounts          Discount[]
@@ -173,7 +174,7 @@ model Discount {
   endDate        DateTime?
   discountStatus Boolean
   createdAt      DateTime   @default(now())
-  lastUpdate     DateTime   @default(now())
+  lastUpdate     DateTime   @updatedAt
   userId         Int?
   author         User?      @relation(fields: [userId], references: [id])
   lessons        Lesson[]
@@ -187,7 +188,7 @@ model Video {
   title       String?
   url         String?
   createdAt   DateTime     @default(now())
-  lastUpdate  DateTime     @default(now())
+  lastUpdate  DateTime     @updatedAt
   tags        Tag[]
   lessons    Lesson[]
   shortVideos ShortVideo[]
@@ -198,7 +199,7 @@ model ShortVideo {
   startTime  String?
   endTime    String?
   createdAt  DateTime @default(now())
-  lastUpdate DateTime @default(now())
+  lastUpdate DateTime @updatedAt
   tags       Tag[]
   videoId Int?
   video      Video?   @relation(fields: [videoId], references: [id])
