@@ -4,7 +4,7 @@ const { database } = require('../config/db.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { content, userId, nbUpVotes, nbDownVotes, lessonId  } = req.body;
+    const { content, userId, nbUpVotes, nbDownVotes, lessonId } = req.body;
     const comment = await database.comment.create({
         data: {
             content: content,
@@ -26,7 +26,7 @@ router.delete('/', async function (req, res, next) {
     const deleteComment = await database.comment.delete({
         where: {
             id: id,
-          },
+        },
     })
     res.json({
         message: 'Comment deleted',
@@ -64,9 +64,9 @@ router.get('/', async function (req, res, next) {
             OR: [
                 { id: id, },
                 { lessonId: lessonId },
-              ],
-          },
-      })
+            ],
+        },
+    })
     res.json({
         "comments": comments
     });

@@ -67,8 +67,8 @@ router.get('/', async function (req, res, next) {
             OR: [
                 { subscriptionId: id },
                 { userId: id },
-              ],
-          },
+            ],
+        },
     })
     res.json({
         "subscriptions": subscriptions
