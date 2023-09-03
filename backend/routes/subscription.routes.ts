@@ -65,7 +65,7 @@ router.get('/', async function (req, res, next) {
     const subscriptions = await database.subscription.findMany({
         where: {
             OR: [
-                { subscriptionId: id },
+                { id: id },
                 { userId: id },
             ],
         },
