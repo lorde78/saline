@@ -2,7 +2,6 @@
 FROM node:18-alpine as base
 
 WORKDIR /var/www/salinebackend
-VOLUME test-ci-cd/backend
 COPY  . .
 RUN npm install
 EXPOSE 3001
