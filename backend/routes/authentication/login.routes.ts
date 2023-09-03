@@ -53,6 +53,13 @@ router.post('/', async function (req, res, next) {
 
 router.put('/', async function (req, res, next) {
     const { email, password } = req.body;
+    if( password ) {
+        const { accessToken } = generateToken({ email, password });
+        req.body.token = accessToken;
+
+        const hashedPassword = await bcrypt.hashSync(password, 12);
+        req.body.password = hashedPassword;
+    }
     const updateUser = await database.user.update({
         where: {
             email: email,
