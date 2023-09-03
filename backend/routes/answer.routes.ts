@@ -32,6 +32,26 @@ router.delete('/', async function (req, res, next) {
     });
 });
 
+router.put('/', async function (req, res, next) {
+    const { id } = req.query;
+
+    if (!id) {
+        res.status(400);
+        throw new Error('You must provide an id or lessonId.');
+    }
+
+    const updateAnswer = await database.answer.update({
+        where: {
+            id: id,
+        },
+        data: req.body
+    })
+
+    res.json({
+        message: 'answer updated',
+    });
+});
+
 router.get('/', async function (req, res, next) {
     const { id, commentId } = req.query;
     if (!id || !commentId) {
