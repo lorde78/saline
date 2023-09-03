@@ -25,15 +25,15 @@ model User {
   progress       Json
   birthDate      DateTime?
   postalAddress  String?
-  Certification  Certification[]
-  Comment        Comment[]
-  Answer         Answer[]
-  Lesson         Lesson[]
-  Training       Training[]
-  Annotation     Annotation[]
-  Classroom      Classroom[]
-  Discount       Discount[]
-  // Subscription   Subscription[]
+  Certifications  Certification[]
+  Comments        Comment[]
+  Answers         Answer[]
+  Lessons         Lesson[]
+  Trainings       Training[]
+  Annotations     Annotation[]
+  Classrooms      Classroom[]
+  Discounts       Discount[]
+  Subscriptions   Subscription[]
 }
 
 model Certification {
@@ -60,7 +60,7 @@ model Lesson {
   trainings       Training[]
   comments        Comment[]
   classrooms      Classroom[]
-  // subscriptions   Subscription[]
+  subscriptions   Subscription[]
   videos          Video[]
   discounts       Discount[]
   annotations      Annotation[]
@@ -100,8 +100,8 @@ model Training {
   lessons         Lesson[]
   classrooms      Classroom[]
   tags            Tag[]
-  // Subscriptions   Subscription[]
-  Discounts       Discount[]
+  subscriptions   Subscription[]
+  discounts       Discount[]
 }
 
 model Comment {
@@ -113,8 +113,8 @@ model Comment {
   nbDownvotes Int?
   userId      Int?
   lessonId      Int?
-  Lesson      Lesson?    @relation(fields: [lessonId], references: [id])
-  Answer      Answer[]
+  lesson      Lesson?    @relation(fields: [lessonId], references: [id])
+  answer      Answer[]
   user        User?     @relation(fields: [userId], references: [id], onDelete: NoAction)
 }
 
@@ -152,20 +152,21 @@ model Tag {
   lessons    Lesson[]
 }
 
-// model Subscription {
-//   id             Int  @id @default(autoincrement())
-//   title              String?
-//   subscriptionType   String?
-//   subscriptionStatus Boolean
-//   price              Int?
-//   createdAt          DateTime   @default(now())
-//   lastUpdate         DateTime   @default(now())
-//   lessons            Lesson[]
-//   trainings          Training[]
-//   user               User?      @relation(fields: [userId], references: [id])
-//   nbSubscribers      Int?
-//   userId Int?
-// }
+model Subscription {
+  id             Int  @id @default(autoincrement())
+  title              String?
+  subscriptionType   String?
+  subscriptionStatus Boolean
+  price              Int?
+  createdAt          DateTime   @default(now())
+  lastUpdate         DateTime   @default(now())
+  lessons            Lesson[]
+  trainings          Training[]
+  discounts          Discount[]
+  user               User?      @relation(fields: [userId], references: [id])
+  nbSubscribers      Int?
+  userId Int?
+}
 
 model Discount {
   id             Int  @id @default(autoincrement())
@@ -181,6 +182,7 @@ model Discount {
   lessons        Lesson[]
   trainings      Training[]
   nbPurchases    Int?
+  subscriptions          Subscription[]
 }
 
 model Video {
