@@ -9,7 +9,6 @@ import {NavLink, useNavigate} from "@remix-run/react";
 import Header_section_page from "~/kits/header_section_page";
 
 export default function Backoffice_edit_assessment() {
-
     const [assessment, setAssessment] = useState({
         studen: "Jean Paul",
         course: "Cour de flute baroke",
@@ -102,7 +101,7 @@ export default function Backoffice_edit_assessment() {
     }
     return (
         <>
-            <Header_section_page title={assessment.studen}/>
+            <Header_section_page numberUndoPage={1}  title={assessment.studen}/>
             <section className={"max_width_container"}>
                 <div className={"assessment_container-open max_width"}>
                     <h1>Contenu :</h1>
