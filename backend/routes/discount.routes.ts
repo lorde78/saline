@@ -4,31 +4,34 @@ const { database } = require('../config/db.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { content, userId, commentId } = req.body;
-    const answer = await database.answer.create({
+    const { title, percentage, startDate, endDate, discountStatus, userId, nbPurchases } = req.body;
+    const discount = await database.discount.create({
         data: {
-            content: content,
             userId: userId,
-            commentId: commentId,
-            validation: false
+            title: title,
+            percentage: percentage,
+            startDate: startDate,
+            endDate: endDate,
+            discountStatus: discountStatus,
+            nbPurchases: nbPurchases
         }
     })
 
     res.json({
-        message: 'Comment added',
+        message: 'discount added',
     });
 
 });
 
 router.delete('/', async function (req, res, next) {
     const { id } = req.query;
-    const deleteComment = await database.answer.delete({
+    const deletediscount = await database.discount.delete({
         where: {
             id: id,
         },
     })
     res.json({
-        message: 'Comment deleted',
+        message: 'discount deleted',
     });
 });
 
@@ -40,7 +43,7 @@ router.put('/', async function (req, res, next) {
         throw new Error('You must provide an id or lessonId.');
     }
 
-    const updateAnswer = await database.answer.update({
+    const updateDiscount = await database.discount.update({
         where: {
             id: id,
         },
@@ -48,26 +51,26 @@ router.put('/', async function (req, res, next) {
     })
 
     res.json({
-        message: 'answer updated',
+        message: 'discount updated',
     });
 });
 
 router.get('/', async function (req, res, next) {
-    const { id, commentId } = req.query;
-    if (!id || !commentId) {
+    const { id, lessonId } = req.query;
+    if (!id || !lessonId) {
         res.status(400);
-        throw new Error('You must provide an id.');
+        throw new Error('You must provide an id ');
     }
-    const answers = await database.answer.findMany({
+    const discounts = await database.discount.findMany({
         where: {
             OR: [
                 { id: id, },
-                { commentId: commentId },
+                { lessonId: lessonId },
             ],
         },
     })
     res.json({
-        "answers": answers
+        "discounts": discounts
     });
 });
 
