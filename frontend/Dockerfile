@@ -3,7 +3,7 @@ FROM node:18-alpine as base
 WORKDIR /var/www/salinefrontend
 COPY . .
 CMD ["npm" , "start"]
-EXPOSE 3000
+EXPOSE 3001
 # DEFAULT SETTINGS
 
 # SETTINGS FOR PROD ENV
@@ -18,5 +18,5 @@ ENV NODE_ENV=development
 RUN npm cache clean --force
 RUN npm install
 RUN npm install nodemon --save-dev
-EXPOSE 3000
+EXPOSE 3001
 # SETTINGS FOR DEV ENV
