@@ -8,7 +8,6 @@ router.post('/', async function (req, res, next) {
     const lesson = await database.lesson.create({
         data: {
             userId: userId,
-            validation: false,
             title: title,
             description: description,
             numberSteps: numberSteps,
@@ -35,6 +34,26 @@ router.delete('/', async function (req, res, next) {
     })
     res.json({
         message: 'lesson deleted',
+    });
+});
+
+router.put('/', async function (req, res, next) {
+    const { id } = req.query;
+
+    if (!id) {
+        res.status(400);
+        throw new Error('You must provide an id or lessonId.');
+    }
+
+    const updateLesson = await database.lesson.update({
+        where: {
+            id: id,
+        },
+        data: req.body
+    })
+
+    res.json({
+        message: 'lesson updated',
     });
 });
 

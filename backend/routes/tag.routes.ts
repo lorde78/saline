@@ -4,30 +4,28 @@ const { database } = require('../config/db.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { title, userId, trainingId } = req.body;
-    const classroom = await database.classroom.create({
+    const { title } = req.body;
+    const tag = await database.tag.create({
         data: {
             title: title,
-            userId: userId,
-            trainingId: trainingId,
         }
     })
 
     res.json({
-        message: 'classroom added',
+        message: 'tag added',
     });
 
 });
 
 router.delete('/', async function (req, res, next) {
     const { id } = req.query;
-    const deleteClassroom = await database.classroom.delete({
+    const deletetag = await database.tag.delete({
         where: {
             id: id,
         },
     })
     res.json({
-        message: 'classroom deleted',
+        message: 'tag deleted',
     });
 });
 
@@ -36,10 +34,10 @@ router.put('/', async function (req, res, next) {
 
     if (!id) {
         res.status(400);
-        throw new Error('You must provide an id or classroomId.');
+        throw new Error('You must provide an id ');
     }
 
-    const updateclassroom = await database.classroom.update({
+    const updatetag = await database.tag.update({
         where: {
             id: id,
         },
@@ -47,7 +45,7 @@ router.put('/', async function (req, res, next) {
     })
 
     res.json({
-        message: 'classroom updated',
+        message: 'tag updated',
     });
 });
 
@@ -57,16 +55,13 @@ router.get('/', async function (req, res, next) {
         res.status(400);
         throw new Error('You must provide an id ');
     }
-    const classrooms = await database.classroom.findMany({
+    const tags = await database.tag.findMany({
         where: {
-            OR: [
-                { id: id },
-                { userId: id },
-            ],
+            tagId: id,
         },
     })
     res.json({
-        "classrooms": classrooms
+        "tags": tags
     });
 });
 

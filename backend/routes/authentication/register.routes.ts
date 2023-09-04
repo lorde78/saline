@@ -23,16 +23,20 @@ router.post('/', async function (req, res, next) {
         return res.status(404).json({ message: 'User already exist' });
     }
 
-    const { accessToken } = generateToken({email,password});
+    const { accessToken } = generateToken({ email, password });
 
-    const user = await database.user.create({ data: {
-        email: email,
-        password: bcrypt.hashSync(password, 12),
-        token: accessToken
-    } })
-    
-    res.json({ 
-        'user' : user,
+    const user = await database.user.create({
+        data: {
+            email: email,
+            password: bcrypt.hashSync(password, 12),
+            token: accessToken,
+            roles: {},
+            progress: {}
+        }
+    })
+
+    res.json({
+        'user': user,
     });
 });
 
