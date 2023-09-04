@@ -49,6 +49,15 @@ body {
     border-radius: 1000px;
 }
 
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(18, 21, 37, 0.3);
+}
+
 /* Title style */
 h1 {
     font-weight: 600;
@@ -139,16 +148,16 @@ a:hover {
 .button::before {
     position: absolute;
     content: '';
-    left: 0;
+    right: 0;
     bottom: 0;
 
     width: 0;
     height: 100%;
     border-radius: 5px;
-    outline: var(--action-color) solid 0;
+    outline: transparent solid 0;
 
     z-index: -1;
-    transition: width .4s ease-in-out;
+    transition: .4s ease-in-out;
 }
 
 .button:hover {
@@ -159,6 +168,7 @@ a:hover {
 }
 
 .button:hover::before {
+    left: 0;
     width: 100%;
     outline: var(--action-color) solid 2px;
 }
