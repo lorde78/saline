@@ -2,7 +2,7 @@
 FROM node:18-alpine as base
 
 WORKDIR /var/www/salinebackend
-COPY  ./package.json .
+COPY . .
 RUN npm install
 EXPOSE 3000
 # DEFAULT SETTINGS
