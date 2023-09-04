@@ -35,13 +35,13 @@ export default function Profil_page() {
         <div className="profile-page">
           {/* <UserInfos src="/assets/images/pdp.png"/> */}
           {/* <Formule subscription="Annuel" /> */}
-          {/* <Accordion title="Vos formations" content="Content 1" picto="ri-book-mark-line" />
+          <Accordion title="Vos formations" content="Content 1" picto="ri-book-mark-line" />
           <Accordion title="Vos commentaires" content="Content 2" picto="ri-message-3-line" />
-          <Accordion title="Vos certifications" content="Content 3" picto="ri-graduation-cap-line" /> */}
+          <Accordion title="Vos certifications" content="Content 3" picto="ri-graduation-cap-line" />
           {/* <EditUserProfile userInfo={userInfo} /> */}
           {/* <EditPassword /> */}
           {/* <Form_register_complementary /> */}
-          <EditFormule />
+          {/* <EditFormule /> */}
         </div>
     )
 }
