@@ -19,7 +19,7 @@ export function links() {
     ]
 }
 
-export default function Backoffice_Trainings_TrainingId() {
+export default function Backoffice_Classroom_ClassroomId_Trainings_TrainingId() {
     return (
         <>
             <Header_section_page numberUndoPage={1}  title={"Créer un parcour"}/>
