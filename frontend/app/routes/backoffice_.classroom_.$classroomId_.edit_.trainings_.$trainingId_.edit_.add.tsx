@@ -6,7 +6,7 @@ import training from "~/styles/backofficeTraining.css";
 import Header_section_page from "~/kits/header_section_page";
 import Backoffice_training from "~/components/backoffice_training";
 import Backoffice_edit_training from "~/components/backoffice_edit_training";
-import {NavLink, useLocation} from "@remix-run/react";
+import Checkbox from "~/kits/checkbox";
 
 
 export function links() {
@@ -18,7 +18,7 @@ export function links() {
     ]
 }
 
-export default function Backoffice_Courses() {
+export default function Backoffice_Classroom_ClassroomId_Edit_Trainings_TrainingId_Edit_Add() {
 
     const [courses, setCourses] = useState([
         {
@@ -29,51 +29,77 @@ export default function Backoffice_Courses() {
             imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
         },
         {
-            id: 0,
+            id: 4,
             title: "Steampunk",
             professor: "Jean Paul",
             description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
             imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
         },
         {
-            id: 0,
+            id: 5,
             title: "Steampunk",
             professor: "Jean Paul",
             description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
             imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
         },
         {
-            id: 0,
+            id: 6,
             title: "Steampunk",
             professor: "Jean Paul",
             description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
             imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
         }
     ])
+    const [coursesAdd, setCoursesAdd] = useState({})
+
+    const checkCourses = (value:boolean, props:any) => {
+        let newCoursesAdd = {...coursesAdd}
+        if (value) {
+            // @ts-ignore
+            newCoursesAdd[props.id] = {
+                id: props.id,
+                value: true
+            }
+        } else {
+            // @ts-ignore
+            delete newCoursesAdd[props.id]
+        }
+        setCoursesAdd(newCoursesAdd)
+        // console.log(newCoursesAdd)
+    }
     return (
         <>
-            <Header_section_page numberUndoPage={1}  title={"Cours"}/>
+            <Header_section_page numberUndoPage={1}  title={"Ajouter un cour"}/>
             <section className={"max_width_container"}>
                 <div className={"backoffice_training_preview_container max_width"}>
-                    <div className={"button_header"}>
-                        <NavLink className={"button"} to={'0'}>
-                            Créer un cour
-                        </NavLink>
-                    </div>
+                    <button className={"button"}>Ajouter les cours</button>
                     {
-                        courses.map((course, i) => {
+                        courses.map((course) => {
+                            let id = course.id
                             return (
-                                <Backoffice_edit_training
-                                    id={course.id}
-                                    title={course.title}
-                                    professor={course.professor}
-                                    imgLink={course.imgLink}
-                                    description={course.description}
-                                    showButton={true}
-                                />
+                                <div className={"course_preview_container"}>
+                                    <Checkbox
+                                        name={"checkbox"}
+                                        type={"checkbox"}
+                                        text={""}
+                                        setValue={checkCourses}
+                                        propsSetValue={{id: id}}
+                                        // @ts-ignore
+                                        value={coursesAdd[id] ? coursesAdd[id].value : false}
+                                    />
+                                    <Backoffice_edit_training
+                                        id={course.id}
+                                        title={course.title}
+                                        professor={course.professor}
+                                        imgLink={course.imgLink}
+                                        description={course.description}
+                                        showButton={false}
+                                    />
+                                </div>
                             )
                         })
                     }
+                    <button className={"button"}>Ajouter les cours</button>
                 </div>
             </section>
         </>
