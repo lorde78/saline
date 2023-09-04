@@ -5,6 +5,7 @@ import input from "~/styles/input.css";
 import training from "~/styles/backofficeTraining.css";
 import Header_section_page from "~/kits/header_section_page";
 import Backoffice_training from "~/components/backoffice_training";
+import {NavLink} from "@remix-run/react";
 
 
 export function links() {
@@ -16,7 +17,7 @@ export function links() {
     ]
 }
 
-export default function BackofficeClassroomClassroomId_Trainings() {
+export default function Backoffice_Classroom_ClassroomId_Edit_Trainings() {
 
     const [trainings, setTrainings] = useState([
         {
@@ -29,12 +30,12 @@ export default function BackofficeClassroomClassroomId_Trainings() {
     ])
     return (
         <>
-            <Header_section_page title={"Parcour"}/>
+            <Header_section_page numberUndoPage={1}  title={"Parcour"}/>
             <section className={"max_width_container"}>
                 <div className={"backoffice_training_preview_container max_width"}>
-                    <button className={"button"}>
+                    <NavLink to={"0"} className={"button"}>
                         Ajouter un parcour
-                    </button>
+                    </NavLink>
                     {
                         trainings.map((training, i) => {
                             return (
