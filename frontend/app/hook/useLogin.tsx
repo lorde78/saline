@@ -1,7 +1,7 @@
 import { AxiosInstance } from "~/Axios/axiosInstance";
 
 export default function useLogin() {
-    return (username: string,password: string) => {
+    return (email: string,password: string) => {
         return AxiosInstance({
             url: '/login',
             method: 'post',
@@ -9,7 +9,7 @@ export default function useLogin() {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             data: new URLSearchParams({
-                username: username,
+                email: email,
                 password: password
             })
         })
