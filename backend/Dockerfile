@@ -2,17 +2,18 @@
 FROM node:18-alpine as base
 
 WORKDIR /var/www/salinebackend
-COPY  . .
+COPY  ./package*.json /var/www/salinebackend/
 RUN npm install
+RUN npx prisma generate
 EXPOSE 3001
 # DEFAULT SETTINGS
 
 # SETTINGS FOR PROD ENV
 FROM base as production
 ENV NODE_ENV=production
-COPY . .
-RUN npm ci
-CMD ["npm", "start"]
+# COPY . .
+# RUN npm ci
+# CMD ["npm", "start"]
 # SETTINGS FOR PROD ENV
 
 # SETTINGS FOR DEV ENV
