@@ -7,7 +7,7 @@ type HeaderProps = {
     title: string;
 };
 
-const Header: React.FC<HeaderProps> = ({title}) => {
+export default function Header({title}: HeaderProps) {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [windowInnerWidth, setWindowInnerWidth] = useState(0);
     const toggleMenu = () => {
@@ -52,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({title}) => {
                         </ul>
                     </div>
                 </div>
-                <LanguageSelect/>
+                {/*<LanguageSelect/>*/}
                 <div className={`burger burger-button ${isMenuOpen ? "croix" : ""}`} onClick={toggleMenu}>
                     <div className="line top"></div>
                     <div className="line middle"></div>
@@ -61,8 +61,5 @@ const Header: React.FC<HeaderProps> = ({title}) => {
 
             </nav>
         </header>
-    )
-        ;
-};
-
-export default Header;
+    );
+}

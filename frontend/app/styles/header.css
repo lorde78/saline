@@ -2,7 +2,6 @@ header {
 	position: sticky;
 	top: 0;
 	background-color: rgba(255, 255, 255, 0.75);
-	color: var(--secondary-color);
 	padding: 20px 40px;
 }
 
@@ -10,6 +9,7 @@ header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	color: var(--secondary-color);
 }
 
 .menu_initiale {
