@@ -7,16 +7,16 @@
     "start:dev": "nodemon --ignore node_modules ./bin/www",
     "dev": "nodemon --config nodemon.json src/index.ts",
     "dev:debug": "nodemon --config nodemon.json --inspect-brk src/index.ts",
-    "restart": "docker-compose down && docker-compose up -d",
+    "restart": "docker-compose down express && docker-compose up -d express",
     "kill": "docker system prune -a",
     "tsw": "tsc --watch",
     "prisma-install": "npm install @prisma/client",
     "prs-run": "cd node_modules/.prisma/client; npx prisma generate",
-    "prs-migrate": "npx prisma migrate dev --schema=./prisma/shema.prisma",
+    "prs-migrate": "npx prisma migrate dev --schema=./prisma/schema.prisma",
     "faker-data": "npx prisma db seed",
     "debug-routes": "DEBUG=express:router node app.js",
-    "db-push": "npx prisma db push --schema=./prisma/shema.prisma",
-    "prisma-reset": "npx prisma migrate reset --schema=./prisma/shema.prisma"
+    "db-push": "npx prisma db push --schema=./prisma/schema.prisma",
+    "prisma-reset": "npx prisma migrate reset --schema=./prisma/schema.prisma"
   },
   "nodemonConfig": {
     "legacyWatch": true,

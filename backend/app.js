@@ -22,7 +22,7 @@ var subscriptionRouter = require('./routes/subscription.routes.ts');
 var tagRouter = require('./routes/tag.routes.ts');
 var trainingRouter = require('./routes/training.routes.ts');
 var videoRouter = require('./routes/video.routes.ts');
-var userRouter = requite('./routes/users.routes.ts');
+var userRouter = require('./routes/users.routes.ts');
 
 var app = express();
 
