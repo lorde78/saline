@@ -10,6 +10,7 @@ import {useEffect, useState} from "react";
 import Builder_step_exercice from "~/components/builder_step_exercice";
 import Builder_step_video from "~/components/builder_step_video";
 import Builder_step_review from "~/components/builder_step_review";
+import Header_section_page from "~/kits/header_section_page";
 
 export function links() {
     return [
@@ -41,7 +42,7 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
         if (value === "video") {
             newCourseData[stepSelected].data = {
                 video: "",
-                infoDescription:"",
+                infoDescription: "",
                 description: ""
             }
         } else if (value === "exercise/qcm") {
@@ -63,8 +64,7 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
                 "bind2": "",
             }]
         } else if (value === "review") {
-            newCourseData[stepSelected].data = {
-            }
+            newCourseData[stepSelected].data = {}
         }
         setCoursesData(newCourseData)
     }
@@ -74,56 +74,59 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
     }, [courseData])
 
     return (
-        <div className={"builder_container"}>
-            <Builder_navigation
-                courseData={courseData}
-                setCoursesData={setCoursesData}
-                stepSelected={stepSelected}
-                setStepSelected={setStepSelected}
-                typeExercise={typeExercise}
-                exerciseSelected={exerciseSelected}
-                setExerciseSelected={setExerciseSelected}
-            />
-            {
-                courseData[stepSelected].type === "video" ?
-                    <Builder_step_video
-                        courseData={courseData}
-                        setCoursesData={setCoursesData}
-                        stepSelected={stepSelected}
-                    />
-                    :
-                    courseData[stepSelected].type === "exercise/qcm" ?
-                        <Builder_step_exercice
+        <>
+            <Header_section_page title={"CourName"} numberUndoPage={2}/>
+            <div className={"builder_container"}>
+                <Builder_navigation
+                    courseData={courseData}
+                    setCoursesData={setCoursesData}
+                    stepSelected={stepSelected}
+                    setStepSelected={setStepSelected}
+                    typeExercise={typeExercise}
+                    exerciseSelected={exerciseSelected}
+                    setExerciseSelected={setExerciseSelected}
+                />
+                {
+                    courseData[stepSelected].type === "video" ?
+                        <Builder_step_video
                             courseData={courseData}
                             setCoursesData={setCoursesData}
                             stepSelected={stepSelected}
-                            type={"qcm"}
                         />
                         :
-                        courseData[stepSelected].type === "exercise/bind_list" ?
+                        courseData[stepSelected].type === "exercise/qcm" ?
                             <Builder_step_exercice
                                 courseData={courseData}
                                 setCoursesData={setCoursesData}
                                 stepSelected={stepSelected}
-                                type={"bind_list"}
+                                type={"qcm"}
                             />
                             :
-                            courseData[stepSelected].type === "review" ?
-                                <Builder_step_review
+                            courseData[stepSelected].type === "exercise/bind_list" ?
+                                <Builder_step_exercice
                                     courseData={courseData}
                                     setCoursesData={setCoursesData}
                                     stepSelected={stepSelected}
+                                    type={"bind_list"}
                                 />
                                 :
-                                <Builder_select_step
-                                    courseData={courseData}
-                                    stepSelected={stepSelected}
-                                    setValue={selectTypeStep}
-                                />
-            }
+                                courseData[stepSelected].type === "review" ?
+                                    <Builder_step_review
+                                        courseData={courseData}
+                                        setCoursesData={setCoursesData}
+                                        stepSelected={stepSelected}
+                                    />
+                                    :
+                                    <Builder_select_step
+                                        courseData={courseData}
+                                        stepSelected={stepSelected}
+                                        setValue={selectTypeStep}
+                                    />
+                }
 
 
-        </div>
+            </div>
+        </>
     )
         ;
 }
