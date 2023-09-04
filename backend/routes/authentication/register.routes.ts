@@ -7,7 +7,10 @@ const { generateToken } = require('../../utils/jwt.utils.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { email, password, firstname, profilePicture, lastConnection, lastUpdate, phoneNumber, genre, nationality, name, birthdate, postalAddress } = req.body;
+    const { email, password, firstname, profilePicture, lastConnection, lastUpdate, phoneNumber, genre, nationality, name, birthdate, postalAddress, roles } = req.body;
+    const roleDefault = ["ROLE_USER"];
+    let userRoles;
+
     if (!email || !password) {
         res.status(400);
         throw new Error('You must provide an email and a password.');
@@ -21,6 +24,10 @@ router.post('/', async function (req, res, next) {
 
     if (existingUser) {
         return res.status(404).json({ message: 'User already exist' });
+    }
+
+    if (roles) {
+        userRoles = { data: roleDefault.concat(roles.data) } 
     }
 
     const { accessToken } = generateToken({ email, password });
@@ -40,7 +47,7 @@ router.post('/', async function (req, res, next) {
             nationality: nationality,
             birthdate: birthdate,
             postalAddress: postalAddress,
-            roles: {},
+            roles: userRoles,
             progress: {}
         }
     })
