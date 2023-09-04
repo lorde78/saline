@@ -12,13 +12,25 @@ router.get('/', async function (req, res, next) {
     } else {
         users = await database.user.findMany({
             where: {
-                userId: id,
+                id: parseInt(id),
             },
         })
     }
 
     res.json({
         "users": users
+    });
+});
+
+router.delete('/', async function (req, res, next) {
+    const { id } = req.query;
+    const deleteLesson = await database.user.delete({
+        where: {
+            id: parseInt(id),
+        },
+    })
+    res.json({
+        message: 'user deleted',
     });
 });
 
