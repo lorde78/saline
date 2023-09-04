@@ -8,6 +8,8 @@ services:
     environment:
       NODE_ENV: development
       DEBUG: nodejs-docker-express:*
+    volumes: ['./backend:/var/www/salinebackend','/var/www/salinebackend/node_modules/']
+
   remix:
     build:
       target: ${ENV_TARGET}
