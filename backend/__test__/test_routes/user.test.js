@@ -1,17 +1,29 @@
-const express = require('express');
-const app = express();
-const request = require('supertest'); 
+const app = require("../../app");
+const request = require('supertest');
+
+
+
 
 describe('Post Endpoints', () => {
-  it('should update user', async () => {
+  it('should login user', async () => {
     const res = await request(app)
-      .get('/login')
+      .post('/login')
       .send({
-        email: "test@test.com",
-        firstName: "test is cool"
-      });
-    // expect(res.statusCode).toEqual(200)
-    expect(res.status).toBe(200);
-    // expect(res.body).toHaveProperty('message');
+        email: "test12@test.com",
+        password: "test12"
+      })
+      .expect(200)
+  });
+});
+
+describe('Put Endpoints', () => {
+  it('should login user', async () => {
+    const res = await request(app)
+      .put('/login')
+      .send({
+        email: "test12@test.com",
+        password: "test12-new"
+      })
+      .expect(200)
   });
 });
