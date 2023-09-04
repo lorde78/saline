@@ -16,7 +16,7 @@ export function links() {
     ]
 }
 
-export default function BackofficeClassroomClassroomIdAssessments_EvaluationId() {
+export default function Backoffice_Classroom_ClassroomId_Edit_Assessments_EvaluationId() {
 
     return (
             <div className={"backoffice_assessment_id_container"}>
