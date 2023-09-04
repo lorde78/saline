@@ -1,0 +1,17 @@
+.comment_container {
+
+}
+
+.comment-header,
+.comment-footer {
+    display: flex;
+}
+
+.comment-username {
+    font-size: 14px;
+}
+
+.comment_response_button {
+    font-size: 12px;
+    opacity: .6;
+}
