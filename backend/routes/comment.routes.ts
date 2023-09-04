@@ -4,7 +4,7 @@ const { database } = require('../config/db.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { content, userId, nbUpVotes, nbDownVotes, lessonId  } = req.body;
+    const { content, userId, nbUpVotes, nbDownVotes, lessonId } = req.body;
     const comment = await database.comment.create({
         data: {
             content: content,
@@ -26,10 +26,30 @@ router.delete('/', async function (req, res, next) {
     const deleteComment = await database.comment.delete({
         where: {
             id: id,
-          },
+        },
     })
     res.json({
         message: 'Comment deleted',
+    });
+});
+
+router.put('/', async function (req, res, next) {
+    const { id } = req.query;
+
+    if (!id) {
+        res.status(400);
+        throw new Error('You must provide an id or lessonId.');
+    }
+
+    const updateComment = await database.comment.update({
+        where: {
+            id: id,
+        },
+        data: req.body
+    })
+
+    res.json({
+        message: 'comment updated',
     });
 });
 
@@ -44,9 +64,9 @@ router.get('/', async function (req, res, next) {
             OR: [
                 { id: id, },
                 { lessonId: lessonId },
-              ],
-          },
-      })
+            ],
+        },
+    })
     res.json({
         "comments": comments
     });
