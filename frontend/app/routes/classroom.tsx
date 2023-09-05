@@ -34,6 +34,7 @@ export default function Classroom() {
         <>
             <Header/>
             <main className={"max_width_container"}>
+                <h1>Liste des classes</h1>
                 <div className={"backoffice_classroom_preview_container max_width"}>
                     {
                         classrooms.map((classroom, i) => {

@@ -12,8 +12,9 @@ header {
 }
 .max_width_container {
     display: flex;
-    justify-content: center;
-    align-items: start;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
     width: 100%;
     min-height: 80vh;
     padding-bottom: 20px;
@@ -193,7 +194,7 @@ a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80px;
+    height: 88px;
     background-color: var(--secondary-color);
     padding: 20px;
 }
