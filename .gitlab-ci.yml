@@ -33,7 +33,7 @@ services:
 
 .deploy-job:
   stage: deploy
-    only:
+  only:
     - main
     - dev
     - preprod
