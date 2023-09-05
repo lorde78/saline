@@ -1,8 +1,12 @@
 # DEFAULT SETTINGS
 FROM node:18-alpine as base
 WORKDIR /var/www/salinebackend
-EXPOSE 3000
-# DEFAULT SETTINGS
+# COPY  ./package*.json /var/www/salinebackend/
+COPY  . .
+RUN npm install
+RUN npx prisma db push 
+EXPOSE 3001
+# DEFAULT SETTINGS 
 
 # SETTINGS FOR PROD ENV
 FROM base as production
