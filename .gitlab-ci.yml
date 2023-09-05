@@ -36,8 +36,8 @@ services:
     - ssh-add "$ID_RSA"
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
-    - ssh-keyscan ${SERVER_IP} >> ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
+    # - ssh-keyscan ${SERVER_IP} >> ~/.ssh/known_hosts
+    # - chmod 644 ~/.ssh/known_hosts
 
 
 # BUILD
