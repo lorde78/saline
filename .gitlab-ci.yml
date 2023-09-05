@@ -32,11 +32,11 @@ services:
     - cat "$ID_RSA"
     - eval $(ssh-agent -s)
     # - echo "${ID_RSA}" | tr -d '\r' | ssh-add -
-    - chmod 400 "$ID_RSA"
-    - ssh-add "$ID_RSA"
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - echo "$ID_RSA" | ssh-add -
+    # - chmod 400 "$ID_RSA"
+    - chmod 400 /builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA
+    - ssh-add "$ID_RSA" | tr -d '\r'
+    # - mkdir -p ~/.ssh
+    # - chmod 700 ~/.ssh
     # - echo "$ID_RSA" > id_rsa  # Save the private key to a file
     # - chmod 600 id_rsa
     # - ssh-keyscan ${SERVER_IP} >> ~/.ssh/known_hosts
