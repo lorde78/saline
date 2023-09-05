@@ -16,7 +16,7 @@ model User {
   token          String?
   profilePicture String?
   createdAt      DateTime       @default(now())
-  lastUpdate DateTime   @updatedAt
+  lastUpdate     DateTime   @updatedAt
   lastConnection DateTime?
   roles          Json
   phoneNumber    String?
