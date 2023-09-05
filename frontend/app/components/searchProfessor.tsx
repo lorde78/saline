@@ -1,11 +1,6 @@
-import React, {useState} from "react";
 import "~/styles/searchProfessor.css";
-// import Tag from "./tag";
 
-type SearchProfessorProps = {
-  };
-  
-  const SearchProfessor: React.FC<SearchProfessorProps> = ({  }) => {
+  export default function SearchProfessor() {
 
 
     return (
@@ -30,6 +25,5 @@ type SearchProfessorProps = {
         </div>
     );
   };
-  
-  export default SearchProfessor;
+
   

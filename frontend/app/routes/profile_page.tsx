@@ -13,6 +13,7 @@ import inputStyles from "~/styles/input.css";
 import EditPassword from "~/components/editPassword";
 import EditFormule from '~/components/editFormule';
 import formuleStyles from "~/styles/formule.css";
+import Formation from '~/kits/formations';
 
 
 
@@ -35,9 +36,10 @@ export default function Profil_page() {
         <div className="profile-page">
           {/* <UserInfos src="/assets/images/pdp.png"/> */}
           {/* <Formule subscription="Annuel" /> */}
-          <Accordion title="Vos formations" content="Content 1" picto="ri-book-mark-line" />
-          <Accordion title="Vos commentaires" content="Content 2" picto="ri-message-3-line" />
-          <Accordion title="Vos certifications" content="Content 3" picto="ri-graduation-cap-line" />
+          {/* <Accordion type="comment" title="Vos formations" picto="ri-book-mark-line" />
+          <Accordion type="comment" title="Vos commentaires" picto="ri-message-3-line" />
+          <Accordion type="comment" title="Vos certifications" picto="ri-graduation-cap-line" /> */}
+          <Formation />
           {/* <EditUserProfile userInfo={userInfo} /> */}
           {/* <EditPassword /> */}
           {/* <Form_register_complementary /> */}
