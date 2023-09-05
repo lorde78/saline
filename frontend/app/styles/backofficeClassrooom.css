@@ -16,26 +16,30 @@
     border-radius: 8px;
     overflow: hidden;
 }
+
 .backoffice_classroom_container .classroom_image {
     width: 100%;
     height: 200px;
 }
+
 .backoffice_classroom_container .classroom_info {
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding: 20px;
 }
+
 .backoffice_classroom_container .classroom_image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
+
 .backoffice_classroom_container .classroom_header_info,
 .backoffice_classroom_container .classroom_button {
     display: flex;
     justify-content: space-between;
-    width: 100% ;
+    width: 100%;
     gap: 20px;
 }
 
@@ -43,14 +47,16 @@
     display: flex;
     flex-direction: column;
 }
-.classroom_container-open p:nth-child(2){
-    padding: 20px;
-}
+
+/*.classroom_container-open p:nth-child(2){*/
+/*    padding: 20px;*/
+/*}*/
 .classroom_container-open .classroom_image_banner {
     width: 100%;
     transition: .3s;
 }
-.classroom_container-open .classroom_image_banner img{
+
+.classroom_container-open .classroom_image_banner img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -69,4 +75,20 @@
     gap: 20px;
     padding: 20px;
 
+}
+
+.classroom_preview_training {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+}
+.classroom_preview_training a {
+    justify-self: center;
+    align-self: center;
+}
+
+@media (min-width: 600px) {
+    .classroom_preview_training {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

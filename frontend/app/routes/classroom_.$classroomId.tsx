@@ -3,12 +3,10 @@ import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
 import classroom from "~/styles/backofficeClassrooom.css";
-import Header_section_page from "~/kits/header_section_page";
+import training from "~/styles/backofficeTraining.css";
 import {NavLink} from "@remix-run/react";
 import Header from "~/components/header";
 import Footer from "~/components/footer";
-import User_classroom from "~/components/user_classroom";
-import Backoffice_training from "~/components/backoffice_training";
 import User_training from "~/components/user_training";
 
 
@@ -18,6 +16,7 @@ export function links() {
         {rel: 'stylesheet', href: styles},
         {rel: 'stylesheet', href: input},
         {rel: 'stylesheet', href: classroom},
+        {rel: 'stylesheet', href: training},
     ]
 }
 
@@ -36,7 +35,23 @@ export default function Classroom_ClassroomId() {
                 professor: "Jean Paul",
                 description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
                 imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
+                status: "Terminé"
+            },
+            {
+                id: 0,
+                title: "Steampunk",
+                professor: "Jean Paul",
+                description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
+                imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
                 status: "En cours"
+            },
+            {
+                id: 0,
+                title: "Steampunk",
+                professor: "Jean Paul",
+                description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
+                imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
+                status: "A faire"
             }
         ]
     })
@@ -66,7 +81,7 @@ export default function Classroom_ClassroomId() {
                             Listes des élèves
                         </NavLink>
                     </div>
-                    <div>
+                    <div className={"classroom_preview_training"}>
                         {
                             classroom.trainings.map((training, i) => {
                                 return (
