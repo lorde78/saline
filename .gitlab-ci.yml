@@ -53,7 +53,7 @@ build-code-all:
   script:
     - ls -la
     - cd backend && touch .env && DATABASE_URL=${DATABASE_URL} > .env
-    - ls -la
+    - ls -la && cat .env
     # - docker compose up -d 
     # - docker ps -a
     # - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
