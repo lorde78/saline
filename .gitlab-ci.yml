@@ -36,6 +36,8 @@ services:
     - ssh-add "$ID_RSA"
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
+    - echo "$ID_RSA" > id_rsa  # Save the private key to a file
+    - chmod 600 id_rsa
     # - ssh-keyscan ${SERVER_IP} >> ~/.ssh/known_hosts
     # - chmod 644 ~/.ssh/known_hosts
 
@@ -75,7 +77,7 @@ deploy-nginx-container:
   except:
     - merge_requests
   script:
-    - ssh -E "$ID_RSA" ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} 
+    - ssh -i id_rsa ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} 
     # - ssh -i "$ID_RSA" -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker login -u ${USERNAME} -p ${SALINE_TOKEN}"
     # - ssh -i "$ID_RSA" -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker pull ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}"
     # - ssh -i "$ID_RSA" -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker stop nginx-${CI_COMMIT_REF_NAME} ||"
