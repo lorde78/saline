@@ -22,32 +22,32 @@ services:
   variables:
     CMD_DOCKER:  docker compose up -d
 
-.test-job:
-  stage: test
-  only:
-    - main
-    - dev
-    - preprod
-  variables: 
-    MAIN_APP: cd
+# .test-job:
+#   stage: test
+#   only:
+#     - main
+#     - dev
+#     - preprod
+#   variables: 
+#     MAIN_APP: cd
 
-.deploy-job:
-  stage: deploy
-  variables:
-    URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
-  before_script:
-    - apk add coreutils
-    - command -v ssh-agent >/dev/null || ( apk update --force && apk add openssh-client --force )
-    - cat "$ID_RSA"
-    - eval $(ssh-agent -s)
-    - chmod 400 /builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA
-    - ssh-add "$ID_RSA" | tr -d '\r'
+# .deploy-job:
+#   stage: deploy
+#   variables:
+#     URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
+#   before_script:
+#     - apk add coreutils
+#     - command -v ssh-agent >/dev/null || ( apk update --force && apk add openssh-client --force )
+#     - cat "$ID_RSA"
+#     - eval $(ssh-agent -s)
+#     - chmod 400 /builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA
+#     - ssh-add "$ID_RSA" | tr -d '\r'
 
 # BUILD
 build-code-all:
   extends: .build-job
-  except:
-    - merge_requests
+  # except:
+  #   - merge_requests
   variables:
     URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
   script:
