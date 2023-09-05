@@ -4,7 +4,7 @@ WORKDIR /var/www/salinebackend
 # COPY  ./package*.json /var/www/salinebackend/
 COPY  . .
 RUN npm install
-RUN npx prisma generate
+RUN npx prisma db push 
 EXPOSE 3001
 # DEFAULT SETTINGS 
 
