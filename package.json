@@ -1,0 +1,9 @@
+{
+    "name": "saline-web3-academy",
+    "lockfileVersion": 3,
+    "requires": true,
+    "packages": {},
+    "scripts": {
+        "start-all": "docker compose up -d db && docker compose up -d express && docker compose up -d remix && docker exec saline_express npx prisma db push"
+    }
+}
