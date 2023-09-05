@@ -16,7 +16,7 @@ export function links() {
     ]
 }
 
-export default function BackofficeClassroomClassroomId_Students() {
+export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
     const [classroom, setClassroom] = useState({
         title: "Steampunk",
         professor: "Jean Paul",
@@ -76,7 +76,7 @@ export default function BackofficeClassroomClassroomId_Students() {
 
     return (
         <>
-            <Header_section_page title={"élève"}/>
+            <Header_section_page numberUndoPage={1}  title={"élève"}/>
             <section className={"max_width_container"}>
                 <div className={"classroom_container-open max_width"}>
                     <div className={"classroom_image_banner"} style={{height: bannerHeight}}>

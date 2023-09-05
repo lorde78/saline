@@ -16,7 +16,7 @@ export function links() {
     ]
 }
 
-export default function Backoffice_Banner() {
+export default function Backoffice_Banners() {
 
     const [banners, setBanners] = useState([
         {
@@ -87,7 +87,7 @@ export default function Backoffice_Banner() {
 
     return (
         <>
-            <Header_section_page title={"Bannières"}/>
+            <Header_section_page numberUndoPage={1}  title={"Bannières"}/>
             <section className={"max_width_container"}>
                 <div className={"backoffice_banner_container max_width"}>
                     {

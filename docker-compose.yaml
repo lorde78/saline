@@ -12,13 +12,16 @@ services:
       - ./backend:/var/www/salinebackend
       - /var/www/salinebackend/node_modules
     ports: ['3000:3000']
+
   remix:
     restart: always
     build:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: saline_remix
+    command: npm run build && npm run serve
     ports: ['3001:3001']
+
   db:
     image: mysql:5.7
     restart: always

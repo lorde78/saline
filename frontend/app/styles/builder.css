@@ -5,19 +5,6 @@
     min-height: 100vh;
 }
 
-.builder_creation {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-    width: 100%;
-}
-.builder_creation .select_image_container {
-    width: 100%;
-}
-.builder_creation textarea {
-    height: 300px;
-}
 .builder_navigation_container {
     display: flex;
     padding: 40px;
