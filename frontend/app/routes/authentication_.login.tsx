@@ -27,7 +27,7 @@ export function links() {
 export default function Authentication_Login() {
     return (
         <div className={"authentication_container"}>
-            <Header_section_page title={"Connexion"}/>
+            <Header_section_page numberUndoPage={1}  title={"Connexion"}/>
             <section className={"max_width_container"}>
                 <div className={"max_width"}>
                     <Form_login/>

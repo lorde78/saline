@@ -2,15 +2,17 @@ version: '3.8'
 
 services:
   express:
-    build:
-      target: ${ENV_TARGET}
     command: npm run start:dev
     environment:
       NODE_ENV: development
-      DEBUG: nodejs-docker-express:*
+    volumes:
+      - ./backend:/var/www/salinebackend
+      - /var/www/salinebackend/node_modules
+    
   remix:
-    build:
-      target: ${ENV_TARGET}
     command: npm run dev
     environment:
       NODE_ENV: development
+    volumes:
+      - ./frontend:/var/www/salinefrontend
+      - /var/www/salinefrontend/node_modules

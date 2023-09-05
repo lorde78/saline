@@ -11,13 +11,15 @@ EXPOSE 3001
 # SETTINGS FOR PROD ENV
 FROM base as production
 ENV NODE_ENV=production
-
+COPY . .
+RUN npm ci
 CMD ["npm", "start"]
 # SETTINGS FOR PROD ENV
 
 # SETTINGS FOR DEV ENV
 FROM base as dev
 ENV NODE_ENV=development
-CMD ["npm", "run", "dev"]
-EXPOSE 3001
+COPY ./package*.json .
+RUN npm install
+CMD ["npm", "start:dev"]
 # SETTINGS FOR DEV ENV

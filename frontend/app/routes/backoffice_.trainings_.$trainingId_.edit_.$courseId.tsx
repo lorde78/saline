@@ -30,13 +30,13 @@ export function links() {
     ]
 }
 
-export default function BackofficeTrainingsTrainingId_CourseId() {
+export default function Backoffice_Trainings_TrainingId_Edit_CourseId() {
     return (
         <>
-            <Header_section_page title={"Créer un cour"}/>
+            <Header_section_page numberUndoPage={1}  title={"Créer un cour"}/>
             <section className={"max_width_container"}>
                 <div className={"builder_container max_width"}>
-                    <Builder_creation />
+                    <Builder_creation creation_type={"builder"} />
                 </div>
             </section>
         </>
