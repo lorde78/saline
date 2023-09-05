@@ -74,9 +74,4 @@ deploy-nginx-container:
   except:
     - merge_requests
   script:
-    - ssh -v -T -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "\
-          docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} || true && \
-          docker pull ${URL_GIT}nginx-${CI_COMMIT_REF_NAME} || true && \
-          docker stop ${URL_GIT}nginx-${CI_COMMIT_REF_NAME} || true && \
-          docker rm ${URL_GIT}nginx-${CI_COMMIT_REF_NAME} || true && \
-          docker run -d --name nginx-${CI_COMMIT_REF_NAME} -p 80:80 ${URL_GIT}nginx-${CI_COMMIT_REF_NAME} || true"
+    - ssh -v -T -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} || true && docker pull ${URL_GIT}nginx-${CI_COMMIT_REF_NAME} || true && docker stop ${URL_GIT}nginx-${CI_COMMIT_REF_NAME} || true && docker rm ${URL_GIT}nginx-${CI_COMMIT_REF_NAME} || true && docker run -d --name nginx-${CI_COMMIT_REF_NAME} -p 80:80 ${URL_GIT}nginx-${CI_COMMIT_REF_NAME} || true"
