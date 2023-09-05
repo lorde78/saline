@@ -18,7 +18,7 @@ export function links() {
     ]
 }
 
-export default function BackofficeTrainingsTrainingId_Add() {
+export default function Backoffice_Classroom_ClassroomId_Edit_Trainings_TrainingId_Edit_Add() {
 
     const [courses, setCourses] = useState([
         {
@@ -69,7 +69,7 @@ export default function BackofficeTrainingsTrainingId_Add() {
     }
     return (
         <>
-            <Header_section_page title={"Ajouter un cour"}/>
+            <Header_section_page numberUndoPage={1}  title={"Ajouter un cour"}/>
             <section className={"max_width_container"}>
                 <div className={"backoffice_training_preview_container max_width"}>
                     <button className={"button"}>Ajouter les cours</button>
