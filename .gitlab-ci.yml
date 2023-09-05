@@ -54,7 +54,7 @@ build-nginx-container:
     - docker ps -a
     - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN}
     - docker build -t ${URL_GIT}nginx-nginx_conf .
-    - docker tag nginx ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}
+    - docker tag saline-web3-academy ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}
     - docker push ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}
 
 # # TEST
