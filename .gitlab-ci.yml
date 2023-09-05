@@ -14,47 +14,47 @@ services:
   variables:
     URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
 
-# .build-job:
-#   stage: build
-#   before_script:
-#     - apk add --no-cache --upgrade bash
+.build-job:
+  stage: build
+  before_script:
+    - apk add --no-cache --upgrade bash
 
 # .test-job:
 #   stage: test
 #   variables: 
     # MAIN_APP: cd
 
-.deploy-job:
-  stage: deploy
-  before_script:
-    - apk add coreutils
-    - command -v ssh-agent >/dev/null || ( apk update --force && apk add openssh-client --force )
-    - cat "$ID_RSA"
-    - eval $(ssh-agent -s)
-    # - echo "${ID_RSA}" | tr -d '\r' | ssh-add -
-    # - chmod 400 "$ID_RSA"
-    - chmod 400 /builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA
-    - ssh-add "$ID_RSA" | tr -d '\r'
-    # - mkdir -p ~/.ssh
-    # - chmod 700 ~/.ssh
-    # - echo "$ID_RSA" > id_rsa  # Save the private key to a file
-    # - chmod 600 id_rsa
-    # - chmod 644 ~/.ssh/known_hosts
+# .deploy-job:
+#   stage: deploy
+#   before_script:
+#     - apk add coreutils
+#     - command -v ssh-agent >/dev/null || ( apk update --force && apk add openssh-client --force )
+#     - cat "$ID_RSA"
+#     - eval $(ssh-agent -s)
+#     # - echo "${ID_RSA}" | tr -d '\r' | ssh-add -
+#     # - chmod 400 "$ID_RSA"
+#     - chmod 400 /builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA
+#     - ssh-add "$ID_RSA" | tr -d '\r'
+#     # - mkdir -p ~/.ssh
+#     # - chmod 700 ~/.ssh
+#     # - echo "$ID_RSA" > id_rsa  # Save the private key to a file
+#     # - chmod 600 id_rsa
+#     # - chmod 644 ~/.ssh/known_hosts
 
 
 # BUILD
-# build-nginx-container:
-#   extends: 
-#     - .build-job
-#   except:
-#     - merge_requests
-#   variables:
-#     URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
-#   script:
-#     - docker ps -a
-#     - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN}
-#     - docker build -t ${URL_GIT}nginx-${CI_COMMIT_REF_NAME} .
-#     - docker push ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}
+build-nginx-container:
+  extends: 
+    - .build-job
+  except:
+    - merge_requests
+  variables:
+    URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
+  script:
+    - docker ps -a
+    - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN}
+    - docker build -t ${URL_GIT}nginx-nginx_conf .
+    # - docker push ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}
 
 # # TEST
 # test-nginx-container:
@@ -70,14 +70,14 @@ services:
 #     - echo "------------------Success Container registry work--------------------"
 
 # DEPLOY
-deploy-nginx-container:
-  image: alpine:latest
-  extends: 
-    - .deploy-job
-  except:
-    - merge_requests
-  script:
-    - ssh -v -T  -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} && docker pull ${URL_GIT}nginx-nginx_conf"
+# deploy-nginx-container:
+#   image: alpine:latest
+#   extends: 
+#     - .deploy-job
+#   except:
+#     - merge_requests
+#   script:
+#     - ssh -v -T  -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN}"
 
 
     # - ssh -i "$ID_RSA" -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker login -u ${USERNAME} -p ${SALINE_TOKEN}"
