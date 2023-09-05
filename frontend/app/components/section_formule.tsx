@@ -24,18 +24,7 @@ export const Offre: React.FunctionComponent<SliderProps> = ({
 }) => {
     const [Swiper, setSwiper] = React.useState<any>(null);
     const offres: Offre[] = [
-        {
-            title: "Annuel",
-            price: "9.9€/Mois",
-            reduction: "Au lieu de 19.8€",
-            payment: "Paiement annuel de 118.8€",
-            avantage_1: "Accès illimité à toutes nos masterclasses.",
-            avantage_2: "De nouvelles vidéos sont disponibles chaque mois.",
-            avantage_3: "Des interviews exclusives avec les plus grands professeurs du monde.",
-            avantage_4: "Partitions annotées par nos professeurs et prêtes à être téléchargées.",
-            avantage_5: "Vidéos multi-angles disponibles en HD sur tous vos appareils.",
-            showPromo: true,
-        },
+        
         {
             title: "Annuel",
             price: "9.9€/Mois",
@@ -47,6 +36,18 @@ export const Offre: React.FunctionComponent<SliderProps> = ({
             avantage_4: "blabla",
             avantage_5: "blabla",
             showPromo: false,
+        },
+        {
+            title: "Annuel",
+            price: "9.9€/Mois",
+            reduction: "Au lieu de 19.8€",
+            payment: "Paiement annuel de 118.8€",
+            avantage_1: "Accès illimité à toutes nos masterclasses.",
+            avantage_2: "De nouvelles vidéos sont disponibles chaque mois.",
+            avantage_3: "Des interviews exclusives avec les plus grands professeurs du monde.",
+            avantage_4: "Partitions annotées par nos professeurs et prêtes à être téléchargées.",
+            avantage_5: "Vidéos multi-angles disponibles en HD sur tous vos appareils.",
+            showPromo: true,
         },
         {
             title: "Annuel",
@@ -82,10 +83,12 @@ export const Offre: React.FunctionComponent<SliderProps> = ({
         <div className="section_formule_container">
             <h2>Choississez votre offre</h2>
             <SwiperComponent
-                slidesPerView={1}
+               
+                initialSlide={1} 
+                spaceBetween={20}
+                slidesPerView={'auto'}
                 centeredSlides={true}
-                centeredSlidesBounds={true}
-            // spaceBetween={30}    
+               
             >
                 {allOffre.map((offre, index) => (
                     <SwiperSlide key={index}>
