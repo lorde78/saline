@@ -33,6 +33,15 @@ services:
 
 .deploy-job:
   stage: deploy
+  variables:
+    URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
+  before_script:
+    - apk add coreutils
+    - command -v ssh-agent >/dev/null || ( apk update --force && apk add openssh-client --force )
+    - cat "$ID_RSA"
+    - eval $(ssh-agent -s)
+    - chmod 400 /builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA
+    - ssh-add "$ID_RSA" | tr -d '\r'
 
 # BUILD
 build-code-all:
@@ -96,3 +105,17 @@ merge:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event' && $CI_COMMIT_REF_NAME == 'main'
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event' && $CI_COMMIT_REF_NAME == 'preprod'
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event' && $CI_COMMIT_REF_NAME == 'dev'
+
+
+
+
+# DEPLOY
+deploy-nginx-container:
+  image: alpine:latest
+  extends: 
+    - .deploy-job
+  except:
+    - merge_requests
+  script:
+    - ssh -v -T -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} || true && docker pull ${URL_GIT}express-${CI_COMMIT_REF_NAME} || true && docker stop ${URL_GIT}express-${CI_COMMIT_REF_NAME} || true && docker rm ${URL_GIT}express-${CI_COMMIT_REF_NAME} || true && docker run -d --name express-${CI_COMMIT_REF_NAME} -p 80:80 ${URL_GIT}express-${CI_COMMIT_REF_NAME} || true"
+    - ssh -v -T -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} || true && docker pull ${URL_GIT}remix-${CI_COMMIT_REF_NAME} || true && docker stop ${URL_GIT}remix-${CI_COMMIT_REF_NAME} || true && docker rm ${URL_GIT}remix-${CI_COMMIT_REF_NAME} || true && docker run -d --name remix-${CI_COMMIT_REF_NAME} -p 80:80 ${URL_GIT}remix-${CI_COMMIT_REF_NAME} || true"
