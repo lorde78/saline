@@ -80,7 +80,7 @@ deploy-nginx-container:
   script:
     - cat "/builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA"
     - cat 
-    - ssh -i "/builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA" salinedeploy@hetic-projects.arcplex.tech -p 9117 "ls"
+    - ssh -i /builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA salinedeploy@hetic-projects.arcplex.tech -p 9117 "ls"
 
 
     # - ssh -i "$ID_RSA" -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker login -u ${USERNAME} -p ${SALINE_TOKEN}"
