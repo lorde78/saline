@@ -61,6 +61,8 @@ build-code-all:
     - docker compose up -d 
     - docker ps -a
     - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
+    - docker tag saline-web3-academy-db ${URL_GIT}db-${CI_COMMIT_REF_NAME}
+    - docker push ${URL_GIT}db-${CI_COMMIT_REF_NAME}
     - docker tag saline-web3-academy-express ${URL_GIT}express-${CI_COMMIT_REF_NAME}
     - docker build -t ${URL_GIT}express-${CI_COMMIT_REF_NAME} backend
     - docker push ${URL_GIT}express-${CI_COMMIT_REF_NAME}
