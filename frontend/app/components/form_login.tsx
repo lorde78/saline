@@ -11,7 +11,6 @@ export default function Form_login() {
     const submit = (e:any) => {
         e.preventDefault()
         login(email,password)
-        console.log("hey")
     }
 
     return (
