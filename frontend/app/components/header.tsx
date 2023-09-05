@@ -7,7 +7,7 @@ type HeaderProps = {
     title: string;
 };
 
-const Header: React.FC<HeaderProps> = ({title}) => {
+export default function Header({title}: HeaderProps) {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [windowInnerWidth, setWindowInnerWidth] = useState(0);
     const toggleMenu = () => {
@@ -61,8 +61,5 @@ const Header: React.FC<HeaderProps> = ({title}) => {
 
             </nav>
         </header>
-    )
-        ;
-};
-
-export default Header;
+    );
+}
