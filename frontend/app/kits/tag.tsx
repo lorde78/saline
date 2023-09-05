@@ -1,11 +1,11 @@
 import React from "react";
 import "~/styles/tag.css";
 
-type TagProps = {
+type Props = {
     role: string;
   };
   
-  const Tag: React.FC<TagProps> = ({ role }) => {
+  export default function Tag ({ role }: Props) {
   
     return (
       
@@ -14,6 +14,4 @@ type TagProps = {
         </div>
     );
   };
-  
-  export default Tag;
   
