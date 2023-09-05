@@ -51,8 +51,9 @@ build-code-all:
   variables:
     URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
   script:
-    - docker compose up -d 
-    - docker ps -a
+    - ls -la
+    # - docker compose up -d 
+    # - docker ps -a
     # - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
     # - docker tag saline-web3-academy-express ${URL_GIT}express-${CI_COMMIT_REF_NAME}
     # - docker build -t ${URL_GIT}express-${CI_COMMIT_REF_NAME} backend
