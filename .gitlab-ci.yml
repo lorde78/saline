@@ -33,10 +33,10 @@ services:
 
 .deploy-job:
   stage: deploy
-  only:
-    - main
-    - dev
-    - preprod
+  # only:
+  #   - main
+  #   - dev
+  #   - preprod
   variables:
     URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
   before_script:
