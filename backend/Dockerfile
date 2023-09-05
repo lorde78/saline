@@ -1,6 +1,5 @@
 # DEFAULT SETTINGS
 FROM node:18-alpine as base
-
 WORKDIR /var/www/salinebackend
 EXPOSE 3000
 # DEFAULT SETTINGS
