@@ -33,6 +33,10 @@ services:
 
 .deploy-job:
   stage: deploy
+  only:
+    - main
+    - dev
+    - preprod
   variables:
     URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
   before_script:
@@ -51,6 +55,9 @@ build-code-all:
   variables:
     URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
   script:
+    - cd backend && touch .env && echo "DATABASE_URL=${DATABASE_URL}" >> .env
+    - echo "JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}" >> .env
+    - echo "JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}" >> .env
     - docker compose up -d 
     - docker ps -a
     - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
@@ -117,7 +124,3 @@ deploy-nginx-container:
   script:
     - ssh -v -T -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} || true && docker pull ${URL_GIT}express-${CI_COMMIT_REF_NAME} || true && docker stop ${URL_GIT}express-${CI_COMMIT_REF_NAME} || true && docker rm ${URL_GIT}express-${CI_COMMIT_REF_NAME} || true && docker run -d --name express-${CI_COMMIT_REF_NAME} -p 80:80 ${URL_GIT}express-${CI_COMMIT_REF_NAME} || true"
     - ssh -v -T -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} || true && docker pull ${URL_GIT}remix-${CI_COMMIT_REF_NAME} || true && docker stop ${URL_GIT}remix-${CI_COMMIT_REF_NAME} || true && docker rm ${URL_GIT}remix-${CI_COMMIT_REF_NAME} || true && docker run -d --name remix-${CI_COMMIT_REF_NAME} -p 80:80 ${URL_GIT}remix-${CI_COMMIT_REF_NAME} || true"
-  rules:
-    - if: $CI_COMMIT_REF_NAME == 'main'
-    - if: $CI_COMMIT_REF_NAME == 'preprod'
-    - if: $CI_COMMIT_REF_NAME == 'dev'
