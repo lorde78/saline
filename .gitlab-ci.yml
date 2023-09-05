@@ -39,7 +39,7 @@ services:
     # - chmod 700 ~/.ssh
     # - echo "$ID_RSA" > id_rsa  # Save the private key to a file
     # - chmod 600 id_rsa
-    # - ssh-keyscan ${SERVER_IP} >> ~/.ssh/known_hosts
+    - ssh-keyscan hetic-projects.arcplex.tech >> ~/.ssh/known_hosts
     # - chmod 644 ~/.ssh/known_hosts
 
 
