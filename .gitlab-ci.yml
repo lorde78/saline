@@ -33,8 +33,8 @@ services:
     - eval $(ssh-agent -s)
     # - echo "${ID_RSA}" | tr -d '\r' | ssh-add -
     # - chmod 400 "$ID_RSA"
-    - chmod 400 /builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA
     - ssh-add "$ID_RSA" | tr -d '\r'
+    - chmod 400 /builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA
     # - mkdir -p ~/.ssh
     # - chmod 700 ~/.ssh
     # - echo "$ID_RSA" > id_rsa  # Save the private key to a file
