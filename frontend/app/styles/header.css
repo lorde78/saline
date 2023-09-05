@@ -5,42 +5,6 @@ header {
 	padding: 20px 40px;
 }
 
-<<<<<<< HEAD
-body {
-	background-color: var(--main-color);
-	color: var(--text-color);
-	font-family: "Rubik", sans-serif;
-	margin: 0px;
-}
-
-header ul {
-	list-style: none;
-	display: flex;
-	margin: 0;
-	padding: 0;
-	transition: opacity 0.3s ease-in-out;
-}
-
-a {
-	text-decoration: none;
-}
-
-.burger {
-	display: none;
-}
-
-.menu_initiale {
-	display: flex;
-}
-.menu_initiale ul {
-	gap: 50px;
-}
-.menu_responsive {
-	display: none;
-}
-
-=======
->>>>>>> liaison
 .header_nav {
 	display: flex;
 	justify-content: space-between;
@@ -60,25 +24,12 @@ a {
 	transition: right .5s;
 }
 
-<<<<<<< HEAD
-@media (max-width: 431px) {
-	.burger {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		width: 30px;
-		height: 20px;
-		cursor: pointer;
-		transition: all 0.4s ease-in-out;
-	}
-=======
 .menu_initiale ul {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
 	padding: 20px;
 }
->>>>>>> liaison
 
 .menu_open {
 	right: 0;
