@@ -20,37 +20,41 @@ export default function User_training({
 
 
     const setStatus = () => {
+        let statusColor
         switch (status) {
             case "En cours":
-                return <div className={"training_status_circle training_status_circle_in_progress"}/>;
+                statusColor = "yellow"
+                break;
             case "Terminé":
-                return <div className={"training_status_circle training_status_circle_finish"}/>;
+                statusColor = "green"
+                break;
             case "A faire":
-                return <div className={"training_status_circle training_status_circle_waiting"}/>;
+                statusColor = "gray"
+                break;
 
         }
         return (
             <div className={"training_status"}>
-                <div className={"training_status_circle training_status_circle " + status}/>
+                <span className={"status_color status_color-" + statusColor}/>
                 <p>{status}</p>
             </div>
         )
     }
 
     return (
-        <div className={"backoffice_training_container"}>
+        <NavLink to={id.toString()} className={"backoffice_training_container"}>
             <div className={"training_image"}>
                 <img src={imgLink} alt={"bannière du cour"}/>
             </div>
             <div className={"training_info"}>
                 <div className={"training_header_info"}>
                     <p>{title}</p>
-                    <div>{setStatus()}</div>
+                    {setStatus()}
                 </div>
                 <p className={"training_description"}>
                     {description}
                 </p>
             </div>
-        </div>
+        </NavLink>
     );
 }

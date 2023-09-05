@@ -16,6 +16,7 @@ header {
     align-items: start;
     width: 100%;
     min-height: 80vh;
+    padding-bottom: 20px;
 }
 .max_width {
     width: 100%;
@@ -102,6 +103,9 @@ a:hover {
 }
 .status_color-red {
     background-color: var(--alert-color);
+}
+.status_color-gray {
+    background-color: #9ca3af;
 }
 
 
