@@ -8,6 +8,9 @@ services:
     volumes:
       - ./backend:/var/www/salinebackend
       - /var/www/salinebackend/node_modules
+
+  db:
+    platform: ${PLATFORM}
     
   remix:
     command: npm run dev
