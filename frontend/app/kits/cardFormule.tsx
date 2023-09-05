@@ -1,12 +1,12 @@
 import "~/styles/cardFormule.css";
 
-type CardFormuleProps = {
+type Props = {
   sub: string;
   price: number;
   buttonName: string;
 };
 
-const CardFormule: React.FC<CardFormuleProps> = ({ sub, price, buttonName}) => {
+export default function CardFormule({ sub, price, buttonName}: Props) {
   
   return (
     <div>
@@ -41,5 +41,3 @@ const CardFormule: React.FC<CardFormuleProps> = ({ sub, price, buttonName}) => {
     </div>
   );
 };
-
-export default CardFormule;
