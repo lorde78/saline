@@ -152,22 +152,22 @@ input:checked + .check svg {
     bottom: 50%;
 }
 
-#select_container {
+.input-container #select_container {
     position: relative;
     display: flex;
     flex-direction: column;
 }
-.select_button {
+.input-container .select_button {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
 }
-.select_button input, .option input{
+.input-container .select_button input, .option input{
     display: none;
 }
 
-.options {
+.input-container .options {
     position: absolute;
     top: 110%;
     flex-direction: column;
@@ -182,14 +182,14 @@ input:checked + .check svg {
     z-index: 1;
     overflow: hidden;
 }
-.options::-webkit-scrollbar-track, .options::-webkit-scrollbar{
+.input-container .options::-webkit-scrollbar-track, .options::-webkit-scrollbar{
     /*display: none;*/
     border-radius: 100px;
     background: transparent;
     box-shadow: none;
 }
 
-.option {
+.input-container .option {
     position: relative;
     width: 100%;
     height: 0;
@@ -199,16 +199,16 @@ input:checked + .check svg {
     transition: .3s ease-in-out;
 }
 
-.option:hover {
+.input-container .option:hover {
     cursor: pointer;
     background-color: var(--action-color);
     color: var(--secondary-color);
 }
 
-.options-visible {
+.input-container .options-visible {
     overflow-y: scroll;
 }
-.option-visible {
+.input-container .option-visible {
     opacity: 100%;
     height: 100%;
     padding: 10px 20px;
