@@ -58,7 +58,7 @@ build-code-all:
     - cd backend && touch .env && echo "DATABASE_URL=${DATABASE_URL}" >> .env
     - echo "JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}" >> .env
     - echo "JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}" >> .env
-    - npm run start-all
+    - docker compose up -d db && docker compose up -d express && docker compose up -d remix
     - docker ps -a
     - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
     - docker tag saline-web3-academy-db ${URL_GIT}db-${CI_COMMIT_REF_NAME}
