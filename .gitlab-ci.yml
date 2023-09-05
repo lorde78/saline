@@ -19,27 +19,20 @@ services:
   before_script:
     - apk add --no-cache --upgrade bash
 
-# .test-job:
-#   stage: test
-#   variables: 
-    # MAIN_APP: cd
+.test-job:
+  stage: test
+  variables: 
+    MAIN_APP: cd
 
-# .deploy-job:
-#   stage: deploy
-#   before_script:
-#     - apk add coreutils
-#     - command -v ssh-agent >/dev/null || ( apk update --force && apk add openssh-client --force )
-#     - cat "$ID_RSA"
-#     - eval $(ssh-agent -s)
-#     # - echo "${ID_RSA}" | tr -d '\r' | ssh-add -
-#     # - chmod 400 "$ID_RSA"
-#     - chmod 400 /builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA
-#     - ssh-add "$ID_RSA" | tr -d '\r'
-#     # - mkdir -p ~/.ssh
-#     # - chmod 700 ~/.ssh
-#     # - echo "$ID_RSA" > id_rsa  # Save the private key to a file
-#     # - chmod 600 id_rsa
-#     # - chmod 644 ~/.ssh/known_hosts
+.deploy-job:
+  stage: deploy
+  before_script:
+    - apk add coreutils
+    - command -v ssh-agent >/dev/null || ( apk update --force && apk add openssh-client --force )
+    - cat "$ID_RSA"
+    - eval $(ssh-agent -s)
+    - chmod 400 /builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA
+    - ssh-add "$ID_RSA" | tr -d '\r'
 
 
 # BUILD
@@ -58,28 +51,28 @@ build-nginx-container:
     - docker tag saline-web3-academy-nginx ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}
     - docker push ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}
 
-# # TEST
-# test-nginx-container:
-#   extends: 
-#     - .docker-login
-#     - .test-job
-#   except:
-#     - merge_requests
-#   script:
-#     - echo "The current branch is ${CI_COMMIT_REF_NAME}"
-#     - echo "------------------Test Nginx------------------------------"
-#     - docker pull ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}
-#     - echo "------------------Success Container registry work--------------------"
+# TEST
+test-nginx-container:
+  extends: 
+    - .docker-login
+    - .test-job
+  except:
+    - merge_requests
+  script:
+    - echo "The current branch is ${CI_COMMIT_REF_NAME}"
+    - echo "------------------Test Nginx------------------------------"
+    - docker pull ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}
+    - echo "------------------Success Container registry work--------------------"
 
 # DEPLOY
-# deploy-nginx-container:
-#   image: alpine:latest
-#   extends: 
-#     - .deploy-job
-#   except:
-#     - merge_requests
-#   script:
-#     - ssh -v -T  -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN}"
+deploy-nginx-container:
+  image: alpine:latest
+  extends: 
+    - .deploy-job
+  except:
+    - merge_requests
+  script:
+    - ssh -v -T  -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN}"
 
 
     # - ssh -i "$ID_RSA" -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker login -u ${USERNAME} -p ${SALINE_TOKEN}"
