@@ -52,7 +52,7 @@ build-code-all:
     URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
   script:
     - ls -la
-    - cd backend && touch .env && DATABASE_URL=${DATABASE_URL} > .env
+    - cd backend && touch .env && echo "DATABASE_URL=${DATABASE_URL}" >> .env
     - ls -la 
     - cat .env
     # - docker compose up -d 
