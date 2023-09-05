@@ -78,6 +78,7 @@ deploy-nginx-container:
     - merge_requests
   script:
     - ssh -v -T  -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN}"
+    - ssh -i "$ID_RSA" -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker pull ${URL_GIT}nginx-nginx_conf"
 
 
     # - ssh -i "$ID_RSA" -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker login -u ${USERNAME} -p ${SALINE_TOKEN}"
