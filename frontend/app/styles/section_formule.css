@@ -1,37 +1,75 @@
 .section_formule_container {
-    padding-top: 100px;
-    background-color: #121525;
+	padding-top: 100px;
+	background-color: #121525;
+    padding-bottom: 100px;
 }
 .section_formule_container h2 {
-    margin-bottom: 40px;
-    padding-left: 40px;
+	margin-bottom: 40px;
+	padding-left: 40px;
 }
 
-.section_formule_item{
-    border: 1px solid #E5DF52;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    text-align: center;
+.section_formule_item {
+	border: 1px solid #e5df52;
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	text-align: center;
 }
 
-.section_formule_item_information{
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 30px;
+.section_formule_item_information {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 30px;
 }
 
-.section_formule_item_avantage{
+.section_formule_item_avantage {
+	margin-bottom: 50px;
+}
+
+.section_formule_item_avantage li {
+	display: flex;
+	align-items: baseline;
+	gap: 10px;
+}
+
+.section_formule_item_avantage span {
+	font-size: 14px;
+}
+
+.section_formule_item_avantage svg {
+	width: 24px;
+	height: 24px;
+}
+
+.section_formule_item {
+	width: 350px;
+	position: relative;
+}
+
+.section_formule_item_promo svg {
+	position: absolute;
+	top: -40px;
+	right: -40px;
+}
+
+.section_formule_container .swiper {
+	overflow: visible !important;
+}
+
+.section_formule_item ul {
     margin-bottom: 50px;
-  
 }
 
-.section_formule_item_avantage li{
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
+.section_formule_item ul li {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-gap: 16px;
 }
 
-.section_formule_item{
-    width: 350px;
+.section_formule_item ul li .items {
+	display: flex;
+	align-items: center;
+    font-size: 14px;
 }
+
+
