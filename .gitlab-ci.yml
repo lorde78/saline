@@ -26,6 +26,8 @@ services:
 
 .deploy-job:
   stage: deploy
+  variables:
+    URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
   before_script:
     - apk add coreutils
     - command -v ssh-agent >/dev/null || ( apk update --force && apk add openssh-client --force )
@@ -72,7 +74,7 @@ deploy-nginx-container:
   except:
     - merge_requests
   script:
-    - ssh -v -T  -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} && docker pull registry.gitlab.com/arkhayds/saline-web3-academy/nginx-${CI_COMMIT_REF_NAME} "
+    - ssh -v -T  -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} && docker pull ${URL_GIT}nginx-${CI_COMMIT_REF_NAME} "
 
 
     # - ssh -i "$ID_RSA" -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker login -u ${USERNAME} -p ${SALINE_TOKEN}"
