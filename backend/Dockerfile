@@ -2,8 +2,6 @@
 FROM node:18-alpine as base
 
 WORKDIR /var/www/salinebackend
-COPY . .
-RUN npm install
 EXPOSE 3000
 # DEFAULT SETTINGS
 
@@ -18,5 +16,7 @@ CMD ["npm", "start"]
 # SETTINGS FOR DEV ENV
 FROM base as dev
 ENV NODE_ENV=development
-CMD ["npm", "dev"]
+COPY ./package*.json .
+RUN npm install
+CMD ["npm", "start:dev"]
 # SETTINGS FOR DEV ENV

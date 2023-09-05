@@ -9,7 +9,7 @@ var router = express.Router();
 router.post('/', async function (req, res, next) {
     const { email, password, firstname, profilePicture, lastConnection, lastUpdate, phoneNumber, genre, nationality, name, birthdate, postalAddress, roles } = req.body;
     const roleDefault = ["ROLE_USER"];
-    let userRoles;
+    let userRoles = roles ? { data: roleDefault.concat(roles.data) } : roleDefault;
 
     if (!email || !password) {
         res.status(400);
@@ -24,10 +24,6 @@ router.post('/', async function (req, res, next) {
 
     if (existingUser) {
         return res.status(404).json({ message: 'User already exist' });
-    }
-
-    if (roles) {
-        userRoles = { data: roleDefault.concat(roles.data) } 
     }
 
     const { accessToken } = generateToken({ email, password });
