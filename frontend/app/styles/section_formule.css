@@ -2,6 +2,7 @@
 	padding-top: 100px;
 	background-color: #121525;
 	padding-bottom: 100px;
+    overflow: hidden;
 }
 .section_formule_container h2 {
 	margin-bottom: 40px;

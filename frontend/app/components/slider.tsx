@@ -39,19 +39,20 @@ export const Slider: React.FunctionComponent<SliderProps> = ({ slides }) => {
                 {allSlides.map((slide, index) => (
                     <SwiperSlide key={index}>
                         <img src={slide.src} alt={slide.title} />
-                        <div className="custom_text_socket_container">
-                            <div className="custom_text_socket">
-                                Faites partie des meilleurs
-                                musiciens au monde.
-                            </div>
-                            <a className="button">La suite</a>
-                        </div>
+
 
                     </SwiperSlide>
                 ))}
 
 
             </SwiperComponent>
+            <div className="custom_text_socket_container">
+                <div className="custom_text_socket">
+                    Faites partie des meilleurs
+                    musiciens au monde.
+                </div>
+                <a className="button">La suite</a>
+            </div>
         </div>
     );
 };
