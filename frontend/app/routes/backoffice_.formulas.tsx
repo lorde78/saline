@@ -300,7 +300,7 @@ export default function Backoffice_Formulas() {
 
     return (
         <>
-            <Header_section_page title={"Formules"}/>
+            <Header_section_page numberUndoPage={1}  title={"Formules"}/>
             <section className={"max_width_container"}>
                 <div className={"backoffice_formulas_container max_width"}>
                     <div className={"formulas"}>

@@ -52,7 +52,7 @@ export default function Backoffice_Courses() {
     ])
     return (
         <>
-            <Header_section_page title={"Cours"}/>
+            <Header_section_page numberUndoPage={1}  title={"Cours"}/>
             <section className={"max_width_container"}>
                 <div className={"backoffice_training_preview_container max_width"}>
                     <div className={"button_header"}>
