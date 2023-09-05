@@ -1,10 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import '../styles/footer.css';
+import Email_subscription from "~/kits/email_subscription";
 
 const Footer: React.FC = () => {
     return (
         <footer>
+            <Email_subscription />
             <div className={"max_width"}>
                 <nav className='footer_nav_principal'>
                     <ul className='footer_nav_principal_premier'>
