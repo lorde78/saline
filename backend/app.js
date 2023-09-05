@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var clearModule = require('clear-module');
+var cors = require('cors');
 
 var registerRouter = require('./routes/authentication/register.routes.ts');
 var loginRouter = require('./routes/authentication/login.routes.ts');
@@ -25,6 +26,11 @@ var videoRouter = require('./routes/video.routes.ts');
 var userRouter = require('./routes/users.routes.ts');
 
 var app = express();
+
+// Enable all CORS Requests
+app.use(cors({
+    origin:'*'
+}))
 
 // clear the cache of required modules on server restart
 if (process.env.NODE_ENV !== 'production') {
