@@ -33,8 +33,8 @@ services:
     - eval $(ssh-agent -s)
     # - echo "${ID_RSA}" | tr -d '\r' | ssh-add -
     # - chmod 400 "$ID_RSA"
-    - ssh-add "$ID_RSA" | tr -d '\r'
     - chmod 400 /builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA
+    - ssh-add "$ID_RSA" | tr -d '\r'
     # - mkdir -p ~/.ssh
     # - chmod 700 ~/.ssh
     # - echo "$ID_RSA" > id_rsa  # Save the private key to a file
@@ -80,7 +80,7 @@ deploy-nginx-container:
   script:
     - cat "$ID_RSA"
     - ls
-    - ssh -i /dev/stdin ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} 
+    - ssh -i /builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} 
     # - ssh -i "$ID_RSA" -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker login -u ${USERNAME} -p ${SALINE_TOKEN}"
     # - ssh -i "$ID_RSA" -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker pull ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}"
     # - ssh -i "$ID_RSA" -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker stop nginx-${CI_COMMIT_REF_NAME} ||"
