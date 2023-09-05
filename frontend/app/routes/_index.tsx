@@ -76,7 +76,7 @@ export default function Index() {
       <Slider slides={slides} />
       <SectionInstrument />
       <MiniSlider slides={slides}/>
-      <Offre />
+      <Offre offres={[]} />
       <SectionSalinePlus />
       <SectionPartenaires />
       
