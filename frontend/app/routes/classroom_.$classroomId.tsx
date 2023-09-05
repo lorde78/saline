@@ -8,6 +8,7 @@ import {NavLink} from "@remix-run/react";
 import Header from "~/components/header";
 import Footer from "~/components/footer";
 import User_training from "~/components/user_training";
+import Header_section_page from "~/kits/header_section_page";
 
 
 export function links() {
@@ -70,6 +71,7 @@ export default function Classroom_ClassroomId() {
     return (
         <>
             <Header/>
+            <Header_section_page numberUndoPage={1}  title={classroom.title}/>
             <main className={"max_width_container"}>
                 <div className={"classroom_container-open max_width"}>
                     <div className={"classroom_image_banner"} style={{height: bannerHeight}}>
