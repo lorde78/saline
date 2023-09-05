@@ -9,11 +9,14 @@
 }
 
 .section_formule_item {
-	border: 1px solid #e5df52;
+	border: 1px solid #FFFFFF;
 	display: flex;
 	flex-direction: column;
 	padding: 20px;
 	text-align: center;
+    border-radius: 5px;
+    position: relative;
+    height: 500px;
 }
 
 .section_formule_item_information {
@@ -39,11 +42,6 @@
 .section_formule_item_avantage svg {
 	width: 24px;
 	height: 24px;
-}
-
-.section_formule_item {
-	/* width: 350px;v */
-	position: relative;
 }
 
 .section_formule_item_promo svg {
