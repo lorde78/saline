@@ -77,7 +77,8 @@ deploy-nginx-container:
   except:
     - merge_requests
   script:
-    - cat ID_RSA
+    - cat "$ID_RSA"
+    - ls
     - ssh -i ID_RSA ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} 
     # - ssh -i "$ID_RSA" -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker login -u ${USERNAME} -p ${SALINE_TOKEN}"
     # - ssh -i "$ID_RSA" -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker pull ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}"
