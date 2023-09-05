@@ -78,7 +78,7 @@ deploy-nginx-container:
   except:
     - merge_requests
   script:
-    - cat "$ID_RSA"
+    - cat "/builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA"
     - ls
     - ssh -i "/builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA" "${SERVER_USER}@${SERVER_IP}" -p "${SERVER_PORT}"  
     # - ssh -i "$ID_RSA" -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker login -u ${USERNAME} -p ${SALINE_TOKEN}"
