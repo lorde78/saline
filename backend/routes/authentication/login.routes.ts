@@ -30,7 +30,8 @@ router.post('/', async function (req, res, next) {
     }
 
     if (!getCookie(req)) {
-        const { accessToken } = generateToken({ email, password });
+        const roles = existingUser.roles
+        const { accessToken } = generateToken({ email, password, roles });
 
         // Create cookie
         const cookie = sendCookie(res, accessToken);
@@ -44,7 +45,8 @@ router.post('/', async function (req, res, next) {
     }
 
     res.json({
-        message: 'Login successful',
+        message: 'Login successful !',
+        test: existingUser.roles,
         token: getCookie(req),
         'cookie': getCookie(req)
     });
@@ -69,6 +71,18 @@ router.put('/', async function (req, res, next) {
 
     res.json({
         message: 'User updated',
+    });
+});
+
+router.delete('/', async function (req, res, next) {
+    const { id } = req.query;
+    const deleteLesson = await database.user.delete({
+        where: {
+            id: id,
+        },
+    })
+    res.json({
+        message: 'user deleted',
     });
 });
 
