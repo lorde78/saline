@@ -26,14 +26,16 @@ services:
 
 .deploy-job:
   stage: deploy
+  variables:
+    URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
   before_script:
     - apk add coreutils
     - command -v ssh-agent >/dev/null || ( apk update --force && apk add openssh-client --force )
-    - echo "${ID_RSA}"
+    - cat "$ID_RSA"
     - eval $(ssh-agent -s)
-    - echo "${ID_RSA}" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
+    - chmod 400 /builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA
+    - ssh-add "$ID_RSA" | tr -d '\r'
+
 
 # BUILD
 build-nginx-container:
@@ -44,8 +46,11 @@ build-nginx-container:
   variables:
     URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
   script:
+    - docker compose up -d
+    - docker ps -a
     - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN}
-    - docker build -t ${URL_GIT}nginx-${CI_COMMIT_REF_NAME} .
+    - docker build -t ${URL_GIT}nginx-nginx_conf .
+    - docker tag saline-web3-academy-nginx ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}
     - docker push ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}
 
 # TEST
@@ -69,8 +74,4 @@ deploy-nginx-container:
   except:
     - merge_requests
   script:
-    - ssh -i ${ID_RSA} -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker login -u ${USERNAME} -p ${SALINE_TOKEN}"
-    - ssh -i ${ID_RSA} -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker pull ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}"
-    - ssh -i ${ID_RSA} -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker stop nginx-${CI_COMMIT_REF_NAME} ||"
-    - ssh -i ${ID_RSA} -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker rm nginx-${CI_COMMIT_REF_NAME} ||"
-    - ssh -i ${ID_RSA} -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_IP} -p ${SERVER_PORT} "docker run -d --name nginx-${CI_COMMIT_REF_NAME} -p 80:80 ${URL_GIT}nginx-${CI_COMMIT_REF_NAME}"
+    - ssh -v -T  -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} && docker stop ${URL_GIT}nginx-${CI_COMMIT_REF_NAME} && docker rm ${URL_GIT}nginx-${CI_COMMIT_REF_NAME} || docker pull ${URL_GIT}nginx-${CI_COMMIT_REF_NAME} || docker rm nginx-${CI_COMMIT_REF_NAME} ||  docker run -d --name nginx-${CI_COMMIT_REF_NAME} -p 80:80 ${URL_GIT}nginx-${CI_COMMIT_REF_NAME} "

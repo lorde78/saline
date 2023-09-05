@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  nginx:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nginx
+    ports: ['80:80', '403:403']
