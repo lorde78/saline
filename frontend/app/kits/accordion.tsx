@@ -1,19 +1,37 @@
 import React, {useState} from "react";
+import Comments from "~/components/comments";
 import "~/styles/accordion.css";
 
-type AccordionProps = {
+type Props = {
+  type: string;
   title: string;
-  content: string;
   picto: string;
 };
 
-const Accordion: React.FC<AccordionProps> = ({ title, content, picto }) => {
+export default function Accordion({type, title, picto}: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [contentHeight, setContentHeight] = useState<number | undefined>(undefined);
 
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
+
+  const renderAccordionContent = () => {
+
+    switch (type) {
+      case "comment":
+
+        return <Comments />
+      
+      case "squarepic":
+          break
+      case "rectanglepic":
+          break
+      default:
+          break
+  }
+
+}
 
   const contentRef = React.useRef<HTMLDivElement>(null);
 
@@ -43,10 +61,8 @@ const Accordion: React.FC<AccordionProps> = ({ title, content, picto }) => {
         className={`accordion-content ${isOpen ? "accordion-open" : ""}`}
         style={{ maxHeight: isOpen ? contentHeight : 0 }}
       >
-        {content}
+        {renderAccordionContent()}
       </div>
     </div>
   );
 };
-
-export default Accordion;

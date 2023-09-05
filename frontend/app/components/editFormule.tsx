@@ -4,11 +4,8 @@ import HeaderNav from "~/kits/headerNav";
 import CardFormule from '~/kits/cardFormule';
 import "~/styles/editFormule.css";
 
-type EditFormuleProps = {
 
-};
-
-const EditFormule: React.FC<EditFormuleProps> = ({  }) => {
+export default function EditFormule() {
   
   return (
     <div>
@@ -33,5 +30,3 @@ const EditFormule: React.FC<EditFormuleProps> = ({  }) => {
     </div>
   );
 };
-
-export default EditFormule;
