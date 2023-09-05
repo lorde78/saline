@@ -13,6 +13,7 @@ export default function useLogin() {
                 password: password
             })
         })
-            .then(res => res.data)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
     }
 }
