@@ -52,7 +52,7 @@ export default function Header({title}: HeaderProps) {
                         </ul>
                     </div>
                 </div>
-                {/*<LanguageSelect/>*/}
+                <LanguageSelect/>
                 <div className={`burger burger-button ${isMenuOpen ? "croix" : ""}`} onClick={toggleMenu}>
                     <div className="line top"></div>
                     <div className="line middle"></div>
