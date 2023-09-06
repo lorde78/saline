@@ -1,4 +1,4 @@
-import { AxiosInstance } from "~/Axios/axiosInstance";
+import { AxiosInstance } from "~/axios/axiosInstance";
 
 export default function useLogin() {
     return (email: string,password: string) => {

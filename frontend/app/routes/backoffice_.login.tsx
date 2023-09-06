@@ -7,6 +7,9 @@ import input from "~/styles/input.css";
 import authentication from "~/styles/authentication.css";
 import Header_section_page from "~/kits/header_section_page";
 import Form_login from "~/components/form_login";
+import { useEffect, useContext } from "react";
+import { signinContext } from "~/context/signinContext";
+import useGetCookies from "~/hook/useGetCookies";
 
 
 export const meta: V2_MetaFunction = () => {
@@ -26,6 +29,18 @@ export function links() {
 }
 
 export default function Backoffice_Login() {
+    // @ts-ignore
+    const [signin,setSignin] = useContext(signinContext)
+
+    useEffect(() => {
+        let cookies = useGetCookies()
+        console.log(cookies)
+        if (Object.keys(cookies).includes("SalineToken")) {
+            setSignin(cookies.SalineToken)
+        }
+        console.log(signin)
+    }), [signin]
+
     return (
         <div className={"authentication_container"}>
             <NavLink className={"image_authentication"} to={"/"}>
