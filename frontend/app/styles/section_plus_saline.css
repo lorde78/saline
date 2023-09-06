@@ -9,15 +9,17 @@
 	display: flex;
 	gap: 20px;
 	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .section_plus_saline_item {
-	width: calc(50% - 10px);
 	display: flex;
 	flex-direction: column;
 	background-color: #121525;
 	padding: 20px;
 	gap: 10px;
+	width: 180px;
+    height: 210px;
 }
 
 .section_plus_saline_item img {
