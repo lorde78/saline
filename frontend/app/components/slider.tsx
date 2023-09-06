@@ -35,16 +35,27 @@ export const Slider: React.FunctionComponent<SliderProps> = ({ slides }) => {
         <div className="swiper_home_container">
             <SwiperComponent
                 slidesPerView={1}
+                autoplay={{  
+                    delay: 3000, 
+                    disableOnInteraction: false, 
+                }}
+                breakpoints={{
+                    576: {
+                        slidesPerView: 2,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                    },
+                    992: {
+                        slidesPerView: 4,
+                    },
+                }}
             >
                 {allSlides.map((slide, index) => (
                     <SwiperSlide key={index}>
                         <img src={slide.src} alt={slide.title} />
-
-
                     </SwiperSlide>
                 ))}
-
-
             </SwiperComponent>
             <div className="custom_text_socket_container">
                 <div className="custom_text_socket">

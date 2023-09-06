@@ -55,10 +55,6 @@
 .section_formule_container .swiper {
 	overflow: visible !important;
 }
-/* 
-.section_formule_item ul {
-	margin-bottom: 50px;
-} */
 
 .section_formule_item ul li {
 	display: grid;

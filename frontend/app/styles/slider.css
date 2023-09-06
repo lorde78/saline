@@ -30,3 +30,17 @@
 .swiper_home_container {
 	position: relative;
 }
+
+@media screen and (min-width: 768px) {
+    .custom_text_socket_container{
+        transform: translate(-50%);
+        left: 50%;
+       
+    }
+    
+    .custom_text_socket_container .button{
+        width: 50%;
+        align-self: center;
+    }
+}
+
