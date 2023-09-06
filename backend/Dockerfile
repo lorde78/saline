@@ -1,7 +1,6 @@
 # DEFAULT SETTINGS
 FROM node:18-alpine as base
 WORKDIR /var/www/salinebackend
-# COPY  ./package*.json /var/www/salinebackend/
 COPY  . .
 RUN npm install
 # RUN npx prisma db push 
@@ -10,7 +9,7 @@ EXPOSE 3001
 
 # SETTINGS FOR PROD ENV
 FROM base as production
-ENV NODE_ENV=production
+# ENV NODE_ENV=production
 COPY . .
 RUN npm ci
 CMD ["npm", "start"]
@@ -18,12 +17,12 @@ CMD ["npm", "start"]
 
 # SETTINGS FOR PREPROD ENV
 FROM base as preprod
-ENV NODE_ENV=preprod
+# ENV NODE_ENV=preprod
 CMD ["npm", "start"]
 # SETTINGS FOR preprod ENV    
 
 # SETTINGS FOR DEV ENV
 FROM base as dev
-ENV NODE_ENV=development
-CMD ["npm", "start:dev"]
+#ENV NODE_ENV=development
+CMD "npm  start"
 # SETTINGS FOR DEV ENV
