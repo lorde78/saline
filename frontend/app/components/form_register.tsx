@@ -1,8 +1,6 @@
 import Input from "~/kits/input";
 import {NavLink, useLocation} from "@remix-run/react";
 import {useState} from "react";
-import {useDispatch} from "react-redux";
-import {RegisterAction} from "~/action/registerAction";
 
 export default function Form_register() {
 
@@ -11,7 +9,6 @@ export default function Form_register() {
     const [lastName, setLastName] = useState("")
     const [password, setPassword] = useState("")
 
-    const dispatch = useDispatch()
 
     const sendForm = () => {
       let formData = {
@@ -20,8 +17,6 @@ export default function Form_register() {
           "lastname" : lastName,
           "password" : password
       }
-
-      dispatch(RegisterAction(formData))
     }
     return (
         <form className={"authentication_form_container"} action="" method="post">

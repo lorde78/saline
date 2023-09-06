@@ -1,5 +1,5 @@
-import type {V2_MetaFunction} from "@remix-run/node";
-import {NavLink, Outlet, useLocation} from "@remix-run/react";
+import {LoaderFunction, json, type V2_MetaFunction, ActionFunction} from "@remix-run/node";
+import {NavLink, useLoaderData} from "@remix-run/react";
 
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
@@ -7,10 +7,7 @@ import input from "~/styles/input.css";
 import authentication from "~/styles/authentication.css";
 import Header_section_page from "~/kits/header_section_page";
 import Form_login from "~/components/form_login";
-import { useEffect, useContext } from "react";
-import { signinContext } from "~/context/signinContext";
-import useGetCookies from "~/hook/useGetCookies";
-
+import { salineJWTCookie } from "~/cookie.server";
 
 export const meta: V2_MetaFunction = () => {
     return [
@@ -28,18 +25,29 @@ export function links() {
     ]
 }
 
-export default function Backoffice_Login() {
-    // @ts-ignore
-    const [signin,setSignin] = useContext(signinContext)
+export let action: ActionFunction = async ({ request }) => {
+    const cookies = request.headers.get('Cookie')
+    const cookie = (await salineJWTCookie.parse(cookies)) || {}
+    const bodyParams = await request.formData()
 
-    useEffect(() => {
-        let cookies = useGetCookies()
-        console.log(cookies)
-        if (Object.keys(cookies).includes("SalineToken")) {
-            setSignin(cookies.SalineToken)
-        }
-        console.log(signin)
-    }), [signin]
+    console.log(bodyParams)
+}
+
+export let loader: LoaderFunction = async ({ request }) => {
+    const cookies = request.headers.get('Cookie') || ''
+    const cookieMap = Object.fromEntries(cookies.split(';').map(cookie => {
+        const [key, value] = cookie.trim().split('=')
+        return [key, value]
+    }))
+
+    const valeur = cookieMap['SalineToken'] || "hello";
+    
+    const response = json({})
+    response.headers.append('Set-Cookie',`SalineToken=${valeur}; HttpOnly; Path=/; Max-Age=${60*60*24*7}`)
+    return response
+}
+
+export default function Backoffice_Login() {
 
     return (
         <div className={"authentication_container"}>
