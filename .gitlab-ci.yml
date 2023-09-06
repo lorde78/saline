@@ -131,7 +131,7 @@ merge:
 
 
 
-# DEPLOY
+# DEPLOY 
 deploy-nginx-container:
   image: alpine:latest
   extends: 
