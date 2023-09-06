@@ -25,5 +25,5 @@ CMD ["npm", "start"]
 # SETTINGS FOR DEV ENV
 FROM base as dev
 ENV NODE_ENV=development
-CMD ["npm", "start"]
+CMD ["npm", "start:dev"]
 # SETTINGS FOR DEV ENV

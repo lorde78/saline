@@ -58,6 +58,15 @@ build-code-all:
     - cd backend && touch .env && echo "DATABASE_URL=${DATABASE_URL}" >> .env
     - echo "JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}" >> .env
     - echo "JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}" >> .env
+    - if [ "$CI_COMMIT_REF_NAME" = "dev" ]; then
+    - echo ENV_TARGET=preprod" >> .env
+    - fi
+    - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
+    - echo ENV_TARGET=preprod" >> .env
+    - fi
+    - if [ "$CI_COMMIT_REF_NAME" = "main" ]; then
+    - echo ENV_TARGET=production" >> .env
+    - fi
     - cd ..
     - docker compose up -d db && docker compose up -d express && docker compose up -d remix
     - docker ps -a
