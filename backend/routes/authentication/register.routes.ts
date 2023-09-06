@@ -9,7 +9,7 @@ var router = express.Router();
 router.post('/', async function (req, res, next) {
     const { email, password, firstname, profilePicture, lastConnection, lastUpdate, phoneNumber, genre, nationality, name, birthdate, postalAddress, roles } = req.body;
     const roleDefault = ["ROLE_USER"];
-    let userRoles = roles ? { data: roleDefault.concat(roles.data) } : roleDefault;
+    let userRoles = roles ? roleDefault.concat(roles) : roleDefault;
 
     if (!email || !password) {
         res.status(400);
