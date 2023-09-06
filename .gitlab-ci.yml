@@ -13,10 +13,10 @@ services:
 # BASE JOBS .
 .build-job:
   stage: build
-  only:
-    - main
-    - dev
-    - preprod
+  # only:
+  #   - main
+  #   - dev
+  #   - preprod
   before_script:
     - apk add --no-cache docker-compose ; apk add --no-cache --upgrade bash
   variables:
@@ -24,19 +24,19 @@ services:
 
 .test-job:
   stage: test
-  only:
-    - main
-    - dev
-    - preprod
+  # only:
+  #   - main
+  #   - dev
+  #   - preprod
   variables: 
     MAIN_APP: cd
 
 .deploy-job:
   stage: deploy
-  only:
-    - main
-    - dev
-    - preprod
+  # only:
+  #   - main
+  #   - dev
+  #   - preprod
   variables:
     URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
   before_script:
