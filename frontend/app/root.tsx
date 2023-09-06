@@ -1,14 +1,15 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
-import { Meta, Links, Scripts, useLoaderData } from '@remix-run/react';
+import { Meta, Links, Scripts } from '@remix-run/react';
 import Header from './components/header';
 import Footer from './components/footer';
-import { json, LoaderArgs, type LinksFunction } from "@remix-run/node";
+import type { LinksFunction } from "@remix-run/node";
 import {
     LiveReload,
     Outlet,
     ScrollRestoration,
 } from "@remix-run/react";
-import { salineJWTCookie } from "./cookie.server";
+import { useState, useEffect } from "react";
+import { signinContext } from "./context/signinContext";
 // import { I18nextProvider } from 'react-i18next';
 // import i18n from './i18n.ts';
 
@@ -17,8 +18,10 @@ export const links: LinksFunction = () => [
 ];
 
 export default function App() {
+	const [state,setState] = useState<any>([]);
 
 	return (
+		<signinContext.Provider value={[state,setState]}>
 			<html lang="en">
 				<head>
 					<meta charSet="utf-8" />
@@ -33,5 +36,6 @@ export default function App() {
 					<LiveReload port={8002}/>
 				</body>
 			</html>
+		</signinContext.Provider>
 	);
 }

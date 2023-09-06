@@ -1,9 +1,6 @@
 import Input from "~/kits/input";
-import {useState} from "react";
+import {useState,useContext} from "react";
 import useLogin from "~/hook/useLogin";
-import { ActionFunction, LoaderFunction, json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import { salineJWTCookie } from "~/cookie.server";
 
 export default function Form_login() {
     const [email, setEmail] = useState("")
@@ -13,7 +10,7 @@ export default function Form_login() {
 
     const submit = (e:any) => {
         e.preventDefault()
-        //login(email,password)
+        login(email,password)
     }
 
     return (

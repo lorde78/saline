@@ -2,10 +2,10 @@ import type {V2_MetaFunction} from "@remix-run/node";
 import Footer from "~/components/footer";
 import Header from "~/components/header";
 import Builder_block_button from "~/kits/builder_block_button";
-import resetStyles from "~/styles/reset.css"
-import styles from "~/styles/style.css"
-import builder from "~/styles/builder.css"
-import input from "~/styles/input.css"
+import resetStyles from "~/styles/reset.css";
+import styles from "~/styles/style.css";
+import builder from "~/styles/builder.css";
+import input from "~/styles/input.css";
 import Builder_select_folder from "~/kits/builder_select_folder";
 import Select_image from "~/kits/select_image";
 
@@ -26,6 +26,7 @@ export function links() {
 }
 
 export default function Index() {
+
     return (
         <>
             <Header title={""} />
