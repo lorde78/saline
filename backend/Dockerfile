@@ -21,5 +21,5 @@ FROM base as dev
 ENV NODE_ENV=development
 # COPY ./package*.json .
 RUN npm install
-# CMD ["npm run start:dev"]
+CMD ["npm run start"]
 # SETTINGS FOR DEV ENV
