@@ -58,6 +58,15 @@ build-code-all:
     - cd backend && touch .env && echo "DATABASE_URL=${DATABASE_URL}" >> .env
     - echo "JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}" >> .env
     - echo "JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}" >> .env
+    - if [ "$CI_COMMIT_REF_NAME" = "dev" ]; then
+    - echo ENV_TARGET=preprod" >> .env
+    - fi
+    - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
+    - echo ENV_TARGET=preprod" >> .env
+    - fi
+    - if [ "$CI_COMMIT_REF_NAME" = "main" ]; then
+    - echo ENV_TARGET=production" >> .env
+    - fi
     - cd ..
     - docker compose up -d db && docker compose up -d express && docker compose up -d remix
     - docker ps -a
@@ -95,18 +104,8 @@ merge:
     - docker ps -a
     - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
     - echo "This job runs in merge request pipelines"
-    - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
-    - docker tag mysql:5.7 ${URL_GIT}db-main
-    - docker push ${URL_GIT}db-main
-    - docker tag saline-web3-academy-express ${URL_GIT}express-main
-    - docker build -t ${URL_GIT}express-main backend
-    - docker push ${URL_GIT}express-main
-    - docker tag saline-web3-academy-remix ${URL_GIT}remix-main
-    - docker build -t ${URL_GIT}remix-main frontend
-    - docker push ${URL_GIT}remix-main
-    - fi
     - if [ "$CI_COMMIT_REF_NAME" = "dev" ]; then
-        - docker tag mysql:5.7 ${URL_GIT}db-preprod
+    - docker tag mysql:5.7 ${URL_GIT}db-preprod
     - docker push ${URL_GIT}db-preprod
     - docker tag saline-web3-academy-express ${URL_GIT}express-preprod
     - docker build -t ${URL_GIT}express-preprod backend
@@ -115,8 +114,17 @@ merge:
     - docker build -t ${URL_GIT}remix-preprod frontend
     - docker push ${URL_GIT}remix-preprod
     - fi
+    - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
+        - docker tag mysql:5.7 ${URL_GIT}db-prod
+    - docker push ${URL_GIT}db-prod
+    - docker tag saline-web3-academy-express ${URL_GIT}express-prod
+    - docker build -t ${URL_GIT}express-prod backend
+    - docker push ${URL_GIT}express-prod
+    - docker tag saline-web3-academy-remix ${URL_GIT}remix-prod
+    - docker build -t ${URL_GIT}remix-prod frontend
+    - docker push ${URL_GIT}remix-prod
+    - fi
   rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' && $CI_COMMIT_REF_NAME == 'main'
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event' && $CI_COMMIT_REF_NAME == 'preprod'
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event' && $CI_COMMIT_REF_NAME == 'dev'
 
