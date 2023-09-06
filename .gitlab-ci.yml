@@ -24,19 +24,18 @@ services:
 
 .test-job:
   stage: test
-  # only:
-  #   - main
-  #   - dev
-  #   - preprod
+  only:
+    - main
+    - dev
+    - preprod
   variables: 
     MAIN_APP: cd
 
 .deploy-job:
   stage: deploy
-  # only:
-  #   - main
-  #   - dev
-  #   - preprod
+  only:
+    - main
+    - preprod
   variables:
     URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
   before_script:
@@ -95,18 +94,8 @@ merge:
     - docker ps -a
     - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
     - echo "This job runs in merge request pipelines"
-    - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
-    - docker tag mysql:5.7 ${URL_GIT}db-main
-    - docker push ${URL_GIT}db-main
-    - docker tag saline-web3-academy-express ${URL_GIT}express-main
-    - docker build -t ${URL_GIT}express-main backend
-    - docker push ${URL_GIT}express-main
-    - docker tag saline-web3-academy-remix ${URL_GIT}remix-main
-    - docker build -t ${URL_GIT}remix-main frontend
-    - docker push ${URL_GIT}remix-main
-    - fi
     - if [ "$CI_COMMIT_REF_NAME" = "dev" ]; then
-        - docker tag mysql:5.7 ${URL_GIT}db-preprod
+    - docker tag mysql:5.7 ${URL_GIT}db-preprod
     - docker push ${URL_GIT}db-preprod
     - docker tag saline-web3-academy-express ${URL_GIT}express-preprod
     - docker build -t ${URL_GIT}express-preprod backend
@@ -115,8 +104,17 @@ merge:
     - docker build -t ${URL_GIT}remix-preprod frontend
     - docker push ${URL_GIT}remix-preprod
     - fi
+    - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
+        - docker tag mysql:5.7 ${URL_GIT}db-prod
+    - docker push ${URL_GIT}db-prod
+    - docker tag saline-web3-academy-express ${URL_GIT}express-prod
+    - docker build -t ${URL_GIT}express-prod backend
+    - docker push ${URL_GIT}express-prod
+    - docker tag saline-web3-academy-remix ${URL_GIT}remix-prod
+    - docker build -t ${URL_GIT}remix-prod frontend
+    - docker push ${URL_GIT}remix-prod
+    - fi
   rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' && $CI_COMMIT_REF_NAME == 'main'
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event' && $CI_COMMIT_REF_NAME == 'preprod'
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event' && $CI_COMMIT_REF_NAME == 'dev'
 
