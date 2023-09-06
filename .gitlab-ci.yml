@@ -60,13 +60,13 @@ build-code-all:
     - echo "JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}" >> .env
     - cd ..  && touch .env
     - if [ "$CI_COMMIT_REF_NAME" = "dev" ]; then
-    - echo ENV_TARGET=preprod" >> .env
+    - echo "ENV_TARGET=preprod" >> .env
     - fi
     - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
-    - echo ENV_TARGET=preprod" >> .env
+    - echo "ENV_TARGET=preprod" >> .env
     - fi
     - if [ "$CI_COMMIT_REF_NAME" = "main" ]; then
-    - echo ENV_TARGET=production" >> .env
+    - echo "ENV_TARGET=production" >> .env
     - fi
     - docker compose up -d db && docker compose up -d express && docker compose up -d remix
     - docker ps -a
