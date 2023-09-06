@@ -4,5 +4,5 @@ WORKDIR /var/www/salinebackend
 COPY  . .
 RUN npm install
 # RUN npx prisma db push
-CMD [ "npm", 'start' ] 
+CMD [ "npm start" ] 
 EXPOSE 3001
