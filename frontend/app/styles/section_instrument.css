@@ -1,29 +1,28 @@
 .section_instrument_container {
 	padding-left: 40px;
-    padding-right: 40px;
-    padding-top: 50px;
-    background-color: #121525;
-    padding-bottom: 40px;
+	padding-right: 40px;
+	padding-top: 50px;
+	background-color: #121525;
+	padding-bottom: 40px;
 }
 
 .secion_instrument_list {
 	display: grid;
-    grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(3, 1fr);
 	row-gap: 20px;
 	column-gap: 55px;
 }
 
-.secion_instrument_list_item{
+.secion_instrument_list_item {
 	display: flex;
-    flex-direction: column;
-    align-items: center;
+	flex-direction: column;
+	align-items: center;
 }
 
 .secion_instrument_list_item p {
 	margin-top: 25px;
 	justify-content: center;
-    display: flex;
-	
+	display: flex;
 }
 
 .section_instrument_container h2 {
@@ -32,4 +31,22 @@
 
 .secion_instrument_list svg {
 	height: 80px;
+}
+
+@media (min-width: 768px) {
+	.secion_instrument_list {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+@media (min-width: 900px) {
+	.secion_instrument_list {
+		grid-template-columns: repeat(5, 1fr);
+	}
+}
+
+@media (min-width: 1080px) {
+	.secion_instrument_list {
+		grid-template-columns: repeat(6, 1fr);
+	}
 }
