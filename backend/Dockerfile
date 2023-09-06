@@ -16,7 +16,7 @@ RUN npm ci
 CMD ["npm", "start"]
 # SETTINGS FOR PROD ENV    
 
-# SETTINGS FOR PROD ENV
+# SETTINGS FOR PREPROD ENV
 FROM base as preprod
 ENV NODE_ENV=preprod
 CMD ["npm", "start"]
