@@ -24,27 +24,57 @@ export function links() {
 export default function Trainings_TrainingId() {
 
 
-    const [trainings, setTrainings] = useState({
-                id: 0,
-                title: "Steampunk",
-                professor: "Jean Paul",
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-                imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
-                status: "Terminé"
-            }
+    const [training, setTrainings] = useState({
+            id: 0,
+            title: "Steampunk",
+            professor: "Jean Paul",
+            description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
+            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
+            status: "Terminé",
+            courses: [
+                {
+                    id: 0,
+                    title: "course 1",
+                    professor: "Jean Paul",
+                    description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
+                    imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
+                    status: "Terminé"
+                },
+                {
+                    id: 1,
+                    title: "course 2",
+                    professor: "Jean Paul",
+                    description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
+                    imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
+                    status: "Non commencé"
+                },
+            ]
+        }
     )
     const [bannerHeight, setBannerHeight] = useState(400)
 
-
+    useEffect(() => {
+        window.onscroll = function () {
+            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                setBannerHeight(200)
+            } else {
+                setBannerHeight(400)
+            }
+        };
+    }, []);
     return (
         <>
             <Header/>
+            <Header_section_page numberUndoPage={1} title={training.title}/>
             <main className={"max_width_container"}>
-                <h1>Liste des coures</h1>
                 <div className={"classroom_container-open max_width"}>
+                    <div className={"classroom_image_banner"} style={{height: bannerHeight}}>
+                        <img src={training.imgLink} alt={"bannière du cour"}/>
+                    </div>
+                    <p>{training.description}</p>
                     <div className={"classroom_preview_training"}>
                         {
-                            trainings.map((training, i) => {
+                            training.courses.map((training, i) => {
                                 return (
                                     <User_training
                                         id={training.id}

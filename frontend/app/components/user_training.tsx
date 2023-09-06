@@ -31,6 +31,9 @@ export default function User_training({
             case "A faire":
                 statusColor = "gray"
                 break;
+            case "Non commencé":
+                statusColor = "gray"
+                break;
 
         }
         return (
