@@ -47,7 +47,7 @@ export default function Trainings() {
                 professor: "Jean Paul",
                 description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
                 imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
-                status: "A faire"
+                status: "Non commencé"
             }
         ]
     )
@@ -58,7 +58,7 @@ export default function Trainings() {
         <>
             <Header/>
             <main className={"max_width_container"}>
-                <h1>Liste des coures</h1>
+                <h1>Liste des parcours</h1>
                 <div className={"classroom_container-open max_width"}>
                     <div className={"classroom_preview_training"}>
                         {
