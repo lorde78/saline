@@ -11,6 +11,7 @@ import User_training from "~/components/user_training";
 import Header_section_page from "~/kits/header_section_page";
 import User_courses from "~/components/user_courses";
 import User_course_video_nav from "~/components/user_course_video_nav";
+import Checkbox from "~/kits/checkbox";
 
 
 export function links() {
@@ -26,69 +27,71 @@ export function links() {
 export default function Courses_CourseId_StepId() {
 
 
-    const [step, setStep] = useState({
-            id: 1,
-            value: "étape 1",
-            type: "video",
-            professor: "Jean Paul",
-            status: "Terminé",
-            data:
-                {
-                description: "On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).",
-                information: {
-                    infoDescription: "On sait depuis longtemps que ",
-                    document: ""
-                },
-                video: "https://www.youtube.com/embed/Zi_XLOBDo_Y",
-                professors: [
-                    {
-                        id: 0,
-                        img: "https://www.w3schools.com/howto/img_avatar.png",
-                        name: "Jean Paul",
-                        roles: ["Professeur", "Administrateur"],
-                        instruments: ["Guitare"]
-                    },
-                    {
-                        id: 1,
-                        img: "https://www.w3schools.com/howto/img_avatar.png",
-                        name: "Jean Damien",
-                        roles: ["Professeur"],
-                        instruments: ["Guitare", "Basse"],
-                    }
-                ],
-                comments: [
-                    {
-                        id: 0,
-                    }
-                ],
-            }
-        }
+    const [step, setStep] = useState(
         // {
-        //     id: 2,
-        //     value: "étape 2",
-        //     type: "exercise/qcm",
+        //     id: 1,
+        //     value: "étape 1",
+        //     type: "video",
         //     professor: "Jean Paul",
-        //     status: "En cours",
-        //     data: [
+        //     status: "Terminé",
+        //     data:
         //         {
-        //             question: 'Question 1',
-        //             multipleChoice: true,
-        //             choice: [
-        //                 {answer: 'Réponse 1', goodAnswer: true},
-        //                 {answer: 'Réponse 2', goodAnswer: true},
-        //                 {answer: 'Réponse 3', goodAnswer: false},
-        //             ]
-        //         },
-        //         {
-        //             question: 'Question 2',
-        //             multipleChoice: false,
-        //             choice: [
-        //                 {answer: 'Réponse 1', goodAnswer: true},
-        //                 {answer: 'Réponse 2', goodAnswer: false},
-        //             ]
+        //             description: "On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).",
+        //             information: {
+        //                 infoDescription: "On sait depuis longtemps que ",
+        //                 document: ""
+        //             },
+        //             video: "https://www.youtube.com/embed/Zi_XLOBDo_Y",
+        //             professors: [
+        //                 {
+        //                     id: 0,
+        //                     img: "https://www.w3schools.com/howto/img_avatar.png",
+        //                     name: "Jean Paul",
+        //                     roles: ["Professeur", "Administrateur"],
+        //                     instruments: ["Guitare"]
+        //                 },
+        //                 {
+        //                     id: 1,
+        //                     img: "https://www.w3schools.com/howto/img_avatar.png",
+        //                     name: "Jean Damien",
+        //                     roles: ["Professeur"],
+        //                     instruments: ["Guitare", "Basse"],
+        //                 }
+        //             ],
+        //             comments: [
+        //                 {
+        //                     id: 0,
+        //                 }
+        //             ],
         //         }
-        //     ]
         // }
+
+        {
+            id: 2,
+            value: "étape 2",
+            type: "exercise/qcm",
+            professor: "Jean Paul",
+            status: "En cours",
+            data: [
+                {
+                    question: 'Question 1',
+                    multipleChoice: true,
+                    choice: [
+                        {answer: 'Réponse 1', goodAnswer: true},
+                        {answer: 'Réponse 2', goodAnswer: true},
+                        {answer: 'Réponse 3', goodAnswer: false},
+                    ]
+                },
+                {
+                    question: 'Question 2',
+                    multipleChoice: false,
+                    choice: [
+                        {answer: 'Réponse 1', goodAnswer: true},
+                        {answer: 'Réponse 2', goodAnswer: false},
+                    ]
+                }
+            ]
+        }
 
         // {
         //     id: 3,
@@ -121,7 +124,40 @@ export default function Courses_CourseId_StepId() {
         //     data: {}
         // }
     )
+    const setDefaultExerciseAnswer = () => {
+        let exerciseAnswerDefault: any[] = []
+        step.data.map((qcm, i) => {
+            let exerciseAnswerDefaultChoice: any[] = []
+            qcm.choice.map((choice, i) => {
+                exerciseAnswerDefaultChoice.push({value: false})
+            })
+            exerciseAnswerDefault.push(exerciseAnswerDefaultChoice)
+        })
+        return exerciseAnswerDefault
+    }
 
+    const [exerciseAnswer, setExerciseAnswer] = useState(setDefaultExerciseAnswer())
+
+    useEffect(() => {
+        console.log(exerciseAnswer)
+    }, [exerciseAnswer])
+    const setExerciseAnswerData = (value: any, props: any) => {
+        if (step.type === "exercise/qcm") {
+            if (!step.data[props.idQCM].multipleChoice) {
+                let exerciseAnswerTemp: any[] = [...exerciseAnswer]
+                exerciseAnswerTemp[props.idQCM].map((choice: any, i: any) => {
+                    exerciseAnswerTemp[props.idQCM][i].value = false
+                })
+                setExerciseAnswer(exerciseAnswerTemp)
+            }
+
+            let exerciseAnswerTemp: any[] = [...exerciseAnswer]
+            exerciseAnswerTemp[props.idQCM][props.idChoice].value = value
+            setExerciseAnswer(exerciseAnswerTemp)
+        } else if (step.type === "exercise/bind_list") {
+
+        }
+    }
     const typeStep = () => {
         switch (step.type) {
             case "video":
@@ -153,16 +189,24 @@ export default function Courses_CourseId_StepId() {
                     <div className={"backoffice_training_preview_container max_width"}>
                         <div className={"backoffice_training_preview_qcm"}>
                             {
-                                step.data.map((qcm, i) => {
+                                step.data.map((qcm, idQCM) => {
                                     return (
                                         <div className={"backoffice_training_preview_qcm_question"}>
                                             <p>{qcm.question}</p>
                                             {
-                                                qcm.choice.map((choice, i) => {
+                                                qcm.choice.map((choice, idChoice) => {
                                                     return (
                                                         <div
                                                             className={"backoffice_training_preview_qcm_question_choice"}>
-                                                            <input type={"checkbox"}/>
+                                                            <Checkbox
+                                                                name={"checkbox_" + idQCM + "_" + idChoice}
+                                                                type={qcm.multipleChoice ? "checkbox" : "radio"}
+                                                                text={""}
+                                                                setValue={setExerciseAnswerData}
+                                                                propsSetValue={{idQCM: idQCM, idChoice: idChoice}}
+                                                                value={exerciseAnswer[idQCM][idChoice].value}
+                                                            />
+
                                                             <p>{choice.answer}</p>
                                                         </div>
                                                     )
@@ -172,6 +216,7 @@ export default function Courses_CourseId_StepId() {
                                     )
                                 })
                             }
+                            <button className={"button"}>Envoyer</button>
                         </div>
                     </div>
                 )
