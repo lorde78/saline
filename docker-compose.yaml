@@ -7,10 +7,12 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: saline_express
-    command: npm install && npm start
+    environment:
+      - NODE_ENV=${ENV_TARGET} 
     volumes:
       - ./backend:/var/www/salinebackend
       - /var/www/salinebackend/node_modules
+    command: npm run start:dev
     ports: ['3000:3000']
 
   remix:
