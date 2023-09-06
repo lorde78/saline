@@ -112,12 +112,14 @@ export const Offre: React.FunctionComponent<SliderProps> = ({
                                     </svg>
                                 </div>
                             )}
+                              <div>
                             <h3>{offre.title}</h3>
                             <div className="section_formule_item_information">
                                 <span>{offre.price}</span>
                                 <span>{offre.reduction}</span>
                                 <span>{offre.payment}</span>
                             </div>
+                          
                             <ul>
                                 {offre.avantage_1 && (
                                     <li>
@@ -170,8 +172,11 @@ export const Offre: React.FunctionComponent<SliderProps> = ({
                                         <span className="items">{offre.avantage_5}</span>
                                     </li>
                                 )}
+                                
                             </ul>
+                            </div>
                             <a href="" className="button">{offre.buttonText}</a>
+                            
                         </div>
                     </SwiperSlide>
                 ))}
