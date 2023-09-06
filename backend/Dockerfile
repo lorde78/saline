@@ -14,12 +14,16 @@ ENV NODE_ENV=production
 COPY . .
 RUN npm ci
 CMD ["npm", "start"]
-# SETTINGS FOR PROD ENV
+# SETTINGS FOR PROD ENV    
+
+# SETTINGS FOR PREPROD ENV
+FROM base as preprod
+ENV NODE_ENV=preprod
+CMD ["npm", "start"]
+# SETTINGS FOR preprod ENV    
 
 # SETTINGS FOR DEV ENV
 FROM base as dev
 ENV NODE_ENV=development
-COPY ./package*.json .
-RUN npm install
-CMD ["npm run start:dev"]
+CMD ["npm", "start:dev"]
 # SETTINGS FOR DEV ENV
