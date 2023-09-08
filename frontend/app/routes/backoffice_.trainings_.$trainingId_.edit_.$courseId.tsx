@@ -12,7 +12,7 @@ import Builder_step_video from "~/components/builder_step_video";
 import Builder_step_exercice from "~/components/builder_step_exercice";
 import Builder_creation from "~/components/builder_creation";
 import Header_section_page from "~/kits/header_section_page";
-import { useGlobalEffect } from "~/helper/globalMiddleware";
+import { useGlobalEffect } from "~/helper/globalHelper";
 
 
 export const meta: V2_MetaFunction = () => {

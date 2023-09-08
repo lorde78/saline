@@ -10,6 +10,7 @@ import {
 } from "@remix-run/react";
 import { useState, useEffect } from "react";
 import { signinContext } from "./context/signinContext";
+import { registerContext } from "./context/registerContext";
 // import { I18nextProvider } from 'react-i18next';
 // import i18n from './i18n.ts';
 
@@ -18,24 +19,27 @@ export const links: LinksFunction = () => [
 ];
 
 export default function App() {
-	const [state,setState] = useState<any>([]);
+	const [signin,setSignin] = useState<any>([]);
+	const [registerData,setRegister] = useState<any>([]);
 
 	return (
-		<signinContext.Provider value={[state,setState]}>
-			<html lang="en">
-				<head>
-					<meta charSet="utf-8" />
-					<meta name="viewport" content="width=device-width,initial-scale=1" />
-					<Meta />
-					<Links />
-				</head>
-				<body>
-					<Outlet />
-					<ScrollRestoration />
-					<Scripts />
-					<LiveReload port={8002}/>
-				</body>
-			</html>
-		</signinContext.Provider>
+		<registerContext.Provider value ={[registerData,setRegister]}>
+			<signinContext.Provider value={[signin,setSignin]}>
+				<html lang="en">
+					<head>
+						<meta charSet="utf-8" />
+						<meta name="viewport" content="width=device-width,initial-scale=1" />
+						<Meta />
+						<Links />
+					</head>
+					<body>
+						<Outlet />
+						<ScrollRestoration />
+						<Scripts />
+						<LiveReload port={8002}/>
+					</body>
+				</html>
+			</signinContext.Provider>
+		</registerContext.Provider>
 	);
 }

@@ -8,7 +8,7 @@ import Backoffice_training from "~/components/backoffice_training";
 import Backoffice_edit_training from "~/components/backoffice_edit_training";
 import {NavLink, useLocation} from "@remix-run/react";
 import Builder_creation from "~/components/builder_creation";
-import { useGlobalEffect } from "~/helper/globalMiddleware";
+import { useGlobalEffect } from "~/helper/globalHelper";
 
 
 export function links() {

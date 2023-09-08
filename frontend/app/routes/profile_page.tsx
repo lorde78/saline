@@ -13,7 +13,7 @@ import inputStyles from "~/styles/input.css";
 import EditPassword from "~/components/editPassword";
 import EditFormule from '~/components/editFormule';
 import formuleStyles from "~/styles/formule.css";
-import { useGlobalEffect } from '~/helper/globalMiddleware';
+import { useGlobalEffect } from '~/helper/globalHelper';
 
 
 

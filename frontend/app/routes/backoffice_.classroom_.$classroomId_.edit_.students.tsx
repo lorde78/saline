@@ -5,7 +5,7 @@ import input from "~/styles/input.css";
 import classroom from "~/styles/backofficeClassrooom.css";
 import Header_section_page from "~/kits/header_section_page";
 import Checkbox from "~/kits/checkbox";
-import { useGlobalEffect } from "~/helper/globalMiddleware";
+import { useGlobalEffect } from "~/helper/globalHelper";
 
 
 export function links() {

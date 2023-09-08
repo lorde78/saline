@@ -2,9 +2,15 @@ import Input from "~/kits/input";
 import Select from "~/kits/select";
 import Checkbox from "~/kits/checkbox";
 import Select_image from "~/kits/select_image";
-import {useState} from "react";
+import { NavLink } from "@remix-run/react";
+import { useState, useContext } from "react";
+import { registerContext } from "~/context/registerContext";
+import useRegister from "~/hook/useRegister";
 
 export default function Form_register_complementary() {
+    // @ts-ignore
+    const [registerData,setRegister] = useContext(registerContext)
+
     const [birthDate, setBirthDate] = useState("")
     const [gender, setGender] = useState("")
     const [genderData, setGenderData] = useState([
@@ -23,8 +29,24 @@ export default function Form_register_complementary() {
         setGenderSelected(id)
         setGender(value)
     }
+
+    const register = useRegister()
+
+    const submit = (e:any) => {
+        let formData = {
+            ...registerData,
+            "genre": gender,
+            "nationality": country,
+            "birthDate": birthDate,
+            "postalAddress":  address + ", " + postalCode
+        }
+        console.log(formData)
+        register(formData)
+            .then()
+    }
+
     return (
-        <form className={"authentication_form_container"} action="" method="post">
+        <form className={"authentication_form_container"}>
             <Select_image/>
             <Select
                 optionSelected={genderSelected}
@@ -37,7 +59,7 @@ export default function Form_register_complementary() {
             <Input name={"BirthDate"} type={"date"} placeholder={"Date de naissance"}
                    setValue={setBirthDate} propsSetValue={""} value={birthDate}/>
             <Input name={"Country"} type={"text"} placeholder={"Pays"}
-                   setValue={country} propsSetValue={""} value={setCountry}/>
+                   setValue={setCountry} propsSetValue={""} value={country}/>
             <Input name={"Address"} type={"text"} placeholder={"Adresse"}
                    setValue={setAddress} propsSetValue={""} value={address}/>
             <Input name={"PostalCode"} type={"text"} placeholder={"Code postal"}
@@ -47,8 +69,7 @@ export default function Form_register_complementary() {
                       text={"J’ai lu et j’accepte la Politique de confidentialité"}
                       setValue={setPrivacy}
                       propsSetValue={""} value={privacy}/>
-
-            <button className={"button"} type="submit">Inscription</button>
+            <button className={"button"} type="submit" onClick={(e) => submit(e)}>Inscription</button>
         </form>
     )
 }
