@@ -39,15 +39,15 @@ router.post('/', async function (req, res, next) {
         return res.json({
             message: 'Login successful',
             token: accessToken,
-            'cookie': getCookie(req)
+            cookie: getCookie(req)
         });
 
     }
 
     return res.json({
-        message: 'Login successful !',
+        message: 'Login successful',
         token: getCookie(req),
-        'cookie': getCookie(req)
+        cookie: getCookie(req)
     });
 
 });

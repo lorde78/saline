@@ -8,7 +8,7 @@ import builder from "~/styles/builder.css";
 import input from "~/styles/input.css";
 import Builder_select_folder from "~/kits/builder_select_folder";
 import Select_image from "~/kits/select_image";
-import { useGlobalEffect } from "~/helper/globalMiddleware";
+import { useGlobalEffect } from "~/helper/globalHelper";
 
 export const meta: V2_MetaFunction = () => {
     return [

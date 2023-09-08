@@ -5,7 +5,7 @@ import input from "~/styles/input.css";
 import assessment from "~/styles/backofficeAssessment.css";
 import Backoffice_assessment from "~/components/backoffice_assessment";
 import Backoffice_edit_assessment from "~/components/backoffice_edit_assessment";
-import { useGlobalEffect } from "~/helper/globalMiddleware";
+import { useGlobalEffect } from "~/helper/globalHelper";
 
 
 export function links() {

@@ -6,7 +6,7 @@ import formule from "~/styles/formule.css";
 import backofficeFormula from "~/styles/backofficeFormula.css";
 import Header_section_page from "~/kits/header_section_page";
 import Backoffice_formulas from "~/components/backoffice_formulas";
-import { useGlobalEffect } from "~/helper/globalMiddleware";
+import { useGlobalEffect } from "~/helper/globalHelper";
 
 
 export function links() {
