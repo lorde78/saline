@@ -4,10 +4,9 @@ const { database } = require('../config/db.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { title, description, numberSteps, difficultyLevel, price, duration, nbViews, nbCompleted, userId } = req.body;
+    const { title, description, numberSteps, difficultyLevel, price, duration, nbViews, nbCompleted, steps } = req.body;
     const lesson = await database.lesson.create({
         data: {
-            userId: userId,
             title: title,
             description: description,
             numberSteps: numberSteps,
@@ -15,7 +14,8 @@ router.post('/', async function (req, res, next) {
             price: price,
             duration: duration,
             nbViews: nbViews,
-            nbCompleted: nbCompleted
+            nbCompleted: nbCompleted,
+            steps: steps
         }
     })
 
@@ -59,15 +59,18 @@ router.put('/', async function (req, res, next) {
 
 router.get('/', async function (req, res, next) {
     const { id } = req.query;
+    let lessons = null;
+
     if (!id) {
-        res.status(400);
-        throw new Error('You must provide an id ');
+        lessons = await database.lesson.findMany()
+    } else {
+        lessons = await database.lesson.findMany({
+            where: {
+                lessonId: id,
+            },
+        })
     }
-    const lessons = await database.lesson.findMany({
-        where: {
-            lessonId: id,
-        },
-    })
+
     res.json({
         "lessons": lessons
     });

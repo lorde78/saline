@@ -59,7 +59,7 @@ export default function Backoffice_Courses() {
                 <div className={"backoffice_training_preview_container max_width"}>
                     <div className={"button_header"}>
                         <NavLink className={"button"} to={'0'}>
-                            Créer un cour
+                            Créer un cours
                         </NavLink>
                     </div>
                     {
