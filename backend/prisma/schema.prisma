@@ -13,7 +13,6 @@ model User {
   name           String?
   firstName      String?
   password       String
-  token          String?
   profilePicture String?
   createdAt      DateTime       @default(now())
   lastUpdate     DateTime   @updatedAt
