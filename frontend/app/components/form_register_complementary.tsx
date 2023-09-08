@@ -2,10 +2,10 @@ import Input from "~/kits/input";
 import Select from "~/kits/select";
 import Checkbox from "~/kits/checkbox";
 import Select_image from "~/kits/select_image";
-import { NavLink } from "@remix-run/react";
 import { useState, useContext } from "react";
 import { registerContext } from "~/context/registerContext";
 import useRegister from "~/hook/useRegister";
+import { NavLink } from "@remix-run/react";
 
 export default function Form_register_complementary() {
     // @ts-ignore
@@ -40,9 +40,7 @@ export default function Form_register_complementary() {
             "birthDate": birthDate,
             "postalAddress":  address + ", " + postalCode
         }
-        console.log(formData)
         register(formData)
-            .then()
     }
 
     return (
@@ -54,7 +52,7 @@ export default function Form_register_complementary() {
                 contents={genderData}
                 setValue={changeGender}
                 propsSetValue={""}
-
+                key={genderSelected}
             />
             <Input name={"BirthDate"} type={"date"} placeholder={"Date de naissance"}
                    setValue={setBirthDate} propsSetValue={""} value={birthDate}/>
@@ -69,7 +67,7 @@ export default function Form_register_complementary() {
                       text={"J’ai lu et j’accepte la Politique de confidentialité"}
                       setValue={setPrivacy}
                       propsSetValue={""} value={privacy}/>
-            <button className={"button"} type="submit" onClick={(e) => submit(e)}>Inscription</button>
+            <NavLink className={"button"} type="submit" onClick={(e:any) => submit(e)} to={"/"}>Inscription</NavLink>
         </form>
     )
 }
