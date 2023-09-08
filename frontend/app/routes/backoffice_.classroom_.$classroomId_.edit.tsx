@@ -5,6 +5,7 @@ import input from "~/styles/input.css";
 import classroom from "~/styles/backofficeClassrooom.css";
 import Header_section_page from "~/kits/header_section_page";
 import {NavLink} from "@remix-run/react";
+import { useGlobalEffect } from "~/helper/globalMiddleware";
 
 
 export function links() {
@@ -17,7 +18,7 @@ export function links() {
 }
 
 export default function Backoffice_Classroom_ClassroomId_Edit() {
-
+    useGlobalEffect()
 
     const [classroom, setClassroom] = useState({
         title: "Steampunk",
