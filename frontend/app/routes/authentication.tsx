@@ -6,6 +6,7 @@ import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
 import authentication from "~/styles/authentication.css";
 import Header_section_page from "~/kits/header_section_page";
+import { useGlobalEffect } from "~/helper/globalMiddleware";
 
 
 export const meta: V2_MetaFunction = () => {
@@ -25,6 +26,8 @@ export function links() {
 }
 
 export default function Authentication() {
+    useGlobalEffect()
+
     return (
         <div className={"authentication_container"}>
             <NavLink className={"image_authentication"} to={"/"} >

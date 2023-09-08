@@ -5,6 +5,7 @@ import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
 import backofficeBanner from "~/styles/backofficeBanner.css";
 import Header_section_page from "~/kits/header_section_page";
+import { useGlobalEffect } from "~/helper/globalMiddleware";
 
 
 export function links() {
@@ -17,6 +18,7 @@ export function links() {
 }
 
 export default function Backoffice_Banners() {
+    useGlobalEffect()
 
     const [banners, setBanners] = useState([
         {

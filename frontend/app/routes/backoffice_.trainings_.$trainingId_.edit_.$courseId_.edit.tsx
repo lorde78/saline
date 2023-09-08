@@ -11,6 +11,7 @@ import Builder_step_exercice from "~/components/builder_step_exercice";
 import Builder_step_video from "~/components/builder_step_video";
 import Builder_step_review from "~/components/builder_step_review";
 import Header_section_page from "~/kits/header_section_page";
+import { useGlobalEffect } from "~/helper/globalMiddleware";
 
 export function links() {
     return [
@@ -22,6 +23,8 @@ export function links() {
 }
 
 export default function Backoffice_Trainings_TrainingId_Edit_CourseId_Edit() {
+    useGlobalEffect()
+
     const [courseData, setCoursesData] = useState([
         {
             id: 1,
