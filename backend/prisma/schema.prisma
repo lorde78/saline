@@ -151,6 +151,7 @@ model Subscription {
   id             Int  @id @default(autoincrement())
   title              String?
   subscriptionType   String?
+  subscriptionTarget String?
   subscriptionStatus Boolean
   price              Int?
   createdAt          DateTime   @default(now())
@@ -160,6 +161,7 @@ model Subscription {
   discounts          Discount[]
   user               User?      @relation(fields: [userId], references: [id])
   nbSubscribers      Int?
+  nbCertified        Int?
   userId Int?
 }
 

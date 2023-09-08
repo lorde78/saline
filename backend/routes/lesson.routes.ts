@@ -4,9 +4,10 @@ const { database } = require('../config/db.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { title, description, numberSteps, difficultyLevel, price, duration, nbViews, nbCompleted, steps } = req.body;
+    const { title, description, numberSteps, difficultyLevel, price, duration, nbViews, nbCompleted, user, steps } = req.body;
     const lesson = await database.lesson.create({
         data: {
+            userId: user,
             title: title,
             description: description,
             numberSteps: numberSteps,
