@@ -8,6 +8,7 @@ import Backoffice_training from "~/components/backoffice_training";
 import Backoffice_edit_training from "~/components/backoffice_edit_training";
 import {NavLink, useLocation} from "@remix-run/react";
 import Builder_creation from "~/components/builder_creation";
+import { useGlobalEffect } from "~/helper/globalMiddleware";
 
 
 export function links() {
@@ -20,6 +21,8 @@ export function links() {
 }
 
 export default function Backoffice_Classroom_ClassroomId_Trainings_TrainingId() {
+    useGlobalEffect()
+
     return (
         <>
             <Header_section_page numberUndoPage={1}  title={"Créer un parcour"}/>
