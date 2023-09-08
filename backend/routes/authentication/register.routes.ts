@@ -7,7 +7,7 @@ const { generateToken } = require('../../utils/jwt.utils.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { email, password, firstname, profilePicture, lastConnection, lastUpdate, phoneNumber, genre, nationality, name, birthdate, postalAddress, roles } = req.body;
+    const { email, password, firstname, profilePicture, phoneNumber, genre, nationality, name, birthdate, postalAddress, roles } = req.body;
     const roleDefault = ["ROLE_USER"];
     let userRoles = roles ? roleDefault.concat(roles) : roleDefault;
 
@@ -35,10 +35,8 @@ router.post('/', async function (req, res, next) {
             token: accessToken,
             name: name,
             firstname: firstname,
-            profilePicture: profilePicture,
-            lastUpdate: lastUpdate,
-            lastConnection: lastConnection,
-            phoneNumber: phoneNumber,
+            profilePicture: profilePicture || "",
+            phoneNumber: phoneNumber || "",
             genre: genre,
             nationality: nationality,
             birthdate: birthdate,
@@ -49,7 +47,10 @@ router.post('/', async function (req, res, next) {
     })
 
     res.json({
-        'user': user,
+        message: 'Register successful',
+        token: accessToken,
+        cookie: getCookie(req),
+        user: user,
     });
 });
 

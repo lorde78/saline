@@ -5,7 +5,7 @@ import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
 import backofficeBanner from "~/styles/backofficeBanner.css";
 import Header_section_page from "~/kits/header_section_page";
-import { useGlobalEffect } from "~/helper/globalMiddleware";
+import { useGlobalEffect } from "~/helper/globalHelper";
 
 
 export function links() {

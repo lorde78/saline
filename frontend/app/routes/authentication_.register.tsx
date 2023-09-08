@@ -6,7 +6,7 @@ import input from "~/styles/input.css";
 import Form_register from "~/components/form_register";
 import authentication from "~/styles/authentication.css";
 import Header_section_page from "~/kits/header_section_page";
-import { useGlobalEffect } from "~/helper/globalMiddleware";
+import { useGlobalEffect } from "~/helper/globalHelper";
 
 
 export const meta: V2_MetaFunction = () => {

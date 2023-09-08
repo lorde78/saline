@@ -6,7 +6,7 @@ import training from "~/styles/backofficeTraining.css";
 import Header_section_page from "~/kits/header_section_page";
 import Backoffice_training from "~/components/backoffice_training";
 import {NavLink} from "@remix-run/react";
-import { useGlobalEffect } from "~/helper/globalMiddleware";
+import { useGlobalEffect } from "~/helper/globalHelper";
 
 
 export function links() {
