@@ -48,6 +48,7 @@ model Lesson {
   title           String?
   description     String?
   numberSteps     Int?
+  steps           Json?
   difficultyLevel String?
   price           Int?
   duration        String?
