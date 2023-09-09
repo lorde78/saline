@@ -20,7 +20,7 @@ export function links() {
     ]
 }
 
-export default function Backoffice_Trainings_TrainingId() {
+export default function Backoffice_Classroom_ClassroomId_Trainings_New() {
     useGlobalEffect()
 
     return (

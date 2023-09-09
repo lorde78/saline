@@ -52,7 +52,6 @@ export default function Form_register_complementary() {
                 contents={genderData}
                 setValue={changeGender}
                 propsSetValue={""}
-                key={genderSelected}
             />
             <Input name={"BirthDate"} type={"date"} placeholder={"Date de naissance"}
                    setValue={setBirthDate} propsSetValue={""} value={birthDate}/>

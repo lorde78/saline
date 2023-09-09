@@ -2,6 +2,7 @@ import { LoaderFunction } from "@remix-run/node"
 import { useEffect, useContext } from "react"
 import { signinContext } from "~/context/signinContext"
 import useGetCookies from "~/hook/useGetCookies"
+import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
 
 export function useGlobalEffect() {
     // @ts-ignore

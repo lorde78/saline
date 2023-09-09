@@ -35,7 +35,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Trainings() {
             <Header_section_page numberUndoPage={1}  title={"Parcour"}/>
             <section className={"max_width_container"}>
                 <div className={"backoffice_training_preview_container max_width"}>
-                    <NavLink to={"0"} className={"button"}>
+                    <NavLink to={"new"} className={"button"}>
                         Ajouter un parcour
                     </NavLink>
                     {
