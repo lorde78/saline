@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -6,8 +6,6 @@ import stylesRefacto from "~/styles/styleRefacto.css";
 import Header from "~/components/header";
 import Footer from "~/components/footer";
 import Header_section_page from "~/kits/header_section_page";
-import User_course_video_nav from "~/components/user_course_video_nav";
-import Checkbox from "~/kits/checkbox";
 import User_courses_step_exercise_bindlist from "~/components/user_courses_step_exercise_bindlist";
 import User_courses_step_exercise_qcm from "~/components/user_courses_step_exercise_qcm";
 import User_courses_step_video from "~/components/user_courses_step_video";
@@ -128,27 +126,19 @@ export default function Courses_CourseId_StepId() {
         switch (step.type) {
             case "video":
                 return (
-                    <User_courses_step_video
-                        step={step}
-                    />
+                    <User_courses_step_video step={step}/>
                 )
             case "exercise/qcm":
                 return (
-                    <User_courses_step_exercise_qcm
-                        step={step}
-                    />
+                    <User_courses_step_exercise_qcm step={step}/>
                 )
             case "exercise/bind_list":
                 return (
-                    <User_courses_step_exercise_bindlist
-                        step={step}
-                    />
+                    <User_courses_step_exercise_bindlist step={step}/>
                 )
             case "review":
                 return (
-                    <User_courses_step_review
-                        step={step}
-                    />
+                    <User_courses_step_review step={step}/>
                 )
         }
     }
