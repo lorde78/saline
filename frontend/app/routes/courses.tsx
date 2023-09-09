@@ -45,7 +45,7 @@ export default function Courses() {
             <Header/>
             <main className={"max_width_container margin-top-20"}>
                 <h1>Liste des cours</h1>
-                <div className={"preview_card_container-grid max_width"}>
+                <div className={"main_section_container-grid margin-top-20 max_width"}>
                     {
                         courses.map((course, i) => {
                             return (

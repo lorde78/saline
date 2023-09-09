@@ -24,6 +24,9 @@ export default function Courses_CourseId() {
     const [course, setCourse] = useState({
         id: 1,
         title: "course 2",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
+        imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
+        status: "En cours",
         data: [
             {
                 id: 1,
@@ -109,25 +112,41 @@ export default function Courses_CourseId() {
             }
         ]
     })
+    const [bannerHeight, setBannerHeight] = useState(400)
 
+    useEffect(() => {
+        window.onscroll = function () {
+            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                setBannerHeight(200)
+            } else {
+                setBannerHeight(400)
+            }
+        };
+    }, []);
     return (
         <>
             <Header/>
             <Header_section_page numberUndoPage={1} title={course.title}/>
-            <main className={"max_width_container margin-top-20"}>
-                <div className={"preview_card_container-flex max_width"}>
-                    {
-                        course.data.map((course, i) => {
-                            return (
-                                <User_preview_card_noimage
-                                    id={course.id}
-                                    title={course.value}
-                                    professor={course.professor}
-                                    status={course.status}
-                                />
-                            )
-                        })
-                    }
+            <main className={"max_width_container"}>
+                <div className={"main_section_container-flex max_width"}>
+                    <div className={"big_banner_image"} style={{height: bannerHeight}}>
+                        <img src={course.imgLink} alt={"bannière du cour"}/>
+                    </div>
+                    <p>{course.description}</p>
+                    <div className={"main_section_container-flex max_width"}>
+                        {
+                            course.data.map((course, i) => {
+                                return (
+                                    <User_preview_card_noimage
+                                        id={course.id}
+                                        title={course.value}
+                                        professor={course.professor}
+                                        status={course.status}
+                                    />
+                                )
+                            })
+                        }
+                    </div>
                 </div>
             </main>
             <Footer/>
