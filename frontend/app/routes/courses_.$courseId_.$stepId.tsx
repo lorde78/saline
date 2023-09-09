@@ -2,16 +2,16 @@ import {useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
-import classroom from "~/styles/backofficeClassrooom.css";
-import training from "~/styles/backofficeTraining.css";
-import {NavLink} from "@remix-run/react";
+import stylesRefacto from "~/styles/styleRefacto.css";
 import Header from "~/components/header";
 import Footer from "~/components/footer";
-import User_preview_card from "~/components/user_preview_card";
 import Header_section_page from "~/kits/header_section_page";
-import User_preview_card_noimage from "~/components/user_preview_card_noimage";
 import User_course_video_nav from "~/components/user_course_video_nav";
 import Checkbox from "~/kits/checkbox";
+import User_courses_step_exercise_bindlist from "~/components/user_courses_step_exercise_bindlist";
+import User_courses_step_exercise_qcm from "~/components/user_courses_step_exercise_qcm";
+import User_courses_step_video from "~/components/user_courses_step_video";
+import User_courses_step_review from "~/components/user_courses_step_review";
 
 
 export function links() {
@@ -19,8 +19,7 @@ export function links() {
         {rel: 'stylesheet', href: resetStyles},
         {rel: 'stylesheet', href: styles},
         {rel: 'stylesheet', href: input},
-        {rel: 'stylesheet', href: classroom},
-        {rel: 'stylesheet', href: training},
+        {rel: 'stylesheet', href: stylesRefacto},
     ]
 }
 
@@ -124,134 +123,32 @@ export default function Courses_CourseId_StepId() {
         //     data: {}
         // }
     )
-    const setDefaultExerciseAnswer = () => {
-        if (step.type == "exercise/qcm") {
-            let exerciseAnswerDefault: any[] = []
-            step.data.map((qcm, i) => {
-                let exerciseAnswerDefaultChoice: any[] = []
-                qcm.choice.map((choice, i) => {
-                    exerciseAnswerDefaultChoice.push({value: false})
-                })
-                exerciseAnswerDefault.push(exerciseAnswerDefaultChoice)
-            })
-            return exerciseAnswerDefault
-        } else if (step.type == "exercise/bind_list") {
-            let exerciseAnswerDefault: any[] = []
-            step.data.map((bind, i) => {
-                exerciseAnswerDefault.push({value: ""})
-            })
-            return exerciseAnswerDefault
-        }
-    }
 
-    const [exerciseAnswer, setExerciseAnswer] = useState(setDefaultExerciseAnswer())
-
-    useEffect(() => {
-        console.log(exerciseAnswer)
-    }, [exerciseAnswer])
-    const setExerciseAnswerData = (value: any, props: any) => {
-        if (step.type === "exercise/qcm") {
-            if (!step.data[props.idQCM].multipleChoice) {
-                let exerciseAnswerTemp: any[] = [...exerciseAnswer]
-                exerciseAnswerTemp[props.idQCM].map((choice: any, i: any) => {
-                    exerciseAnswerTemp[props.idQCM][i].value = false
-                })
-                setExerciseAnswer(exerciseAnswerTemp)
-            }
-
-            let exerciseAnswerTemp: any[] = [...exerciseAnswer]
-            exerciseAnswerTemp[props.idQCM][props.idChoice].value = value
-            setExerciseAnswer(exerciseAnswerTemp)
-        } else if (step.type === "exercise/bind_list") {
-
-        }
-    }
     const typeStep = () => {
         switch (step.type) {
             case "video":
                 return (
-                    <div className={"backoffice_training_preview_container max_width"}>
-                        <div className={"backoffice_training_preview_video"}>
-                            <iframe
-                                src={step.data.video}
-                                frameBorder='0'
-                                allow='autoplay; encrypted-media'
-                                allowFullScreen
-                                title='video'
-                                className={"backoffice_training_preview_video_iframe"}
-                            />
-                        </div>
-                        <div className={"backoffice_training_preview_description"}>
-                            <User_course_video_nav
-                                id={step.id}
-                                informations={step.data.information}
-                                professors={step.data.professors}
-                                description={step.data.description}
-                                comments={step.data.comments}
-                            />
-                        </div>
-                    </div>
+                    <User_courses_step_video
+                        step={step}
+                    />
                 )
             case "exercise/qcm":
                 return (
-                    <div className={"backoffice_training_preview_container max_width"}>
-                        <div className={"backoffice_training_preview_qcm"}>
-                            {
-                                step.data.map((qcm, idQCM) => {
-                                    return (
-                                        <div className={"backoffice_training_preview_qcm_question"}>
-                                            <p>{qcm.question}</p>
-                                            {
-                                                qcm.choice.map((choice, idChoice) => {
-                                                    return (
-                                                        <div
-                                                            className={"backoffice_training_preview_qcm_question_choice"}>
-                                                            <Checkbox
-                                                                name={"checkbox_" + idQCM + "_" + idChoice}
-                                                                type={qcm.multipleChoice ? "checkbox" : "radio"}
-                                                                text={""}
-                                                                setValue={setExerciseAnswerData}
-                                                                propsSetValue={{idQCM: idQCM, idChoice: idChoice}}
-                                                                value={exerciseAnswer[idQCM][idChoice].value}
-                                                            />
-
-                                                            <p>{choice.answer}</p>
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-                                        </div>
-                                    )
-                                })
-                            }
-                            <button className={"button"}>Envoyer</button>
-                        </div>
-                    </div>
+                    <User_courses_step_exercise_qcm
+                        step={step}
+                    />
                 )
             case "exercise/bind_list":
                 return (
-                    <div className={"backoffice_training_preview_container max_width"}>
-                        <div className={"backoffice_training_preview_bind_list"}>
-                            {
-                                step.data.map((bind, i) => {
-                                    return (
-                                        <div className={"backoffice_training_preview_bind_list_bind"}>
-                                            <p>{bind.bind1}</p>
-                                            <p>{bind.bind2}</p>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
-                    </div>
+                    <User_courses_step_exercise_bindlist
+                        step={step}
+                    />
                 )
             case "review":
                 return (
-                    <div className={"backoffice_training_preview_container max_width"}>
-                        <div className={"backoffice_training_preview_review"}>
-                            <p>Review</p>
-                        </div>
-                    </div>
+                    <User_courses_step_review
+                        step={step}
+                    />
                 )
         }
     }
@@ -261,8 +158,8 @@ export default function Courses_CourseId_StepId() {
         <>
             <Header/>
             <Header_section_page numberUndoPage={1} title={step.value}/>
-            <main className={"max_width_container"}>
-                <div className={"backoffice_training_preview_container max_width"}>
+            <main className={"max_width_container margin-top-20"}>
+                <div className={"main_section_container-flex max_width"}>
                     {typeStep()}
                 </div>
             </main>
