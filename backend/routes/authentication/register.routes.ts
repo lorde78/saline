@@ -26,7 +26,6 @@ router.post('/', async function (req, res, next) {
         return res.status(404).json({ message: 'User already exist' });
     }
 
-    const { accessToken } = generateToken({ email, password, roles });
 
     const user = await database.user.create({
         data: {
@@ -44,6 +43,9 @@ router.post('/', async function (req, res, next) {
             progress: {}
         }
     })
+
+    const userId = user.id
+    const { accessToken } = generateToken({ userId, email, password, roles });
 
     // Create cookie
     const cookie = sendCookie(res, accessToken);
