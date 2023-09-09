@@ -34,8 +34,8 @@ export default function Backoffice_Classroom() {
             <Header_section_page numberUndoPage={1}  title={"Classes"}/>
             <section className={"max_width_container"}>
                 <div className={"backoffice_classroom_preview_container max_width"}>
-                    <NavLink to={"0"} className={"button"}>
-                        Ajouter une classe
+                    <NavLink to={"new"} className={"button"}>
+                        Créer une classe
                     </NavLink>
                     {
                         classrooms.map((classroom, i) => {

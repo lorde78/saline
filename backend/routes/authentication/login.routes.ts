@@ -31,7 +31,8 @@ router.post('/', async function (req, res, next) {
 
     if (!getCookie(req)) {
         const roles = existingUser.roles
-        const { accessToken } = generateToken({ email, password, roles });
+        const userId = existingUser.id
+        const { accessToken } = generateToken({ userId, email, password, roles });
 
         // Create cookie
         const cookie = sendCookie(res, accessToken);
