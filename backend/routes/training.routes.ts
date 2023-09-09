@@ -13,8 +13,7 @@ router.post('/', async function (req, res, next) {
             difficultyLevel: difficultyLevel.toString(),
             nbViews: 0,
             nbCompleted: 0,
-            nbrCertified: 0,
-            tags: tags || ""
+            nbCertified: 0
         }
     })
 

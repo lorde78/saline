@@ -88,8 +88,8 @@ model Training {
   lastUpdate      DateTime       @updatedAt
   userId          Int?
   nbViews         Int?
-  nbrCompleted    Int?
-  nbrCertified    Int?
+  nbCompleted    Int?
+  nbCertified    Int?
   author          User?          @relation("TrainingAuthor", fields: [userId], references: [id])
   students        User[]         @relation("TrainingStudents")
   lessons         Lesson[]
