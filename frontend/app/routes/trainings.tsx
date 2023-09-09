@@ -2,13 +2,10 @@ import {useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
-import classroom from "~/styles/backofficeClassrooom.css";
-import training from "~/styles/backofficeTraining.css";
-import {NavLink} from "@remix-run/react";
+import stylesRefacto from "~/styles/styleRefacto.css";
 import Header from "~/components/header";
 import Footer from "~/components/footer";
-import User_training from "~/components/user_training";
-import Header_section_page from "~/kits/header_section_page";
+import User_preview_card from "~/components/user_preview_card";
 
 
 export function links() {
@@ -16,8 +13,7 @@ export function links() {
         {rel: 'stylesheet', href: resetStyles},
         {rel: 'stylesheet', href: styles},
         {rel: 'stylesheet', href: input},
-        {rel: 'stylesheet', href: classroom},
-        {rel: 'stylesheet', href: training},
+        {rel: 'stylesheet', href: stylesRefacto},
     ]
 }
 
@@ -57,25 +53,23 @@ export default function Trainings() {
     return (
         <>
             <Header/>
-            <main className={"max_width_container"}>
+            <main className={"max_width_container margin-top-20"}>
                 <h1>Liste des parcours</h1>
-                <div className={"classroom_container-open max_width"}>
-                    <div className={"classroom_preview_training"}>
-                        {
-                            trainings.map((training, i) => {
-                                return (
-                                    <User_training
-                                        id={training.id}
-                                        title={training.title}
-                                        professor={training.professor}
-                                        imgLink={training.imgLink}
-                                        description={training.description}
-                                        status={training.status}
-                                    />
-                                )
-                            })
-                        }
-                    </div>
+                <div className={"preview_card_container-grid max_width"}>
+                    {
+                        trainings.map((training, i) => {
+                            return (
+                                <User_preview_card
+                                    id={training.id}
+                                    title={training.title}
+                                    professor={training.professor}
+                                    imgLink={training.imgLink}
+                                    description={training.description}
+                                    status={training.status}
+                                />
+                            )
+                        })
+                    }
                 </div>
             </main>
             <Footer/>

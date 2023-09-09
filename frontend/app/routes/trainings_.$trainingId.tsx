@@ -2,12 +2,10 @@ import {useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
-import classroom from "~/styles/backofficeClassrooom.css";
-import training from "~/styles/backofficeTraining.css";
-import {NavLink} from "@remix-run/react";
+import stylesRefacto from "~/styles/styleRefacto.css";
 import Header from "~/components/header";
 import Footer from "~/components/footer";
-import User_training from "~/components/user_training";
+import User_preview_card from "~/components/user_preview_card";
 import Header_section_page from "~/kits/header_section_page";
 
 
@@ -16,8 +14,7 @@ export function links() {
         {rel: 'stylesheet', href: resetStyles},
         {rel: 'stylesheet', href: styles},
         {rel: 'stylesheet', href: input},
-        {rel: 'stylesheet', href: classroom},
-        {rel: 'stylesheet', href: training},
+        {rel: 'stylesheet', href: stylesRefacto},
     ]
 }
 
@@ -66,17 +63,17 @@ export default function Trainings_TrainingId() {
         <>
             <Header/>
             <Header_section_page numberUndoPage={1} title={training.title}/>
-            <main className={"max_width_container"}>
-                <div className={"classroom_container-open max_width"}>
-                    <div className={"classroom_image_banner"} style={{height: bannerHeight}}>
+            <main className={"max_width_container margin-top-20"}>
+                <div className={"preview_card_container-flex max_width"}>
+                    <div className={"big_banner_image"} style={{height: bannerHeight}}>
                         <img src={training.imgLink} alt={"bannière du cour"}/>
                     </div>
                     <p>{training.description}</p>
-                    <div className={"classroom_preview_training"}>
+                    <div className={"preview_card_container-grid"}>
                         {
                             training.courses.map((training, i) => {
                                 return (
-                                    <User_training
+                                    <User_preview_card
                                         id={training.id}
                                         title={training.title}
                                         professor={training.professor}
