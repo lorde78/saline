@@ -2,14 +2,11 @@ import {useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
-import classroom from "~/styles/backofficeClassrooom.css";
-import training from "~/styles/backofficeTraining.css";
-import {NavLink} from "@remix-run/react";
+import stylesRefacto from "~/styles/styleRefacto.css";
 import Header from "~/components/header";
 import Footer from "~/components/footer";
-import User_training from "~/components/user_training";
 import Header_section_page from "~/kits/header_section_page";
-import User_courses from "~/components/user_courses";
+import User_preview_card_noimage from "~/components/user_preview_card_noimage";
 
 
 export function links() {
@@ -17,8 +14,7 @@ export function links() {
         {rel: 'stylesheet', href: resetStyles},
         {rel: 'stylesheet', href: styles},
         {rel: 'stylesheet', href: input},
-        {rel: 'stylesheet', href: classroom},
-        {rel: 'stylesheet', href: training},
+        {rel: 'stylesheet', href: stylesRefacto},
     ]
 }
 
@@ -118,12 +114,12 @@ export default function Courses_CourseId() {
         <>
             <Header/>
             <Header_section_page numberUndoPage={1} title={course.title}/>
-            <main className={"max_width_container"}>
-                <div className={"backoffice_training_preview_container max_width"}>
+            <main className={"max_width_container margin-top-20"}>
+                <div className={"preview_card_container-flex max_width"}>
                     {
                         course.data.map((course, i) => {
                             return (
-                                <User_courses
+                                <User_preview_card_noimage
                                     id={course.id}
                                     title={course.value}
                                     professor={course.professor}
