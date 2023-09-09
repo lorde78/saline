@@ -7,9 +7,9 @@ import training from "~/styles/backofficeTraining.css";
 import {NavLink} from "@remix-run/react";
 import Header from "~/components/header";
 import Footer from "~/components/footer";
-import User_training from "~/components/user_training";
+import User_preview_card from "~/components/user_preview_card";
 import Header_section_page from "~/kits/header_section_page";
-import User_courses from "~/components/user_courses";
+import User_preview_card_noimage from "~/components/user_preview_card_noimage";
 import User_course_video_nav from "~/components/user_course_video_nav";
 import Checkbox from "~/kits/checkbox";
 

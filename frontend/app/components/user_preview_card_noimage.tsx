@@ -7,12 +7,12 @@ type Props = {
     professor: string
     status: string
 };
-export default function User_courses({
-                                         id,
-                                         title,
-                                         professor,
-                                         status
-                                     }: Props) {
+export default function User_preview_card_noimage({
+                                                      id,
+                                                      title,
+                                                      professor,
+                                                      status
+                                                  }: Props) {
 
 
     const setStatus = () => {
@@ -33,7 +33,7 @@ export default function User_courses({
 
         }
         return (
-            <div className={"training_status"}>
+            <div className={"preview_card_status"}>
                 <span className={"status_color status_color-" + statusColor}/>
                 <p>{status}</p>
             </div>
@@ -41,11 +41,15 @@ export default function User_courses({
     }
 
     return (
-        <NavLink to={id.toString()} className={"course"}>
-            <p>{title}</p>
-            <div className={"training_info"}>
-                {setStatus()}
-                {professor}
+        <NavLink to={id.toString()} className={"preview_card"}>
+            <div className={"preview_card_content"}>
+                <div className={"content_header"}>
+                    <p>{title}</p>
+                    <div className={"header_content-right"}>
+                        {setStatus()}
+                        {professor}
+                    </div>
+                </div>
             </div>
         </NavLink>
     );
