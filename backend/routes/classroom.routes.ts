@@ -4,17 +4,19 @@ const { database } = require('../config/db.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { title, userId, trainingId } = req.body;
+    const { title, userId, bannerPicture, description } = req.body;
     const classroom = await database.classroom.create({
         data: {
             title: title,
-            userId: userId,
-            trainingId: trainingId,
+            userId: parseInt(userId),
+            bannerPicture: bannerPicture || "",
+            description: description
         }
     })
 
     res.json({
         message: 'classroom added',
+        classroom
     });
 
 });
@@ -53,18 +55,21 @@ router.put('/', async function (req, res, next) {
 
 router.get('/', async function (req, res, next) {
     const { id } = req.query;
+    let classrooms = null;
+
     if (!id) {
-        res.status(400);
-        throw new Error('You must provide an id ');
+        classrooms = await database.classroom.findMany()
+    } else {
+        classrooms = await database.classroom.findMany({
+            where: {
+                OR: [
+                    {id: id},
+                    {userId: id},
+                ],
+            },
+        })
     }
-    const classrooms = await database.classroom.findMany({
-        where: {
-            OR: [
-                { id: id },
-                { userId: id },
-            ],
-        },
-    })
+
     res.json({
         "classrooms": classrooms
     });

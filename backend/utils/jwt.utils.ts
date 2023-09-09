@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 function generateAccessToken(user) {
   const payload = {
-    userId: user.id,
+    userId: user.userId,
     email: user.email,
     userRoles: user.roles,
   }
