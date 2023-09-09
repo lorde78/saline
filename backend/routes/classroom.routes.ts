@@ -15,8 +15,7 @@ router.post('/', async function (req, res, next) {
     })
 
     res.json({
-        message: 'classroom added',
-        classroom
+        message: 'classroom added'
     });
 
 });

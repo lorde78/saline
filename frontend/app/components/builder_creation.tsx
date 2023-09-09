@@ -5,30 +5,49 @@ import Header_section_page from "~/kits/header_section_page";
 import Input from "~/kits/input";
 import Textarea from "~/kits/textarea";
 import {useLocation} from "@remix-run/react";
-import useCreateClassroom from "~/hook/useCreateClassroom";
+import useCreateClassroom from "~/hook/useCreateBuilderElement";
 import {signinContext} from "~/context/signinContext";
 import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
 import {useNavigate} from "react-router-dom";
+import useCreateBuilderElement from "~/hook/useCreateBuilderElement";
 
 type Props = {
-    creation_type: string,
-    useCreateHook: any
+    creation_type: string
 }
 
-export default function Builder_creation({creation_type,useCreateHook}: Props) {
+export default function Builder_creation({creation_type}: Props) {
     const [id, setId] = useState(10)
     const [banner, setBanner] = useState()
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
 
+    // Difficulty Select
+    const [difficulty, setDifficulty] = useState()
+    const [difficultyData, setDifficultyData] = useState([
+        {value: "1", option: "1"},
+        {value: "2", option: "2"},
+        {value: "3", option: "3"},
+        {value: "4", option: "4"},
+        {value: "5", option: "5"}
+    ])
+    const [difficultySelected, setDifficultySelected] = useState(0)
+    // Difficulty Select
+
     const location = useLocation()
     const navigate = useNavigate()
 
     const [signin, setSignin] = useContext(signinContext)
-    const currentUserId = useGetCurrentUserId(signin)
+    let currentUserId = null;
 
-    const creationHook = useCreateHook()
+    useEffect(() => {
+        if (!signin) {
+            currentUserId = useGetCurrentUserId(signin)
+        }
+    }, [signin])
+
+    const creationHook = useCreateBuilderElement()
     let createdId = null;
+
 
     const editLink = () => {
         let path = location.pathname
@@ -40,6 +59,29 @@ export default function Builder_creation({creation_type,useCreateHook}: Props) {
         return newPath.toString().replaceAll(",", "/")
     }
 
+    const complementaryForm = () => {
+        switch(creation_type) {
+            case 'training':
+                return (
+                    <div>
+                        <div>
+                            <h3>Niveau de difficulté</h3>
+                            <Select
+                                optionSelected={difficultySelected}
+                                setOptionSelected={setDifficultySelected}
+                                contents={difficultyData}
+                                setValue={setDifficulty}
+                                propsSetValue={""}
+                            />
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                )
+        }
+    }
+
     const submit = async (e) => {
         e.preventDefault()
         let formData = {
@@ -49,7 +91,7 @@ export default function Builder_creation({creation_type,useCreateHook}: Props) {
             "description": description
         }
 
-        createdId = await creationHook(formData).then(res => res[creation_type].id)
+        createdId = await creationHook(formData,creation_type).then(res => res.id)
 
         navigate(editLink() + "/" + createdId + "/edit")
     }
@@ -72,6 +114,7 @@ export default function Builder_creation({creation_type,useCreateHook}: Props) {
                 propsSetValue={""}
                 value={description}
             />
+            {complementaryForm()}
             <button onClick={(e) => submit(e)} className={"button"}>Ajouter une étape</button>
         </form>
     )
