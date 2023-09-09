@@ -28,10 +28,11 @@ model User {
   Comments            Comment[]
   Answers             Answer[]
   Lessons             Lesson[]
-  Trainings           Training[]
   Annotations         Annotation[]
-  teachingClassrooms  Classroom[]     @relation("Professor")
-  attendingClassrooms Classroom[]     @relation("Students")
+  teachingClassrooms  Classroom[]     @relation("ClassroomProfessor")
+  attendingClassrooms Classroom[]     @relation("ClassroomStudents")
+  trainingsCreated    Training[]      @relation("TrainingAuthor")
+  Trainings           Training[]      @relation("TrainingStudents")
   Discounts           Discount[]
   Subscriptions       Subscription[]
 }
@@ -51,12 +52,11 @@ model Lesson {
   numberSteps     Int?
   steps           Json?
   difficultyLevel String?
-  price           Int?
   duration        String?
   nbViews         Int?
   nbCompleted     Int?
   userId          Int?
-  user            User?          @relation(fields: [userId], references: [id])
+  author            User?          @relation(fields: [userId], references: [id])
   tags            Tag[]
   trainings       Training[]
   comments        Comment[]
@@ -74,27 +74,24 @@ model Classroom {
   userId        Int?
   bannerPicture String?
   description   String?    @db.Text
-  author        User?      @relation("Professor", fields: [userId], references: [id])
-  students      User[]     @relation("Students")
+  author        User?      @relation("ClassroomProfessor", fields: [userId], references: [id])
+  students      User[]     @relation("ClassroomStudents")
   training      Training[]
 }
 
 model Training {
   id              Int            @id @default(autoincrement())
   title           String?
-  description     String?
+  description     String?        @db.Text
   difficultyLevel String?
   createdAt       DateTime       @default(now())
   lastUpdate      DateTime       @updatedAt
-  accesibility    Boolean
-  price           Int?
-  duration        String?
   userId          Int?
-  user            User?          @relation(fields: [userId], references: [id])
-  // autor           User?         @relation(fields: [id], references: [id])
   nbViews         Int?
   nbrCompleted    Int?
   nbrCertified    Int?
+  author          User?          @relation("TrainingAuthor", fields: [userId], references: [id])
+  students        User[]         @relation("TrainingStudents")
   lessons         Lesson[]
   classrooms      Classroom[]
   tags            Tag[]
@@ -154,7 +151,6 @@ model Subscription {
   subscriptionType   String?
   subscriptionTarget String?
   subscriptionStatus Boolean
-  price              Int?
   createdAt          DateTime   @default(now())
   lastUpdate         DateTime   @updatedAt
   lessons            Lesson[]

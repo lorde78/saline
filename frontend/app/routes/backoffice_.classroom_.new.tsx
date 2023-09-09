@@ -7,7 +7,7 @@ import Builder_creation from "~/components/builder_creation";
 import { useGlobalEffect } from "~/helper/globalHelper";
 import {useEffect} from "react";
 import {useLocation} from "@remix-run/react";
-import useCreateClassroom from "~/hook/useCreateClassroom";
+import useCreateClassroom from "~/hook/useCreateBuilderElement";
 
 
 export function links() {
@@ -27,7 +27,7 @@ export default function Backoffice_Classroom_New() {
             <Header_section_page numberUndoPage={1}  title={"Créer une classe"}/>
             <section className={"max_width_container"}>
                 <div className={"builder_container max_width"}>
-                    <Builder_creation creation_type={"classroom"} useCreateHook={useCreateClassroom} />
+                    <Builder_creation creation_type={"classroom"} />
                 </div>
             </section>
         </>

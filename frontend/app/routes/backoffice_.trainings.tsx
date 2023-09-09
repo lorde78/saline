@@ -32,11 +32,11 @@ export default function Backoffice_Trainings() {
     ])
     return (
         <>
-            <Header_section_page numberUndoPage={1}  title={"Parcour"}/>
+            <Header_section_page numberUndoPage={1}  title={"Parcours"}/>
             <section className={"max_width_container"}>
                 <div className={"backoffice_training_preview_container max_width"}>
-                    <NavLink to={"0"} className={"button"}>
-                        Ajouter un parcour
+                    <NavLink to={"new"} className={"button"}>
+                        Ajouter un parcours
                     </NavLink>
                     {
                         trainings.map((training, i) => {

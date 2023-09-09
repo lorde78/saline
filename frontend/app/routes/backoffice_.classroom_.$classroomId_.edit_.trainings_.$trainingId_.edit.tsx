@@ -58,7 +58,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Trainings_Training
             <section className={"max_width_container"}>
                 <div className={"backoffice_training_preview_container max_width"}>
                     <div className={"button_header"}>
-                        <NavLink className={"button"} to={'0'}>
+                        <NavLink to={"new"} className={"button"}>
                             Créer un cour
                         </NavLink>
                         <NavLink className={"button"} to={'add'}>

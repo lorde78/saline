@@ -4,27 +4,23 @@ const { database } = require('../config/db.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { title, description, difficultyLevel, accesibility, price, duration, nbViews, nbCompleted } = req.body;
-    // récupérer l'id de l'utilisateur connecté
-    const userId = 1;
+    const { title, description, difficultyLevel, tags, userId } = req.body;
     const training = await database.training.create({
         data: {
-            userId: userId,
-            validation: false,
             title: title,
+            userId: parseInt(userId),
             description: description,
-            difficultyLevel: difficultyLevel,
-            accesibility: accesibility,
-            price: price,
-            duration: duration,
-            nbViews: nbViews,
-            nbCompleted: nbCompleted,
-            nbrCertified: 0
+            difficultyLevel: difficultyLevel.toString(),
+            nbViews: 0,
+            nbCompleted: 0,
+            nbrCertified: 0,
+            tags: tags || ""
         }
     })
 
     res.json({
         message: 'training added',
+        training
     });
 
 });
@@ -63,15 +59,18 @@ router.put('/', async function (req, res, next) {
 
 router.get('/', async function (req, res, next) {
     const { id } = req.query;
+    let trainings = null;
+
     if (!id) {
-        res.status(400);
-        throw new Error('You must provide an id ');
+        trainings = await database.training.findMany()
+    } else {
+        trainings = await database.training.findMany({
+            where: {
+                trainingId: id,
+            },
+        })
     }
-    const trainings = await database.training.findMany({
-        where: {
-            trainingId: id,
-        },
-    })
+
     res.json({
         "trainings": trainings
     });

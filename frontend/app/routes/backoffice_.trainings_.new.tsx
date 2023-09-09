@@ -20,12 +20,12 @@ export function links() {
     ]
 }
 
-export default function Backoffice_Classroom_ClassroomId_Trainings_TrainingId() {
+export default function Backoffice_Trainings_New() {
     useGlobalEffect()
 
     return (
         <>
-            <Header_section_page numberUndoPage={1}  title={"Créer un parcour"}/>
+            <Header_section_page numberUndoPage={1}  title={"Créer un parcours"}/>
             <section className={"max_width_container"}>
                 <div className={"builder_container max_width"}>
                     <Builder_creation creation_type={"training"} />
