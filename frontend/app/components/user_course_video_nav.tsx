@@ -1,6 +1,7 @@
 import 'remixicon/fonts/remixicon.css'
 import {NavLink, Outlet, useLocation} from "@remix-run/react";
 import {useState} from "react";
+import Tag from "~/kits/tag";
 
 type Props = {
     id: number
@@ -23,13 +24,13 @@ export default function User_course_video_nav({
         switch (active) {
             case "Description":
                 return (
-                    <div className={"course_video_nav_container"}>
+                    <>
                         <p>{description}</p>
-                    </div>
+                    </>
                 )
             case "Informations":
                 return (
-                    <div className={"course_video_nav_container"}>
+                    <>
                         {informations.document !== "" ?
                             <iframe src="informations.document" id={"preview_" + id} className={"preview"}></iframe>
                             :
@@ -40,62 +41,66 @@ export default function User_course_video_nav({
                             :
                             <p>Aucune déscription</p>
                         }
-                    </div>
+                    </>
                 )
             case
             "Commentaires"
             :
                 return (
-                    <div className={"course_video_nav_container"}>
-                        <h2>Commentaires</h2>
+                    <>
                         <ul>
                             "commentaires"
                         </ul>
-                    </div>
+                    </>
                 )
             case
             "Professeurs"
             :
                 return (
-                    <div className={"course_video_nav_container"}>
-                        <div>
-                            {
-                                professors.map((professor, i) => {
-                                        return (
-                                            <div>
+                    <>
+                        {
+                            professors.map((professor: any, id: number) => {
+                                    return (
+                                        <div className={"preview_courses_profesor"}>
+                                            <div className={"professors_card"}>
                                                 <img src={professor.img}/>
+                                            </div>
+                                            <div className={""}>
+                                                <h1>{professor.name}</h1>
                                                 <div>
-                                                    <h1>{professor.name}</h1>
                                                     <div>
                                                         <p>Rôle :</p>
-                                                        {professor.roles.map((role, i) => {
-                                                                return (
-                                                                    <p>{role}</p>
-                                                                )
-                                                            }
-                                                        )}
+                                                        <div>
+                                                            {professor.roles.map((role: string, id: number) => {
+                                                                    return (
+                                                                        <Tag role={role} />
+                                                                    )
+                                                                }
+                                                            )}
+                                                        </div>
                                                     </div>
                                                     <div>
                                                         <p>Instruments :</p>
-                                                        {professor.instruments.map((instrument, i) => {
-                                                                return (
-                                                                    <p>{instrument}</p>
-                                                                )
-                                                            }
-                                                        )}
-
+                                                        <div>
+                                                            {professor.instruments.map((instrument: string, id: number) => {
+                                                                    return (
+                                                                        <Tag role={instrument} />
+                                                                    )
+                                                                }
+                                                            )}
+                                                        </div>
                                                     </div>
-                                                    <NavLink to={"/professor/" + professor.id} className={"button"}>
-                                                        Voir plus
-                                                    </NavLink>
                                                 </div>
+                                                <NavLink to={"/professor/" + professor.id} className={"button"}>
+                                                    Voir plus
+                                                </NavLink>
                                             </div>
-                                        )
-                                    }
-                                )
-                            }
-                        </div>
-                    </div>
+                                        </div>
+                                    )
+                                }
+                            )
+                        }
+                    </>
                 )
         }
     }
@@ -103,25 +108,27 @@ export default function User_course_video_nav({
         <>
             <nav>
                 <ul>
-                    <li onClick={() => {
+                    <li className={active === "Description" ? "active" : ""} onClick={() => {
                         setActive("Description")
                     }}>Description
                     </li>
-                    <li onClick={() => {
+                    <li className={active === "Informations" ? "active" : ""} onClick={() => {
                         setActive("Informations")
                     }}>Informations
                     </li>
-                    <li onClick={() => {
+                    <li className={active === "Commentaires" ? "active" : ""} onClick={() => {
                         setActive("Commentaires")
                     }}>Commentaires
                     </li>
-                    <li onClick={() => {
+                    <li className={active === "Professeurs" ? "active" : ""} onClick={() => {
                         setActive("Professeurs")
                     }}>Professeurs
                     </li>
                 </ul>
             </nav>
-            {setData()}
+            <div className={"course_video_nav_content"}>
+                {setData()}
+            </div>
         </>
     );
 }

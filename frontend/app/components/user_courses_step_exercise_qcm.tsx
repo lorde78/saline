@@ -1,6 +1,5 @@
 import Checkbox from "~/kits/checkbox";
 import {useEffect, useState} from "react";
-import {a} from "vite-node/types-63205a44";
 
 type Props = {
     step: any

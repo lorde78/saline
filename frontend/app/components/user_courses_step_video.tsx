@@ -1,6 +1,4 @@
-import {useEffect, useState} from "react";
 import User_course_video_nav from "~/components/user_course_video_nav";
-import Checkbox from "~/kits/checkbox";
 
 type Props = {
     step: any
@@ -8,7 +6,7 @@ type Props = {
 export default function User_courses_step_video({step}: Props) {
     return (
         <>
-            <div className={""}>
+            <div className={"courses_preview_video"}>
                 <iframe
                     src={step.data.video}
                     frameBorder='0'
@@ -18,7 +16,7 @@ export default function User_courses_step_video({step}: Props) {
                     className={"backoffice_training_preview_video_iframe"}
                 />
             </div>
-            <div className={""}>
+            <div className={"courses_content_container"}>
                 <User_course_video_nav
                     id={step.id}
                     informations={step.data.information}
