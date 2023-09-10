@@ -1,7 +1,41 @@
 import User_course_video_nav from "~/components/user_course_video_nav";
 
+interface Comment {
+    id: number;
+}
+
+interface Professor {
+    id: number;
+    img: string;
+    name: string;
+    roles: string[];
+    instruments: string[];
+}
+
+interface Information {
+    infoDescription: string;
+    document: string;
+}
+
+interface VideoData {
+    description: string;
+    information: Information;
+    video: string;
+    professors: Professor[];
+    comments: Comment[];
+}
+
+interface Step {
+    id: number;
+    value: string;
+    type: string;
+    professor: string;
+    status: string;
+    data: VideoData;
+}
+
 type Props = {
-    step: any
+    step: Step;
 }
 export default function User_courses_step_video({step}: Props) {
     return (

@@ -63,54 +63,54 @@ export default function Courses_CourseId_StepId() {
         //         }
         // }
 
-        // {
-        //     id: 2,
-        //     value: "étape 2",
-        //     type: "exercise/qcm",
-        //     professor: "Jean Paul",
-        //     status: "En cours",
-        //     data: [
-        //         {
-        //             question: 'Question 1',
-        //             multipleChoice: true,
-        //             choice: [
-        //                 {answer: 'Réponse 1', goodAnswer: true},
-        //                 {answer: 'Réponse 2', goodAnswer: true},
-        //                 {answer: 'Réponse 3', goodAnswer: false},
-        //             ]
-        //         },
-        //         {
-        //             question: 'Question 2',
-        //             multipleChoice: false,
-        //             choice: [
-        //                 {answer: 'Réponse 1', goodAnswer: true},
-        //                 {answer: 'Réponse 2', goodAnswer: false},
-        //             ]
-        //         }
-        //     ]
-        // }
-
         {
-            id: 3,
-            value: "étape 3",
-            type: "exercise/bind_list",
+            id: 2,
+            value: "étape 2",
+            type: "exercise/qcm",
             professor: "Jean Paul",
-            status: "Non commencé",
+            status: "En cours",
             data: [
                 {
-                    bind1: "pommes",
-                    bind2: "fruits",
+                    question: 'Question 1',
+                    multipleChoice: true,
+                    choice: [
+                        {answer: 'Réponse 1', goodAnswer: true},
+                        {answer: 'Réponse 2', goodAnswer: true},
+                        {answer: 'Réponse 3', goodAnswer: false},
+                    ]
                 },
                 {
-                    bind1: "carottes",
-                    bind2: "léguemes",
-                },
-                {
-                    bind1: "poivres",
-                    bind2: "épices",
-                },
+                    question: 'Question 2',
+                    multipleChoice: false,
+                    choice: [
+                        {answer: 'Réponse 1', goodAnswer: true},
+                        {answer: 'Réponse 2', goodAnswer: false},
+                    ]
+                }
             ]
         }
+
+        // {
+        //     id: 3,
+        //     value: "étape 3",
+        //     type: "exercise/bind_list",
+        //     professor: "Jean Paul",
+        //     status: "Non commencé",
+        //     data: [
+        //         {
+        //             bind1: "pommes",
+        //             bind2: "fruits",
+        //         },
+        //         {
+        //             bind1: "carottes",
+        //             bind2: "léguemes",
+        //         },
+        //         {
+        //             bind1: "poivres",
+        //             bind2: "épices",
+        //         },
+        //     ]
+        // }
 
         // {
         //     id: 4,
