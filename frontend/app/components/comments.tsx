@@ -20,7 +20,6 @@ export default function Comments ({ commentsData }: Props) {
             date={comment.date}
             upvote={comment.upvote}
             downvote={comment.downvote}
-            isAdmin={comment.isAdmin}
             responsesData={comment.responsesData}
             />
         )})}
