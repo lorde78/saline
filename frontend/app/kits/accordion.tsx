@@ -16,7 +16,6 @@ const fakeCommentData = [
     date: "21/08",
     upvote: 6,
     downvote: 7,
-    isAdmin: true,
     responsesData: [
       {
         username: "Alice",
@@ -25,7 +24,6 @@ const fakeCommentData = [
         date: "22/08",
         upvote: 12,
         downvote: 3,
-        isAdmin: false,
       },
       {
         username: "Bob",
@@ -34,7 +32,6 @@ const fakeCommentData = [
         date: "22/08",
         upvote: 8,
         downvote: 2,
-        isAdmin: false,
       },
     ],
   },
@@ -45,7 +42,18 @@ const fakeCommentData = [
     date: "23/08",
     upvote: 4,
     downvote: 1,
-    isAdmin: false,
+  },
+];
+
+const fakeFormationsData = [
+  {
+    title: "Comment on fait pour faire ça ? Merci beaucoup",
+    thumbnail: "/assets/images/1000x1500-pour-site14.png",
+    
+  },
+  {
+    title: "Super commentaire !",
+    thumbnail: "/assets/images/1000x1500-pour-site14.png",
   },
 ];
 

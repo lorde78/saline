@@ -7,10 +7,9 @@ type Props = {
   date: string;
   upvote: number;
   downvote: number;
-  isAdmin: boolean;
 };
 
-export default function Response ({ username, content, userpic, date, upvote, downvote, isAdmin }: Props) {
+export default function Response ({ username, content, userpic, date, upvote, downvote }: Props) {
 
     const response = () => {
 
@@ -31,7 +30,7 @@ export default function Response ({ username, content, userpic, date, upvote, do
 
               <div className="comment_username">{username}</div>
               <div className="comment_date">{date}</div>
-              <div className={`comment_admin-actions ${isAdmin ? "show-actions" : ""}`}>
+              <div className={`comment_admin-actions`}>
                   <i className="ri-more-fill"></i>
               </div>
           </div>

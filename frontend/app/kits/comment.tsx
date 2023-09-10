@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import "~/styles/comment.css";
 import Response from "./response";
 
@@ -9,29 +9,21 @@ type Props = {
   date: string;
   upvote: number;
   downvote: number;
-  isAdmin: boolean;
   responsesData: any;
 };
 
 
 
 
-export default function Comment ({ username, content, userpic, date, upvote, downvote, isAdmin, responsesData }: Props) {
+export default function Comment ({ username, content, userpic, date, upvote, downvote, responsesData }: Props) {
 
-  const [responseContent, setResponseContent] = useState(""); // State to store the response content
+  // const [responseContent, setResponseContent] = useState("");
 
-  const handleResponseSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  // const handleResponseSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
 
-    // Here, you can handle the submission of the response.
-    // You might want to send this data to your backend or update the state to display the response.
-
-    // For now, let's just alert the response content.
-    alert(`You submitted a response: ${responseContent}`);
-
-    // Clear the response input field after submission
-    setResponseContent("");
-  };
+  //   setResponseContent("");
+  // };
 
   
 
@@ -48,7 +40,7 @@ export default function Comment ({ username, content, userpic, date, upvote, dow
 
               <div className="comment_username">{username}</div>
               <div className="comment_date">{date}</div>
-              <div className={`comment_admin-actions ${isAdmin ? "show-actions" : ""}`}>
+              <div className={`comment_admin-actions`}>
                   <i className="ri-more-fill"></i>
               </div>
           </div>
@@ -78,7 +70,6 @@ export default function Comment ({ username, content, userpic, date, upvote, dow
                 date={response.date}
                 upvote={response.upvote}
                 downvote={response.downvote}
-                isAdmin={response.isAdmin}
                 />)
             })}
           </div>
