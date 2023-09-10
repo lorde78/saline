@@ -25,43 +25,43 @@ export default function Courses_CourseId_StepId() {
 
 
     const [step, setStep] = useState(
-        {
-            id: 1,
-            value: "étape 1",
-            type: "video",
-            professor: "Jean Paul",
-            status: "Terminé",
-            data:
-                {
-                    description: "On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).",
-                    information: {
-                        infoDescription: "On sait depuis longtemps que ",
-                        document: ""
-                    },
-                    video: "https://www.youtube.com/embed/Zi_XLOBDo_Y",
-                    professors: [
-                        {
-                            id: 0,
-                            img: "https://www.w3schools.com/howto/img_avatar.png",
-                            name: "Jean Paul",
-                            roles: ["Professeur", "Administrateur"],
-                            instruments: ["Guitare"]
-                        },
-                        {
-                            id: 1,
-                            img: "https://www.w3schools.com/howto/img_avatar.png",
-                            name: "Jean Damien",
-                            roles: ["Professeur"],
-                            instruments: ["Guitare", "Basse"],
-                        }
-                    ],
-                    comments: [
-                        {
-                            id: 0,
-                        }
-                    ],
-                }
-        }
+        // {
+        //     id: 1,
+        //     value: "étape 1",
+        //     type: "video",
+        //     professor: "Jean Paul",
+        //     status: "Terminé",
+        //     data:
+        //         {
+        //             description: "On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).",
+        //             information: {
+        //                 infoDescription: "On sait depuis longtemps que ",
+        //                 document: ""
+        //             },
+        //             video: "https://www.youtube.com/embed/Zi_XLOBDo_Y",
+        //             professors: [
+        //                 {
+        //                     id: 0,
+        //                     img: "https://www.w3schools.com/howto/img_avatar.png",
+        //                     name: "Jean Paul",
+        //                     roles: ["Professeur", "Administrateur"],
+        //                     instruments: ["Guitare"]
+        //                 },
+        //                 {
+        //                     id: 1,
+        //                     img: "https://www.w3schools.com/howto/img_avatar.png",
+        //                     name: "Jean Damien",
+        //                     roles: ["Professeur"],
+        //                     instruments: ["Guitare", "Basse"],
+        //                 }
+        //             ],
+        //             comments: [
+        //                 {
+        //                     id: 0,
+        //                 }
+        //             ],
+        //         }
+        // }
 
         // {
         //     id: 2,
@@ -90,27 +90,27 @@ export default function Courses_CourseId_StepId() {
         //     ]
         // }
 
-        // {
-        //     id: 3,
-        //     value: "étape 3",
-        //     type: "exercise/bind_list",
-        //     professor: "Jean Paul",
-        //     status: "Non commencé",
-        //     data: [
-        //         {
-        //             bind1: "1",
-        //             bind2: "2",
-        //         },
-        //         {
-        //             bind1: "3",
-        //             bind2: "4",
-        //         },
-        //         {
-        //             bind1: "5",
-        //             bind2: "6",
-        //         },
-        //     ]
-        // }
+        {
+            id: 3,
+            value: "étape 3",
+            type: "exercise/bind_list",
+            professor: "Jean Paul",
+            status: "Non commencé",
+            data: [
+                {
+                    bind1: "pommes",
+                    bind2: "fruits",
+                },
+                {
+                    bind1: "carottes",
+                    bind2: "léguemes",
+                },
+                {
+                    bind1: "poivres",
+                    bind2: "épices",
+                },
+            ]
+        }
 
         // {
         //     id: 4,
@@ -121,6 +121,7 @@ export default function Courses_CourseId_StepId() {
         //     data: {}
         // }
     )
+
 
     const typeStep = () => {
         switch (step.type) {
@@ -142,7 +143,6 @@ export default function Courses_CourseId_StepId() {
                 )
         }
     }
-
 
     return (
         <>
