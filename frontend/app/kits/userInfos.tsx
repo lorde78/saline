@@ -3,7 +3,7 @@ import "~/styles/userInfos.css";
 import Tag from "./tag";
 import PopupProfile from "./popupProfile";
 
-type UserInfosProps = {
+type Props = {
     src: string;
   };
   

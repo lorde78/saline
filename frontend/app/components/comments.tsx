@@ -1,15 +1,30 @@
-import "~/styles/comments.css";
+// import "~/styles/comments.css";
 import Comment from "~/kits/comment";
 
+type Props = {
+  commentsData: any;
+};
 
-export default function Comments () {
+export default function Comments ({ commentsData }: Props) {
 
     
 
   return (
       <div className="comments_container">
+        {commentsData.map((comment, i) => {
+          return (<Comment
+            key={i}
+            username={comment.username}
+            content={comment.content}
+            userpic={comment.userpic}
+            date={comment.date}
+            upvote={comment.upvote}
+            downvote={comment.downvote}
+            isAdmin={comment.isAdmin}
+            responsesData={comment.responsesData}
+            />
+        )})}
         
-        <Comment username='John Doe' content='Comment on fait pour faire ça ? Merci beaucoup'  userpic='/assets/images/1000x1500-pour-site14.png'  responses='none'  date='21/08'  upvote={6}  downvote={7}  isAdmin={true} />
 
       </div>
 
