@@ -1,8 +1,28 @@
 import Checkbox from "~/kits/checkbox";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
+
+interface QcmChoice {
+    answer: string;
+    goodAnswer: boolean;
+}
+
+interface QcmData {
+    question: string;
+    multipleChoice: boolean;
+    choice: QcmChoice[];
+}
+
+interface Step {
+    id: number;
+    value: string;
+    type: string;
+    professor: string;
+    status: string;
+    data: QcmData[];
+}
 
 type Props = {
-    step: any
+    step: Step;
 }
 export default function User_courses_step_exercise_qcm({step}: Props) {
     const setDefaultExerciseAnswer = () => {
