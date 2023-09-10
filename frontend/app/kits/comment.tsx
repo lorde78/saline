@@ -1,19 +1,39 @@
+import { useState } from "react";
 import "~/styles/comment.css";
+import Response from "./response";
 
 type Props = {
   username: string;
   content: string;
   userpic: string;
-  responses: string;
   date: string;
   upvote: number;
   downvote: number;
   isAdmin: boolean;
+  responsesData: any;
 };
 
-export default function Comment ({ username, content, userpic, responses, date, upvote, downvote, isAdmin }: Props) {
 
-    
+
+
+export default function Comment ({ username, content, userpic, date, upvote, downvote, isAdmin, responsesData }: Props) {
+
+  const [responseContent, setResponseContent] = useState(""); // State to store the response content
+
+  const handleResponseSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Here, you can handle the submission of the response.
+    // You might want to send this data to your backend or update the state to display the response.
+
+    // For now, let's just alert the response content.
+    alert(`You submitted a response: ${responseContent}`);
+
+    // Clear the response input field after submission
+    setResponseContent("");
+  };
+
+  
 
   return (
       <div className="comment_container">
@@ -48,7 +68,20 @@ export default function Comment ({ username, content, userpic, responses, date, 
           </div>
 
 
-          <div className="comment_responses">{responses}</div>
+          <div className="comment_responses">
+            {responsesData && responsesData.map((response, i) => {
+              return (<Response 
+                key={i}
+                username={response.username}
+                content={response.content}
+                userpic={response.userpic}
+                date={response.date}
+                upvote={response.upvote}
+                downvote={response.downvote}
+                isAdmin={response.isAdmin}
+                />)
+            })}
+          </div>
         </div>
 
 
