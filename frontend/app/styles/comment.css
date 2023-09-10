@@ -1,12 +1,17 @@
 .comment_container,
 .comment-header,
 .comment-footer, 
-.comment_vote-container {
+.comment_vote-container,
+.response_container {
     display: flex;
 }
 
 .comment_container {
     width: 100%;
+}
+
+.response_container {
+    margin-top: 15px;
 }
 
 .comment_profile-pic {
