@@ -28,6 +28,8 @@ export function links() {
     ]
 }
 
+
+
 export default function Index() {
   const slides = [
     {
