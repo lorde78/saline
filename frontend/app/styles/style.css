@@ -85,7 +85,11 @@ h3 {
     font-size: 1rem;
     line-height: 1.5rem;
 }
-
+.sub_title {
+    font-weight: 600;
+    font-size: .75rem;
+    line-height: 1.5rem;
+}
 /* Link style*/
 
 a:hover {
