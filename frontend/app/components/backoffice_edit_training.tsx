@@ -44,7 +44,7 @@ export default function Backoffice_edit_training({
     return (
         <div className={"backoffice_training_container backoffice_training_container-open"}>
             <div className={"training_image"}>
-                <img src={imgLink} alt={"bannière du cour"}/>
+                <img src={imgLink} alt={"bannière du cours"}/>
             </div>
             <div className={"training_info"}>
                 <div className={"training_header_info"}>

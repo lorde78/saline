@@ -23,10 +23,10 @@ export default function Backoffice_Classroom() {
     useGlobalEffect()
 
     const [classrooms, setClassrooms] = useState([])
-    const getAllCourses = useGetAllElements()
+    const getAllClassrooms = useGetAllElements()
 
     useEffect(() => {
-        getAllCourses("classroom").then(r => {
+        getAllClassrooms("classroom").then(r => {
             if (!classrooms.length) {
                 setClassrooms(r)
             }
@@ -45,7 +45,7 @@ export default function Backoffice_Classroom() {
                         classrooms.map((classroom, i) => {
                             return (
                                 <Backoffice_classroom
-                                    id={i}
+                                    id={classroom.id}
                                     title={classroom.title}
                                     author={classroom.author}
                                     imgLink={classroom.bannerPicture}

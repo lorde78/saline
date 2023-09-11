@@ -37,7 +37,7 @@ export default function Backoffice_training({
     return (
         <div className={"backoffice_training_container"}>
             <div className={"training_image"}>
-                <img src={imgLink} alt={"bannière du cour"}/>
+                <img src={imgLink} alt={"bannière du parcours"}/>
             </div>
             <div className={"training_info"}>
                 <div className={"training_header_info"}>
