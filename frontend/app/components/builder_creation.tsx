@@ -4,20 +4,23 @@ import Select_image from "~/kits/select_image";
 import Header_section_page from "~/kits/header_section_page";
 import Input from "~/kits/input";
 import Textarea from "~/kits/textarea";
-import {useLocation} from "@remix-run/react";
+import {useLoaderData, useLocation, useSearchParams} from "@remix-run/react";
 import useCreateClassroom from "~/hook/useCreateBuilderElement";
 import {signinContext} from "~/context/signinContext";
 import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import useCreateBuilderElement from "~/hook/useCreateBuilderElement";
 import editLink from "~/helper/editLink";
+import {LoaderFunction} from "@remix-run/node";
 
 type Props = {
-    creation_type: string
+    creation_type: string,
+    relId: number,
+    relType: string
 }
 
-export default function Builder_creation({creation_type}: Props) {
-    const editPath = editLink(3)
+export default function Builder_creation({creation_type,relId,relType}: Props) {
+    const editPath = editLink(1)
 
     const [id, setId] = useState(10)
     const [banner, setBanner] = useState()
@@ -80,6 +83,15 @@ export default function Builder_creation({creation_type}: Props) {
                 break;
         }
 
+        switch (relType) {
+            case 'training':
+                formData = {
+                    ...formData,
+                    "relType": relType,
+                    "relId": relId
+                }
+        }
+
         createdId = await creationHook(formData,creation_type).then(res => res.id)
 
         navigate(editPath + "/" + createdId + "/edit")
@@ -108,6 +120,7 @@ export default function Builder_creation({creation_type}: Props) {
                 )
         }
     }
+
     return (
         <form className={"builder_creation"}>
             <Select_image/>
