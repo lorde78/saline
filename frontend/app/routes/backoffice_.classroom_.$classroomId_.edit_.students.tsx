@@ -6,6 +6,9 @@ import classroom from "~/styles/backofficeClassrooom.css";
 import Header_section_page from "~/kits/header_section_page";
 import Checkbox from "~/kits/checkbox";
 import { useGlobalEffect } from "~/helper/globalHelper";
+import useGetCurrentElement from "~/hook/useGetCurrentElement";
+import getIdFromUrl from "~/helper/getIdFromUrl";
+import Loader from "~/kits/loader";
 
 
 export function links() {
@@ -19,13 +22,18 @@ export function links() {
 
 export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
     useGlobalEffect()
+    const getCurrentId = getIdFromUrl(2)
+    const [loader,setLoader] = useState(false)
 
-    const [classroom, setClassroom] = useState({
-        title: "Steampunk",
-        professor: "Jean Paul",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-        imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
-    })
+    const [classroom, setClassroom] = useState()
+    const getCurrentClassroom = useGetCurrentElement()
+
+    const getClassroom = async () => {
+        const currentClassroom = await getCurrentClassroom("classroom",getCurrentId)
+        setClassroom(currentClassroom)
+        setLoader(true)
+    }
+
     const [bannerHeight, setBannerHeight] = useState(400)
     const [students, setStudents] = useState([
         {
@@ -39,7 +47,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
         {
             first_name: "Jean",
             last_name: "Batiste",
-            selcted: false
+            selected: false
         },
         {
             first_name: "Jean",
@@ -75,42 +83,50 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
                 setBannerHeight(400)
             }
         };
+
+        getClassroom()
     }, []);
 
     return (
         <>
-            <Header_section_page numberUndoPage={1}  title={"élève"}/>
-            <section className={"max_width_container"}>
-                <div className={"classroom_container-open max_width"}>
-                    <div className={"classroom_image_banner"} style={{height: bannerHeight}}>
-                        <img src={classroom.imgLink} alt={"bannière du cour"}/>
-                    </div>
-                    <div className={"classroom_links"}>
-                        <button className={"button"}>
-                            Ajouter un élève
-                        </button>
-                        <button className={"button button_alert"}>
-                            Supprimer les élève séléctioné
-                        </button>
-                    </div>
-                    <div className={"backoffice_students_preview_container"}>
-                        {
-                            students.map((student, i) => {
-                                return (
-                                    <Checkbox
-                                        name={"studenName" + i}
-                                        type={"checbox"}
-                                        text={student.first_name + " " + student.last_name}
-                                        setValue={setStudents}
-                                        propsSetValue={""}
-                                        value={true}
-                                    />
-                                )
-                            })
-                        }
-                    </div>
-                </div>
-            </section>
+            {loader ?
+                <>
+                    <Header_section_page numberUndoPage={1} title={"élève"}/>
+                    <section className={"max_width_container"}>
+                        <div className={"classroom_container-open max_width"}>
+                            <div className={"classroom_image_banner"} style={{height: bannerHeight}}>
+                                <img src={classroom.bannerPicture} alt={"bannière de la classe"}/>
+                            </div>
+                            <div className={"classroom_links"}>
+                                <button className={"button"}>
+                                    Ajouter un élève
+                                </button>
+                                <button className={"button button_alert"}>
+                                    Supprimer les élèves séléctionnés
+                                </button>
+                            </div>
+                            <div className={"backoffice_students_preview_container"}>
+                                {
+                                    students.map((student, i) => {
+                                        return (
+                                            <Checkbox
+                                                name={"studenName" + i}
+                                                type={"checbox"}
+                                                text={student.first_name + " " + student.last_name}
+                                                setValue={setStudents}
+                                                propsSetValue={""}
+                                                value={true}
+                                            />
+                                        )
+                                    })
+                                }
+                            </div>
+                        </div>
+                    </section>
+                </>
+                :
+                <Loader/>
+            }
         </>
     )
 }
