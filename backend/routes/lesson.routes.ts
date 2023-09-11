@@ -52,7 +52,7 @@ router.put('/', async function (req, res, next) {
             data: req.body
         })
     } else {
-        if (addToTraining === true) {
+        if (JSON.parse(addToTraining) === true) {
             updateLesson = await database.lesson.update({
                 where: {
                     id: parseInt(id),
