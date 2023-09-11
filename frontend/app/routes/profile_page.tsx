@@ -36,9 +36,9 @@ export default function Profil_page() {
         <div className="profile-page">
           {/* <UserInfos src="/assets/images/pdp.png"/> */}
           {/* <Formule subscription="Annuel" /> */}
-          <Accordion type="comment" title="Vos formations" picto="ri-book-mark-line" />
-          <Accordion type="comment" title="Vos commentaires" picto="ri-message-3-line" />
-          <Accordion type="comment" title="Vos certifications" picto="ri-graduation-cap-line" />
+          <Accordion type="formations" title="Vos formations" picto="ri-book-mark-line" />
+          <Accordion type="comments" title="Vos commentaires" picto="ri-message-3-line" />
+          <Accordion type="graduations" title="Vos certifications" picto="ri-graduation-cap-line" />
           {/* <Formation /> */}
           {/* <EditUserProfile userInfo={userInfo} /> */}
           {/* <EditPassword /> */}

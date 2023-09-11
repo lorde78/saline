@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import Comments from "~/components/comments";
 import "~/styles/accordion.css";
+import Formation from "./formations";
+import Graduation from "./graduations";
 
 type Props = {
   type: string;
@@ -47,13 +49,31 @@ const fakeCommentData = [
 
 const fakeFormationsData = [
   {
-    title: "Comment on fait pour faire ça ? Merci beaucoup",
+    title: "C'est le titre",
     thumbnail: "/assets/images/1000x1500-pour-site14.png",
+    progress: 100,
+    status: "achieved"
     
   },
   {
     title: "Super commentaire !",
     thumbnail: "/assets/images/1000x1500-pour-site14.png",
+    progress: 23,
+    status: "in progress"
+  },
+];
+
+const fakeGraduationsData = [
+  {
+    title: "Cours 1",
+    thumbnail: "/assets/images/1000x1500-pour-site14.png",
+    professor: "Professor",
+    
+  },
+  {
+    title: "Cours 2",
+    thumbnail: "/assets/images/1000x1500-pour-site14.png",
+    professor: "Professor",
   },
 ];
 
@@ -68,15 +88,15 @@ export default function Accordion({type, title, picto}: Props) {
   const renderAccordionContent = () => {
 
     switch (type) {
-      case "comment":
+      case "comments":
 
         return <Comments commentsData={fakeCommentData} />
       
-      case "squarepic":
-          break
+      case "formations":
+          return <Formation formationData={fakeFormationsData}/>
 
-      case "rectanglepic":
-          break
+      case "graduations":
+          return <Graduation graduationData={fakeGraduationsData}/>
           
       default:
           break
