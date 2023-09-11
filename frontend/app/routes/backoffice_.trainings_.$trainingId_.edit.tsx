@@ -25,14 +25,14 @@ export function links() {
 
 export default function Backoffice_Trainings_TrainingId_Edit() {
     useGlobalEffect()
-    const getCurrentId = getIdFromUrl()
+    const getCurrentId = getIdFromUrl(1)
     const [loader,setLoader] = useState(false)
 
     const [training, setTraining] = useState()
-    const [courses, setCourses] = useState([])
-
-    const getCourses = useGetAllElements()
     const getCurrentTraining = useGetCurrentElement()
+
+    const [courses, setCourses] = useState([])
+    const getCourses = useGetAllElements()
 
     const getTraining = async () => {
         const currentTraining = await getCurrentTraining("training",getCurrentId)
@@ -66,7 +66,9 @@ export default function Backoffice_Trainings_TrainingId_Edit() {
                                 </NavLink>
                             </div>
                             {
-                                courses.map((course, i) => {
+                                courses.filter(course => {
+                                    return course.trainings.some(training => training.id == training.id)
+                                }).map((course, i) => {
                                     return (
                                         <Backoffice_edit_training
                                             id={course.id}

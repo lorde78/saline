@@ -1,12 +1,14 @@
 import {useLocation} from "@remix-run/react";
 
-export default function getIdFromUrl() {
+export default function getIdFromUrl(numberUndoPage) {
     const location = useLocation()
 
     let path = location.pathname
     let newPath = path.split("/")
 
-    let pathArray = newPath.pop()
+    for (let undoPage = numberUndoPage; undoPage > 0; undoPage--) {
+        let pathArray = newPath.pop()
+    }
     let id = newPath.pop()
 
     // @ts-ignore
