@@ -75,9 +75,7 @@ router.put('/', async function (req, res, next) {
                 },
                 data: {
                     lessons: {
-                        disconnect: decodedLessonsIdList.map(lessonId => {
-                            return {id: parseInt(lessonId)}
-                        })
+                        disconnect: {id: parseInt(lessonsIdList)}
                     }
                 }
             })

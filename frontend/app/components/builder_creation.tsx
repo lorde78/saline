@@ -10,12 +10,15 @@ import {signinContext} from "~/context/signinContext";
 import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
 import {useNavigate} from "react-router-dom";
 import useCreateBuilderElement from "~/hook/useCreateBuilderElement";
+import editLink from "~/helper/editLink";
 
 type Props = {
     creation_type: string
 }
 
 export default function Builder_creation({creation_type}: Props) {
+    const editPath = editLink(3)
+
     const [id, setId] = useState(10)
     const [banner, setBanner] = useState()
     const [title, setTitle] = useState("")
@@ -51,17 +54,6 @@ export default function Builder_creation({creation_type}: Props) {
     const creationHook = useCreateBuilderElement()
     let createdId = null;
 
-
-    const editLink = () => {
-        let path = location.pathname
-        let newPath = path.split("/")
-
-        let pathArray = newPath.pop()
-
-        // @ts-ignore
-        return newPath.toString().replaceAll(",", "/")
-    }
-
     const submit = async (e) => {
         e.preventDefault()
         const currentUserId = getcurrentUserId()
@@ -90,7 +82,7 @@ export default function Builder_creation({creation_type}: Props) {
 
         createdId = await creationHook(formData,creation_type).then(res => res.id)
 
-        navigate(editLink() + "/" + createdId + "/edit")
+        navigate(editPath + "/" + createdId + "/edit")
     }
 
     const complementaryForm = () => {

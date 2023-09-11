@@ -67,7 +67,7 @@ export default function Backoffice_Trainings_TrainingId_Edit() {
                             </div>
                             {
                                 courses.filter(course => {
-                                    return course.trainings.some(training => training.id == training.id)
+                                    return course.trainings.some(training => training.id == getCurrentId)
                                 }).map((course, i) => {
                                     return (
                                         <Backoffice_edit_training
