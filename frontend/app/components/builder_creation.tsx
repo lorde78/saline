@@ -40,7 +40,7 @@ export default function Builder_creation({creation_type}: Props) {
     let currentUserId = null;
 
     useEffect(() => {
-        if (!signin) {
+        if (signin) {
             currentUserId = useGetCurrentUserId(signin)
         }
     }, [signin])
@@ -59,9 +59,25 @@ export default function Builder_creation({creation_type}: Props) {
         return newPath.toString().replaceAll(",", "/")
     }
 
+    const submit = async (e) => {
+        e.preventDefault()
+        let formData = {
+            "title": title,
+            "userId": currentUserId,
+            "bannerPicture": "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
+            "description": description
+        }
+
+        console.log(formData)
+        //createdId = await creationHook(formData,creation_type).then(res => res.id)
+
+        //navigate(editLink() + "/" + createdId + "/edit")
+    }
+
     const complementaryForm = () => {
         switch(creation_type) {
             case 'training':
+            case 'lesson':
                 return (
                     <div>
                         <div>
@@ -81,21 +97,6 @@ export default function Builder_creation({creation_type}: Props) {
                 )
         }
     }
-
-    const submit = async (e) => {
-        e.preventDefault()
-        let formData = {
-            "title": title,
-            "userId": currentUserId,
-            "bannerPicture": "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
-            "description": description
-        }
-
-        createdId = await creationHook(formData,creation_type).then(res => res.id)
-
-        navigate(editLink() + "/" + createdId + "/edit")
-    }
-
     return (
         <form className={"builder_creation"}>
             <Select_image/>

@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -7,6 +7,7 @@ import Header_section_page from "~/kits/header_section_page";
 import Backoffice_training from "~/components/backoffice_training";
 import {NavLink} from "@remix-run/react";
 import { useGlobalEffect } from "~/helper/globalHelper";
+import useGetAllElements from "~/hook/useGetAllElements";
 
 
 export function links() {
@@ -21,15 +22,17 @@ export function links() {
 export default function Backoffice_Trainings() {
     useGlobalEffect()
 
-    const [trainings, setTrainings] = useState([
-        {
-            id: 0,
-            title: "Steampunk",
-            professor: "Jean Paul",
-            description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
-        }
-    ])
+    const [trainings, setTrainings] = useState([])
+    const getAllCourses = useGetAllElements()
+
+    useEffect(() => {
+        getAllCourses("training").then(r => {
+            if (!trainings.length) {
+                setTrainings(r)
+            }
+        })
+    }, [])
+
     return (
         <>
             <Header_section_page numberUndoPage={1}  title={"Parcours"}/>
@@ -44,8 +47,8 @@ export default function Backoffice_Trainings() {
                                 <Backoffice_training
                                     id={training.id}
                                     title={training.title}
-                                    professor={training.professor}
-                                    imgLink={training.imgLink}
+                                    author={training.author}
+                                    imgLink={training.bannerPicture}
                                     description={training.description}
                                 />
                             )

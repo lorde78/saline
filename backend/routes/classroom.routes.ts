@@ -24,7 +24,7 @@ router.delete('/', async function (req, res, next) {
     const { id } = req.query;
     const deleteClassroom = await database.classroom.delete({
         where: {
-            id: id,
+            id: parseInt(id),
         },
     })
     res.json({
@@ -42,7 +42,7 @@ router.put('/', async function (req, res, next) {
 
     const updateclassroom = await database.classroom.update({
         where: {
-            id: id,
+            id: parseInt(id),
         },
         data: req.body
     })
@@ -53,19 +53,36 @@ router.put('/', async function (req, res, next) {
 });
 
 router.get('/', async function (req, res, next) {
-    const { id } = req.query;
+    const { id, userId } = req.query;
     let classrooms = null;
 
     if (!id) {
-        classrooms = await database.classroom.findMany()
+        classrooms = await database.classroom.findMany({
+            include: {
+                author: {
+                    select: {
+                        name: true,
+                        firstName: true
+                    }
+                }
+            }
+        })
     } else {
         classrooms = await database.classroom.findMany({
             where: {
                 OR: [
-                    {id: id},
-                    {userId: id},
+                    {id: parseInt(id)},
+                    {userId: parseInt(userId)},
                 ],
             },
+            include: {
+                author: {
+                    select: {
+                        name: true,
+                        firstName: true
+                    }
+                }
+            }
         })
     }
 
