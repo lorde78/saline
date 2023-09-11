@@ -66,6 +66,7 @@ export default function Backoffice_Courses() {
                                     imgLink={course.bannerPicture}
                                     description={course.description}
                                     showButton={true}
+                                    creation_type={"lesson"}
                                 />
                             )
                         })

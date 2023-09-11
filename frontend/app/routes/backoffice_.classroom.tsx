@@ -50,6 +50,7 @@ export default function Backoffice_Classroom() {
                                     author={classroom.author}
                                     imgLink={classroom.bannerPicture}
                                     description={classroom.description}
+                                    creation_type={"classroom"}
                                 />
                             )
                         })
