@@ -4,10 +4,10 @@ const { database } = require('../config/db.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { title, subscriptionType, subscriptionStatus, price, user } = req.body;
+    const { title, subscriptionType, subscriptionStatus, price, userId } = req.body;
     const subscription = await database.subscription.create({
         data: {
-            userId: user,
+            userId: parseInt(userId),
             title: title,
             price: price,
             subscriptionType: subscriptionType,
@@ -28,7 +28,7 @@ router.delete('/', async function (req, res, next) {
     const { id } = req.query;
     const deletesubscription = await database.subscription.delete({
         where: {
-            id: id,
+            id: parseInt(id),
         },
     })
     res.json({
@@ -46,7 +46,7 @@ router.put('/', async function (req, res, next) {
 
     const updateSubscription = await database.subscription.update({
         where: {
-            id: id,
+            id: parseInt(id),
         },
         data: req.body
     })
@@ -66,8 +66,8 @@ router.get('/', async function (req, res, next) {
         subscriptions = await database.subscription.findMany({
             where: {
                 OR: [
-                    { id: id },
-                    { userId: id },
+                    { id: parseInt(id) },
+                    { userId: parseInt(userId) },
                 ],
             },
         })

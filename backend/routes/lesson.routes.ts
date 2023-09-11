@@ -4,19 +4,16 @@ const { database } = require('../config/db.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { title, description, numberSteps, difficultyLevel, price, duration, nbViews, nbCompleted, user, steps } = req.body;
+    const { title, description, difficultyLevel, userId, bannerPicture } = req.body;
     const lesson = await database.lesson.create({
         data: {
-            userId: user,
+            userId: parseInt(userId),
             title: title,
             description: description,
-            numberSteps: numberSteps,
-            difficultyLevel: difficultyLevel,
-            price: price,
-            duration: duration,
-            nbViews: nbViews,
-            nbCompleted: nbCompleted,
-            steps: steps
+            difficultyLevel: String(difficultyLevel),
+            nbViews: 0,
+            nbCompleted: 0,
+            bannerPicture: bannerPicture
         }
     })
 
@@ -30,7 +27,7 @@ router.delete('/', async function (req, res, next) {
     const { id } = req.query;
     const deleteLesson = await database.lesson.delete({
         where: {
-            id: id,
+            id: parseInt(id),
         },
     })
     res.json({
@@ -48,7 +45,7 @@ router.put('/', async function (req, res, next) {
 
     const updateLesson = await database.lesson.update({
         where: {
-            id: id,
+            id: parseInt(id),
         },
         data: req.body
     })
@@ -63,12 +60,29 @@ router.get('/', async function (req, res, next) {
     let lessons = null;
 
     if (!id) {
-        lessons = await database.lesson.findMany()
+        lessons = await database.lesson.findMany({
+            include: {
+                author: {
+                    select: {
+                        name: true,
+                        firstName: true
+                    }
+                }
+            }
+        })
     } else {
         lessons = await database.lesson.findMany({
             where: {
-                lessonId: id,
+                id: parseInt(id),
             },
+            include: {
+                author: {
+                    select: {
+                        name: true,
+                        firstName: true
+                    }
+                }
+            }
         })
     }
 

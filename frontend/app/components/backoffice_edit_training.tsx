@@ -4,7 +4,10 @@ import {NavLink, Outlet, useLocation} from "@remix-run/react";
 type Props = {
     id: number,
     title: string,
-    professor: string,
+    author: {
+        firstName: string,
+        name: string
+    },
     description: string
     imgLink: string
     showButton: boolean
@@ -12,12 +15,11 @@ type Props = {
 export default function Backoffice_edit_training({
                                                      id,
                                                      title,
-                                                     professor,
+                                                     author,
                                                      description,
                                                      imgLink,
                                                      showButton
                                                  }: Props) {
-
 
     return (
         <div className={"backoffice_training_container backoffice_training_container-open"}>
@@ -27,7 +29,7 @@ export default function Backoffice_edit_training({
             <div className={"training_info"}>
                 <div className={"training_header_info"}>
                     <p>{title}</p>
-                    <p>{professor}</p>
+                    <p>{author.firstName} {author.name}</p>
                 </div>
                 <p className={"training_description"}>
                     {description}

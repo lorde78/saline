@@ -10,14 +10,17 @@ import {NavLink, Outlet, useLocation} from "@remix-run/react";
 type Props = {
     id: number,
     title: string,
-    professor: string,
-    description: string
+    author: {
+        firstName: string,
+        name: string
+    },
+    description: string,
     imgLink: string
 };
 export default function Backoffice_classroom({
                                                  id,
                                                  title,
-                                                 professor,
+                                                 author,
                                                  description,
                                                  imgLink,
                                              }: Props) {
@@ -31,7 +34,7 @@ export default function Backoffice_classroom({
             <div className={"classroom_info"}>
                 <div className={"classroom_header_info"}>
                     <p>{title}</p>
-                    <p>{professor}</p>
+                    <p>{author.firstName} {author.name}</p>
                 </div>
                 <p className={"classroom_description"}>
                     {description}

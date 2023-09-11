@@ -16,7 +16,7 @@ export default function Form_register() {
     const submit = () => {
         let formData = {
             "email" : email,
-            "firstname" : firstName,
+            "firstName" : firstName,
             "name" : lastName,
             "password" : password
         }

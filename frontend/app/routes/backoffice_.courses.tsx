@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -8,7 +8,20 @@ import Backoffice_training from "~/components/backoffice_training";
 import Backoffice_edit_training from "~/components/backoffice_edit_training";
 import {NavLink, useLocation} from "@remix-run/react";
 import { useGlobalEffect } from "~/helper/globalHelper";
+import useGetAllElements from "~/hook/useGetAllElements";
 
+interface Course {
+    id: number,
+    title: string,
+    description: string,
+    numberSteps: number,
+    steps: JSON,
+    difficultyLevel: string,
+    nbViews: number,
+    nbCompleted: number,
+    userId: number,
+    bannerPicture: string
+}
 
 export function links() {
     return [
@@ -22,36 +35,17 @@ export function links() {
 export default function Backoffice_Courses() {
     useGlobalEffect()
 
-    const [courses, setCourses] = useState([
-        {
-            id: 0,
-            title: "Steampunk",
-            professor: "Jean Paul",
-            description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
-        },
-        {
-            id: 0,
-            title: "Steampunk",
-            professor: "Jean Paul",
-            description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
-        },
-        {
-            id: 0,
-            title: "Steampunk",
-            professor: "Jean Paul",
-            description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
-        },
-        {
-            id: 0,
-            title: "Steampunk",
-            professor: "Jean Paul",
-            description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
-        }
-    ])
+    const [courses, setCourses] = useState([])
+    const getAllCourses = useGetAllElements()
+
+    useEffect(() => {
+        getAllCourses("lesson").then(r => {
+            if (!courses.length) {
+                setCourses(r)
+            }
+        })
+    }, [])
+
     return (
         <>
             <Header_section_page numberUndoPage={1}  title={"Cours"}/>
@@ -68,8 +62,8 @@ export default function Backoffice_Courses() {
                                 <Backoffice_edit_training
                                     id={course.id}
                                     title={course.title}
-                                    professor={course.professor}
-                                    imgLink={course.imgLink}
+                                    author={course.author}
+                                    imgLink={course.bannerPicture}
                                     description={course.description}
                                     showButton={true}
                                 />

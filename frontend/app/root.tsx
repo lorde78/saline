@@ -21,7 +21,7 @@ export const links: LinksFunction = () => [
 ];
 
 export default function App() {
-	const [signin,setSignin] = useState<any>([]);
+	const [signin,setSignin] = useState<string>();
 	const [registerData,setRegister] = useState<any>([]);
 
 	return (

@@ -14,16 +14,14 @@ export default function useCreateBuilderElement() {
             case 'training':
                 newData = {
                     ...newData,
-                    "difficultyLevel": data.difficultyLevel,
-                    "tags": data.tags
+                    "difficultyLevel": data.difficultyLevel
                 }
                 break;
 
             case 'courses':
                 newData = {
                     ...newData,
-                    "difficultyLevel": data.difficultyLevel,
-                    "tags": data.tags
+                    "difficultyLevel": data.difficultyLevel
                 }
         }
 
