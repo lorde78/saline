@@ -88,9 +88,9 @@ export default function Builder_creation({creation_type}: Props) {
                 break;
         }
 
-        createdId = await creationHook(formData,creation_type)
+        createdId = await creationHook(formData,creation_type).then(res => res.id)
 
-        // navigate(editLink() + "/" + createdId + "/edit")
+        navigate(editLink() + "/" + createdId + "/edit")
     }
 
     const complementaryForm = () => {

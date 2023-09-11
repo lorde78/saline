@@ -8,6 +8,7 @@ import Backoffice_training from "~/components/backoffice_training";
 import {NavLink} from "@remix-run/react";
 import { useGlobalEffect } from "~/helper/globalHelper";
 import useGetAllElements from "~/hook/useGetAllElements";
+import useGetCurrentElement from "~/hook/useGetCurrentElement";
 
 
 export function links() {
