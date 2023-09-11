@@ -2,13 +2,11 @@ import {useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
-import classroom from "~/styles/backofficeClassrooom.css";
-import {NavLink, Outlet, useLocation} from "@remix-run/react";
-import Backoffice_classroom from "~/components/backoffice_classroom";
-import Header_section_page from "~/kits/header_section_page";
+import stylesRefacto from "~/styles/styleRefacto.css";
 import Header from "~/components/header";
 import Footer from "~/components/footer";
 import User_classroom from "~/components/user_classroom";
+import User_preview_card from "~/components/user_preview_card";
 
 
 export function links() {
@@ -16,7 +14,7 @@ export function links() {
         {rel: 'stylesheet', href: resetStyles},
         {rel: 'stylesheet', href: styles},
         {rel: 'stylesheet', href: input},
-        {rel: 'stylesheet', href: classroom}
+        {rel: 'stylesheet', href: stylesRefacto},
     ]
 }
 
@@ -33,18 +31,19 @@ export default function Classroom() {
     return (
         <>
             <Header/>
-            <main className={"max_width_container"}>
+            <main className={"max_width_container margin-top-20"}>
                 <h1>Liste des classes</h1>
-                <div className={"backoffice_classroom_preview_container max_width"}>
+                <div className={"main_section_container-grid margin-top-20 max_width"}>
                     {
                         classrooms.map((classroom, i) => {
                             return (
-                                <User_classroom
+                                <User_preview_card
                                     id={i}
                                     title={classroom.title}
                                     professor={classroom.professor}
                                     imgLink={classroom.imgLink}
                                     description={classroom.description}
+                                    status={classroom.professor}
                                 />
                             )
                         })

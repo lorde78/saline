@@ -24,7 +24,7 @@ export default function User_classroom({
 
 
     return (
-        <NavLink to={id.toString()} className={"backoffice_classroom_container"}>
+        <NavLink to={id.toString()} className={"big_banner_image"}>
             <div className={"classroom_image"}>
                 <img src={imgLink} alt={"bannière du cour"}/>
             </div>
