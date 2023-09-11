@@ -201,3 +201,41 @@
 
 
 /* courses QCM */
+
+
+/* courses bindlist */
+.main_section_container-flex .binds_container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.main_section_container-flex .binds_container svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+.main_section_container-flex .binds_container svg line {
+    stroke: var(--text-color);
+}
+
+.main_section_container-flex .binds_container > div {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.main_section_container-flex .binds_container > div > div:hover {
+    cursor: pointer;
+    color: var(--action-color);
+}
+
+
+
+.main_section_container-flex .binds_container > div .selected {
+    color: var(--action-color);
+}
+/* courses bindlist */
