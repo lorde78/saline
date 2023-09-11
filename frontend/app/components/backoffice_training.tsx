@@ -1,5 +1,8 @@
 import 'remixicon/fonts/remixicon.css'
 import {NavLink, Outlet, useLocation} from "@remix-run/react";
+import useDeleteElement from "~/hook/useDeleteElement";
+import useRemoveLessonFromTraining from "~/hook/useRemoveLessonFromTraining";
+import getIdFromUrl from "~/helper/getIdFromUrl";
 
 type Props = {
     id: number,
@@ -9,7 +12,8 @@ type Props = {
         name: string
     },
     description: string,
-    imgLink: string
+    imgLink: string,
+    creation_type: string
 };
 export default function Backoffice_training({
                                                  id,
@@ -17,7 +21,18 @@ export default function Backoffice_training({
                                                  author,
                                                  description,
                                                  imgLink,
+                                                 creation_type
                                              }: Props) {
+    const deleteTraining = useDeleteElement()
+    const getCurrentId = getIdFromUrl(1)
+
+    const submit = (e) => {
+        if(!getCurrentId) {
+            deleteTraining(creation_type,id)
+        }
+
+        window.location.reload()
+    }
 
     return (
         <div className={"backoffice_training_container"}>
@@ -36,7 +51,7 @@ export default function Backoffice_training({
                     <NavLink className={"button"} to={id.toString() + "/edit"}>
                         Modifier
                     </NavLink>
-                    <button className={"button button_alert"}>Supprimer</button>
+                    <button className={"button button_alert"} type="submit" onClick={(e) => submit(e)}>Supprimer</button>
                 </div>
             </div>
         </div>

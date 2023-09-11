@@ -4,21 +4,42 @@ const { database } = require('../config/db.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { title, description, difficultyLevel, userId, bannerPicture } = req.body;
-    const lesson = await database.lesson.create({
-        data: {
-            userId: parseInt(userId),
-            title: title,
-            description: description,
-            difficultyLevel: String(difficultyLevel),
-            nbViews: 0,
-            nbCompleted: 0,
-            bannerPicture: bannerPicture
-        }
-    })
+    const { title, description, difficultyLevel, userId, bannerPicture, relType, relId } = req.body;
+    let lesson = null;
+
+    if(!relType) {
+        lesson = await database.lesson.create({
+            data: {
+                userId: parseInt(userId),
+                title: title,
+                description: description,
+                difficultyLevel: String(difficultyLevel),
+                nbViews: 0,
+                nbCompleted: 0,
+                bannerPicture: bannerPicture
+            }
+        })
+    } else {
+        lesson = await database.lesson.create({
+            data: {
+                userId: parseInt(userId),
+                title: title,
+                description: description,
+                difficultyLevel: String(difficultyLevel),
+                nbViews: 0,
+                nbCompleted: 0,
+                bannerPicture: bannerPicture,
+                trainings: {
+                    connect: {id: parseInt(relId)}
+                }
+            }
+        })
+    }
+    
 
     res.json({
         message: 'lesson added',
+        lesson
     });
 
 });

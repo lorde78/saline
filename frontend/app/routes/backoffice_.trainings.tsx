@@ -51,6 +51,7 @@ export default function Backoffice_Trainings() {
                                     author={training.author}
                                     imgLink={training.bannerPicture}
                                     description={training.description}
+                                    creation_type={"training"}
                                 />
                             )
                         })
