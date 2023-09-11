@@ -73,7 +73,7 @@ export default function Backoffice_Trainings_TrainingId_Edit_Add() {
 
     const submit = (e) => {
         e.preventDefault()
-        // addLesson(coursesAdd,true,training.id)
+        addLesson(coursesAdd,true,training.id)
 
         navigate(editPath + "/" + getCurrentId + "/edit")
     }
@@ -96,7 +96,7 @@ export default function Backoffice_Trainings_TrainingId_Edit_Add() {
                                             <Checkbox
                                                 name={"checkbox"}
                                                 type={"checkbox"}
-                                                text={id}
+                                                text={""}
                                                 setValue={checkCourses}
                                                 propsSetValue={{id: id}}
                                                 // @ts-ignore
