@@ -9,7 +9,7 @@ export default function useGetCurrentElement() {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         })
-            .then(res => res.data)
+            .then(res => res.data[creation_type+"s"][0])
             .catch(err => console.log(err))
     }
 }
