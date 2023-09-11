@@ -1,10 +1,4 @@
-.formations_status {
-    display: flex;
-    flex: 1;
-    justify-content: space-between;
-}
-
-.formations_container {
+.graduations_container {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -13,15 +7,20 @@
 }
 
 
-.formation-pic {
+.graduation-pic {
     height: 205px;
     min-height: 205px;
     min-width: fit-content;
     overflow: hidden;
 }
 
-.formation-pic > img {
+.graduation-pic > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.graduation_text {
+    display: flex;
+    justify-content: space-between;
 }
