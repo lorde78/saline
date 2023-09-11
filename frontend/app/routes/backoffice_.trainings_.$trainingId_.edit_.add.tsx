@@ -12,6 +12,9 @@ import useGetAllElements from "~/hook/useGetAllElements";
 import getIdFromUrl from "~/helper/getIdFromUrl";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import Loader from "~/kits/loader";
+import useAddLessonsToTraining from "~/hook/useAddLessonsToTraining";
+import {useNavigate} from "react-router-dom";
+import editLink from "~/helper/editLink";
 
 
 export function links() {
@@ -25,6 +28,10 @@ export function links() {
 
 export default function Backoffice_Trainings_TrainingId_Edit_Add() {
     useGlobalEffect()
+    const addLesson = useAddLessonsToTraining()
+    const navigate = useNavigate()
+    const editPath = editLink(3)
+
     const getCurrentId = getIdFromUrl(2)
     const [loader,setLoader] = useState(false)
 
@@ -50,21 +57,25 @@ export default function Backoffice_Trainings_TrainingId_Edit_Add() {
         getTraining()
     }, [])
 
-    const [coursesAdd, setCoursesAdd] = useState({})
+    const [coursesAdd, setCoursesAdd] = useState([])
 
     const checkCourses = (value:boolean, props:any) => {
         let newCoursesAdd = {...coursesAdd}
         if (value) {
             // @ts-ignore
-            newCoursesAdd[props.id] = {
-                id: props.id,
-                value: true
-            }
+            newCoursesAdd[props.id] = props.id
         } else {
             // @ts-ignore
             delete newCoursesAdd[props.id]
         }
         setCoursesAdd(newCoursesAdd)
+    }
+
+    const submit = (e) => {
+        e.preventDefault()
+        // addLesson(coursesAdd,true,training.id)
+
+        navigate(editPath + "/" + getCurrentId + "/edit")
     }
 
     return (
@@ -74,10 +85,10 @@ export default function Backoffice_Trainings_TrainingId_Edit_Add() {
                     <Header_section_page numberUndoPage={1}  title={"Ajouter un cours"}/>
                     <section className={"max_width_container"}>
                         <div className={"backoffice_training_preview_container max_width"}>
-                            <button className={"button"}>Ajouter les cours</button>
+                            <button className={"button"} onClick={(e) => submit(e)}>Ajouter les cours</button>
                             {
                                 courses.filter(course => {
-                                    return course.trainings.length !== 0 || course.trainings.some(training => training.id !== training.id)
+                                    return !course.trainings.some(training => training.id === getCurrentId)
                                 }).map((course) => {
                                     let id = course.id
                                     return (
@@ -85,7 +96,7 @@ export default function Backoffice_Trainings_TrainingId_Edit_Add() {
                                             <Checkbox
                                                 name={"checkbox"}
                                                 type={"checkbox"}
-                                                text={""}
+                                                text={id}
                                                 setValue={checkCourses}
                                                 propsSetValue={{id: id}}
                                                 // @ts-ignore
@@ -103,7 +114,7 @@ export default function Backoffice_Trainings_TrainingId_Edit_Add() {
                                     )
                                 })
                             }
-                            <button className={"button"}>Ajouter les cours</button>
+                            <button className={"button"} onClick={(e) => submit(e)}>Ajouter les cours</button>
                         </div>
                     </section>
                 </>

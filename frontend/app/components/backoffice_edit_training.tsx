@@ -21,6 +21,10 @@ export default function Backoffice_edit_training({
                                                      showButton
                                                  }: Props) {
 
+    const submit = (e) => {
+        
+    }
+
     return (
         <div className={"backoffice_training_container backoffice_training_container-open"}>
             <div className={"training_image"}>
@@ -39,7 +43,7 @@ export default function Backoffice_edit_training({
                         <NavLink className={"button"} to={id + '/edit'}>
                             Modifier
                         </NavLink>
-                        <button className={"button button_alert"}>Supprimer</button>
+                        <button className={"button button_alert"} type="submit" onClick={(e) => submit(e)}>Supprimer</button>
                     </div>
                     : ""
                 }
