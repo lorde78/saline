@@ -4,16 +4,17 @@ const { database } = require('../config/db.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { title, description, difficultyLevel, tags, userId } = req.body;
+    const { title, description, difficultyLevel, tags, userId, bannerPicture } = req.body;
     const training = await database.training.create({
         data: {
             title: title,
             userId: parseInt(userId),
             description: description,
-            difficultyLevel: difficultyLevel.toString(),
+            difficultyLevel: String(difficultyLevel),
             nbViews: 0,
             nbCompleted: 0,
-            nbCertified: 0
+            nbCertified: 0,
+            bannerPicture: bannerPicture
         }
     })
 
@@ -28,7 +29,7 @@ router.delete('/', async function (req, res, next) {
     const { id } = req.query;
     const deletetraining = await database.training.delete({
         where: {
-            id: id,
+            id: parseInt(id),
         },
     })
     res.json({
@@ -46,7 +47,7 @@ router.put('/', async function (req, res, next) {
 
     const updateTraining = await database.training.update({
         where: {
-            id: id,
+            id: parseInt(id),
         },
         data: req.body
     })
@@ -61,12 +62,29 @@ router.get('/', async function (req, res, next) {
     let trainings = null;
 
     if (!id) {
-        trainings = await database.training.findMany()
+        trainings = await database.training.findMany({
+            include: {
+                author: {
+                    select: {
+                        name: true,
+                        firstName: true
+                    }
+                }
+            }
+        })
     } else {
         trainings = await database.training.findMany({
             where: {
-                trainingId: id,
+                id: parseInt(id),
             },
+            include: {
+                author: {
+                    select: {
+                        name: true,
+                        firstName: true
+                    }
+                }
+            }
         })
     }
 

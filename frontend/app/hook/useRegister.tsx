@@ -11,7 +11,7 @@ export default function useRegister() {
             data: new URLSearchParams({
                 "email": formData.email,
                 "password": formData.password,
-                "firstName": formData.firstname,
+                "firstName": formData.firstName,
                 "name": formData.name,
                 "genre": formData.genre,
                 "birthDate": formData.birthDate,

@@ -21,7 +21,7 @@ router.delete('/', async function (req, res, next) {
     const { id } = req.query;
     const deletetag = await database.tag.delete({
         where: {
-            id: id,
+            id: parseInt(id),
         },
     })
     res.json({
@@ -39,7 +39,7 @@ router.put('/', async function (req, res, next) {
 
     const updatetag = await database.tag.update({
         where: {
-            id: id,
+            id: parseInt(id),
         },
         data: req.body
     })
@@ -57,7 +57,7 @@ router.get('/', async function (req, res, next) {
     }
     const tags = await database.tag.findMany({
         where: {
-            tagId: id,
+            tagId: parseInt(id),
         },
     })
     res.json({

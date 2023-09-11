@@ -8,7 +8,7 @@ router.post('/', async function (req, res, next) {
     const annotation = await database.annotation.create({
         data: {
             content: content,
-            userId: userId,
+            userId: parseInt(userId),
             lessonId: lessonId,
             validation: false
         }
@@ -24,7 +24,7 @@ router.delete('/', async function (req, res, next) {
     const { id } = req.query;
     const deleteAnnotation = await database.annotation.delete({
         where: {
-            id: id,
+            id: parseInt(id),
         },
     })
     res.json({
@@ -42,7 +42,7 @@ router.put('/', async function (req, res, next) {
 
     const updateannotation = await database.annotation.update({
         where: {
-            id: id,
+            id: parseInt(id),
         },
         data: req.body
     })
@@ -61,8 +61,8 @@ router.get('/', async function (req, res, next) {
     const annotations = await database.annotation.findMany({
         where: {
             OR: [
-                { id: id, },
-                { lessonId: lessonId },
+                { id: parseInt(id), },
+                { lessonId: parseInt(lessonId) },
             ],
         },
     })

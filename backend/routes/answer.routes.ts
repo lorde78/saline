@@ -8,8 +8,8 @@ router.post('/', async function (req, res, next) {
     const answer = await database.answer.create({
         data: {
             content: content,
-            userId: userId,
-            commentId: commentId,
+            userId: parseInt(userId),
+            commentId: parseInt(commentId),
             validation: false
         }
     })
@@ -24,7 +24,7 @@ router.delete('/', async function (req, res, next) {
     const { id } = req.query;
     const deleteComment = await database.answer.delete({
         where: {
-            id: id,
+            id: parseInt(id),
         },
     })
     res.json({
@@ -42,7 +42,7 @@ router.put('/', async function (req, res, next) {
 
     const updateAnswer = await database.answer.update({
         where: {
-            id: id,
+            id: parseInt(id),
         },
         data: req.body
     })
@@ -61,8 +61,8 @@ router.get('/', async function (req, res, next) {
     const answers = await database.answer.findMany({
         where: {
             OR: [
-                { id: id, },
-                { commentId: commentId },
+                { id: parseInt(id), },
+                { commentId: parseInt(commentId) },
             ],
         },
     })
