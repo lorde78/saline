@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useRef,useEffect, useState} from "react";
 
 interface BindData {
     bind1: string;
@@ -18,6 +18,12 @@ type Props = {
     step: Step;
 }
 export default function User_courses_step_exercise_bindlist({step}: Props) {
+    const bind1Refs = useRef<(HTMLDivElement | null)[]>([]);
+    const bind2Refs = useRef<(HTMLDivElement | null)[]>([]);
+    const [resizeCounter, setResizeCounter] = useState(0);
+
+
+
 
     const shuffle = (array: string[]) => {
         let currentIndex = array.length, randomIndex;
@@ -111,27 +117,59 @@ export default function User_courses_step_exercise_bindlist({step}: Props) {
         }
     }
 
+    useEffect(() => {
+        const handleResize = () => {
+            setResizeCounter(prev => prev + 1);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+
     return (
         <>
-            <div style={{display: "flex", justifyContent: "space-between"}}>
+            <h2>Reliez, les mots suivent.</h2>
+            <div className={"binds_container"}>
+                <svg >
+                    {Object.entries(answers).map(([key, value], index) => {
+                        const startElement = bind1Refs.current[shuffledBind1.indexOf(key)];
+                        const endElement = bind2Refs.current[shuffledBind2.indexOf(value)];
+
+                        if (!startElement || !endElement) return null;
+
+                        const startPos = startElement.getBoundingClientRect();
+                        const endPos = endElement.getBoundingClientRect();
+
+                        return (
+                            <line
+                                key={index}
+                                x1={startPos.right}
+                                y1={startPos.top + startPos.height / 2}
+                                x2={endPos.left}
+                                y2={endPos.top + endPos.height / 2}
+                            />
+                        );
+                    })}
+                </svg>
                 <div>
                     {shuffledBind1.map((bind1, id) => (
-                        <div key={id} onClick={() => handleClick(bind1)}>
-                            <span style={selectedItem === bind1 ? {background: "yellow"} : {}}>{bind1}</span>
+                        <div className={selectedItem === bind1 ? "selected" : ""} key={id} onClick={() => handleClick(bind1)} ref={ref => bind1Refs.current[id] = ref}>
+                            <span>{bind1}</span>
                         </div>
                     ))}
                 </div>
                 <div>
                     {shuffledBind2.map((bind2, id) => (
-                        <div key={id} onClick={() => handleClick(bind2)}>
-                            <span style={selectedItem === bind2 ? {background: "yellow"} : {}}>{bind2}</span>
+                        <div className={selectedItem === bind2 ? "selected" : ""} key={id} onClick={() => handleClick(bind2)} ref={ref => bind2Refs.current[id] = ref}>
+                            <span>{bind2}</span>
                         </div>
                     ))}
                 </div>
             </div>
-            <pre>
-                {JSON.stringify(answers, null, 2)}
-            </pre>
             {allSelected ? <button onClick={validateAnswers} className={"button"}>Vérifier les réponses</button> : <></>}
         </>
     );
