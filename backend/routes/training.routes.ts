@@ -55,7 +55,7 @@ router.put('/', async function (req, res, next) {
             data: req.body
         })
     } else {
-        if(addToTraining === true) {
+        if(JSON.parse(addToTraining) === true) {
             updateTraining = await database.training.update({
                 where: {
                     id: parseInt(id),
@@ -75,7 +75,7 @@ router.put('/', async function (req, res, next) {
                 },
                 data: {
                     lessons: {
-                        disconnect: lessonsIdList.map(lessonId => {
+                        disconnect: decodedLessonsIdList.map(lessonId => {
                             return {id: parseInt(lessonId)}
                         })
                     }
@@ -85,7 +85,7 @@ router.put('/', async function (req, res, next) {
     }
 
     res.json({
-        message: 'training updated',
+        message: 'training updated'
     });
 });
 
