@@ -22,7 +22,7 @@ export default function Builder_creation({creation_type}: Props) {
     const [description, setDescription] = useState("")
 
     // Difficulty Select
-    const [difficulty, setDifficulty] = useState()
+    const [difficulty, setDifficulty] = useState(1)
     const [difficultyData, setDifficultyData] = useState([
         {value: "1", option: "1"},
         {value: "2", option: "2"},
@@ -37,13 +37,16 @@ export default function Builder_creation({creation_type}: Props) {
     const navigate = useNavigate()
 
     const [signin, setSignin] = useContext(signinContext)
-    let currentUserId = null;
 
-    useEffect(() => {
-        if (signin) {
-            currentUserId = useGetCurrentUserId(signin)
+    const getcurrentUserId = () => {
+        try {
+            if (signin) {
+                return  useGetCurrentUserId(signin)
+            }
+        } catch (error) {
+            console.error(error)
         }
-    }, [signin])
+    }
 
     const creationHook = useCreateBuilderElement()
     let createdId = null;
@@ -61,17 +64,33 @@ export default function Builder_creation({creation_type}: Props) {
 
     const submit = async (e) => {
         e.preventDefault()
-        let formData = {
+        const currentUserId = getcurrentUserId()
+        let formData:any = {
             "title": title,
             "userId": currentUserId,
             "bannerPicture": "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
             "description": description
         }
 
-        console.log(formData)
-        //createdId = await creationHook(formData,creation_type).then(res => res.id)
+        switch (creation_type) {
+            case 'training':
+                formData = {
+                    ...formData,
+                    "difficultyLevel": difficulty
+                }
+                break;
 
-        //navigate(editLink() + "/" + createdId + "/edit")
+            case 'lesson':
+                formData = {
+                    ...formData,
+                    "difficultyLevel": difficulty
+                }
+                break;
+        }
+
+        createdId = await creationHook(formData,creation_type)
+
+        // navigate(editLink() + "/" + createdId + "/edit")
     }
 
     const complementaryForm = () => {
