@@ -21,76 +21,118 @@ interface Step {
     data: QcmData[];
 }
 
+interface Answer {
+    value: boolean;
+}
+
+type ExerciseAnswer = Answer[][];
+
+interface SetExerciseProps {
+    idQCM: number;
+    idChoice: number;
+}
+
 type Props = {
     step: Step;
 }
-export default function User_courses_step_exercise_qcm({step}: Props) {
-    const setDefaultExerciseAnswer = () => {
-        let exerciseAnswerDefault: any[] = []
-        step.data.map((qcm:any, id:number) => {
-            let exerciseAnswerDefaultChoice: any[] = []
-            qcm.choice.map((choice:any, id:number) => {
-                exerciseAnswerDefaultChoice.push({value: false})
-            })
-            exerciseAnswerDefault.push(exerciseAnswerDefaultChoice)
-        })
-        return exerciseAnswerDefault
+
+export default function User_courses_step_exercise_qcm({ step }: Props) {
+    const setDefaultExerciseAnswer = (): ExerciseAnswer => {
+        return step.data.map(qcm => qcm.choice.map(() => ({ value: false })));
     }
 
-    const [exerciseAnswer, setExerciseAnswer] = useState(setDefaultExerciseAnswer())
+    const [exerciseAnswer, setExerciseAnswer] = useState<ExerciseAnswer>(setDefaultExerciseAnswer());
 
-    const setExerciseAnswerData = (value: any, props: any) => {
+    const setExerciseAnswerData = (value: boolean, props: SetExerciseProps) => {
+        const exerciseAnswerTemp: ExerciseAnswer = [...exerciseAnswer];
+
         if (!step.data[props.idQCM].multipleChoice) {
-            let exerciseAnswerTemp: any[] = [...exerciseAnswer]
-            exerciseAnswerTemp[props.idQCM].map((choice: any, i: any) => {
-                exerciseAnswerTemp[props.idQCM][i].value = false
-            })
-            setExerciseAnswer(exerciseAnswerTemp)
+            exerciseAnswerTemp[props.idQCM].forEach(choice => choice.value = false);
         }
 
-        let exerciseAnswerTemp: any[] = [...exerciseAnswer]
-        exerciseAnswerTemp[props.idQCM][props.idChoice].value = value
-        setExerciseAnswer(exerciseAnswerTemp)
+        exerciseAnswerTemp[props.idQCM][props.idChoice].value = value;
+        setExerciseAnswer(exerciseAnswerTemp);
     }
 
+    const [allAnswered, setAllAnswered] = useState<boolean | null>(false);
+    const allQuestionsAnswered = () => {
+        const allAnswered = exerciseAnswer.every(question => question.some(choice => choice.value));
+        setAllAnswered(allAnswered);
+    }
 
     useEffect(() => {
-        console.log(exerciseAnswer)
-    }, [exerciseAnswer])
+        allQuestionsAnswered()
+    }, [exerciseAnswer]);
+
+    const validateAnswers = () => {
+        let correctAnswersCount = 0;
+        for (let i = 0; i < step.data.length; i++) {
+            const questionData = step.data[i];
+            const userAnswers = exerciseAnswer[i];
+            if (questionData.multipleChoice) {
+                let goodAnswerCount = 0;
+                for (let j = 0; j < questionData.choice.length; j++) {
+                    const choiceData = questionData.choice[j];
+                    const userAnswer = userAnswers[j].value;
+                    if (choiceData.goodAnswer !== userAnswer) {
+
+                        break;
+                    } else {
+                        goodAnswerCount++;
+                    }
+                }
+                if (goodAnswerCount === questionData.choice.length) {
+                    correctAnswersCount++;
+                }
+
+            } else {
+                for (let j = 0; j < questionData.choice.length; j++) {
+                    const choiceData = questionData.choice[j];
+                    const userAnswer = userAnswers[j].value;
+                    if (choiceData.goodAnswer === userAnswer && userAnswer) {
+                        correctAnswersCount++;
+                    }
+                }
+            }
+        }
+        if (correctAnswersCount === step.data.length) {
+            alert("Toutes les réponses sont correctes!");
+        } else {
+            alert(`Vous avez ${correctAnswersCount} bonnes réponses sur ${step.data.length} questions.`);
+        }
+    }
+
 
     return (
         <>
-            <div className={""}>
-                {
-                    step.data.map((qcm: any, idQCM: number) => {
-                        return (
-                            <div className={""}>
-                                <p>{qcm.question}</p>
-                                {
-                                    qcm.choice.map((choice: any, idChoice: number) => {
-                                        return (
-                                            <div
-                                                className={""}>
-                                                <Checkbox
-                                                    name={"checkbox_" + idQCM + "_" + idChoice}
-                                                    type={qcm.multipleChoice ? "checkbox" : "radio"}
-                                                    text={""}
-                                                    setValue={setExerciseAnswerData}
-                                                    propsSetValue={{idQCM: idQCM, idChoice: idChoice}}
-                                                    value={exerciseAnswer[idQCM][idChoice].value}
-                                                />
-
-                                                <p>{choice.answer}</p>
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </div>
-                        )
-                    })
-                }
-                <button className={"button"}>Envoyer</button>
-            </div>
+            {
+                step.data.map((qcm, idQCM) => (
+                    <div className={"QCM_container"}>
+                        <div>
+                            <h3>{qcm.question}</h3>
+                            {qcm.multipleChoice ? <p className={"sub_title"}>Choix multiple</p> : null}
+                        </div>
+                        <div>
+                            {
+                                qcm.choice.map((choice, idChoice) => (
+                                    <div className={""}>
+                                        <Checkbox
+                                            name={"checkbox_" + idQCM + "_" + idChoice}
+                                            type={qcm.multipleChoice ? "checkbox" : "radio"}
+                                            text={""}
+                                            setValue={setExerciseAnswerData}
+                                            propsSetValue={{ idQCM, idChoice }}
+                                            value={exerciseAnswer[idQCM][idChoice].value}
+                                        />
+                                        <p>{choice.answer}</p>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                ))
+            }
+            {allAnswered ? <button onClick={validateAnswers} className={"button"}>Envoyer</button> : null}
         </>
     )
 }
