@@ -2,8 +2,7 @@ import {useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
-import classroom from "~/styles/backofficeClassrooom.css";
-import training from "~/styles/backofficeTraining.css";
+import stylesRefacto from "~/styles/styleRefacto.css";
 import {NavLink} from "@remix-run/react";
 import Header from "~/components/header";
 import Footer from "~/components/footer";
@@ -16,8 +15,7 @@ export function links() {
         {rel: 'stylesheet', href: resetStyles},
         {rel: 'stylesheet', href: styles},
         {rel: 'stylesheet', href: input},
-        {rel: 'stylesheet', href: classroom},
-        {rel: 'stylesheet', href: training},
+        {rel: 'stylesheet', href: stylesRefacto},
     ]
 }
 
@@ -73,8 +71,8 @@ export default function Classroom_ClassroomId() {
             <Header/>
             <Header_section_page numberUndoPage={1}  title={classroom.title}/>
             <main className={"max_width_container"}>
-                <div className={"classroom_container-open max_width"}>
-                    <div className={"classroom_image_banner"} style={{height: bannerHeight}}>
+                <div className={"main_section_container-flex max_width"}>
+                    <div className={"big_banner_image"} style={{height: bannerHeight}}>
                         <img src={classroom.imgLink} alt={"bannière du cour"}/>
                     </div>
                     <p>{classroom.description}</p>
@@ -83,7 +81,7 @@ export default function Classroom_ClassroomId() {
                             Listes des élèves
                         </NavLink>
                     </div>
-                    <div className={"classroom_preview_training"}>
+                    <div className={"main_section_container-grid"}>
                         {
                             classroom.trainings.map((training, i) => {
                                 return (
