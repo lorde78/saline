@@ -1,5 +1,8 @@
 import 'remixicon/fonts/remixicon.css'
 import {NavLink, Outlet, useLocation} from "@remix-run/react";
+import {useNavigate} from "react-router-dom";
+import useRemoveLessonFromTraining from "~/hook/useRemoveLessonFromTraining";
+import getIdFromUrl from "~/helper/getIdFromUrl";
 
 type Props = {
     id: number,
@@ -21,8 +24,15 @@ export default function Backoffice_edit_training({
                                                      showButton
                                                  }: Props) {
 
+    const navigate = useNavigate()
+    const location = useLocation()
+    const removeLesson = useRemoveLessonFromTraining()
+    const getCurrentId = getIdFromUrl(1)
+
     const submit = (e) => {
-        
+        removeLesson(id,false,getCurrentId)
+
+        window.location.reload()
     }
 
     return (
