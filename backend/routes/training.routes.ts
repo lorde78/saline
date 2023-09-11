@@ -38,19 +38,51 @@ router.delete('/', async function (req, res, next) {
 });
 
 router.put('/', async function (req, res, next) {
-    const { id } = req.query;
+    const { id, addToTraining, lessonsIdList } = req.query;
+    let updateTraining = null;
+    const decodedLessonsIdList = JSON.parse(decodeURIComponent(lessonsIdList))
 
     if (!id) {
         res.status(400);
         throw new Error('You must provide an id ');
     }
 
-    const updateTraining = await database.training.update({
-        where: {
-            id: parseInt(id),
-        },
-        data: req.body
-    })
+    if (!lessonsIdList) {
+        updateTraining = await database.training.update({
+            where: {
+                id: parseInt(id),
+            },
+            data: req.body
+        })
+    } else {
+        if(addToTraining === true) {
+            updateTraining = await database.training.update({
+                where: {
+                    id: parseInt(id),
+                },
+                data: {
+                    lessons: {
+                        connect: decodedLessonsIdList.map(lessonId => {
+                            return {id: parseInt(lessonId)}
+                        })
+                    }
+                }
+            })
+        } else {
+            updateTraining = await database.training.update({
+                where: {
+                    id: parseInt(id),
+                },
+                data: {
+                    lessons: {
+                        disconnect: lessonsIdList.map(lessonId => {
+                            return {id: parseInt(lessonId)}
+                        })
+                    }
+                }
+            })
+        }
+    }
 
     res.json({
         message: 'training updated',
@@ -69,7 +101,8 @@ router.get('/', async function (req, res, next) {
                         name: true,
                         firstName: true
                     }
-                }
+                },
+                lessons: true
             }
         })
     } else {
@@ -83,7 +116,8 @@ router.get('/', async function (req, res, next) {
                         name: true,
                         firstName: true
                     }
-                }
+                },
+                lessons: true
             }
         })
     }

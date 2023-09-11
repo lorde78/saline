@@ -36,19 +36,46 @@ router.delete('/', async function (req, res, next) {
 });
 
 router.put('/', async function (req, res, next) {
-    const { id } = req.query;
+    const { id, addToTraining, trainingId } = req.query;
+    let updateLesson = null;
 
     if (!id) {
         res.status(400);
         throw new Error('You must provide an id or lessonId.');
     }
 
-    const updateLesson = await database.lesson.update({
-        where: {
-            id: parseInt(id),
-        },
-        data: req.body
-    })
+    if (!trainingId) {
+        updateLesson = await database.lesson.update({
+            where: {
+                id: parseInt(id),
+            },
+            data: req.body
+        })
+    } else {
+        if (addToTraining === true) {
+            updateLesson = await database.lesson.update({
+                where: {
+                    id: parseInt(id),
+                },
+                data: {
+                    trainings: {
+                        connect: { id: parseInt(trainingId) }
+                    }
+                }
+            })
+        } else {
+            updateLesson = await database.lesson.update({
+                where: {
+                    id: parseInt(id),
+                },
+                data: {
+                    trainings: {
+                        disconnect: { id: parseInt(trainingId) }
+                    }
+                }
+            })
+        }
+    }
 
     res.json({
         message: 'lesson updated',
@@ -67,7 +94,8 @@ router.get('/', async function (req, res, next) {
                         name: true,
                         firstName: true
                     }
-                }
+                },
+                trainings: true
             }
         })
     } else {
@@ -81,7 +109,8 @@ router.get('/', async function (req, res, next) {
                         name: true,
                         firstName: true
                     }
-                }
+                },
+                trainings: true
             }
         })
     }
