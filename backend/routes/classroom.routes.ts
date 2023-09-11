@@ -34,24 +34,52 @@ router.delete('/', async function (req, res, next) {
 });
 
 router.put('/', async function (req, res, next) {
-    const { id } = req.query;
+    const { id, addToClassroom, studentId } = req.query;
+    let updateClassroom = null;
 
     if (!id) {
         res.status(400);
         throw new Error('You must provide an id or classroomId.');
     }
 
-    const updateclassroom = await database.classroom.update({
-        where: {
-            id: parseInt(id),
-        },
-        data: req.body
-    })
+    if (!studentId) {
+        updateClassroom = await database.classroom.update({
+            where: {
+                id: parseInt(id),
+            },
+            data: req.body
+        })
+    } else {
+        if (JSON.parse(addToClassroom) === true) {
+            updateClassroom = await database.classroom.update({
+                where: {
+                    id: parseInt(id)
+                },
+                data: {
+                    students: {
+                        connect: { id: parseInt(studentId) }
+                    }
+                }
+            })
+        } else {
+            updateClassroom = await database.classroom.update({
+                where: {
+                    id: parseInt(id)
+                },
+                data: {
+                    students: {
+                        disconnect: { id: parseInt(studentId) }
+                    }
+                }
+            })
+        }
+    }
 
     res.json({
         message: 'classroom updated',
     });
 });
+
 
 router.get('/', async function (req, res, next) {
     const { id, userId } = req.query;
@@ -65,7 +93,8 @@ router.get('/', async function (req, res, next) {
                         name: true,
                         firstName: true
                     }
-                }
+                },
+                students: true
             }
         })
     } else {
@@ -82,7 +111,8 @@ router.get('/', async function (req, res, next) {
                         name: true,
                         firstName: true
                     }
-                }
+                },
+                students: true
             }
         })
     }
