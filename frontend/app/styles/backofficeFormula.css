@@ -1,0 +1,36 @@
+.backoffice_formulas_container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding: 20px ;
+}
+.backoffice_formulas_container .formulas {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.backoffice_formulas_container .formulas .formulas_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.formula_edit_container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.formula_edit_container .price_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.formula_edit_container .formula {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.formula_edit_container .formula div:last-child {
+    display: flex;
+    gap: 10px;
+}

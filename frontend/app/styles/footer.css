@@ -1,15 +1,32 @@
 footer {
-	background-color: #121525;
-	color: white;
-	font-family: Rubik;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	background-color: #121525;
+	color: white;
 	padding: 25px 40px;
+}
+
+footer .button {
+	font-size: 18px;
+}
+
+footer .newsletter_container span{
+	font-size: 14px;
+	font-weight: 600;
+	text-align: center;
+}
+
+.newsletter_container {
+	display: flex;
+	flex-direction: column;
 }
 
 .footer_nav_principal {
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
 	gap: 40px;
 }
 
@@ -17,6 +34,7 @@ footer {
 .footer_nav_principal_second {
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 }
 
 .footer_nav_principal_premier ul h3,
@@ -55,8 +73,8 @@ footer {
 
 .footer_nav_secondaire {
 	display: flex;
+	justify-content: space-between;
 	gap: 40px;
-   
 }
 
 .footer_nav_secondaire_premier,

@@ -1,13 +1,16 @@
 import type {V2_MetaFunction} from "@remix-run/node";
 import Footer from "~/components/footer";
 import Header from "~/components/header";
-import Builder_block_button from "~/kits/builder_block_button";
-import "~/styles/reset.css"
-import "~/styles/style.css"
-import "~/styles/builder.css"
-import "~/styles/input.css"
-import Builder_select_folder from "~/kits/builder_select_folder";
-import Select_image from "~/kits/select_image";
+import { Slider } from "~/components/slider";
+import { MiniSlider } from "~/components/mini_slider";
+import { SectionInstrument } from "~/components/section_instrument";
+import { SectionPartenaires } from "~/components/section_partenaires";
+import { SectionSalinePlus } from "~/components/section_plus_saline";
+import { Offre } from "~/components/section_formule";
+import resetStyles from "~/styles/reset.css"
+import styles from "~/styles/style.css"
+import builder from "~/styles/builder.css"
+import input from "~/styles/input.css"
 
 export const meta: V2_MetaFunction = () => {
     return [
@@ -16,16 +19,68 @@ export const meta: V2_MetaFunction = () => {
     ];
 };
 
+export function links() {
+    return [
+        {rel: 'stylesheet', href: resetStyles},
+        {rel: 'stylesheet', href: styles},
+        {rel:'stylesheet', href: input},
+        {rel: 'stylesheet', href: builder}
+    ]
+}
 
 export default function Index() {
-    console.log("Index")
-    return (
-        <div style={{fontFamily: "system-ui, sans-serif", lineHeight: "1.8"}}>
+  const slides = [
+    {
+      src: "/assets/images/first.png",
+      title: "Image 1",
+      name: "first guy",
+      desc: "La la la la ala aalazifjfijf"
+    },
+    {
+      src: "assets/images/1000x1500-pour-site14.png",
+      title: "Image 2",
+      name: "first guy",
+      desc: "La la la la ala aalazifjfijf"
+    },
+    {
+      src: "assets/images/1000x1500-pour-site18.png",
+      title: "Image 3",
+      name: "first guy",
+      desc: "La la la la ala aalazifjfijf"
+    },
+    {
+      src: "assets/images/1000x1500-pour-site22.png",
+      title: "Image 4",
+      name: "first guy",
+      desc: "La la la la ala aalazifjfijf"
+    },
+    {
+      src: "assets/images/1000x1500-pour-site23.png",
+      title: "Image 5",
+      name: "first guy",
+      desc: "La la la la ala aalazifjfijf"
+    },
+    {
+      src: "assets/images/1000x1500-pour-site48.png",
+      title: "Image 6",
+      name: "first guy",
+      desc: "La la la la ala aalazifjfijf"
+    },
 
-            <Builder_block_button contents={"Vidéo"} icon={"ri-vidicon-line"}/>
-            <Builder_select_folder icon={"ri-vidicon-line"} folderType={"video/mp4"} idType={"video"} buttonMessage={"Choisi une vidéo"}/>
-            <Builder_select_folder icon={"ri-file-2-line"} folderType={"application/pdf"} idType={"pdf"} buttonMessage={"Choisi un fichier pour ton énoncé"} />
-            <Select_image/>
-        </div>
-    );
+  ];
+
+ 
+  return (
+    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
+      <Header title={""} />
+      <Slider slides={slides} />
+      <SectionInstrument />
+      <MiniSlider slides={slides}/>
+      <Offre offres={[]} />
+      <SectionSalinePlus />
+      <SectionPartenaires />
+      
+      <Footer />
+    </div>
+  );
 }
