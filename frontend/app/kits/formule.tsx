@@ -1,10 +1,10 @@
 import FormuleTag from "./formuleTag";
 
-type FormuleProps = {
+type Props = {
   subscription: string;
 };
 
-const Formule: React.FC<FormuleProps> = ({ subscription }) => {
+export default function Formule({ subscription }: Props) {
 
   return (
     <div className="formule">
@@ -27,5 +27,3 @@ const Formule: React.FC<FormuleProps> = ({ subscription }) => {
     </div>
   );
 };
-
-export default Formule;
