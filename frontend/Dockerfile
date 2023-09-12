@@ -17,7 +17,7 @@ CMD ["npm","serve"]
 # SETTINGS FOR DEV ENV
 FROM base as dev
 ENV NODE_ENV=development
-COPY ./package*.json .
+COPY . .
 RUN npm install
 CMD ["npm","dev"]
 # SETTINGS FOR DEV ENV

@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import HeaderNav from "~/kits/headerNav";
 import "~/styles/editProfile.css";
 
@@ -11,11 +11,11 @@ type UserInfo = {
   address: string;
 };
 
-type EditUserProfileProps = {
+type Props = {
   userInfo: UserInfo;
 };
 
-const EditUserProfile: React.FC<EditUserProfileProps> = ({ userInfo }) => {
+export default function EditUserProfile ({ userInfo }: Props) {
   const [formData, setFormData] = useState<UserInfo>(userInfo);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -94,5 +94,3 @@ const EditUserProfile: React.FC<EditUserProfileProps> = ({ userInfo }) => {
     </div>
   );
 };
-
-export default EditUserProfile;

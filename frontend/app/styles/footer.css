@@ -26,6 +26,7 @@ footer .newsletter_container span{
 .footer_nav_principal {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	justify-content: space-between;
 	gap: 40px;
 }
