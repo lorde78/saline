@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import useRemoveLessonFromTraining from "~/hook/useRemoveLessonFromTraining";
 import getIdFromUrl from "~/helper/getIdFromUrl";
 import useDeleteElement from "~/hook/useDeleteElement";
+import useRemoveTrainingFromClassroom from "~/hook/useRemoveTrainingFromClassroom";
 
 type Props = {
     id: number,
@@ -27,13 +28,13 @@ export default function Backoffice_edit_training({
                                                      creation_type
                                                  }: Props) {
 
-    const deleteLesson = useDeleteElement()
+    const deleteElement = useDeleteElement()
     const removeLesson = useRemoveLessonFromTraining()
-    const getCurrentId = getIdFromUrl(1)
+    const getCurrentId = getIdFromUrl(2)
 
     const submit = (e) => {
         if(!getCurrentId) {
-            deleteLesson(creation_type,id)
+            deleteElement(creation_type,id)
         } else {
             removeLesson(id,false,getCurrentId)
         }

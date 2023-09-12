@@ -56,9 +56,14 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Trainings() {
                     <Header_section_page numberUndoPage={1} title={classroom.title}/>
                     <section className={"max_width_container"}>
                         <div className={"backoffice_training_preview_container max_width"}>
-                            <NavLink to={"new"} className={"button"}>
-                                Ajouter un parcours
-                            </NavLink>
+                            <div className={"button_header"}>
+                                <NavLink to={`/backoffice/trainings/new?relId=${getCurrentId}&relType=classroom`} className={"button"}>
+                                    Créer un parcours
+                                </NavLink>
+                                <NavLink className={"button"} to={'add'}>
+                                    Ajouter un parcours
+                                </NavLink>
+                            </div>
                             {
                                 trainings.filter(training => {
                                     return training.classrooms.some(classroom => classroom.id == getCurrentId)
@@ -70,7 +75,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Trainings() {
                                             author={training.author}
                                             imgLink={training.bannerPicture}
                                             description={training.description}
-                                            creation_type={"training"}
+                                            creation_type={"classroom"}
                                         />
                                     )
                                 })

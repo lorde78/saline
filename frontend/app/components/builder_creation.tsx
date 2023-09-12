@@ -85,11 +85,13 @@ export default function Builder_creation({creation_type,relId,relType}: Props) {
 
         switch (relType) {
             case 'training':
+            case 'classroom':
                 formData = {
                     ...formData,
                     "relType": relType,
                     "relId": relId
                 }
+                break;
         }
 
         createdId = await creationHook(formData,creation_type).then(res => res.id)
@@ -140,7 +142,7 @@ export default function Builder_creation({creation_type,relId,relType}: Props) {
                 value={description}
             />
             {complementaryForm()}
-            <button onClick={(e) => submit(e)} className={"button"}>Ajouter une étape</button>
+            <button onClick={(e) => submit(e)} className={"button"}>Créer</button>
         </form>
     )
 }

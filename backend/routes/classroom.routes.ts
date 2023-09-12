@@ -34,15 +34,17 @@ router.delete('/', async function (req, res, next) {
 });
 
 router.put('/', async function (req, res, next) {
-    const { id, addStudent, studentId, addTraining, trainingId } = req.query;
+    const { id, addStudent, studentsIdList, addTraining, trainingsIdList } = req.query;
     let updateClassroom = null;
+    const decodedTrainingsIdList = trainingsIdList ? JSON.parse(decodeURIComponent(trainingsIdList)) : ""
+    const decodedStudentsIdList = studentsIdList ? JSON.parse(decodeURIComponent(studentsIdList)) : ""
 
     if (!id) {
         res.status(400);
         throw new Error('You must provide an id or classroomId.');
     }
 
-    if (!studentId && !trainingId) {
+    if (!studentsIdList && !trainingsIdList) {
         updateClassroom = await database.classroom.update({
             where: {
                 id: parseInt(id),
@@ -58,7 +60,9 @@ router.put('/', async function (req, res, next) {
                     },
                     data: {
                         students: {
-                            connect: {id: parseInt(studentId)}
+                            connect: decodedStudentsIdList.map(studentId => {
+                                return {id: parseInt(studentId)}
+                            })
                         }
                     }
                 })
@@ -69,7 +73,9 @@ router.put('/', async function (req, res, next) {
                     },
                     data: {
                         students: {
-                            disconnect: {id: parseInt(studentId)}
+                            disconnect: decodedStudentsIdList.map(studentId => {
+                                return {id: parseInt(studentId)}
+                            })
                         }
                     }
                 })
@@ -83,7 +89,9 @@ router.put('/', async function (req, res, next) {
                     },
                     data: {
                         trainings: {
-                            connect: {id: parseInt(trainingId)}
+                            connect: decodedTrainingsIdList.map(trainingId => {
+                                return {id: parseInt(trainingId)}
+                            })
                         }
                     }
                 })
@@ -93,8 +101,8 @@ router.put('/', async function (req, res, next) {
                         id: parseInt(id)
                     },
                     data: {
-                        students: {
-                            disconnect: {id: parseInt(trainingId)}
+                        trainings: {
+                            disconnect: {id: parseInt(trainingsIdList)}
                         }
                     }
                 })
