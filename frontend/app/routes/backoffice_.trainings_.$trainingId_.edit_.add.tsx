@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -13,94 +13,97 @@ import getIdFromUrl from "~/helper/getIdFromUrl";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import Loader from "~/kits/loader";
 import useAddLessonsToTraining from "~/hook/useAddLessonsToTraining";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import editLink from "~/helper/editLink";
 
+interface Course {
+    id: number;
+    title: string;
+    author: {
+        name: string,
+        firstName: string
+    };
+    bannerPicture: string;
+    description: string;
+    trainings: { id: number }[];
+}
 
 export function links() {
     return [
-        {rel: 'stylesheet', href: resetStyles},
-        {rel: 'stylesheet', href: styles},
-        {rel: 'stylesheet', href: input},
-        {rel: 'stylesheet', href: training}
-    ]
+        { rel: 'stylesheet', href: resetStyles },
+        { rel: 'stylesheet', href: styles },
+        { rel: 'stylesheet', href: input },
+        { rel: 'stylesheet', href: training }
+    ];
 }
 
 export default function Backoffice_Trainings_TrainingId_Edit_Add() {
-    useGlobalEffect()
-    const addLesson = useAddLessonsToTraining()
-    const navigate = useNavigate()
-    const editPath = editLink(3)
+    useGlobalEffect();
+    const addLesson = useAddLessonsToTraining();
+    const navigate = useNavigate();
+    const editPath = editLink(3);
 
-    const getCurrentId = getIdFromUrl(2)
-    const [loader,setLoader] = useState(false)
+    const getCurrentId = getIdFromUrl(2);
+    const [loader, setLoader] = useState(false);
 
-    const [training, setTraining] = useState()
-    const getCurrentTraining = useGetCurrentElement()
+    const [training, setTraining] = useState<any>();
+    const getCurrentTraining = useGetCurrentElement();
 
-    const [courses, setCourses] = useState([])
-    const getAllCourses = useGetAllElements()
+    const [courses, setCourses] = useState<Course[]>([]);
+    const getAllCourses = useGetAllElements<Course>();
 
     const getTraining = async () => {
-        const currentTraining = await getCurrentTraining("training",getCurrentId)
-        setTraining(currentTraining)
-        setLoader(true)
+        const currentTraining = await getCurrentTraining("training", getCurrentId);
+        setTraining(currentTraining);
+        setLoader(true);
     }
 
     useEffect(() => {
         getAllCourses("lesson").then(r => {
             if (!courses.length) {
-                setCourses(r)
+                setCourses(r);
             }
-        })
+        });
 
-        getTraining()
-    }, [])
+        getTraining();
+    }, []);
 
-    const [coursesAdd, setCoursesAdd] = useState([])
+    const [coursesAdd, setCoursesAdd] = useState<number[]>([]);
 
-    const checkCourses = (value:boolean, props:any) => {
-        let newCoursesAdd = {...coursesAdd}
+    const checkCourses = (value: boolean, props: any) => {
         if (value) {
-            // @ts-ignore
-            newCoursesAdd[props.id] = props.id
+            setCoursesAdd([...coursesAdd, props.id]);
         } else {
-            // @ts-ignore
-            delete newCoursesAdd[props.id]
+            setCoursesAdd(coursesAdd.filter(id => id !== props.id));
         }
-        setCoursesAdd(newCoursesAdd)
     }
 
-    const submit = (e) => {
-        e.preventDefault()
-        addLesson(coursesAdd,true,training.id)
+    const submit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+        addLesson(coursesAdd, true, training.id);
 
-        navigate(editPath + "/" + getCurrentId + "/edit")
+        navigate(editPath + "/" + getCurrentId + "/edit");
     }
 
     return (
         <>
             {loader ?
                 <>
-                    <Header_section_page numberUndoPage={1}  title={"Ajouter un cours"}/>
+                    <Header_section_page numberUndoPage={1} title={"Ajouter un cours"} />
                     <section className={"max_width_container"}>
                         <div className={"backoffice_training_preview_container max_width"}>
                             <button className={"button"} onClick={(e) => submit(e)}>Ajouter les cours</button>
                             {
-                                courses.filter(course => {
-                                    return !course.trainings.some(training => training.id === getCurrentId)
-                                }).map((course) => {
-                                    let id = course.id
-                                    return (
-                                        <div className={"course_preview_container"}>
+                                courses.filter(course => !course.trainings.some(training => training.id === getCurrentId))
+                                    .map(course => (
+                                        <div className={"course_preview_container"} key={course.id}>
                                             <Checkbox
                                                 name={"checkbox"}
                                                 type={"checkbox"}
                                                 text={""}
                                                 setValue={checkCourses}
-                                                propsSetValue={{id: id}}
-                                                // @ts-ignore
-                                                value={coursesAdd[id] ? coursesAdd[id].value : false}
+                                                propsSetValue={{ id: course.id }}
+                                                value={coursesAdd.includes(course.id)}
                                             />
                                             <Backoffice_edit_training
                                                 id={course.id}
@@ -112,15 +115,14 @@ export default function Backoffice_Trainings_TrainingId_Edit_Add() {
                                                 creation_type={"lesson"}
                                             />
                                         </div>
-                                    )
-                                })
+                                    ))
                             }
                             <button className={"button"} onClick={(e) => submit(e)}>Ajouter les cours</button>
                         </div>
                     </section>
                 </>
                 :
-                <Loader/>
+                <Loader />
             }
         </>
     )

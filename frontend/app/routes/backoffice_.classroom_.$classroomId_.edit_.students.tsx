@@ -34,10 +34,12 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
 
     const getClassroom = async () => {
         const currentClassroom = await getCurrentClassroom("classroom",getCurrentId)
+        //@ts-ignore
         setClassroom(currentClassroom)
         setLoader(true)
     }
 
+    //@ts-ignore
     const [bannerHeight, setBannerHeight] = useState(400)
 
     useEffect(() => {
