@@ -3,11 +3,8 @@ import '../styles/header.css';
 import {Link} from 'react-router-dom';
 import LanguageSelect from './selectlanguage';
 
-type HeaderProps = {
-    title: string;
-};
 
-export default function Header({title}: HeaderProps) {
+export default function Header() {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [windowInnerWidth, setWindowInnerWidth] = useState(0);
     const toggleMenu = () => {
