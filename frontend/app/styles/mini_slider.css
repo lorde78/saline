@@ -9,11 +9,6 @@
     padding-top: 40px;
 }
 
-.mini_swiper_container img {
-	width: 200px;
-	object-fit: cover;
-}
-
 .mini_swiper_container .slider_slide {
 	position: relative;
 }
@@ -41,4 +36,15 @@
 	right: 0;
 	bottom: 0;
 	background: linear-gradient(to bottom, transparent 0%, black 100%);
+}
+
+
+@media screen and (min-width: 700px) {
+	.mini_swiper_container h3{
+		font-size: 18px;
+	}
+
+	.mini_swiper_container .custom_text_socket_container span{
+		font-size: 14px;
+	}
 }
