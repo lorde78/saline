@@ -78,7 +78,7 @@ model Classroom {
   description   String?    @db.Text
   author        User?      @relation("ClassroomProfessor", fields: [userId], references: [id])
   students      User[]     @relation("ClassroomStudents")
-  training      Training[]
+  trainings      Training[]
 }
 
 model Training {
