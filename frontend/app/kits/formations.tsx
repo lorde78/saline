@@ -6,26 +6,26 @@ type Props = {
 };
 
 export default function Formation({ formationData }: Props) {
-  const [activeStatus, setActiveStatus] = useState("in progress");
+  const [activeStatus, setActiveStatus] = useState("en cours");
 
   // Filter the data based on the activeStatus
   const filteredFormations =
-    activeStatus === "in progress"
-      ? formationData.filter((formation) => formation.status === "in progress")
-      : formationData.filter((formation) => formation.status === "achieved");
+    activeStatus === "en cours"
+      ? formationData.filter((formation) => formation.status === "en cours")
+      : formationData.filter((formation) => formation.status === "terminée");
 
   return (
     <div className="formations">
       <div className="formations_status">
         <button
-          className={activeStatus === "in progress" ? "active" : ""}
-          onClick={() => setActiveStatus("in progress")}
+          className={activeStatus === "en cours" ? "active" : ""}
+          onClick={() => setActiveStatus("en cours")}
         >
           En cours
         </button>
         <button
-          className={activeStatus === "achieved" ? "active" : ""}
-          onClick={() => setActiveStatus("achieved")}
+          className={activeStatus === "terminée" ? "active" : ""}
+          onClick={() => setActiveStatus("terminée")}
         >
           Achevées
         </button>
