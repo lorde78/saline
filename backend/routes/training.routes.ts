@@ -100,7 +100,8 @@ router.get('/', async function (req, res, next) {
                         firstName: true
                     }
                 },
-                lessons: true
+                lessons: true,
+                classrooms: true
             }
         })
     } else {
@@ -115,7 +116,8 @@ router.get('/', async function (req, res, next) {
                         firstName: true
                     }
                 },
-                lessons: true
+                lessons: true,
+                classrooms: true
             }
         })
     }

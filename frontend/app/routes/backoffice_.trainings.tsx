@@ -24,10 +24,10 @@ export default function Backoffice_Trainings() {
     useGlobalEffect()
 
     const [trainings, setTrainings] = useState([])
-    const getAllCourses = useGetAllElements()
+    const getAllTrainings = useGetAllElements()
 
     useEffect(() => {
-        getAllCourses("training").then(r => {
+        getAllTrainings("training").then(r => {
             if (!trainings.length) {
                 setTrainings(r)
             }

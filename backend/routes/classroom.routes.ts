@@ -34,7 +34,7 @@ router.delete('/', async function (req, res, next) {
 });
 
 router.put('/', async function (req, res, next) {
-    const { id, addToClassroom, studentId } = req.query;
+    const { id, addStudent, studentId, addTraining, trainingId } = req.query;
     let updateClassroom = null;
 
     if (!id) {
@@ -42,7 +42,7 @@ router.put('/', async function (req, res, next) {
         throw new Error('You must provide an id or classroomId.');
     }
 
-    if (!studentId) {
+    if (!studentId && !trainingId) {
         updateClassroom = await database.classroom.update({
             where: {
                 id: parseInt(id),
@@ -50,28 +50,55 @@ router.put('/', async function (req, res, next) {
             data: req.body
         })
     } else {
-        if (JSON.parse(addToClassroom) === true) {
-            updateClassroom = await database.classroom.update({
-                where: {
-                    id: parseInt(id)
-                },
-                data: {
-                    students: {
-                        connect: { id: parseInt(studentId) }
+        if (addStudent) {
+            if (JSON.parse(addStudent) === true) {
+                updateClassroom = await database.classroom.update({
+                    where: {
+                        id: parseInt(id)
+                    },
+                    data: {
+                        students: {
+                            connect: {id: parseInt(studentId)}
+                        }
                     }
-                }
-            })
-        } else {
-            updateClassroom = await database.classroom.update({
-                where: {
-                    id: parseInt(id)
-                },
-                data: {
-                    students: {
-                        disconnect: { id: parseInt(studentId) }
+                })
+            } else {
+                updateClassroom = await database.classroom.update({
+                    where: {
+                        id: parseInt(id)
+                    },
+                    data: {
+                        students: {
+                            disconnect: {id: parseInt(studentId)}
+                        }
                     }
-                }
-            })
+                })
+            }
+        }
+        if (addTraining) {
+            if (JSON.parse(addTraining) === true) {
+                updateClassroom = await database.classroom.update({
+                    where: {
+                        id: parseInt(id)
+                    },
+                    data: {
+                        trainings: {
+                            connect: {id: parseInt(trainingId)}
+                        }
+                    }
+                })
+            } else {
+                updateClassroom = await database.classroom.update({
+                    where: {
+                        id: parseInt(id)
+                    },
+                    data: {
+                        students: {
+                            disconnect: {id: parseInt(trainingId)}
+                        }
+                    }
+                })
+            }
         }
     }
 
@@ -94,7 +121,8 @@ router.get('/', async function (req, res, next) {
                         firstName: true
                     }
                 },
-                students: true
+                students: true,
+                trainings: true
             }
         })
     } else {
@@ -112,7 +140,8 @@ router.get('/', async function (req, res, next) {
                         firstName: true
                     }
                 },
-                students: true
+                students: true,
+                trainings: true
             }
         })
     }
