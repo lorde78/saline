@@ -1,26 +1,23 @@
 import "~/styles/searchProfessor.css";
 
-  export default function SearchProfessor() {
+type Props = {
+    professorData: any[],
+}
+
+
+export default function SearchProfessor({professorData}: Props) {
 
 
     return (
         <div>
             <div className="result_professor_container">
-                <figure className="result_professor-pic">
-                    <img src='/assets/images/1000x1500-pour-site14.png' alt="photo de profil" />
-                </figure>
-                <figure className="result_professor-pic">
-                    <img src='/assets/images/1000x1500-pour-site14.png' alt="photo de profil" />
-                </figure>
-                <figure className="result_professor-pic">
-                    <img src='/assets/images/1000x1500-pour-site14.png' alt="photo de profil" />
-                </figure>
-                <figure className="result_professor-pic">
-                    <img src='/assets/images/1000x1500-pour-site14.png' alt="photo de profil" />
-                </figure>
-                <figure className="result_professor-pic">
-                    <img src='/assets/images/1000x1500-pour-site14.png' alt="photo de profil" />
-                </figure>
+                {professorData.map((professor, i) => {
+                return (
+                    <figure className="result_professor-pic">
+                        <img src={professor.profilepic} alt="photo de profil" />
+                    </figure>
+                )})}
+                
             </div>
         </div>
     );
