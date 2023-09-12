@@ -7,7 +7,7 @@ type EditPasswordProps = {
 
 };
 
-const EditPassword: React.FC<EditPasswordProps> = ({  }) => {
+export default function EditPassword() {
   
   return (
     <div>
@@ -20,4 +20,3 @@ const EditPassword: React.FC<EditPasswordProps> = ({  }) => {
   );
 };
 
-export default EditPassword;
