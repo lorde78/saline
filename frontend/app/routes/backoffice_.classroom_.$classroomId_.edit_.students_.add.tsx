@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -10,93 +10,91 @@ import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import getIdFromUrl from "~/helper/getIdFromUrl";
 import Loader from "~/kits/loader";
 import useRemoveStudentsFromClassroom from "~/hook/useRemoveStudentsFromClassroom";
-import {NavLink} from "@remix-run/react";
-import {useNavigate} from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import editLink from "~/helper/editLink";
 import useGetAllElements from "~/hook/useGetAllElements";
 import useAddStudentsToClassroom from "~/hook/useAddStudentsToClassroom";
 
-
 export function links() {
     return [
-        {rel: 'stylesheet', href: resetStyles},
-        {rel: 'stylesheet', href: styles},
-        {rel: 'stylesheet', href: input},
-        {rel: 'stylesheet', href: classroom}
-    ]
+        { rel: 'stylesheet', href: resetStyles },
+        { rel: 'stylesheet', href: styles },
+        { rel: 'stylesheet', href: input },
+        { rel: 'stylesheet', href: classroom }
+    ];
 }
 
 export default function Backoffice_Classroom_ClassroomId_Edit_Students_Add() {
-    useGlobalEffect()
-    const addStudents = useAddStudentsToClassroom()
-    const navigate = useNavigate()
-    const editPath = editLink(4)
+    useGlobalEffect();
+    const addStudents = useAddStudentsToClassroom();
+    const navigate = useNavigate();
+    const editPath = editLink(4);
 
-    const getCurrentId = getIdFromUrl(3)
-    const [loader,setLoader] = useState(false)
+    const getCurrentId = getIdFromUrl(3);
+    const [loader, setLoader] = useState(false);
 
-    const [classroom, setClassroom] = useState()
-    const getCurrentClassroom = useGetCurrentElement()
+    const [classroom, setClassroom] = useState<any>();
+    const getCurrentClassroom = useGetCurrentElement();
 
-    const [students, setStudents] = useState([])
-    const getAllStudents = useGetAllElements()
+    const [students, setStudents] = useState<any[]>([]);
+    const getAllStudents = useGetAllElements();
 
     const getClassroom = async () => {
-        const currentClassroom = await getCurrentClassroom("classroom",getCurrentId)
-        setClassroom(currentClassroom)
-        setLoader(true)
-    }
+        const currentClassroom = await getCurrentClassroom("classroom", getCurrentId);
+        setClassroom(currentClassroom);
+        setLoader(true);
+    };
 
-    const [bannerHeight, setBannerHeight] = useState(400)
+    const [bannerHeight, setBannerHeight] = useState(400);
 
     useEffect(() => {
         window.onscroll = function () {
             if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-                setBannerHeight(200)
+                setBannerHeight(200);
             } else {
-                setBannerHeight(400)
+                setBannerHeight(400);
             }
         };
 
         getAllStudents("user").then(r => {
             if (!students.length) {
-                setStudents(r)
+                setStudents(r);
             }
-        })
+        });
 
-        getClassroom()
+        getClassroom();
     }, []);
 
-    const [studentsAdd, setStudentsAdd] = useState([])
+    const [studentsAdd, setStudentsAdd] = useState<{ [key: string]: any }>({});
 
-    const checkStudents = (value:boolean, props:any) => {
-        let newStudentsAdd = {...studentsAdd}
+    const checkStudents = (value: boolean, props: any) => {
+        let newStudentsAdd = { ...studentsAdd };
         if (value) {
             // @ts-ignore
-            newStudentsAdd[props.id] = props.id
+            newStudentsAdd[props.id] = props.id;
         } else {
             // @ts-ignore
-            delete newStudentsAdd[props.id]
+            delete newStudentsAdd[props.id];
         }
-        setStudentsAdd(newStudentsAdd)
-    }
+        setStudentsAdd(newStudentsAdd);
+    };
 
-    const submit = (e) => {
-        e.preventDefault()
-        addStudents(studentsAdd,true,getCurrentId)
+    const submit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+        addStudents(studentsAdd, true, getCurrentId);
 
-        navigate(editPath + "/" + getCurrentId + "/edit/students")
-    }
+        navigate(editPath + "/" + getCurrentId + "/edit/students");
+    };
 
     return (
         <>
             {loader ?
                 <>
-                    <Header_section_page numberUndoPage={1} title={classroom.title}/>
+                    <Header_section_page numberUndoPage={1} title={classroom.title} />
                     <section className={"max_width_container"}>
                         <div className={"classroom_container-open max_width"}>
-                            <div className={"classroom_image_banner"} style={{height: bannerHeight}}>
-                                <img src={classroom.bannerPicture} alt={"bannière de la classe"}/>
+                            <div className={"classroom_image_banner"} style={{ height: bannerHeight }}>
+                                <img src={classroom.bannerPicture} alt={"bannière de la classe"} />
                             </div>
                             <div className={"classroom_links"}>
                                 <button className={"button"} onClick={(e) => submit(e)}>Ajouter les élèves</button>
@@ -104,15 +102,16 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students_Add() {
                             <div className={"backoffice_students_preview_container"}>
                                 {
                                     students.filter(student => {
-                                        return !student.attendingClassrooms.some(classroom => classroom.id === getCurrentId)
+                                        return !student.attendingClassrooms.some(classroom => classroom.id === getCurrentId);
                                     }).map((student, i) => {
                                         return (
                                             <Checkbox
+                                                key={student.id}
                                                 name={"studentName" + student.id}
                                                 type={"checkbox"}
                                                 text={student.firstName + " " + student.name}
                                                 setValue={checkStudents}
-                                                propsSetValue={{id: student.id}}
+                                                propsSetValue={{ id: student.id }}
                                                 value={studentsAdd[student.id] ? studentsAdd[student.id].value : false}
                                             />
                                         )
@@ -126,7 +125,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students_Add() {
                     </section>
                 </>
                 :
-                <Loader/>
+                <Loader />
             }
         </>
     )
