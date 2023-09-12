@@ -1,17 +1,39 @@
-import { Link } from '@remix-run/react';
-import SearchInput from '../components/SearchInput';
+import React, { useState } from 'react';
 
-export default function Search() {
-  const handleSearch = (searchText: string) => {
-    // Implement your search logic here with the searchText.
-    console.log('Searching for:', searchText);
+interface SearchResult {
+  id: number;
+  title: string;
+  // Add other properties from your JSON data here
+}
+
+interface SearchProps {
+  data: SearchResult[];
+  onSearch: (results: SearchResult[]) => void;
+}
+
+function Search({ data, onSearch }: SearchProps) {
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
+  const handleSearch = () => {
+    const results = data.filter(item => {
+      const title = item.title.toLowerCase();
+      return title.includes(searchQuery.toLowerCase());
+    });
+
+    onSearch(results);
   };
 
   return (
     <div>
-      <h1>Search Example</h1>
-      <Link to="/">Home</Link>
-      <SearchInput onSearch={handleSearch} />
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchQuery}
+        onChange={e => setSearchQuery(e.target.value)}
+      />
+      <button onClick={handleSearch}>Search</button>
     </div>
   );
 }
+
+export default Search;

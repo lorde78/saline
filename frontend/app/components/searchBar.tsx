@@ -1,33 +1,42 @@
-// components/SearchInput.tsx
 import React, { useState } from 'react';
 
-interface SearchInputProps {
-  onSearch: (searchText: string) => void;
+interface SearchResult {
+  id: number;
+  title: string;
+  // Add other properties from your JSON data here
 }
 
-const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
-  const [searchText, setSearchText] = useState<string>('');
+interface SearchProps {
+  data: SearchResult[];
+  onSearch: (results: SearchResult[]) => void;
+}
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const text = e.target.value;
-    setSearchText(text);
-  };
+function Search({ data, onSearch }: SearchProps) {
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const handleSearchClick = () => {
-    onSearch(searchText);
+  const handleSearch = () => {
+    const results = data.filter(item => {
+      const title = item.title.toLowerCase();
+      return title.includes(searchQuery.toLowerCase());
+    });
+
+    onSearch(results);
   };
 
   return (
-    <div className="search-input">
+    <div>
       <input
         type="text"
         placeholder="Search..."
-        value={searchText}
-        onChange={handleSearchChange}
+        value={searchQuery}
+        onChange={e => setSearchQuery(e.target.value)}
       />
-      <button onClick={handleSearchClick}>Search</button>
+      <button onClick={handleSearch}>Search</button>
+      <section>
+        
+      </section>
     </div>
   );
-};
+}
 
-export default SearchInput;
+export default Search;
