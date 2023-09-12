@@ -4,23 +4,42 @@ const { database } = require('../config/db.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { title, description, numberSteps, difficultyLevel, price, duration, nbViews, nbCompleted, userId } = req.body;
-    const lesson = await database.lesson.create({
-        data: {
-            userId: userId,
-            title: title,
-            description: description,
-            numberSteps: numberSteps,
-            difficultyLevel: difficultyLevel,
-            price: price,
-            duration: duration,
-            nbViews: nbViews,
-            nbCompleted: nbCompleted
-        }
-    })
+    const { title, description, difficultyLevel, userId, bannerPicture, relType, relId } = req.body;
+    let lesson = null;
+
+    if (!relType) {
+        lesson = await database.lesson.create({
+            data: {
+                userId: parseInt(userId),
+                title: title,
+                description: description,
+                difficultyLevel: String(difficultyLevel),
+                nbViews: 0,
+                nbCompleted: 0,
+                bannerPicture: bannerPicture
+            }
+        })
+    } else {
+        lesson = await database.lesson.create({
+            data: {
+                userId: parseInt(userId),
+                title: title,
+                description: description,
+                difficultyLevel: String(difficultyLevel),
+                nbViews: 0,
+                nbCompleted: 0,
+                bannerPicture: bannerPicture,
+                trainings: {
+                    connect: {id: parseInt(relId)}
+                }
+            }
+        })
+    }
+    
 
     res.json({
         message: 'lesson added',
+        lesson
     });
 
 });
@@ -29,7 +48,7 @@ router.delete('/', async function (req, res, next) {
     const { id } = req.query;
     const deleteLesson = await database.lesson.delete({
         where: {
-            id: id,
+            id: parseInt(id),
         },
     })
     res.json({
@@ -38,36 +57,100 @@ router.delete('/', async function (req, res, next) {
 });
 
 router.put('/', async function (req, res, next) {
-    const { id } = req.query;
+    const { id, addToTraining, trainingId, updateSteps } = req.query;
+    let updateLesson = null;
 
     if (!id) {
         res.status(400);
         throw new Error('You must provide an id or lessonId.');
     }
 
-    const updateLesson = await database.lesson.update({
-        where: {
-            id: id,
-        },
-        data: req.body
-    })
+    if (!trainingId && !updateSteps) {
+        updateLesson = await database.lesson.update({
+            where: {
+                id: parseInt(id),
+            },
+            data: req.body
+        })
+    } else {
+        if (addToTraining) {
+            if (JSON.parse(addToTraining) === true) {
+                updateLesson = await database.lesson.update({
+                    where: {
+                        id: parseInt(id),
+                    },
+                    data: {
+                        trainings: {
+                            connect: {id: parseInt(trainingId)}
+                        }
+                    }
+                })
+            } else {
+                updateLesson = await database.lesson.update({
+                    where: {
+                        id: parseInt(id),
+                    },
+                    data: {
+                        trainings: {
+                            disconnect: {id: parseInt(trainingId)}
+                        }
+                    }
+                })
+            }
+        }
+        if (updateSteps) {
+            if(JSON.parse(updateSteps) === true) {
+                updateLesson = await database.lesson.update({
+                    where: {
+                        id: parseInt(id),
+                    },
+                    data: {
+                        steps: req.body.steps
+                    }
+                })
+            }
+        }
+    }
 
     res.json({
         message: 'lesson updated',
+        updateLesson
     });
 });
 
 router.get('/', async function (req, res, next) {
     const { id } = req.query;
+    let lessons = null;
+
     if (!id) {
-        res.status(400);
-        throw new Error('You must provide an id ');
+        lessons = await database.lesson.findMany({
+            include: {
+                author: {
+                    select: {
+                        name: true,
+                        firstName: true
+                    }
+                },
+                trainings: true
+            }
+        })
+    } else {
+        lessons = await database.lesson.findMany({
+            where: {
+                id: parseInt(id),
+            },
+            include: {
+                author: {
+                    select: {
+                        name: true,
+                        firstName: true
+                    }
+                },
+                trainings: true
+            }
+        })
     }
-    const lessons = await database.lesson.findMany({
-        where: {
-            lessonId: id,
-        },
-    })
+
     res.json({
         "lessons": lessons
     });

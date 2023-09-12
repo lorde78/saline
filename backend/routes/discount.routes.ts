@@ -7,7 +7,7 @@ router.post('/', async function (req, res, next) {
     const { title, percentage, startDate, endDate, discountStatus, userId, nbPurchases } = req.body;
     const discount = await database.discount.create({
         data: {
-            userId: userId,
+            userId: parseInt(userId),
             title: title,
             percentage: percentage,
             startDate: startDate,
@@ -27,7 +27,7 @@ router.delete('/', async function (req, res, next) {
     const { id } = req.query;
     const deletediscount = await database.discount.delete({
         where: {
-            id: id,
+            id: parseInt(id),
         },
     })
     res.json({
@@ -45,7 +45,7 @@ router.put('/', async function (req, res, next) {
 
     const updateDiscount = await database.discount.update({
         where: {
-            id: id,
+            id: parseInt(id),
         },
         data: req.body
     })
@@ -64,8 +64,8 @@ router.get('/', async function (req, res, next) {
     const discounts = await database.discount.findMany({
         where: {
             OR: [
-                { id: id, },
-                { lessonId: lessonId },
+                { id: parseInt(id), },
+                { lessonId: parseInt(lessonId) },
             ],
         },
     })

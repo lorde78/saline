@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -7,6 +7,11 @@ import Header_section_page from "~/kits/header_section_page";
 import Backoffice_training from "~/components/backoffice_training";
 import Backoffice_edit_training from "~/components/backoffice_edit_training";
 import {NavLink, useLocation} from "@remix-run/react";
+import { useGlobalEffect } from "~/helper/globalHelper";
+import useGetAllElements from "~/hook/useGetAllElements";
+import useGetCurrentElement from "~/hook/useGetCurrentElement";
+import getIdFromUrl from "~/helper/getIdFromUrl";
+import Loader from "~/kits/loader";
 
 
 export function links() {
@@ -19,66 +24,70 @@ export function links() {
 }
 
 export default function Backoffice_Trainings_TrainingId_Edit() {
+    useGlobalEffect()
+    const getCurrentId = getIdFromUrl(1)
+    const [loader,setLoader] = useState(false)
 
-    const [courses, setCourses] = useState([
-        {
-            id: 0,
-            title: "Steampunk",
-            professor: "Jean Paul",
-            description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
-        },
-        {
-            id: 0,
-            title: "Steampunk",
-            professor: "Jean Paul",
-            description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
-        },
-        {
-            id: 0,
-            title: "Steampunk",
-            professor: "Jean Paul",
-            description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
-        },
-        {
-            id: 0,
-            title: "Steampunk",
-            professor: "Jean Paul",
-            description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
-        }
-    ])
+    const [training, setTraining] = useState()
+    const getCurrentTraining = useGetCurrentElement()
+
+    const [courses, setCourses] = useState([])
+    const getCourses = useGetAllElements()
+
+    const getTraining = async () => {
+        const currentTraining = await getCurrentTraining("training",getCurrentId)
+        setTraining(currentTraining)
+        setLoader(true)
+    }
+
+    useEffect(() => {
+        getCourses("lesson").then(r => {
+            if (!courses.length) {
+                setCourses(r)
+            }
+        })
+
+        getTraining()
+    }, [])
+
     return (
         <>
-            <Header_section_page numberUndoPage={2}  title={"Parcour"}/>
-            <section className={"max_width_container"}>
-                <div className={"backoffice_training_preview_container max_width"}>
-                    <div className={"button_header"}>
-                        <NavLink className={"button"} to={'0'}>
-                            Créer un cour
-                        </NavLink>
-                        <NavLink className={"button"} to={'add'}>
-                            Ajouter un cour
-                        </NavLink>
-                    </div>
-                    {
-                        courses.map((course, i) => {
-                            return (
-                                <Backoffice_edit_training
-                                    id={course.id}
-                                    title={course.title}
-                                    professor={course.professor}
-                                    imgLink={course.imgLink}
-                                    description={course.description}
-                                    showButton={true}
-                                />
-                            )
-                        })
-                    }
-                </div>
-            </section>
+            {loader ?
+                <>
+                    <Header_section_page numberUndoPage={2}  title={training.title}/>
+                    <section className={"max_width_container"}>
+                        <div className={"backoffice_training_preview_container max_width"}>
+                            <div className={"button_header"}>
+                                <NavLink to={`/backoffice/courses/new?relId=${getCurrentId}&relType=training`} className={"button"}>
+                                    Créer un cours
+                                </NavLink>
+                                <NavLink className={"button"} to={'add'}>
+                                    Ajouter un cours
+                                </NavLink>
+                            </div>
+                            {
+                                courses.filter(course => {
+                                    return course.trainings.some(training => training.id == getCurrentId)
+                                }).map((course, i) => {
+                                    return (
+                                        <Backoffice_edit_training
+                                            id={course.id}
+                                            title={course.title}
+                                            author={course.author}
+                                            imgLink={course.bannerPicture}
+                                            description={course.description}
+                                            showButton={true}
+                                            creation_type={"training"}
+                                        />
+                                    )
+                                })
+                            }
+                        </div>
+                    </section>
+                </>
+                :
+                <Loader/>
+            }
         </>
     )
 }

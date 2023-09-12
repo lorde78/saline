@@ -9,7 +9,7 @@ router.post('/', async function (req, res, next) {
         data: {
             name: name,
             graduationDate: graduationDate,
-            userId: userId,
+            userId: parseInt(userId),
         }
     })
 
@@ -23,7 +23,7 @@ router.delete('/', async function (req, res, next) {
     const { id } = req.query;
     const deleteCertification = await database.certification.delete({
         where: {
-            id: id,
+            id: parseInt(id),
         },
     })
     res.json({
@@ -41,7 +41,7 @@ router.put('/', async function (req, res, next) {
 
     const updateCertification = await database.certification.update({
         where: {
-            id: id,
+            id: parseInt(id),
         },
         data: req.body
     })
@@ -60,8 +60,8 @@ router.get('/', async function (req, res, next) {
     const certifications = await database.certification.findMany({
         where: {
             OR: [
-                { certificationId: id },
-                { userId: userId },
+                { certificationId: parseInt(id) },
+                { userId: parseInt(userId) },
             ],
         },
     })

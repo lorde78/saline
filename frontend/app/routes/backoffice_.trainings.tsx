@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -6,6 +6,9 @@ import training from "~/styles/backofficeTraining.css";
 import Header_section_page from "~/kits/header_section_page";
 import Backoffice_training from "~/components/backoffice_training";
 import {NavLink} from "@remix-run/react";
+import { useGlobalEffect } from "~/helper/globalHelper";
+import useGetAllElements from "~/hook/useGetAllElements";
+import useGetCurrentElement from "~/hook/useGetCurrentElement";
 
 
 export function links() {
@@ -18,36 +21,42 @@ export function links() {
 }
 
 export default function Backoffice_Trainings() {
+    useGlobalEffect()
 
-    const [trainings, setTrainings] = useState([
-        {
-            id: 0,
-            title: "Steampunk",
-            professor: "Jean Paul",
-            description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
-        }
-    ])
+    const [trainings, setTrainings] = useState([])
+    const getAllTrainings = useGetAllElements()
+
+    useEffect(() => {
+        getAllTrainings("training").then(r => {
+            if (!trainings.length) {
+                setTrainings(r)
+            }
+        })
+    }, [])
+
     return (
         <>
-            <Header_section_page numberUndoPage={1}  title={"Parcour"}/>
+            <Header_section_page numberUndoPage={1}  title={"Parcours"}/>
             <section className={"max_width_container"}>
                 <div className={"backoffice_training_preview_container max_width"}>
-                    <NavLink to={"0"} className={"button"}>
-                        Ajouter un parcour
+                    <NavLink to={"new"} className={"button"}>
+                        Ajouter un parcours
                     </NavLink>
-                    {
-                        trainings.map((training, i) => {
+                    {(trainings ?? []).length != 0 ?
+                        (trainings.map((training, i) => {
                             return (
                                 <Backoffice_training
                                     id={training.id}
                                     title={training.title}
-                                    professor={training.professor}
-                                    imgLink={training.imgLink}
+                                    author={training.author}
+                                    imgLink={training.bannerPicture}
                                     description={training.description}
+                                    creation_type={"training"}
                                 />
                             )
-                        })
+                        })) : (
+                            <p>Aucun parcours n'existe pour le moment.</p>
+                        )
                     }
                 </div>
             </section>

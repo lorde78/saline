@@ -29,7 +29,7 @@ export default function Builder_navigation_step_video({ description, setDescript
                 return (
                     <div className={"nav_information"}>
                         <Builder_select_folder icon={"ri-file-2-line"} folderType={"application/pdf"} idType={"pdf"}
-                                               buttonMessage={"Choisi un fichier pour ton énoncé"}/>
+                                               buttonMessage={"Sélectionner un fichier"}/>
                         <Textarea name={"Description"}
                                   placeholder={"Description"}
                                   setValue={setInfoDescription}
