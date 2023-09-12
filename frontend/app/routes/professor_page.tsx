@@ -18,7 +18,25 @@ import Professor_profile from '~/components/professorProfile';
 import SearchProfessor from '~/components/searchProfessor';
 
 
-
+const fakeProfessorsData = [
+    {
+      id: 1,
+      profilepic: "/assets/images/1000x1500-pour-site14.png",
+      
+    },
+    {
+      id: 2,
+      profilepic: "/assets/images/1000x1500-pour-site14.png",
+    },
+    {
+      id: 3,
+      profilepic: "/assets/images/1000x1500-pour-site14.png",
+    },
+    {
+      id: 4,
+      profilepic: "/assets/images/1000x1500-pour-site14.png",
+    },
+  ];
 
 
 export function links() {
@@ -29,7 +47,7 @@ export default function Professor_page() {
     return (
         <div className="professor-profile">
             {/* <Professor_profile /> */}
-            <SearchProfessor />
+            <SearchProfessor professorData={fakeProfessorsData}/>
         </div>
     )
 }
