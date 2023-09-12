@@ -1,14 +1,14 @@
-import Builder_navigation from "~/components/builder_navigation";
-import Builder_select_step from "~/components/builder_select_step";
+import React, { useEffect, useState } from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
 import builder from "~/styles/builder.css";
-import { useEffect, useState } from "react";
+import Header_section_page from "~/kits/header_section_page";
+import Builder_navigation from "~/components/builder_navigation";
+import Builder_select_step from "~/components/builder_select_step";
 import Builder_step_exercice from "~/components/builder_step_exercice";
 import Builder_step_video from "~/components/builder_step_video";
 import Builder_step_review from "~/components/builder_step_review";
-import Header_section_page from "~/kits/header_section_page";
 import { useGlobalEffect } from "~/helper/globalHelper";
 import { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
@@ -60,16 +60,8 @@ export function links() {
     ];
 }
 
-export let loader: LoaderFunction = ({ request }) => {
-    let url = new URL(request.url);
-    let relId = url.searchParams.get("relId");
-    let relType = url.searchParams.get("relType");
-    return { relId, relType };
-};
-
 export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
     useGlobalEffect();
-    const loaderData = useLoaderData<LoaderData>();
     const getCurrentId = getIdFromUrl(1);
     const [loader, setLoader] = useState(false);
 
@@ -95,7 +87,7 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
 
     useEffect(() => {
         getCourse();
-    }, []); // Ajouter un tableau de dépendances vide pour exécuter useEffect une seule fois
+    }, []);
 
     const [stepSelected, setStepSelected] = useState<number>(0);
     const [typeExercise, setTypeExercise] = useState<{ value: string; option: string }[]>([
