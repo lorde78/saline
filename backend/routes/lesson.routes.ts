@@ -57,7 +57,7 @@ router.delete('/', async function (req, res, next) {
 });
 
 router.put('/', async function (req, res, next) {
-    const { id, addToTraining, trainingId } = req.query;
+    const { id, addToTraining, trainingId, updateSteps } = req.query;
     let updateLesson = null;
 
     if (!id) {
@@ -65,7 +65,7 @@ router.put('/', async function (req, res, next) {
         throw new Error('You must provide an id or lessonId.');
     }
 
-    if (!trainingId) {
+    if (!trainingId && !updateSteps) {
         updateLesson = await database.lesson.update({
             where: {
                 id: parseInt(id),
@@ -73,33 +73,48 @@ router.put('/', async function (req, res, next) {
             data: req.body
         })
     } else {
-        if (JSON.parse(addToTraining) === true) {
-            updateLesson = await database.lesson.update({
-                where: {
-                    id: parseInt(id),
-                },
-                data: {
-                    trainings: {
-                        connect: { id: parseInt(trainingId) }
+        if (addToTraining) {
+            if (JSON.parse(addToTraining) === true) {
+                updateLesson = await database.lesson.update({
+                    where: {
+                        id: parseInt(id),
+                    },
+                    data: {
+                        trainings: {
+                            connect: {id: parseInt(trainingId)}
+                        }
                     }
-                }
-            })
-        } else {
-            updateLesson = await database.lesson.update({
-                where: {
-                    id: parseInt(id),
-                },
-                data: {
-                    trainings: {
-                        disconnect: { id: parseInt(trainingId) }
+                })
+            } else {
+                updateLesson = await database.lesson.update({
+                    where: {
+                        id: parseInt(id),
+                    },
+                    data: {
+                        trainings: {
+                            disconnect: {id: parseInt(trainingId)}
+                        }
                     }
-                }
-            })
+                })
+            }
+        }
+        if (updateSteps) {
+            if(JSON.parse(updateSteps) === true) {
+                updateLesson = await database.lesson.update({
+                    where: {
+                        id: parseInt(id),
+                    },
+                    data: {
+                        steps: req.body.steps
+                    }
+                })
+            }
         }
     }
 
     res.json({
         message: 'lesson updated',
+        updateLesson
     });
 });
 
