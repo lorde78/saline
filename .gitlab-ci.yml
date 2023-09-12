@@ -47,7 +47,7 @@ services:
     - chmod 400 /builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA
     - ssh-add "$ID_RSA" | tr -d '\r'
 
-# BUILD
+# BUILD main
 build-code-all:
   extends: .build-job
   except:
