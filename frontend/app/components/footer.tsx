@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import '../styles/footer.css';
-import Input from '~/kits/input';
 import Email_subscription from "~/kits/email_subscription";
 
 const Footer: React.FC = () => {
@@ -12,14 +11,14 @@ const Footer: React.FC = () => {
                 <nav className='footer_nav_principal'>
                     <ul className='footer_nav_principal_premier'>
                         <h3>Saline royale academy</h3>
-                        <li>A propos</li>
-                        <li>Contact</li>
+                        <li><Link to="/">A propos</Link></li>
+                        <li><Link to="/">Contact</Link></li>
                     </ul>
                     <ul className='footer_nav_principal_second'>
                         <h3>Masterclasses</h3>
-                        <li>Offres</li>
-                        <li>FAQ</li>
-                        <li>Professeurs</li>
+                        <li><Link to="/">Offres</Link></li>
+                        <li><Link to="/">FAQ</Link></li>
+                        <li><Link to="/">Professeurs</Link></li>
                     </ul>
                 </nav>
                 <div className="footer_social_media">
@@ -79,13 +78,11 @@ const Footer: React.FC = () => {
                         <li>Conditions générale d'utilisation</li>
                         <li>Politique de gestion des cookies</li>
                     </ul>
-
                     <ul className='footer_nav_secondaire_second'>
                         <li>Plan du site</li>
                         <li>Politique de confidentialité</li>
                         <li>Panneau de gestion des cookies</li>
                     </ul>
-
                 </nav>
                 <span className="footer_obligatoire">© 2022 Musicampus - Tous droits réservés</span>
             </div>
