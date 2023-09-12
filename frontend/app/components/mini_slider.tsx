@@ -39,6 +39,17 @@ export const MiniSlider: React.FunctionComponent<SliderProps> = ({ slides }) => 
             <SwiperComponent
                 slidesPerView={2}
                 spaceBetween={20}
+                breakpoints={{
+                    576: {
+                        slidesPerView: 2,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                    },
+                    992: {
+                        slidesPerView: 4,
+                    },
+                }}
             >
                 {allSlides.map((slide, index) => (
                     <SwiperSlide key={index}>

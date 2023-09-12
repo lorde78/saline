@@ -3,11 +3,11 @@ import "~/styles/userInfos.css";
 import Tag from "./tag";
 import PopupProfile from "./popupProfile";
 
-type UserInfosProps = {
+type Props = {
     src: string;
   };
   
-  const UserInfos: React.FC<UserInfosProps> = ({ src }) => {
+  export default function UserInfos ({ src }: Props) {
 
     const [showPopup, setShowPopup] = useState(false);
 
@@ -49,6 +49,3 @@ type UserInfosProps = {
       </div>
     );
   };
-  
-  export default UserInfos;
-  

@@ -1,11 +1,11 @@
 import "~/styles/headerNav.css";
 
 
-type HeaderNavProps = {
+type Props = {
   namePage: string;
 };
 
-const HeaderNav: React.FC<HeaderNavProps> = ({ namePage }) => {
+export default function HeaderNav({ namePage }: Props) {
   
 
   return (
@@ -16,4 +16,3 @@ const HeaderNav: React.FC<HeaderNavProps> = ({ namePage }) => {
   );
 };
 
-export default HeaderNav;

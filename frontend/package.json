@@ -8,6 +8,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@esbuild/win32-x64": "^0.19.2",
     "@reduxjs/toolkit": "^1.9.5",
     "@remix-run/css-bundle": "^1.17.0",
     "@remix-run/node": "^1.17.0",
