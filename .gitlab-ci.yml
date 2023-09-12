@@ -6,6 +6,7 @@ stages:
   - after_merge
 
 image: docker
+image: node:10
 services:
   - docker:dind
 
