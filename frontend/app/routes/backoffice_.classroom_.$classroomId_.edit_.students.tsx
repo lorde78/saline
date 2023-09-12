@@ -91,7 +91,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
         <>
             {loader ?
                 <>
-                    <Header_section_page numberUndoPage={1} title={"élève"}/>
+                    <Header_section_page numberUndoPage={1} title={classroom.title}/>
                     <section className={"max_width_container"}>
                         <div className={"classroom_container-open max_width"}>
                             <div className={"classroom_image_banner"} style={{height: bannerHeight}}>
@@ -107,12 +107,12 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
                             </div>
                             <div className={"backoffice_students_preview_container"}>
                                 {
-                                    students.map((student, i) => {
+                                    classroom.students.map((student, i) => {
                                         return (
                                             <Checkbox
                                                 name={"studenName" + i}
                                                 type={"checbox"}
-                                                text={student.first_name + " " + student.last_name}
+                                                text={student.firstName + " " + student.name}
                                                 setValue={setStudents}
                                                 propsSetValue={""}
                                                 value={true}
