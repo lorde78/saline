@@ -65,12 +65,12 @@ export default function Backoffice_Classroom_ClassroomId_Edit() {
                                     <NavLink className={"button"} to={"students"}>
                                         Listes des élèves
                                     </NavLink>
-                                    <NavLink className={"button"} to={"assessments"}>
-                                        Consulter les évaluations
-                                    </NavLink>
                                     <NavLink className={"button"} to={"trainings"}>
                                         Consulter les parcours
                                     </NavLink>
+                                    <NavLink className={"button"} to={"assessments"}>
+                                    Consulter les évaluations
+                                </NavLink>
                                 </div>
                             </div>
                         </section>

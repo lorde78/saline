@@ -6,9 +6,11 @@ import training from "~/styles/backofficeTraining.css";
 import Header_section_page from "~/kits/header_section_page";
 import Backoffice_training from "~/components/backoffice_training";
 import Backoffice_edit_training from "~/components/backoffice_edit_training";
-import {NavLink, useLocation} from "@remix-run/react";
+import {NavLink, useLoaderData, useLocation} from "@remix-run/react";
 import { useGlobalEffect } from "~/helper/globalHelper";
 import useGetAllElements from "~/hook/useGetAllElements";
+import {LoaderFunction} from "@remix-run/node";
+import Notif from "~/kits/notif";
 
 interface Course {
     id: number,
@@ -32,8 +34,15 @@ export function links() {
     ]
 }
 
+export let loader: LoaderFunction = ({request}) => {
+    let url = new URL(request.url)
+    let isPosted = url.searchParams.get('isPosted')
+    return { isPosted }
+}
+
 export default function Backoffice_Courses() {
     useGlobalEffect()
+    const loaderData = useLoaderData()
 
     const [courses, setCourses] = useState([])
     const getAllCourses = useGetAllElements()
@@ -51,6 +60,11 @@ export default function Backoffice_Courses() {
             <Header_section_page numberUndoPage={1}  title={"Cours"}/>
             <section className={"max_width_container"}>
                 <div className={"backoffice_training_preview_container max_width"}>
+                    {loaderData.isPosted ?
+                        <Notif text={"Le cours est mis à jour !"} type={"success"}/>
+                        :
+                        <></>
+                    }
                     <div className={"button_header"}>
                         <NavLink to={"new"} className={"button"}>
                             Créer un cours
