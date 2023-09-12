@@ -97,7 +97,7 @@ test-code-all:
     - docker pull ${URL_GIT}remix-${CI_COMMIT_REF_NAME}
     - echo "------------------Success Container registry work-------------------"
 
-# MERGE ENVIRONMENTS t
+# MERGE ENVIRONMENTS ts
 merge:
   stage: deploy-merge
   script:
