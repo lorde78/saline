@@ -1,6 +1,5 @@
-import type {V2_MetaFunction} from "@remix-run/node";
-import {NavLink, Outlet, useLocation} from "@remix-run/react";
-
+import type { V2_MetaFunction } from "@remix-run/node";
+import { NavLink } from "@remix-run/react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -9,30 +8,34 @@ import Header_section_page from "~/kits/header_section_page";
 import Form_login from "~/components/form_login";
 import { useGlobalEffect } from "~/helper/globalHelper";
 
+type NavLinkProps = {
+    className?: string;
+    to: string;
+};
 
 export const meta: V2_MetaFunction = () => {
     return [
-        {title: "New Remix App"},
-        {name: "description", content: "Welcome to Remix!"},
+        { title: "New Remix App" },
+        { name: "description", content: "Welcome to Remix!" },
     ];
 };
 
 export function links() {
     return [
-        {rel: 'stylesheet', href: resetStyles},
-        {rel: 'stylesheet', href: styles},
-        {rel: 'stylesheet', href: input},
-        {rel: 'stylesheet', href: authentication}
-    ]
+        { rel: 'stylesheet', href: resetStyles },
+        { rel: 'stylesheet', href: styles },
+        { rel: 'stylesheet', href: input },
+        { rel: 'stylesheet', href: authentication }
+    ];
 }
 
 export default function Backoffice() {
-    useGlobalEffect()
+    useGlobalEffect();
 
     return (
         <>
             <NavLink className={"image_authentication"} to={"/"}>
-                <img src={"https://www.salineacademy.com/wp-content/uploads/2022/12/627e08e5d58166bb632daf54_logo_sra_black.svg"}/>
+                <img src={"https://www.salineacademy.com/wp-content/uploads/2022/12/627e08e5d58166bb632daf54_logo_sra_black.svg"} />
             </NavLink>
             <section className={"max_width_container"}>
                 <div className={"backoffice_container max_width"}>
