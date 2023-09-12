@@ -4,22 +4,22 @@ const { database } = require('../config/db.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { title, subscriptionType, subscriptionStatus, price, nbSubscribers, userId } = req.body;
+    const { title, subscriptionType, subscriptionStatus, price, userId } = req.body;
     const subscription = await database.subscription.create({
         data: {
-            userId: userId,
-            validation: false,
+            userId: parseInt(userId),
             title: title,
             price: price,
             subscriptionType: subscriptionType,
             subscriptionStatus: subscriptionStatus,
-            nbSubscribers: nbSubscribers,
-            nbrCertified: 0
+            nbSubscribers: 0,
+            nbCertified: 0
         }
     })
 
     res.json({
         message: 'subscription added',
+        subscription: subscription
     });
 
 });
@@ -28,7 +28,7 @@ router.delete('/', async function (req, res, next) {
     const { id } = req.query;
     const deletesubscription = await database.subscription.delete({
         where: {
-            id: id,
+            id: parseInt(id),
         },
     })
     res.json({
@@ -46,7 +46,7 @@ router.put('/', async function (req, res, next) {
 
     const updateSubscription = await database.subscription.update({
         where: {
-            id: id,
+            id: parseInt(id),
         },
         data: req.body
     })
@@ -58,20 +58,23 @@ router.put('/', async function (req, res, next) {
 
 router.get('/', async function (req, res, next) {
     const { id, userId } = req.query;
+    let subscriptions = null;
+
     if (!id || !userId) {
-        res.status(400);
-        throw new Error('You must provide an id or userId. ');
+        subscriptions = await database.subscription.findMany()
+    } else {
+        subscriptions = await database.subscription.findMany({
+            where: {
+                OR: [
+                    { id: parseInt(id) },
+                    { userId: parseInt(userId) },
+                ],
+            },
+        })
     }
-    const subscriptions = await database.subscription.findMany({
-        where: {
-            OR: [
-                { id: id },
-                { userId: id },
-            ],
-        },
-    })
+    
     res.json({
-        "subscriptions": subscriptions
+        subscriptions
     });
 });
 

@@ -1,4 +1,5 @@
 import {NavLink, useLocation} from "@remix-run/react";
+import editLink from "~/helper/editLink";
 
 type Props = {
     title: string
@@ -7,22 +8,12 @@ type Props = {
 
 
 export default function Header_section_page({title, numberUndoPage}: Props) {
-
-    const editLink = () => {
-        let path = useLocation().pathname
-        let newPath = path.split("/")
-
-        for (let undoPage = numberUndoPage; undoPage > 0; undoPage--) {
-            let pathArray = newPath.pop()
-        }
-        // @ts-ignore
-        return newPath.toString().replaceAll(",", "/")
-    }
+    const editPath = editLink(numberUndoPage)
 
     return (
         <header className={"header_section_page"}>
             <nav>
-                <NavLink to={editLink()}>
+                <NavLink to={editPath}>
                     <i className="ri-arrow-left-line"></i>
                 </NavLink>
             </nav>

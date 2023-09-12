@@ -6,6 +6,7 @@ import assessment from "~/styles/backofficeAssessment.css";
 import Backoffice_assessment from "~/components/backoffice_assessment";
 import {Outlet, useLocation} from "@remix-run/react";
 import Header_section_page from "~/kits/header_section_page";
+import { useGlobalEffect } from "~/helper/globalHelper";
 
 
 export function links() {
@@ -18,6 +19,7 @@ export function links() {
 }
 
 export default function Backoffice_Classroom_ClassroomId_Edit_Assessments() {
+    useGlobalEffect()
 
     const [assessments, setAssessments] = useState([
         {

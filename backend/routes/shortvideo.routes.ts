@@ -7,7 +7,7 @@ router.post('/', async function (req, res, next) {
     const { videoId, startTime, endTime } = req.body;
     const shortvideo = await database.shortvideo.create({
         data: {
-            videoId: videoId,
+            videoId: parseInt(videoId),
             startTime: startTime,
             endTime: endTime,
         }
@@ -28,7 +28,7 @@ router.put('/', async function (req, res, next) {
 
     const updateShortvideo = await database.shortvideo.update({
         where: {
-            id: id,
+            id: parseInt(id),
         },
         data: req.body
     })
@@ -42,7 +42,7 @@ router.delete('/', async function (req, res, next) {
     const { id } = req.query;
     const deleteshortvideo = await database.shortvideo.delete({
         where: {
-            id: id,
+            id: parseInt(id),
         },
     })
     res.json({
@@ -58,7 +58,7 @@ router.get('/', async function (req, res, next) {
     }
     const shortvideos = await database.shortvideo.findMany({
         where: {
-            shortvideoId: id,
+            id: parseInt(id),
         },
     })
     res.json({

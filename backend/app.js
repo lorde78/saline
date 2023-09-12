@@ -9,8 +9,6 @@ var cors = require('cors');
 var registerRouter = require('./routes/authentication/register.routes.ts');
 var loginRouter = require('./routes/authentication/login.routes.ts');
 var answerRouter = require('./routes/answer.routes.ts');
-var lessonRouter = require('./routes/lesson.routes.ts');
-var contactRouter = require('./routes/contact.routes.ts');
 var annotationRouter = require('./routes/annotation.routes.ts');
 var certificationRouter = require('./routes/certification.routes.ts');
 var classroomRouter = require('./routes/classroom.routes.ts');
@@ -23,14 +21,21 @@ var subscriptionRouter = require('./routes/subscription.routes.ts');
 var tagRouter = require('./routes/tag.routes.ts');
 var trainingRouter = require('./routes/training.routes.ts');
 var videoRouter = require('./routes/video.routes.ts');
-var userRouter = require('./routes/users.routes.ts');
+var userRouter = require('./routes/user.routes.ts');
 
 var app = express();
 
 // Enable all CORS Requests
-app.use(cors({
-    origin:'*'
-}))
+app.use((req,res,next) => {
+    res.setHeader(
+        "Access-Control-Allow-Origin",
+        "http://localhost:3001"
+    );
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.setHeader("Access-Control-Allow-Credentials","true");
+    next();
+});
 
 // clear the cache of required modules on server restart
 if (process.env.NODE_ENV !== 'production') {
@@ -50,7 +55,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/annotation', annotationRouter);
-app.use('/user', loginRouter);
 app.use('/answer', answerRouter);
 app.use('/lesson', lessonRouter);
 app.use('/contact', contactRouter);
@@ -65,7 +69,7 @@ app.use('/comment', commentRouter);
 app.use('/discount', discountRouter);
 app.use('/subscription', subscriptionRouter);
 app.use('/classroom', classroomRouter);
-app.use('/users', userRouter);
+app.use('/user', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

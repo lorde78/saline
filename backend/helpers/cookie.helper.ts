@@ -1,5 +1,5 @@
 function createCookie(token) {
-      return `token=${token}; HttpOnly; Max-Age=${60 * 60 * 24 * 7}`;
+      return `SalineToken=${token}; Max-Age=${60 * 60 * 24 * 7}`;
 }
 
 function sendCookie(res, token) {

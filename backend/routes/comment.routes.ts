@@ -8,10 +8,10 @@ router.post('/', async function (req, res, next) {
     const comment = await database.comment.create({
         data: {
             content: content,
-            userId: userId,
+            userId: parseInt(userId),
             nbUpVotes: nbUpVotes,
             nbDownVotes: nbDownVotes,
-            lessonId: lessonId,
+            lessonId: parseInt(lessonId),
         }
     })
 
@@ -25,7 +25,7 @@ router.delete('/', async function (req, res, next) {
     const { id } = req.query;
     const deleteComment = await database.comment.delete({
         where: {
-            id: id,
+            id: parseInt(id),
         },
     })
     res.json({
@@ -43,7 +43,7 @@ router.put('/', async function (req, res, next) {
 
     const updateComment = await database.comment.update({
         where: {
-            id: id,
+            id: parseInt(id),
         },
         data: req.body
     })
@@ -62,8 +62,8 @@ router.get('/', async function (req, res, next) {
     const comments = await database.comment.findMany({
         where: {
             OR: [
-                { id: id, },
-                { lessonId: lessonId },
+                { id: parseInt(id), },
+                { lessonId: parseInt(lessonId) },
             ],
         },
     })
