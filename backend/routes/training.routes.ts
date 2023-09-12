@@ -4,19 +4,39 @@ const { database } = require('../config/db.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { title, description, difficultyLevel, tags, userId, bannerPicture } = req.body;
-    const training = await database.training.create({
-        data: {
-            title: title,
-            userId: parseInt(userId),
-            description: description,
-            difficultyLevel: String(difficultyLevel),
-            nbViews: 0,
-            nbCompleted: 0,
-            nbCertified: 0,
-            bannerPicture: bannerPicture
-        }
-    })
+    const { title, description, difficultyLevel, tags, userId, bannerPicture, relType, relId } = req.body;
+    let training = null;
+
+    if (!relType) {
+        training = await database.training.create({
+            data: {
+                title: title,
+                userId: parseInt(userId),
+                description: description,
+                difficultyLevel: String(difficultyLevel),
+                nbViews: 0,
+                nbCompleted: 0,
+                nbCertified: 0,
+                bannerPicture: bannerPicture
+            }
+        })
+    } else {
+        training = await database.training.create({
+            data: {
+                title: title,
+                userId: parseInt(userId),
+                description: description,
+                difficultyLevel: String(difficultyLevel),
+                nbViews: 0,
+                nbCompleted: 0,
+                nbCertified: 0,
+                bannerPicture: bannerPicture,
+                classrooms: {
+                    connect: {id: parseInt(relId)}
+                }
+            }
+        })
+    }
 
     res.json({
         message: 'training added',
@@ -40,7 +60,7 @@ router.delete('/', async function (req, res, next) {
 router.put('/', async function (req, res, next) {
     const { id, addToTraining, lessonsIdList } = req.query;
     let updateTraining = null;
-    const decodedLessonsIdList = JSON.parse(decodeURIComponent(lessonsIdList))
+    const decodedLessonsIdList = JSON.parse(lessonsIdList) ? JSON.parse(decodeURIComponent(lessonsIdList)) : ""
 
     if (!id) {
         res.status(400);

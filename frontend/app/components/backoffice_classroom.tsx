@@ -30,12 +30,12 @@ export default function Backoffice_classroom({
                                                  creation_type
                                              }: Props) {
 
-    const deleteLesson = useDeleteElement()
+    const deleteElement = useDeleteElement()
     const getCurrentId = getIdFromUrl(1)
 
     const submit = (e) => {
         if(!getCurrentId) {
-            deleteLesson(creation_type,id)
+            deleteElement(creation_type,id)
         }
 
         window.location.reload()

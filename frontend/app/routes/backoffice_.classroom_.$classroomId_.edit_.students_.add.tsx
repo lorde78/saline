@@ -11,6 +11,10 @@ import getIdFromUrl from "~/helper/getIdFromUrl";
 import Loader from "~/kits/loader";
 import useRemoveStudentsFromClassroom from "~/hook/useRemoveStudentsFromClassroom";
 import {NavLink} from "@remix-run/react";
+import {useNavigate} from "react-router-dom";
+import editLink from "~/helper/editLink";
+import useGetAllElements from "~/hook/useGetAllElements";
+import useAddStudentsToClassroom from "~/hook/useAddStudentsToClassroom";
 
 
 export function links() {
@@ -22,15 +26,20 @@ export function links() {
     ]
 }
 
-export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
+export default function Backoffice_Classroom_ClassroomId_Edit_Students_Add() {
     useGlobalEffect()
-    const getCurrentId = getIdFromUrl(2)
+    const addStudents = useAddStudentsToClassroom()
+    const navigate = useNavigate()
+    const editPath = editLink(4)
+
+    const getCurrentId = getIdFromUrl(3)
     const [loader,setLoader] = useState(false)
 
     const [classroom, setClassroom] = useState()
     const getCurrentClassroom = useGetCurrentElement()
 
-    const removeStudents = useRemoveStudentsFromClassroom()
+    const [students, setStudents] = useState([])
+    const getAllStudents = useGetAllElements()
 
     const getClassroom = async () => {
         const currentClassroom = await getCurrentClassroom("classroom",getCurrentId)
@@ -49,6 +58,12 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
             }
         };
 
+        getAllStudents("user").then(r => {
+            if (!students.length) {
+                setStudents(r)
+            }
+        })
+
         getClassroom()
     }, []);
 
@@ -66,12 +81,11 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
         setStudentsAdd(newStudentsAdd)
     }
 
-    const submitRemove = (e) => {
-        if(getCurrentId) {
-            removeStudents(studentsAdd,false,getCurrentId)
-        }
+    const submit = (e) => {
+        e.preventDefault()
+        addStudents(studentsAdd,true,getCurrentId)
 
-        window.location.reload()
+        navigate(editPath + "/" + getCurrentId + "/edit/students")
     }
 
     return (
@@ -85,16 +99,13 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
                                 <img src={classroom.bannerPicture} alt={"bannière de la classe"}/>
                             </div>
                             <div className={"classroom_links"}>
-                                <NavLink to={"add"} className={"button"}>
-                                    Ajouter des élèves
-                                </NavLink>
-                                <button className={"button button_alert"} type="submit" onClick={(e) => submitRemove(e)}>
-                                    Supprimer les élèves sélectionnés
-                                </button>
+                                <button className={"button"} onClick={(e) => submit(e)}>Ajouter les élèves</button>
                             </div>
                             <div className={"backoffice_students_preview_container"}>
                                 {
-                                    classroom.students.map((student, i) => {
+                                    students.filter(student => {
+                                        return !student.attendingClassrooms.some(classroom => classroom.id === getCurrentId)
+                                    }).map((student, i) => {
                                         return (
                                             <Checkbox
                                                 name={"studentName" + student.id}
@@ -107,6 +118,9 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
                                         )
                                     })
                                 }
+                            </div>
+                            <div className={"classroom_links"}>
+                                <button className={"button"} onClick={(e) => submit(e)}>Ajouter les élèves</button>
                             </div>
                         </div>
                     </section>

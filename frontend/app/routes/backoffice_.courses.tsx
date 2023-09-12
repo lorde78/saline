@@ -56,8 +56,8 @@ export default function Backoffice_Courses() {
                             Créer un cours
                         </NavLink>
                     </div>
-                    {
-                        courses.map((course, i) => {
+                    {(courses ?? []).length != 0 ?
+                        (courses.map((course, i) => {
                             return (
                                 <Backoffice_edit_training
                                     id={course.id}
@@ -69,7 +69,9 @@ export default function Backoffice_Courses() {
                                     creation_type={"lesson"}
                                 />
                             )
-                        })
+                        })) : (
+                            <p>Aucun cours n'existe pour le moment.</p>
+                        )
                     }
                 </div>
             </section>

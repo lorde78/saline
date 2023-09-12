@@ -7,7 +7,7 @@ router.post('/', async function (req, res, next) {
     const { title, description, difficultyLevel, userId, bannerPicture, relType, relId } = req.body;
     let lesson = null;
 
-    if(!relType) {
+    if (!relType) {
         lesson = await database.lesson.create({
             data: {
                 userId: parseInt(userId),

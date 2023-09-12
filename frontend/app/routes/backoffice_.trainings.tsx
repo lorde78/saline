@@ -42,8 +42,8 @@ export default function Backoffice_Trainings() {
                     <NavLink to={"new"} className={"button"}>
                         Ajouter un parcours
                     </NavLink>
-                    {
-                        trainings.map((training, i) => {
+                    {(trainings ?? []).length != 0 ?
+                        (trainings.map((training, i) => {
                             return (
                                 <Backoffice_training
                                     id={training.id}
@@ -54,7 +54,9 @@ export default function Backoffice_Trainings() {
                                     creation_type={"training"}
                                 />
                             )
-                        })
+                        })) : (
+                            <p>Aucun parcours n'existe pour le moment.</p>
+                        )
                     }
                 </div>
             </section>
