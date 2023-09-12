@@ -34,7 +34,7 @@ export default function Builder_select_video({videoSelect, setVideoSelect}:Props
 
                 <i className={"ri-vidicon-line"}></i>
             </div>
-            <button className={"button"} onClick={() => {openPopup()}}>{"Selectionn une video"}</button>
+            <button className={"button"} onClick={() => {openPopup()}}>{"Sélectionner une video"}</button>
         </div>
     )
 }

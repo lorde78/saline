@@ -57,7 +57,7 @@ export default function Builder_bind_list_step_exercice({bindListData, setBindLi
                 )
             })}
             <div className={"buttons_container"}>
-                <button className={"button"} onClick={addBind}>Ajouter une question</button>
+                <button className={"button"} onClick={addBind}>Ajouter</button>
                 <button className={"button button_alert"} onClick={deleteBind}>
                     <i className="ri-delete-bin-7-line"></i>
                 </button>

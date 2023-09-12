@@ -5,6 +5,10 @@ import input from "~/styles/input.css";
 import classroom from "~/styles/backofficeClassrooom.css";
 import Header_section_page from "~/kits/header_section_page";
 import {NavLink} from "@remix-run/react";
+import { useGlobalEffect } from "~/helper/globalHelper";
+import getIdFromUrl from "~/helper/getIdFromUrl";
+import useGetCurrentElement from "~/hook/useGetCurrentElement";
+import Loader from "~/kits/loader";
 
 
 export function links() {
@@ -17,14 +21,19 @@ export function links() {
 }
 
 export default function Backoffice_Classroom_ClassroomId_Edit() {
+    useGlobalEffect()
+    const getCurrentId = getIdFromUrl(1)
+    const [loader,setLoader] = useState(false)
 
+    const [classroom, setClassroom] = useState()
+    const getCurrentClassroom = useGetCurrentElement()
 
-    const [classroom, setClassroom] = useState({
-        title: "Steampunk",
-        professor: "Jean Paul",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-        imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
-    })
+    const getClassroom = async () => {
+        const currentClassroom = await getCurrentClassroom("classroom",getCurrentId)
+        setClassroom(currentClassroom)
+        setLoader(true)
+    }
+
     const [bannerHeight, setBannerHeight] = useState(400)
 
     useEffect(() => {
@@ -35,31 +44,41 @@ export default function Backoffice_Classroom_ClassroomId_Edit() {
                 setBannerHeight(400)
             }
         };
+
+        getClassroom()
     }, []);
 
     return (
-        <div className={"backoffice_classroom_id_container "}>
-            <Header_section_page numberUndoPage={2}  title={classroom.title}/>
-            <section className={"max_width_container"}>
-                <div className={"classroom_container-open max_width"}>
+        <>
+            {loader ?
+                <>
+                    <div className={"backoffice_classroom_id_container "}>
+                        <Header_section_page numberUndoPage={2} title={classroom.title}/>
+                        <section className={"max_width_container"}>
+                            <div className={"classroom_container-open max_width"}>
 
-                    <div className={"classroom_image_banner"} style={{height: bannerHeight}}>
-                        <img src={classroom.imgLink} alt={"bannière du cour"}/>
+                                <div className={"classroom_image_banner"} style={{height: bannerHeight}}>
+                                    <img src={classroom.bannerPicture} alt={"bannière de la classe"}/>
+                                </div>
+                                <p>{classroom.description}</p>
+                                <div className={"classroom_links"}>
+                                    <NavLink className={"button"} to={"students"}>
+                                        Listes des élèves
+                                    </NavLink>
+                                    <NavLink className={"button"} to={"trainings"}>
+                                        Consulter les parcours
+                                    </NavLink>
+                                    <NavLink className={"button"} to={"assessments"}>
+                                    Consulter les évaluations
+                                </NavLink>
+                                </div>
+                            </div>
+                        </section>
                     </div>
-                    <p>{classroom.description}</p>
-                    <div className={"classroom_links"}>
-                        <NavLink className={"button"} to={"students"}>
-                            Listes des élèves
-                        </NavLink>
-                        <NavLink className={"button"} to={"assessments"}>
-                            Consulter les évaluations
-                        </NavLink>
-                        <NavLink className={"button"} to={"trainings"}>
-                            Consulter les parcours
-                        </NavLink>
-                    </div>
-                </div>
-            </section>
-        </div>
+                </>
+                :
+                <Loader/>
+            }
+        </>
     );
 }

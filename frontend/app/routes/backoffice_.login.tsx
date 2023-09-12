@@ -1,12 +1,12 @@
-import type {V2_MetaFunction} from "@remix-run/node";
-import {NavLink, Outlet, useLocation} from "@remix-run/react";
-
+import {type V2_MetaFunction} from "@remix-run/node";
+import {NavLink} from "@remix-run/react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
 import authentication from "~/styles/authentication.css";
 import Header_section_page from "~/kits/header_section_page";
 import Form_login from "~/components/form_login";
+import { useGlobalEffect } from "~/helper/globalHelper";
 
 
 export const meta: V2_MetaFunction = () => {
@@ -26,6 +26,8 @@ export function links() {
 }
 
 export default function Backoffice_Login() {
+    useGlobalEffect()
+    
     return (
         <div className={"authentication_container"}>
             <NavLink className={"image_authentication"} to={"/"}>

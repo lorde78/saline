@@ -5,6 +5,7 @@ import input from "~/styles/input.css";
 import assessment from "~/styles/backofficeAssessment.css";
 import Backoffice_assessment from "~/components/backoffice_assessment";
 import Backoffice_edit_assessment from "~/components/backoffice_edit_assessment";
+import { useGlobalEffect } from "~/helper/globalHelper";
 
 
 export function links() {
@@ -17,6 +18,7 @@ export function links() {
 }
 
 export default function Backoffice_Classroom_ClassroomId_Edit_Assessments_EvaluationId() {
+    useGlobalEffect()
 
     return (
             <div className={"backoffice_assessment_id_container"}>

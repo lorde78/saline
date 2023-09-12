@@ -1,11 +1,14 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
-import classroom from "~/styles/backofficeClassrooom.css";
+import training from "~/styles/backofficeTraining.css";
 import Header_section_page from "~/kits/header_section_page";
-import {NavLink} from "@remix-run/react";
+import Backoffice_training from "~/components/backoffice_training";
+import Backoffice_edit_training from "~/components/backoffice_edit_training";
+import {NavLink, useLocation} from "@remix-run/react";
 import Builder_creation from "~/components/builder_creation";
+import { useGlobalEffect } from "~/helper/globalHelper";
 
 
 export function links() {
@@ -13,17 +16,19 @@ export function links() {
         {rel: 'stylesheet', href: resetStyles},
         {rel: 'stylesheet', href: styles},
         {rel: 'stylesheet', href: input},
-        {rel: 'stylesheet', href: classroom}
+        {rel: 'stylesheet', href: training}
     ]
 }
 
-export default function Backoffice_Classroom_ClassroomId() {
+export default function Backoffice_Classroom_ClassroomId_Trainings_New() {
+    useGlobalEffect()
+
     return (
         <>
-            <Header_section_page numberUndoPage={1}  title={"Créer une classe"}/>
+            <Header_section_page numberUndoPage={1}  title={"Créer un parcour"}/>
             <section className={"max_width_container"}>
                 <div className={"builder_container max_width"}>
-                    <Builder_creation creation_type={"classroom"} />
+                    <Builder_creation creation_type={"training"} />
                 </div>
             </section>
         </>

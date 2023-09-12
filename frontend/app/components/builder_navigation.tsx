@@ -1,6 +1,10 @@
 import Select from "~/kits/select";
 import {useState} from "react";
 import {NavLink, useLocation} from "@remix-run/react";
+import useAddStepsToLesson from "~/hook/useAddStepsToLesson";
+import getIdFromUrl from "~/helper/getIdFromUrl";
+import {useNavigate} from "react-router-dom";
+import editLink from "~/helper/editLink";
 
 type Props = {
     courseData: any
@@ -20,6 +24,11 @@ export default function Builder_navigation({
                                                exerciseSelected,
                                                setExerciseSelected
                                            }: Props) {
+    const getCurrentId = getIdFromUrl(1)
+    const navigate = useNavigate()
+    const editPath = editLink(2)
+    const addSteps = useAddStepsToLesson()
+
     const selecStep = (value: string, id: number) => {
         // @ts-ignore
         let stepNumber = value.split(" ")[1] - 1
@@ -101,12 +110,15 @@ export default function Builder_navigation({
     }
 
     const sendData = () => {
-      courseData.map((row: any) => {
+        courseData.map((row: any) => {
           if (row.type === "") {
               alert("Veuillez choisir un type pour l'étape " + row.id)
               return
           }
-      })
+        })
+        addSteps(courseData,true,getCurrentId)
+
+        navigate(editPath+"?isPosted=true")
     }
 
     const removeChange = () => {
@@ -142,7 +154,7 @@ export default function Builder_navigation({
                     />
                     :
                     courseData[stepSelected].type === "review" ?
-                        <button className={"button"} onClick={sendData}>Terniminer le cour</button>
+                        <button className={"button"} onClick={sendData}>Terminer le cours</button>
                         :
                         <></>
             }

@@ -7,9 +7,9 @@ const { generateToken } = require('../../utils/jwt.utils.ts');
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { email, password, firstname, profilePicture, lastConnection, lastUpdate, phoneNumber, genre, nationality, name, birthdate, postalAddress, roles } = req.body;
+    let { email, password, firstname, profilePicture, phoneNumber, genre, nationality, name, birthdate, postalAddress, roles } = req.body;
     const roleDefault = ["ROLE_USER"];
-    let userRoles = roles ? { data: roleDefault.concat(roles.data) } : roleDefault;
+    roles = roles ? roleDefault.concat(roles) : roleDefault;
 
     if (!email || !password) {
         res.status(400);
@@ -26,30 +26,34 @@ router.post('/', async function (req, res, next) {
         return res.status(404).json({ message: 'User already exist' });
     }
 
-    const { accessToken } = generateToken({ email, password });
 
     const user = await database.user.create({
         data: {
             email: email,
             password: bcrypt.hashSync(password, 12),
-            token: accessToken,
             name: name,
             firstname: firstname,
-            profilePicture: profilePicture,
-            lastUpdate: lastUpdate,
-            lastConnection: lastConnection,
-            phoneNumber: phoneNumber,
+            profilePicture: profilePicture || "",
+            phoneNumber: phoneNumber || "",
             genre: genre,
             nationality: nationality,
             birthdate: birthdate,
             postalAddress: postalAddress,
-            roles: userRoles,
+            roles: roles,
             progress: {}
         }
     })
 
+    const userId = user.id
+    const { accessToken } = generateToken({ userId, email, password, roles });
+
+    // Create cookie
+    const cookie = sendCookie(res, accessToken);
+
     res.json({
-        'user': user,
+        message: 'Register successful',
+        token: accessToken,
+        cookie: getCookie(req)
     });
 });
 
