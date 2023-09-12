@@ -8,12 +8,19 @@ router.get('/', async function (req, res, next) {
     let users = null;
 
     if (!id) {
-        users = await database.user.findMany()
+        users = await database.user.findMany({
+            include: {
+                attendingClassrooms: true
+            }
+        })
     } else {
         users = await database.user.findMany({
             where: {
                 id: parseInt(id),
             },
+            include: {
+                attendingClassrooms: true
+            }
         })
     }
 
