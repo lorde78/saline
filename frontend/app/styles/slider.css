@@ -1,0 +1,27 @@
+.swiper-slide img {
+	width: 100%;
+	object-fit: cover;
+}
+
+.swiper-slide .custom_text_socket_container {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+	background: linear-gradient(to bottom, transparent, #121525);
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.swiper-slide .custom_text_socket {
+	text-align: center;
+	font-weight: 600;
+	font-size: 20px;
+}
+
+.swiper_home_container .swiper{
+	background-color: #121525;
+}
