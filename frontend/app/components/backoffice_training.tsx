@@ -3,6 +3,7 @@ import {NavLink, Outlet, useLocation} from "@remix-run/react";
 import useDeleteElement from "~/hook/useDeleteElement";
 import useRemoveLessonFromTraining from "~/hook/useRemoveLessonFromTraining";
 import getIdFromUrl from "~/helper/getIdFromUrl";
+import useRemoveTrainingFromClassroom from "~/hook/useRemoveTrainingFromClassroom";
 
 type Props = {
     id: number,
@@ -24,11 +25,14 @@ export default function Backoffice_training({
                                                  creation_type
                                              }: Props) {
     const deleteTraining = useDeleteElement()
-    const getCurrentId = getIdFromUrl(1)
+    const removeTraining = useRemoveTrainingFromClassroom()
+    const getCurrentId = getIdFromUrl(2)
 
     const submit = (e) => {
         if(!getCurrentId) {
             deleteTraining(creation_type,id)
+        } else {
+            removeTraining(id,false,getCurrentId)
         }
 
         window.location.reload()

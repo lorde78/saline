@@ -25,7 +25,7 @@ router.get('/', async function (req, res, next) {
     }
 
     res.json({
-        "users": users
+        users
     });
 });
 

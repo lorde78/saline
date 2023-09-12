@@ -41,8 +41,8 @@ export default function Backoffice_Classroom() {
                     <NavLink to={"new"} className={"button"}>
                         Créer une classe
                     </NavLink>
-                    {
-                        classrooms.map((classroom, i) => {
+                    {(classrooms ?? []).length != 0 ?
+                        (classrooms.map((classroom, i) => {
                             return (
                                 <Backoffice_classroom
                                     id={classroom.id}
@@ -53,7 +53,9 @@ export default function Backoffice_Classroom() {
                                     creation_type={"classroom"}
                                 />
                             )
-                        })
+                        })) : (
+                          <p>Aucune classe n'existe pour le moment.</p>
+                        )
                     }
                 </div>
             </section>
