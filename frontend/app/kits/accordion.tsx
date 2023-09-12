@@ -52,14 +52,14 @@ const fakeFormationsData = [
     title: "C'est le titre",
     thumbnail: "/assets/images/1000x1500-pour-site14.png",
     progress: 100,
-    status: "achieved"
+    status: "terminée"
     
   },
   {
     title: "Super commentaire !",
     thumbnail: "/assets/images/1000x1500-pour-site14.png",
     progress: 23,
-    status: "in progress"
+    status: "en cours"
   },
 ];
 
@@ -67,13 +67,13 @@ const fakeGraduationsData = [
   {
     title: "Cours 1",
     thumbnail: "/assets/images/1000x1500-pour-site14.png",
-    professor: "Professor",
+    professor: "Professeur",
     
   },
   {
     title: "Cours 2",
     thumbnail: "/assets/images/1000x1500-pour-site14.png",
-    professor: "Professor",
+    professor: "Professeur",
   },
 ];
 
