@@ -6,7 +6,6 @@ stages:
   - after_merge
 
 image: docker
-image: node:10
 services:
   - docker:dind
 
@@ -69,7 +68,7 @@ build-code-all:
     - if [ "$CI_COMMIT_REF_NAME" = "main" ]; then
     - echo "ENV_TARGET=production" >> .env
     - fi
-    - cd frontend ; npm uninstall @esbuild/win32-x64 ; cd ..
+    - cd frontend ; ls -a; cd ..
     - docker compose up -d db && docker compose up -d express && docker compose up -d remix
     - docker ps -a
     - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
