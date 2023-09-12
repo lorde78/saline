@@ -109,6 +109,7 @@ export default function Backoffice_Trainings_TrainingId_Edit_Add() {
                                                 imgLink={course.bannerPicture}
                                                 description={course.description}
                                                 showButton={false}
+                                                creation_type={"lesson"}
                                             />
                                         </div>
                                     )

@@ -12,7 +12,7 @@ export default function Builder_step_review({courseData, setCoursesData, stepSel
                 icon={"ri-file-2-line"}
                 folderType={"application/pdf"}
                 idType={"pdf"}
-                buttonMessage={"Choisi un fichier pour ton énoncé"}
+                buttonMessage={"Sélectionner le fichier de consignes"}
             />
         </section>
     )
