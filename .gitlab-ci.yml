@@ -9,23 +9,46 @@ image: docker
 services:
   - docker:dind
 
+
 # BASE JOBS .
 .build-job:
   stage: build
+  only:
+    - main
+    - dev
+    - preprod
   before_script:
     - apk add --no-cache docker-compose ; apk add --no-cache --upgrade bash
+    - apk add jq
   variables:
     CMD_DOCKER:  docker compose up -d
 
 .test-job:
   stage: test
+  only:
+    - main
+    - dev
+    - preprod
   variables: 
     MAIN_APP: cd
 
 .deploy-job:
   stage: deploy
+  only:
+    - main
+    - dev
+    - preprod
+  variables:
+    URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
+  before_script:
+    - apk add coreutils
+    - command -v ssh-agent >/dev/null || ( apk update --force && apk add openssh-client --force )
+    - cat "$ID_RSA"
+    - eval $(ssh-agent -s)
+    - chmod 400 /builds/ArkhayDs/saline-web3-academy.tmp/ID_RSA
+    - ssh-add "$ID_RSA" | tr -d '\r'
 
-# BUILD
+# BUILD main
 build-code-all:
   extends: .build-job
   except:
@@ -33,9 +56,24 @@ build-code-all:
   variables:
     URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
   script:
-    - docker compose up -d 
+    - cd backend && touch .env && echo "DATABASE_URL=${DATABASE_URL}" >> .env
+    - echo "JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}" >> .env
+    - echo "JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}" >> .env
+    - cd ..  && touch .env
+    - if [ "$CI_COMMIT_REF_NAME" = "dev" ]; then
+    - echo "ENV_TARGET=preprod" >> .env
+    - fi
+    - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
+    - echo "ENV_TARGET=preprod" >> .env
+    - fi
+    - if [ "$CI_COMMIT_REF_NAME" = "main" ]; then
+    - echo "ENV_TARGET=production" >> .env
+    - fi
+    - docker compose up -d db && docker compose up -d express && docker compose up -d remix
     - docker ps -a
     - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
+    - docker tag mysql:5.7 ${URL_GIT}db-${CI_COMMIT_REF_NAME}
+    - docker push ${URL_GIT}db-${CI_COMMIT_REF_NAME}
     - docker tag saline-web3-academy-express ${URL_GIT}express-${CI_COMMIT_REF_NAME}
     - docker build -t ${URL_GIT}express-${CI_COMMIT_REF_NAME} backend
     - docker push ${URL_GIT}express-${CI_COMMIT_REF_NAME}
@@ -51,6 +89,7 @@ test-code-all:
   variables:
     URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
   script:
+    - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
     - echo "The current branch is ${CI_COMMIT_REF_NAME}"
     - echo "------------------Test Express-----------------------------"
     - docker pull ${URL_GIT}express-${CI_COMMIT_REF_NAME}
@@ -66,15 +105,9 @@ merge:
     - docker ps -a
     - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
     - echo "This job runs in merge request pipelines"
-    - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
-    - docker tag saline-web3-academy-express ${URL_GIT}express-main
-    - docker build -t ${URL_GIT}express-main backend
-    - docker push ${URL_GIT}express-main
-    - docker tag saline-web3-academy-remix ${URL_GIT}remix-main
-    - docker build -t ${URL_GIT}remix-main frontend
-    - docker push ${URL_GIT}remix-main
-    - fi
     - if [ "$CI_COMMIT_REF_NAME" = "dev" ]; then
+    - docker tag mysql:5.7 ${URL_GIT}db-preprod
+    - docker push ${URL_GIT}db-preprod
     - docker tag saline-web3-academy-express ${URL_GIT}express-preprod
     - docker build -t ${URL_GIT}express-preprod backend
     - docker push ${URL_GIT}express-preprod
@@ -82,5 +115,30 @@ merge:
     - docker build -t ${URL_GIT}remix-preprod frontend
     - docker push ${URL_GIT}remix-preprod
     - fi
+    - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
+        - docker tag mysql:5.7 ${URL_GIT}db-prod
+    - docker push ${URL_GIT}db-prod
+    - docker tag saline-web3-academy-express ${URL_GIT}express-prod
+    - docker build -t ${URL_GIT}express-prod backend
+    - docker push ${URL_GIT}express-prod
+    - docker tag saline-web3-academy-remix ${URL_GIT}remix-prod
+    - docker build -t ${URL_GIT}remix-prod frontend
+    - docker push ${URL_GIT}remix-prod
+    - fi
   rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' && $CI_COMMIT_REF_NAME == 'preprod'
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' && $CI_COMMIT_REF_NAME == 'dev'
+
+
+
+
+# DEPLOY 
+deploy-containers:
+  image: alpine:latest
+  extends: 
+    - .deploy-job
+  script:
+    - ssh -v -T -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker stop saline_db || true && docker rm saline_db || true && docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} || true && docker pull ${URL_GIT}db-${CI_COMMIT_REF_NAME} || true && docker run -e MYSQL_DATABASE=saline_db -e MYSQL_ROOT_USERNAME=root -e MYSQL_ROOT_PASSWORD=root -d --name saline_db -d -p 3306:3306 ${URL_GIT}db-${CI_COMMIT_REF_NAME} || true"
+    - ssh -v -T -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker stop express-${CI_COMMIT_REF_NAME} || true && docker rm express-${CI_COMMIT_REF_NAME} || true && docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} || true && docker pull ${URL_GIT}express-${CI_COMMIT_REF_NAME} || true && docker run -d --name express-${CI_COMMIT_REF_NAME} -p 3000:3000 ${URL_GIT}express-${CI_COMMIT_REF_NAME} npm start || true"
+    - ssh -v -T -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker stop remix-${CI_COMMIT_REF_NAME} || true && docker rm remix-${CI_COMMIT_REF_NAME} || true && docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} || true && docker pull ${URL_GIT}remix-${CI_COMMIT_REF_NAME} || true && docker run -d --name remix-${CI_COMMIT_REF_NAME} -p 3001:3001 ${URL_GIT}remix-${CI_COMMIT_REF_NAME} npm run dev || true"
+    - ssh -v -T -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker restart nginx_conf || true "
