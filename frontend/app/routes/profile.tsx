@@ -14,6 +14,8 @@ import EditPassword from "~/components/editPassword";
 import EditFormule from '~/components/editFormule';
 import formuleStyles from "~/styles/formule.css";
 import Formation from '~/kits/formations';
+import Header from "~/components/header";
+import Footer from "~/components/footer";
 
 
 
@@ -33,17 +35,27 @@ export function links() {
 
 export default function Profile() {
     return (
-        <div className="profile-page">
-          {/* <UserInfos src="/assets/images/pdp.png"/> */}
-          {/* <Formule subscription="Annuel" /> */}
-          {/* <Accordion type="formations" title="Vos formations" picto="ri-book-mark-line" />
-          <Accordion type="comments" title="Vos commentaires" picto="ri-message-3-line" />
-          <Accordion type="graduations" title="Vos certifications" picto="ri-graduation-cap-line" /> */}
-          {/* <Formation /> */}
-          <EditUserProfile userInfo={userInfo} />
-          {/* <EditPassword /> */}
-          {/* <Form_register_complementary /> */}
-          {/* <EditFormule /> */}
-        </div>
+
+      <>
+            <Header/>
+            <main className={"max_width_container margin-top-20"}>
+                <div className={"main_section_container-grid margin-top-20 max_width"}>
+                  <div className="profile-page">
+                    <UserInfos src="/assets/images/pdp.png"/>
+                    <Formule subscription="Annuel" />
+                    <Accordion type="formations" title="Vos formations" picto="ri-book-mark-line" />
+                    <Accordion type="comments" title="Vos commentaires" picto="ri-message-3-line" />
+                    <Accordion type="graduations" title="Vos certifications" picto="ri-graduation-cap-line" />
+                    {/* <Formation /> */}
+                    {/* <EditUserProfile userInfo={userInfo} /> */}
+                    {/* <EditPassword /> */}
+                    {/* <Form_register_complementary /> */}
+                    {/* <EditFormule /> */}
+                  </div>
+                </div>
+            </main>
+
+            <Footer/>
+        </>
     )
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import {NavLink} from "@remix-run/react";
 import "~/styles/popupProfile.css";
 
   
@@ -7,9 +7,17 @@ export default function PopupProfile () {
 
   return (
     <div className="popup-profile_container">
-      <p>Modifier mon profil</p>
-      <p>Changer mon mot de passe</p>
-      <p>Changer mon abonnement</p>
+      <NavLink className='' to={"edit"}>
+        <p>Modifier mon profil</p>
+      </NavLink>
+
+      <NavLink className='' to={"edit/password"}>
+        <p>Changer mon mot de passe</p>
+      </NavLink>
+
+      <NavLink className='' to={"edit/formula"}>
+        <p>Changer mon abonnement</p>
+      </NavLink>
       <p className="delete-button">Supprimer mon compte</p>
     </div>
   );
