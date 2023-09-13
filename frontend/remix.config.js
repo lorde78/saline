@@ -13,6 +13,5 @@ module.exports = {
     v2_meta: true,
     v2_normalizeFormMethod: true,
     v2_routeConvention: true,
-  },
-  devServerPort: 8002
+  }
 };

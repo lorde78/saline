@@ -11,7 +11,8 @@ export function useGlobalEffect() {
     useEffect(() => {
         let cookies = useGetCookies()
         if (Object.keys(cookies).includes("SalineToken")) {
+            //@ts-ignore
             setSignin(cookies.SalineToken)
         }
-    }), [signin]
+    }, [signin]);
 }

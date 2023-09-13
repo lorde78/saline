@@ -1,5 +1,5 @@
 import Select from "~/kits/select";
-import {useContext, useEffect, useState} from "react";
+import {MouseEvent, useContext, useEffect, useState} from "react";
 import Select_image from "~/kits/select_image";
 import Header_section_page from "~/kits/header_section_page";
 import Input from "~/kits/input";
@@ -15,11 +15,11 @@ import {LoaderFunction} from "@remix-run/node";
 
 type Props = {
     creation_type: string,
-    relId: number,
-    relType: string
+    relId?: number,
+    relType?: string
 }
 
-export default function Builder_creation({creation_type,relId,relType}: Props) {
+export default function Builder_creation({creation_type, relId, relType}: Props) {
     const editPath = editLink(1)
 
     const [id, setId] = useState(10)
@@ -42,12 +42,13 @@ export default function Builder_creation({creation_type,relId,relType}: Props) {
     const location = useLocation()
     const navigate = useNavigate()
 
+    // @ts-ignore
     const [signin, setSignin] = useContext(signinContext)
 
     const getcurrentUserId = () => {
         try {
             if (signin) {
-                return  useGetCurrentUserId(signin)
+                return useGetCurrentUserId(signin)
             }
         } catch (error) {
             console.error(error)
@@ -57,7 +58,7 @@ export default function Builder_creation({creation_type,relId,relType}: Props) {
     const creationHook = useCreateBuilderElement()
     let createdId = null;
 
-    const submit = async (e) => {
+    const submit = async (e: any) => {
         e.preventDefault()
         const currentUserId = getcurrentUserId()
         let formData:any = {

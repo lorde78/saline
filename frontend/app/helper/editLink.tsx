@@ -1,6 +1,6 @@
 import {useLocation} from "@remix-run/react";
 
-export default function editLink(numberUndoPage) {
+export default function editLink(numberUndoPage: number) {
     let location = useLocation()
 
     let path = location.pathname

@@ -46,7 +46,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Trainings_Add() {
     };
 
     useEffect(() => {
-        getAllTrainings("training").then(r => {
+        getAllTrainings("training","").then(r => {
             if (!trainings.length) {
                 setTrainings(r);
             }
@@ -86,7 +86,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Trainings_Add() {
                             <button className={"button"} onClick={(e) => submit(e)}>Ajouter les parcours</button>
                             {
                                 trainings.filter(course => {
-                                    return !course.classrooms.some(classroom => classroom.id === getCurrentId);
+                                    return !course.classrooms.some((classroom: { id: number; }) => classroom.id === getCurrentId);
                                 }).map((training) => {
                                     let id = training.id;
                                     return (

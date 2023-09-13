@@ -33,10 +33,11 @@ export default function Backoffice_Trainings() {
     useGlobalEffect();
 
     const [trainings, setTrainings] = useState<Training[]>([]);
+    // @ts-ignore
     const getAllTrainings = useGetAllElements<Training>();
 
     useEffect(() => {
-        getAllTrainings("training").then(r => {
+        getAllTrainings("training","").then(r => {
             if (!trainings.length) {
                 setTrainings(r);
             }

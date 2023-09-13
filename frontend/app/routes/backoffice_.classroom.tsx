@@ -21,7 +21,10 @@ export function links() {
 interface Classroom {
     id: number;
     title: string;
-    author: string;
+    author: {
+        name: string,
+        firstName: string
+    };
     bannerPicture: string;
     description: string;
 }
@@ -33,8 +36,7 @@ export default function Backoffice_Classroom() {
     const getAllClassrooms = useGetAllElements();
 
     useEffect(() => {
-        //@ts-ignore
-        getAllClassrooms("classroom").then((r: Classroom[]) => {
+        getAllClassrooms("classroom","").then((r: Classroom[]) => {
             if (!classrooms.length) {
                 setClassrooms(r);
             }

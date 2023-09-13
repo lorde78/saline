@@ -28,8 +28,8 @@ model User {
   Comments            Comment[]
   Answers             Answer[]
   Annotations         Annotation[]
-  teachingClassrooms  Classroom[]     @relation("ClassroomProfessor")
-  attendingClassrooms Classroom[]     @relation("ClassroomStudents")
+  teachingClassrooms  Classrooms[]     @relation("ClassroomProfessor")
+  attendingClassrooms Classrooms[]     @relation("ClassroomStudents")
   trainingsCreated    Training[]      @relation("TrainingAuthor")
   Trainings           Training[]      @relation("TrainingStudents")
   lessonsCreated      Lesson[]        @relation("LessonAuthor")
@@ -68,7 +68,7 @@ model Lesson {
   professors      Professor[]
 }
 
-model Classroom {
+model Classrooms {
   id            Int        @id @default(autoincrement())
   title         String?
   createdAt     DateTime   @default(now())
@@ -96,7 +96,7 @@ model Training {
   author          User?          @relation("TrainingAuthor", fields: [userId], references: [id])
   students        User[]         @relation("TrainingStudents")
   lessons         Lesson[]
-  classrooms      Classroom[]
+  classrooms      Classrooms[]
   tags            Tag[]
   subscriptions   Subscription[]
   professors      Professor[]
