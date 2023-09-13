@@ -52,7 +52,7 @@ export default function Backoffice_Trainings_TrainingId_Edit() {
     const getCurrentTraining = useGetCurrentElement();
 
     const [courses, setCourses] = useState<Course[]>([]);
-    const getCourses = useGetAllElements<Course>();
+    const getCourses = useGetAllElements();
 
     const getTraining = async () => {
         const currentTraining = await getCurrentTraining("training", getCurrentId);
@@ -61,7 +61,7 @@ export default function Backoffice_Trainings_TrainingId_Edit() {
     };
 
     useEffect(() => {
-        getCourses("lesson").then(r => {
+        getCourses("lesson","").then(r => {
             if (!courses.length) {
                 setCourses(r);
             }

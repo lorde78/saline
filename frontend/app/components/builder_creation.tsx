@@ -60,44 +60,38 @@ export default function Builder_creation({creation_type, relId, relType}: Props)
 
     const submit = async (e: any) => {
         e.preventDefault()
+        const formData = new FormData();
         const currentUserId = getcurrentUserId()
-        let formData:any = {
-            "title": title,
-            "userId": currentUserId,
-            "bannerPicture": "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
-            "description": description
-        }
+        formData.append('title', title);
+        formData.append('userId', currentUserId);
+        // @ts-ignore
+        formData.append("bannerPicture",banner);
+        formData.append('description', description);
+
 
         switch (creation_type) {
             case 'training':
-                formData = {
-                    ...formData,
-                    "difficultyLevel": difficulty
-                }
+                // @ts-ignore
+                formData.append('difficultyLevel', difficulty);
                 break;
 
             case 'lesson':
-                formData = {
-                    ...formData,
-                    "difficultyLevel": difficulty
-                }
+                // @ts-ignore
+                formData.append('difficultyLevel', difficulty);
                 break;
         }
 
         switch (relType) {
             case 'training':
             case 'classroom':
-                formData = {
-                    ...formData,
-                    "relType": relType,
-                    "relId": relId
-                }
+                formData.append('relType', relType);
+                // @ts-ignore
+                formData.append('relId', relId.toString());
                 break;
         }
-
         createdId = await creationHook(formData,creation_type).then(res => res.id)
 
-        navigate(editPath + "/" + createdId + "/edit")
+        // navigate(editPath + "/" + createdId + "/edit")
     }
 
     const complementaryForm = () => {
@@ -126,7 +120,7 @@ export default function Builder_creation({creation_type, relId, relType}: Props)
 
     return (
         <form className={"builder_creation"}>
-            <Select_image/>
+            <Select_image setValue={setBanner}/>
             <Input
                 name={"title"}
                 type={'text'}

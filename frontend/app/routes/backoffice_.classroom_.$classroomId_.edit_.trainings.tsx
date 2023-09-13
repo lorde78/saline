@@ -39,7 +39,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Trainings() {
     };
 
     useEffect(() => {
-        getTrainings("training").then(r => {
+        getTrainings("training","").then(r => {
             if (!trainings.length) {
                 setTrainings(r);
             }
@@ -65,7 +65,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Trainings() {
                             </div>
                             {
                                 trainings.filter(training => {
-                                    return training.classrooms.some(classroom => classroom.id === getCurrentId);
+                                    return training.classrooms.some((classroom: any) => classroom.id === getCurrentId);
                                 }).map((training, i) => {
                                     return (
                                         <Backoffice_training

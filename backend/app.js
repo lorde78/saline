@@ -22,6 +22,7 @@ var tagRouter = require('./routes/tag.routes.ts');
 var trainingRouter = require('./routes/training.routes.ts');
 var videoRouter = require('./routes/video.routes.ts');
 var userRouter = require('./routes/user.routes.ts');
+const bodyParser = require("body-parser");
 
 var app = express();
 
@@ -48,7 +49,7 @@ app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

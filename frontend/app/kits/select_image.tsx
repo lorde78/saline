@@ -1,7 +1,11 @@
 import 'remixicon/fonts/remixicon.css'
 import {useState} from "react";
 
-export default function Select_image() {
+class props {
+    setValue: any;
+}
+
+export default function Select_image({setValue}:props) {
 
     const showPreview = (input:any) => {
         var url = URL.createObjectURL(input);
@@ -10,7 +14,7 @@ export default function Select_image() {
         preview.src = url;
         // @ts-ignore
         preview.style.display = "block";
-
+        setValue(input)
     }
 
     return (

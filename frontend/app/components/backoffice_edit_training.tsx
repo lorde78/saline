@@ -30,9 +30,9 @@ export default function Backoffice_edit_training({
 
     const deleteElement = useDeleteElement()
     const removeLesson = useRemoveLessonFromTraining()
-    const getCurrentId = getIdFromUrl(2)
+    const getCurrentId = getIdFromUrl(1)
 
-    const submit = (e) => {
+    const submit = (e:any) => {
         if(!getCurrentId) {
             deleteElement(creation_type,id)
         } else {
@@ -57,7 +57,7 @@ export default function Backoffice_edit_training({
                 </p>
                 {showButton ?
                     <div className={"training_button"}>
-                        <NavLink className={"button"} to={id + '/edit'}>
+                        <NavLink className={"button"} to={`/backoffice/courses/${id}/edit`}>
                             Modifier
                         </NavLink>
                         <button className={"button button_alert"} type="submit" onClick={(e) => submit(e)}>Supprimer</button>

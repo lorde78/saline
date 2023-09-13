@@ -56,7 +56,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students_Add() {
             }
         };
 
-        getAllStudents("user").then(r => {
+        getAllStudents("user","").then(r => {
             if (!students.length) {
                 setStudents(r);
             }
@@ -102,6 +102,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students_Add() {
                             <div className={"backoffice_students_preview_container"}>
                                 {
                                     students.filter(student => {
+                                        //@ts-ignore
                                         return !student.attendingClassrooms.some(classroom => classroom.id === getCurrentId);
                                     }).map((student, i) => {
                                         return (

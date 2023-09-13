@@ -78,10 +78,12 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
 
     const getCourse = async () => {
         const currentCourse = await getCurrentCourse("lesson", getCurrentId);
-        //@ts-ignore
-        setCoursesData(currentCourse.steps);
-        //@ts-ignore
-        setCourseName(currentCourse.title);
+        if(currentCourse.steps) {
+            //@ts-ignore
+            setCoursesData(currentCourse.steps);
+            //@ts-ignore
+            setCourseName(currentCourse.title);
+        }
         setLoader(true);
     };
 

@@ -10,6 +10,7 @@ import { NavLink, useLoaderData } from "@remix-run/react";
 import { useGlobalEffect } from "~/helper/globalHelper";
 import useGetAllElements from "~/hook/useGetAllElements";
 import Notif from "~/kits/notif";
+import {LoaderFunction} from "@remix-run/node";
 
 interface Course {
     id: number;
@@ -41,6 +42,12 @@ interface LoaderData {
     isPosted: string | null;
 }
 
+export let loader: LoaderFunction = ({ request }) => {
+    let url = new URL(request.url);
+    let isPosted = url.searchParams.get('isPosted');
+    return { isPosted };
+}
+
 export default function Backoffice_Courses() {
     useGlobalEffect();
     const loaderData = useLoaderData() as LoaderData;
@@ -49,7 +56,7 @@ export default function Backoffice_Courses() {
     const getAllCourses = useGetAllElements();
 
     useEffect(() => {
-        getAllCourses("lesson").then(r => {
+        getAllCourses("lesson","").then(r => {
             if (!courses.length) {
                 setCourses(r);
             }

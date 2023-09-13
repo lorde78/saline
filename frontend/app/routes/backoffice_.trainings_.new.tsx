@@ -38,6 +38,7 @@ export default function Backoffice_Trainings_New() {
             <Header_section_page numberUndoPage={1} title={"Créer un parcours"} />
             <section className={"max_width_container"}>
                 <div className={"builder_container max_width"}>
+                    {/* @ts-ignore */}
                     <Builder_creation creation_type={"training"} relId={loaderData.relId} relType={loaderData.relType} />
                 </div>
             </section>

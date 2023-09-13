@@ -28,7 +28,7 @@ export default function Backoffice_training({
     const removeTraining = useRemoveTrainingFromClassroom()
     const getCurrentId = getIdFromUrl(2)
 
-    const submit = (e) => {
+    const submit = (e:any) => {
         if(!getCurrentId) {
             deleteTraining(creation_type,id)
         } else {

@@ -1,4 +1,4 @@
-export default function Notif({text,type}: string) {
+export default function Notif({text,type}: any) {
     return(
         <label className="alertContainer">
             <input type="checkbox" className="alertCheckbox" autoComplete="off"/>

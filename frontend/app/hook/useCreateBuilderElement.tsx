@@ -7,9 +7,9 @@ export default function useCreateBuilderElement() {
                 url: `/${creation_type}`,
                 method: 'post',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'multipart/form-data'
                 },
-                data: new URLSearchParams(formData).toString()
+                data: formData
             });
             return res.data[creation_type];
         } catch (err) {

@@ -68,7 +68,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
         setStudentsAdd(newStudentsAdd)
     }
 
-    const submitRemove = (e) => {
+    const submitRemove = (e:any) => {
         if(getCurrentId) {
             removeStudents(studentsAdd,false,getCurrentId)
         }
@@ -80,10 +80,12 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
         <>
             {loader ?
                 <>
+                    {/* @ts-ignore */}
                     <Header_section_page numberUndoPage={1} title={classroom.title}/>
                     <section className={"max_width_container"}>
                         <div className={"classroom_container-open max_width"}>
                             <div className={"classroom_image_banner"} style={{height: bannerHeight}}>
+                                {/* @ts-ignore */}
                                 <img src={classroom.bannerPicture} alt={"bannière de la classe"}/>
                             </div>
                             <div className={"classroom_links"}>
@@ -96,7 +98,10 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
                             </div>
                             <div className={"backoffice_students_preview_container"}>
                                 {
+                                    /* @ts-ignore */
                                     classroom.students.map((student, i) => {
+                                        // @ts-ignore
+                                        let item = studentsAdd[student.id].value
                                         return (
                                             <Checkbox
                                                 name={"studentName" + student.id}
@@ -104,7 +109,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
                                                 text={student.firstName + " " + student.name}
                                                 setValue={checkStudents}
                                                 propsSetValue={{id: student.id}}
-                                                value={studentsAdd[student.id] ? studentsAdd[student.id].value : false}
+                                                value={item ? item.value : false}
                                             />
                                         )
                                     })

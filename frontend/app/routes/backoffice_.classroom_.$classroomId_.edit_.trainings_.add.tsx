@@ -71,7 +71,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Trainings_Add() {
 
     const submit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
-        addTraining(Object.values(trainingsAdd), true, getCurrentId);
+        addTraining(trainingsAdd, true, getCurrentId);
 
         navigate(editPath + "/" + getCurrentId + "/edit/trainings");
     };
@@ -86,7 +86,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Trainings_Add() {
                             <button className={"button"} onClick={(e) => submit(e)}>Ajouter les parcours</button>
                             {
                                 trainings.filter(course => {
-                                    return !course.classrooms.some((classroom: { id: number; }) => classroom.id === getCurrentId);
+                                    return !course.classrooms.some((classroom: any) => classroom.id === getCurrentId);
                                 }).map((training) => {
                                     let id = training.id;
                                     return (

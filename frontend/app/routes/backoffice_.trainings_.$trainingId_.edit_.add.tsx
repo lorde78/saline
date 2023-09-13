@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Key, useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -7,13 +7,13 @@ import Header_section_page from "~/kits/header_section_page";
 import Backoffice_training from "~/components/backoffice_training";
 import Backoffice_edit_training from "~/components/backoffice_edit_training";
 import Checkbox from "~/kits/checkbox";
-import { useGlobalEffect } from "~/helper/globalHelper";
+import {useGlobalEffect} from "~/helper/globalHelper";
 import useGetAllElements from "~/hook/useGetAllElements";
 import getIdFromUrl from "~/helper/getIdFromUrl";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import Loader from "~/kits/loader";
 import useAddLessonsToTraining from "~/hook/useAddLessonsToTraining";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import editLink from "~/helper/editLink";
 
 interface Course {
@@ -30,10 +30,10 @@ interface Course {
 
 export function links() {
     return [
-        { rel: 'stylesheet', href: resetStyles },
-        { rel: 'stylesheet', href: styles },
-        { rel: 'stylesheet', href: input },
-        { rel: 'stylesheet', href: training }
+        {rel: 'stylesheet', href: resetStyles},
+        {rel: 'stylesheet', href: styles},
+        {rel: 'stylesheet', href: input},
+        {rel: 'stylesheet', href: training}
     ];
 }
 
@@ -49,8 +49,8 @@ export default function Backoffice_Trainings_TrainingId_Edit_Add() {
     const [training, setTraining] = useState<any>();
     const getCurrentTraining = useGetCurrentElement();
 
-    const [courses, setCourses] = useState<Course[]>([]);
-    const getAllCourses = useGetAllElements<Course>();
+    const [courses, setCourses] = useState<any>([]);
+    const getAllCourses = useGetAllElements();
 
     const getTraining = async () => {
         const currentTraining = await getCurrentTraining("training", getCurrentId);
@@ -59,7 +59,7 @@ export default function Backoffice_Trainings_TrainingId_Edit_Add() {
     }
 
     useEffect(() => {
-        getAllCourses("lesson").then(r => {
+        getAllCourses("lesson", "").then(r => {
             if (!courses.length) {
                 setCourses(r);
             }
@@ -68,15 +68,19 @@ export default function Backoffice_Trainings_TrainingId_Edit_Add() {
         getTraining();
     }, []);
 
-    const [coursesAdd, setCoursesAdd] = useState<number[]>([]);
+    const [coursesAdd, setCoursesAdd] = useState<any>([]);
 
     const checkCourses = (value: boolean, props: any) => {
+        let newCoursesAdd = {...coursesAdd};
         if (value) {
-            setCoursesAdd([...coursesAdd, props.id]);
+            // @ts-ignore
+            newCoursesAdd[props.id] = props.id;
         } else {
-            setCoursesAdd(coursesAdd.filter(id => id !== props.id));
+            // @ts-ignore
+            delete newCoursesAdd[props.id];
         }
-    }
+        setCoursesAdd(newCoursesAdd);
+    };
 
     const submit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
@@ -89,21 +93,22 @@ export default function Backoffice_Trainings_TrainingId_Edit_Add() {
         <>
             {loader ?
                 <>
-                    <Header_section_page numberUndoPage={1} title={"Ajouter un cours"} />
+                    <Header_section_page numberUndoPage={1} title={"Ajouter un cours"}/>
                     <section className={"max_width_container"}>
                         <div className={"backoffice_training_preview_container max_width"}>
                             <button className={"button"} onClick={(e) => submit(e)}>Ajouter les cours</button>
                             {
-                                courses.filter(course => !course.trainings.some(training => training.id === getCurrentId))
-                                    .map(course => (
+                                courses.filter((course: any) => !course.trainings.some((training:any) => training.id === getCurrentId)).map((course: any) => {
+                                    let id = course.id;
+                                    return (
                                         <div className={"course_preview_container"} key={course.id}>
                                             <Checkbox
                                                 name={"checkbox"}
                                                 type={"checkbox"}
                                                 text={""}
                                                 setValue={checkCourses}
-                                                propsSetValue={{ id: course.id }}
-                                                value={coursesAdd.includes(course.id)}
+                                                propsSetValue={{id: course.id}}
+                                                value={coursesAdd[id] ? coursesAdd[id].value : false}
                                             />
                                             <Backoffice_edit_training
                                                 id={course.id}
@@ -115,7 +120,8 @@ export default function Backoffice_Trainings_TrainingId_Edit_Add() {
                                                 creation_type={"lesson"}
                                             />
                                         </div>
-                                    ))
+                                    )
+                                })
                             }
                             <button className={"button"} onClick={(e) => submit(e)}>Ajouter les cours</button>
                         </div>
