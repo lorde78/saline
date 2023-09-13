@@ -56,7 +56,16 @@ build-code-all:
   variables:
     URL_GIT: registry.gitlab.com/arkhayds/saline-web3-academy/
   script:
-    - cd backend && touch .env && echo "DATABASE_URL=${DATABASE_URL}" >> .env
+    - cd backend && touch .env
+    - if [ "$CI_COMMIT_REF_NAME" = "dev" ]; then
+    - echo "DATABASE_URL=${DEV_DATABASE_URL}" >> .env
+    - fi
+    - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
+    - echo "DATABASE_URL=${PREPROD_DATABASE_URL}" >> .env
+    - fi
+    - if [ "$CI_COMMIT_REF_NAME" = "main" ]; then
+    - echo "DATABASE_URL=${DATABASE_URL}" >> .env
+    - fi
     - echo "JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}" >> .env
     - echo "JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}" >> .env
     - cd ..  && touch .env
