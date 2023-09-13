@@ -32,4 +32,25 @@
 
 .recherche_item_interieur {
     display: flex;
+    gap: 20px;
+}
+
+.recherche_item_interieur_img{
+    width: 30%;
+}
+
+.recherche_item_interieur_content{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.recherche_item_interieur_content h2,
+.recherche_item_interieur_content .recherche_list_tag{
+    margin-bottom: 10px;
+}
+
+.recherche_item_interieur_content .button{
+    margin-top: 10px;
 }

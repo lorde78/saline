@@ -69,7 +69,7 @@ const CourseSearch: React.FC = () => {
                 "nbViews": 180,
                 "nbCompleted": 55,
                 "userId": 9,
-                "bannerPicture": "https://example.com/datascience.jpg",
+                "bannerPicture": "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
                 "author": {
                     "name": "Sarah Lee",
                     "firstName": "Sarah"
@@ -90,7 +90,7 @@ const CourseSearch: React.FC = () => {
                 "nbViews": 200,
                 "nbCompleted": 75,
                 "userId": 8,
-                "bannerPicture": "https://example.com/fullstack.jpg",
+                "bannerPicture": "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
                 "author": {
                     "name": "Michael Brown",
                     "firstName": "Michael"
@@ -111,7 +111,7 @@ const CourseSearch: React.FC = () => {
                 "nbViews": 90,
                 "nbCompleted": 30,
                 "userId": 7,
-                "bannerPicture": "https://example.com/languages.jpg",
+                "bannerPicture": "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
                 "author": {
                     "name": "Emily Johnson",
                     "firstName": "Emily"
@@ -154,6 +154,13 @@ const CourseSearch: React.FC = () => {
         });
     };
 
+    function truncateText(text: string, maxLength: number) {
+        if (text.length <= maxLength) {
+          return text;
+        }
+        return text.slice(0, maxLength) + '...';
+      }
+
     return (
         <div className='filtersearch_container'>
             <h1>Recherche de Cours</h1>
@@ -170,17 +177,18 @@ const CourseSearch: React.FC = () => {
                     {filteredCourses.map((course) => (
                         <li key={course.id} className='recherche_item'>
                             <Link to={''} className='recherche_item_interieur'>
-                                <div><img src={course.bannerPicture} alt="" /></div>
-                                <div>
+                                <div className='recherche_item_interieur_img'><img src={course.bannerPicture} alt="" /></div>
+                                <div className='recherche_item_interieur_content'>
                                     <h2>{course.title}</h2>
                                     <div className='recherche_list_tag'>
                                         {course.tags.map((tag) => (
                                             <div key={tag.id}><span className="tag">{tag.name}</span></div>
                                         ))}
                                     </div>
-
-                                    <p>{course.description}</p>
+                                    <p>{truncateText(course.description, 120)}</p>
+                                    <p className={"button "}>Cliquer pour lire la suite</p>
                                 </div>
+                                
                             </Link>
                         </li>
                     ))}

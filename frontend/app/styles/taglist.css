@@ -1,6 +1,4 @@
 .tag_list_container{
-    /* padding: 20px;
-    display: flex; */
     margin-bottom: 40px;
 }
 
@@ -10,6 +8,6 @@
     margin-bottom: 40px;
 }
 
-/* .tag_list_result{
-    height: 80px;
-} */
+.tag_list_result{
+    gap: 5px;
+}
