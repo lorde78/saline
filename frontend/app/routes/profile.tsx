@@ -1,4 +1,4 @@
-import 'remixicon/fonts/remixicon.css'
+import 'remixicon/fonts/remixicon.css';
 import Accordion from "~/kits/accordion";
 import Formule from "~/kits/formule";
 import UserInfos from "~/kits/userInfos";
