@@ -173,8 +173,13 @@ const CourseSearch: React.FC = () => {
             />
             {isLoading && <div className="loader_cours">Chargement</div>}
             {showSuggestions && (
-                <ul>
-                    {filteredCourses.map((course) => (
+            <ul>
+                {filteredCourses.length === 0 ? (
+                    <li className='recherche_item'>
+                        <p>Aucune donnée ne correspond à votre recherche.</p>
+                    </li>
+                ) : (
+                    filteredCourses.map((course) => (
                         <li key={course.id} className='recherche_item'>
                             <Link to={''} className='recherche_item_interieur'>
                                 <div className='recherche_item_interieur_img'><img src={course.bannerPicture} alt="" /></div>
@@ -188,12 +193,12 @@ const CourseSearch: React.FC = () => {
                                     <p>{truncateText(course.description, 120)}</p>
                                     <p className={"button "}>Cliquer pour lire la suite</p>
                                 </div>
-                                
                             </Link>
                         </li>
-                    ))}
-                </ul>
-            )}
+                    ))
+                )}
+            </ul>
+        )}
         </div>
     );
 };
