@@ -1,6 +1,6 @@
 import 'remixicon/fonts/remixicon.css'
-import {NavLink} from "react-router-dom";
-
+import {NavLink} from "@remix-run/react";
+import FormuleTag from "~/kits/formuleTag";
 type Props = {
     id: number,
     imgLink: string,
@@ -9,7 +9,7 @@ type Props = {
     createdAt: string,
 };
 
-export default function Backoffice_users({
+export default function Backoffice_users_carde({
                                              id,
                                              imgLink,
                                              name,
@@ -17,16 +17,17 @@ export default function Backoffice_users({
                                              createdAt
                                          }: Props) {
 
-
     return (
-        <NavLink to={id} className={"preview_card-row"}>
+        <NavLink to={id.toString()} className={"preview_card-row-flex"}>
             <div className={"pp_card_small"}>
-                <img href={imgLink}/>
-                <div>
+                <img src={imgLink}/>
+            </div>
+            <div className={"preview_card-row-flex"}>
+                <div className={""}>
                     <h4>{name}</h4>
                     <p>Crée le {createdAt}</p>
                 </div>
-                {formula}
+                <FormuleTag subscription={formula}/>
             </div>
         </NavLink>
     );
