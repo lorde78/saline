@@ -1,5 +1,8 @@
 import React, { ChangeEvent, useState, useEffect } from 'react';
 import '../styles/input.css';
+import '../styles/filtersearch.css';
+import  "../styles/reset.css";
+import { Link } from '@remix-run/react';
 
 interface Course {
     id: number;
@@ -152,7 +155,7 @@ const CourseSearch: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className='filtersearch_container'>
             <h1>Recherche de Cours</h1>
             <input
                 type="text"
@@ -161,19 +164,20 @@ const CourseSearch: React.FC = () => {
                 onChange={handleSearchInputChange}
                 className='input'
             />
-            {isLoading && <div className="loading-spinner">Loading...</div>}
+            {isLoading && <div className="loader_cours">Chargement</div>}
             {showSuggestions && (
                 <ul>
                     {filteredCourses.map((course) => (
-                        <li key={course.id}>
+                        <li key={course.id} className='recherche_item'>
+                           <Link to={''}>
                             <h2>{course.title}</h2>
-                            <p>{course.description}</p>
-                            <div>
-                                Tags:
+                            <div className='recherche_list_tag'>
                                 {course.tags.map((tag) => (
-                                    <span key={tag.id}>#{tag.name} </span>
+                                    <div key={tag.id}><span className="tag">{tag.name}</span></div>
                                 ))}
                             </div>
+                            <p>{course.description}</p>
+                            </Link>
                         </li>
                     ))}
                 </ul>

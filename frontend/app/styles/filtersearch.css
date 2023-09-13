@@ -1,0 +1,30 @@
+.recherche_item{
+    display: flex;
+    flex-direction: column;
+    background-color: #121525;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.recherche_item:last-child{
+    margin-bottom: 0px;
+}
+.recherche_list_tag{
+    display: flex;
+    gap: 10px;
+}
+
+.filtersearch_container ul{
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px white solid;
+    margin-top: 20px;
+}
+
+.filtersearch_container {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.filtersearch_container h1{
+    margin-bottom: 20px;
+}
