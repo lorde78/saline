@@ -28,3 +28,8 @@
 .filtersearch_container h1{
     margin-bottom: 20px;
 }
+
+
+.recherche_item_interieur {
+    display: flex;
+}

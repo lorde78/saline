@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState, useEffect } from 'react';
 import '../styles/input.css';
 import '../styles/filtersearch.css';
-import  "../styles/reset.css";
+import "../styles/reset.css";
 import { Link } from '@remix-run/react';
 
 interface Course {
@@ -28,7 +28,7 @@ const CourseSearch: React.FC = () => {
     const [courses, setCourses] = useState<Course[]>([]);
     const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
     const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(false); 
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const jsonData: Course[] = [
@@ -134,12 +134,12 @@ const CourseSearch: React.FC = () => {
         setIsLoading(true);
 
         const filtered = filterCourses(query);
-        
+
         setTimeout(() => {
             setFilteredCourses(filtered);
             setShowSuggestions(query.length > 0);
-            setIsLoading(false); 
-          }, 1000);
+            setIsLoading(false);
+        }, 1000);
 
     };
 
@@ -169,14 +169,18 @@ const CourseSearch: React.FC = () => {
                 <ul>
                     {filteredCourses.map((course) => (
                         <li key={course.id} className='recherche_item'>
-                           <Link to={''}>
-                            <h2>{course.title}</h2>
-                            <div className='recherche_list_tag'>
-                                {course.tags.map((tag) => (
-                                    <div key={tag.id}><span className="tag">{tag.name}</span></div>
-                                ))}
-                            </div>
-                            <p>{course.description}</p>
+                            <Link to={''} className='recherche_item_interieur'>
+                                <div><img src={course.bannerPicture} alt="" /></div>
+                                <div>
+                                    <h2>{course.title}</h2>
+                                    <div className='recherche_list_tag'>
+                                        {course.tags.map((tag) => (
+                                            <div key={tag.id}><span className="tag">{tag.name}</span></div>
+                                        ))}
+                                    </div>
+
+                                    <p>{course.description}</p>
+                                </div>
                             </Link>
                         </li>
                     ))}
