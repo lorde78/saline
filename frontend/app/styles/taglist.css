@@ -1,0 +1,15 @@
+.tag_list_container{
+    /* padding: 20px;
+    display: flex; */
+    margin-bottom: 40px;
+}
+
+.tag_list_input,
+.tag_list_result{
+    display: flex;
+    margin-bottom: 40px;
+}
+
+/* .tag_list_result{
+    height: 80px;
+} */
