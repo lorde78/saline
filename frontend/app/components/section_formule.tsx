@@ -2,6 +2,8 @@ import * as React from "react";
 import "swiper/swiper-bundle.min.css";
 import '../styles/section_formule.css';
 import '../styles/style.css';
+import { Link } from "@remix-run/react";
+
 
 interface Offre {
     title: string;
@@ -15,6 +17,7 @@ interface Offre {
     payment: string;
     showPromo: boolean;
     buttonText: string;
+    id: string;
 }
 
 interface SliderProps {
@@ -24,6 +27,12 @@ interface SliderProps {
 export const Offre: React.FunctionComponent<SliderProps> = ({
 }) => {
     const [Swiper, setSwiper] = React.useState<any>(null);
+    const [selectedOffre, setSelectedOffre] = React.useState<string | null>(null);
+
+    const handleOffreSelection = (offre: string) => {
+      setSelectedOffre(offre);
+    };
+
     const offres: Offre[] = [
 
         {
@@ -37,7 +46,8 @@ export const Offre: React.FunctionComponent<SliderProps> = ({
             avantage_4: "",
             avantage_5: "",
             showPromo: false,
-            buttonText: "Commencer"
+            buttonText: "Commencer",
+            id: "gratuit",
         },
         {
             title: "Annuel",
@@ -50,7 +60,8 @@ export const Offre: React.FunctionComponent<SliderProps> = ({
             avantage_4: "Partitions annotées par nos professeurs et prêtes à être téléchargées.",
             avantage_5: "Vidéos multi-angles disponibles en HD sur tous vos appareils.",
             showPromo: true,
-            buttonText: "Souscrire"
+            buttonText: "Souscrire",
+            id: "annuel",
         },
         {
             title: "Mensuel",
@@ -63,7 +74,8 @@ export const Offre: React.FunctionComponent<SliderProps> = ({
             avantage_4: "Partitions annotées par nos professeurs et prêtes à être téléchargées.",
             avantage_5: "Vidéos multi-angles disponibles en HD sur tous vos appareils.",
             showPromo: false,
-            buttonText: "Souscrire"
+            buttonText: "Souscrire",
+            id: "mensuel",
         },
     ];
 
@@ -175,8 +187,8 @@ export const Offre: React.FunctionComponent<SliderProps> = ({
                                 
                             </ul>
                             </div>
-                            <a href="" className="button">{offre.buttonText}</a>
                             
+                            <Link to={'paymentpage'} className="button">{offre.buttonText}</Link>
                         </div>
                     </SwiperSlide>
                 ))}

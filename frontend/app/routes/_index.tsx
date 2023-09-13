@@ -16,6 +16,7 @@ import Builder_select_folder from "~/kits/builder_select_folder";
 import Select_image from "~/kits/select_image";
 import { useGlobalEffect } from "~/helper/globalHelper";
 
+
 export const meta: V2_MetaFunction = () => {
     return [
         {title: "New Remix App"},
@@ -31,6 +32,8 @@ export function links() {
         {rel: 'stylesheet', href: builder}
     ]
 }
+
+
 
 export default function Index() {
   const slides = [
