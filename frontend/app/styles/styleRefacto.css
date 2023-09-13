@@ -24,6 +24,13 @@
     display: grid;
     grid-template-columns: 50px 1fr;
 }
+.preview_card-row-flex {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
 
 @media screen and (min-width: 360px) {
     .preview_card-row {
