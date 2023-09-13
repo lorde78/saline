@@ -19,7 +19,7 @@ interface Information {
 
 interface VideoData {
     description: string;
-    information: Information;
+    infoDescription: string;
     video: string;
     professors: Professor[];
     comments: Comment[];
@@ -29,8 +29,7 @@ interface Step {
     id: number;
     value: string;
     type: string;
-    professor: string;
-    status: string;
+    status?: string;
     data: VideoData;
 }
 
@@ -53,10 +52,10 @@ export default function User_courses_step_video({step}: Props) {
             <div className={"courses_content_container"}>
                 <User_course_video_nav
                     id={step.id}
-                    informations={step.data.information}
-                    professors={step.data.professors}
+                    informations={step.data.infoDescription}
+                    professors={""}
                     description={step.data.description}
-                    comments={step.data.comments}
+                    comments={""}
                 />
             </div>
         </>

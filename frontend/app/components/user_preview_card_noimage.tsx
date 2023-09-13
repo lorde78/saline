@@ -4,31 +4,31 @@ import {NavLink, Outlet, useLocation} from "@remix-run/react";
 type Props = {
     id: number
     title: string
-    professor: string
+    type: string
     status: string
 };
 export default function User_preview_card_noimage({
                                                       id,
                                                       title,
-                                                      professor,
+                                                      type,
                                                       status
                                                   }: Props) {
-
+    title = title.charAt(0).toUpperCase() + title.slice(1);
 
     const setStatus = () => {
-        let statusColor
+        let statusColor;
         switch (status) {
             case "En cours":
-                statusColor = "yellow"
+                statusColor = "yellow";
                 break;
             case "Terminé":
-                statusColor = "green"
+                statusColor = "green";
                 break;
             case "A faire":
-                statusColor = "gray"
+                statusColor = "gray";
                 break;
             case "Non commencé":
-                statusColor = "gray"
+                statusColor = "gray";
                 break;
 
         }
@@ -40,6 +40,26 @@ export default function User_preview_card_noimage({
         )
     }
 
+    const setType = () => {
+        let typeText;
+        switch (type) {
+            case "video":
+                typeText = "Vidéo";
+                break;
+            case "exercise/qcm":
+                typeText = "QCM";
+                break;
+            case "exercise/bind_list":
+                typeText = "Liste à relier";
+                break;
+            case "review":
+                typeText = "Évaluation";
+        }
+        return (
+            <p>{typeText}</p>
+        )
+    }
+
     return (
         <NavLink to={id.toString()} className={"preview_card"}>
             <div className={"preview_card_content"}>
@@ -47,7 +67,7 @@ export default function User_preview_card_noimage({
                     <p>{title}</p>
                     <div className={"header_content-right"}>
                         {setStatus()}
-                        {professor}
+                        {setType()}
                     </div>
                 </div>
             </div>

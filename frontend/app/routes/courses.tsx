@@ -6,6 +6,8 @@ import stylesRefacto from "~/styles/styleRefacto.css";
 import Header from "~/components/header";
 import Footer from "~/components/footer";
 import User_preview_card from "~/components/user_preview_card";
+import {useGlobalEffect} from "~/helper/globalHelper";
+import useGetAllElements from "~/hook/useGetAllElements";
 
 
 export function links() {
@@ -17,28 +19,31 @@ export function links() {
     ]
 }
 
+interface Course {
+    id: number;
+    title: string;
+    bannerPicture: string;
+    description: string;
+    author: {
+        name: string,
+        firstName: string
+    }
+}
+
 export default function Courses() {
+    useGlobalEffect()
 
+    const [courses, setCourses] = useState<Course[]>([]);
+    // @ts-ignore
+    const getAllCourses = useGetAllElements();
 
-    const [courses, setCourses] = useState([
-            {
-                id: 0,
-                title: "course 1",
-                professor: "Jean Paul",
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-                imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
-                status: "Terminé"
-            },
-            {
-                id: 1,
-                title: "course 2",
-                professor: "Jean Paul",
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-                imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
-                status: "Non commencé"
-            },
-        ]
-    )
+    useEffect(() => {
+        getAllCourses("lesson","").then(r => {
+            if (!courses.length) {
+                setCourses(r);
+            }
+        })
+    }, [])
 
     return (
         <>
@@ -52,10 +57,10 @@ export default function Courses() {
                                 <User_preview_card
                                     id={course.id}
                                     title={course.title}
-                                    professor={course.professor}
-                                    imgLink={course.imgLink}
+                                    author={course.author}
+                                    imgLink={course.bannerPicture}
                                     description={course.description}
-                                    status={course.status}
+                                    redirectTo={"courses"}
                                 />
                             )
                         })

@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -6,6 +6,10 @@ import stylesRefacto from "~/styles/styleRefacto.css";
 import Header from "~/components/header";
 import Footer from "~/components/footer";
 import User_preview_card from "~/components/user_preview_card";
+import {useGlobalEffect} from "~/helper/globalHelper";
+import {signinContext} from "~/context/signinContext";
+import useGetAllElements from "~/hook/useGetAllElements";
+import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
 
 
 export function links() {
@@ -17,38 +21,31 @@ export function links() {
     ]
 }
 
+interface Training {
+    id: number;
+    title: string;
+    bannerPicture: string;
+    description: string;
+    author: {
+        name: string,
+        firstName: string
+    }
+}
+
 export default function Trainings() {
+    useGlobalEffect()
 
+    const [trainings, setTrainings] = useState<Training[]>([]);
+    // @ts-ignore
+    const getAllTrainings = useGetAllElements();
 
-    const [trainings, setTrainings] = useState([
-            {
-                id: 0,
-                title: "Steampunk",
-                professor: "Jean Paul",
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-                imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
-                status: "Terminé"
-            },
-            {
-                id: 0,
-                title: "Steampunk",
-                professor: "Jean Paul",
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-                imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
-                status: "En cours"
-            },
-            {
-                id: 0,
-                title: "Steampunk",
-                professor: "Jean Paul",
-                description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-                imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
-                status: "Non commencé"
+    useEffect(() => {
+        getAllTrainings("training","").then(r => {
+            if (!trainings.length) {
+                setTrainings(r);
             }
-        ]
-    )
-    const [bannerHeight, setBannerHeight] = useState(400)
-
+        })
+    }, [])
 
     return (
         <>
@@ -62,10 +59,11 @@ export default function Trainings() {
                                 <User_preview_card
                                     id={training.id}
                                     title={training.title}
-                                    professor={training.professor}
-                                    imgLink={training.imgLink}
+                                    author={training.author}
+                                    imgLink={training.bannerPicture}
                                     description={training.description}
-                                    status={training.status}
+                                    status={"A faire"}
+                                    redirectTo={"trainings"}
                                 />
                             )
                         })

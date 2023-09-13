@@ -18,7 +18,6 @@ export default function User_course_video_nav({
                                                   comments
 
                                               }: Props) {
-
     const [active, setActive] = useState("Description")
     const setData = () => {
         switch (active) {
@@ -31,15 +30,15 @@ export default function User_course_video_nav({
             case "Informations":
                 return (
                     <>
-                        {informations.document !== "" ?
+                        {informations.document ?
                             <iframe src="informations.document" id={"preview_" + id} className={"preview"}></iframe>
                             :
                             <></>
                         }
-                        {informations.infoDescription !== "" ?
-                            <p>{informations.infoDescription}</p>
+                        {informations ?
+                            <p>{informations}</p>
                             :
-                            <p>Aucune déscription</p>
+                            <p>Aucune description</p>
                         }
                     </>
                 )
@@ -58,7 +57,7 @@ export default function User_course_video_nav({
             :
                 return (
                     <>
-                        {
+                        {professors?
                             professors.map((professor: any, id: number) => {
                                     return (
                                         <div className={"preview_courses_profesor"}>
@@ -99,6 +98,8 @@ export default function User_course_video_nav({
                                     )
                                 }
                             )
+                            :
+                            <p>Aucun professeurs</p>
                         }
                     </>
                 )
