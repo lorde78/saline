@@ -6,6 +6,8 @@ import formule from "~/styles/formule.css";
 import backofficeFormula from "~/styles/backofficeFormula.css";
 import Header_section_page from "~/kits/header_section_page";
 import Backoffice_formulas from "~/components/backoffice_formulas";
+import { useGlobalEffect } from "~/helper/globalHelper";
+import useGetSubscriptions from "~/hook/useGetSubscriptions";
 
 
 export function links() {
@@ -19,6 +21,7 @@ export function links() {
 }
 
 export default function Backoffice_Formulas() {
+    useGlobalEffect()
 
     const [formulas, setFormulas] = useState([
             {
@@ -298,6 +301,13 @@ export default function Backoffice_Formulas() {
 
     }
 
+    const getSubs = useGetSubscriptions()
+
+    const testGetSubs = () => {
+        getSubs()
+            .then(data => console.log(data))
+    }
+
     return (
         <>
             <Header_section_page numberUndoPage={1}  title={"Formules"}/>
@@ -355,6 +365,10 @@ export default function Backoffice_Formulas() {
                     </div>
                     <button className={"button"}>
                         Valider les modifications
+                    </button>
+
+                    <button className={"button"} onClick={(e) => testGetSubs()}>
+                        Test
                     </button>
                 </div>
             </section>

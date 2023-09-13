@@ -1,4 +1,4 @@
-import 'remixicon/fonts/remixicon.css'
+import 'remixicon/fonts/remixicon.css';
 import Accordion from "~/kits/accordion";
 import Formule from "~/kits/formule";
 import UserInfos from "~/kits/userInfos";
@@ -18,6 +18,7 @@ import Header from "~/components/header";
 import Footer from "~/components/footer";
 
 
+import { useGlobalEffect } from '~/helper/globalHelper';
 
 const userInfo = {
   firstName: 'John',
@@ -28,12 +29,12 @@ const userInfo = {
   address: '28 rue Albert, Mars',
 };
 
-
 export function links() {
   return [{rel: 'stylesheet', href: resetStyles}, {rel: 'stylesheet', href: profileStyles}, {rel: 'stylesheet', href: globalStyles}, {rel: 'stylesheet', href: inputStyles}, {rel: 'stylesheet', href: formuleStyles}]
 }
 
 export default function Profile() {
+  useGlobalEffect()
     return (
 
       <>

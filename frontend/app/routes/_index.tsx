@@ -7,10 +7,14 @@ import { SectionInstrument } from "~/components/section_instrument";
 import { SectionPartenaires } from "~/components/section_partenaires";
 import { SectionSalinePlus } from "~/components/section_plus_saline";
 import { Offre } from "~/components/section_formule";
-import resetStyles from "~/styles/reset.css"
-import styles from "~/styles/style.css"
-import builder from "~/styles/builder.css"
-import input from "~/styles/input.css"
+import Builder_block_button from "~/kits/builder_block_button";
+import resetStyles from "~/styles/reset.css";
+import styles from "~/styles/style.css";
+import builder from "~/styles/builder.css";
+import input from "~/styles/input.css";
+import Builder_select_folder from "~/kits/builder_select_folder";
+import Select_image from "~/kits/select_image";
+import { useGlobalEffect } from "~/helper/globalHelper";
 
 export const meta: V2_MetaFunction = () => {
     return [
@@ -72,7 +76,7 @@ export default function Index() {
  
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <Header />
+      <Header search={false}/>
       <Slider slides={slides} />
       <SectionInstrument />
       <MiniSlider slides={slides}/>

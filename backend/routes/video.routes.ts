@@ -9,7 +9,7 @@ router.post('/', async function (req, res, next) {
         data: {
             title: title,
             url: url,
-            lessonsId: lessonsId,
+            lessonsId: parseInt(lessonsId),
         }
     })
 
@@ -23,7 +23,7 @@ router.delete('/', async function (req, res, next) {
     const { id } = req.query;
     const deletevideo = await database.video.delete({
         where: {
-            id: id,
+            id: parseInt(id),
         },
     })
     res.json({
@@ -41,7 +41,7 @@ router.put('/', async function (req, res, next) {
 
     const updateVideo = await database.video.update({
         where: {
-            id: id,
+            id: parseInt(id),
         },
         data: req.body
     })
@@ -60,8 +60,8 @@ router.get('/', async function (req, res, next) {
     const videos = await database.video.findMany({
         where: {
             OR: [
-                { videoId: id },
-                { lessonId: id },
+                { videoId: parseInt(id) },
+                { lessonId: parseInt(lessonId) },
             ],
         },
     })

@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -6,21 +6,36 @@ import formule from "~/styles/formule.css";
 import backofficeFormula from "~/styles/backofficeFormula.css";
 import Backoffice_edit_formula from "~/components/backoffice_edit_formula";
 import Header_section_page from "~/kits/header_section_page";
+import { useGlobalEffect } from "~/helper/globalHelper";
 
+type FormulaMust = {
+    name: string;
+    active: boolean;
+};
+
+type Formula = {
+    id: number;
+    name: string;
+    target: string;
+    rates_price: string;
+    rates_time: string;
+    musts: FormulaMust[];
+};
 
 export function links() {
     return [
-        {rel: 'stylesheet', href: resetStyles},
-        {rel: 'stylesheet', href: styles},
-        {rel: 'stylesheet', href: input},
-        {rel: 'stylesheet', href: formule},
-        {rel: 'stylesheet', href: backofficeFormula}
-    ]
+        { rel: 'stylesheet', href: resetStyles },
+        { rel: 'stylesheet', href: styles },
+        { rel: 'stylesheet', href: input },
+        { rel: 'stylesheet', href: formule },
+        { rel: 'stylesheet', href: backofficeFormula }
+    ];
 }
 
 export default function Backoffice_Formulas() {
+    useGlobalEffect();
 
-    const [formula, setFormula] = useState({
+    const [formula, setFormula] = useState<Formula>({
         id: 1,
         name: "Gratuit",
         target: "utilisateur",
@@ -56,32 +71,33 @@ export default function Backoffice_Formulas() {
                 active: false
             }
         ]
-    })
+    });
+
     const changeValue = (value: any, props: any) => {
-        let newFormula = {...formula}
+        let newFormula = { ...formula };
         switch (props.valuToChange) {
-            case "name" :
-                newFormula.name = value
-                break
-            case "target" :
-                newFormula.target = value
-                break
-            case "rates_price" :
-                newFormula.rates_price = value
-                break
-            case "rates_time" :
-                newFormula.rates_time = value
-                break
-            case "musts" :
-                newFormula.musts[props.mustID].active = value
-                break
+            case "name":
+                newFormula.name = value;
+                break;
+            case "target":
+                newFormula.target = value;
+                break;
+            case "rates_price":
+                newFormula.rates_price = value;
+                break;
+            case "rates_time":
+                newFormula.rates_time = value;
+                break;
+            case "musts":
+                newFormula.musts[props.mustID].active = value;
+                break;
         }
-        setFormula(newFormula)
-    }
+        setFormula(newFormula);
+    };
 
     return (
         <>
-            <Header_section_page numberUndoPage={1}  title={formula.name}/>
+            <Header_section_page numberUndoPage={1} title={formula.name} />
             <section className={"max_width_container"}>
                 <div className={"backoffice_formulas_container max_width"}>
                     <Backoffice_edit_formula
@@ -94,5 +110,5 @@ export default function Backoffice_Formulas() {
                 </div>
             </section>
         </>
-    )
+    );
 }

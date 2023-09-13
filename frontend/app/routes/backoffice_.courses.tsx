@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, { useEffect, useState } from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -6,76 +6,91 @@ import training from "~/styles/backofficeTraining.css";
 import Header_section_page from "~/kits/header_section_page";
 import Backoffice_training from "~/components/backoffice_training";
 import Backoffice_edit_training from "~/components/backoffice_edit_training";
-import {NavLink, useLocation} from "@remix-run/react";
+import { NavLink, useLoaderData } from "@remix-run/react";
+import { useGlobalEffect } from "~/helper/globalHelper";
+import useGetAllElements from "~/hook/useGetAllElements";
+import Notif from "~/kits/notif";
 
+interface Course {
+    id: number;
+    title: string;
+    description: string;
+    numberSteps: number;
+    steps: JSON;
+    difficultyLevel: string;
+    nbViews: number;
+    nbCompleted: number;
+    userId: number;
+    bannerPicture: string;
+    author: {
+        name: string,
+        firstName: string
+    }
+}
 
 export function links() {
     return [
-        {rel: 'stylesheet', href: resetStyles},
-        {rel: 'stylesheet', href: styles},
-        {rel: 'stylesheet', href: input},
-        {rel: 'stylesheet', href: training}
-    ]
+        { rel: 'stylesheet', href: resetStyles },
+        { rel: 'stylesheet', href: styles },
+        { rel: 'stylesheet', href: input },
+        { rel: 'stylesheet', href: training }
+    ];
+}
+
+interface LoaderData {
+    isPosted: string | null;
 }
 
 export default function Backoffice_Courses() {
+    useGlobalEffect();
+    const loaderData = useLoaderData() as LoaderData;
 
-    const [courses, setCourses] = useState([
-        {
-            id: 0,
-            title: "Steampunk",
-            professor: "Jean Paul",
-            description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
-        },
-        {
-            id: 0,
-            title: "Steampunk",
-            professor: "Jean Paul",
-            description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
-        },
-        {
-            id: 0,
-            title: "Steampunk",
-            professor: "Jean Paul",
-            description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
-        },
-        {
-            id: 0,
-            title: "Steampunk",
-            professor: "Jean Paul",
-            description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg"
-        }
-    ])
+    const [courses, setCourses] = useState<Course[]>([]);
+    const getAllCourses = useGetAllElements();
+
+    useEffect(() => {
+        getAllCourses("lesson").then(r => {
+            if (!courses.length) {
+                setCourses(r);
+            }
+        });
+    }, []);
+
     return (
         <>
-            <Header_section_page numberUndoPage={1}  title={"Cours"}/>
+            <Header_section_page numberUndoPage={1} title={"Cours"} />
             <section className={"max_width_container"}>
                 <div className={"backoffice_training_preview_container max_width"}>
+                    {loaderData.isPosted ? (
+                        <Notif text={"Le cours est mis à jour !"} type={"success"} />
+                    ) : (
+                        <></>
+                    )}
                     <div className={"button_header"}>
-                        <NavLink className={"button"} to={'0'}>
-                            Créer un cour
+                        <NavLink to={"new"} className={"button"}>
+                            Créer un cours
                         </NavLink>
                     </div>
-                    {
+                    {(courses ?? []).length !== 0 ? (
                         courses.map((course, i) => {
                             return (
                                 <Backoffice_edit_training
+                                    key={course.id}
                                     id={course.id}
                                     title={course.title}
-                                    professor={course.professor}
-                                    imgLink={course.imgLink}
+                                    author={course.author}
+                                    imgLink={course.bannerPicture}
                                     description={course.description}
                                     showButton={true}
+                                    creation_type={"lesson"}
                                 />
-                            )
+                            );
                         })
-                    }
+                    ) : (
+                        <p>Aucun cours n'existe pour le moment.</p>
+                    )}
                 </div>
             </section>
         </>
-    )
+    );
 }

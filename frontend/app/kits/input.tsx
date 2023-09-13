@@ -68,7 +68,7 @@ export default function Input({type, name, placeholder, setValue, propsSetValue,
     return (
         <div className="input-container">
             <input onChange={(e) => {setValue(e.target.value, propsSetValue)}} id={name} className={"input"} type={typeInput} placeholder=" " value={value} />
-            <label htmlFor={name} className="placeholder">{placeholder}</label>
+            <label htmlFor={name} className="placeholder">{name==="search" ? <i className="ri-search-line"></i> : <></>}{placeholder}</label>
             {type == 'password' ? <i className={eye} onClick={showPassword}></i> : ''}
         </div>
     )

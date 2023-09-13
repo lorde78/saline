@@ -8,7 +8,6 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@esbuild/win32-x64": "^0.19.2",
     "@reduxjs/toolkit": "^1.9.5",
     "@remix-run/css-bundle": "^1.17.0",
     "@remix-run/node": "^1.17.0",
@@ -27,6 +26,7 @@
     "react-i18next": "^13.0.1",
     "react-redux": "^8.1.1",
     "react-select": "^5.7.3",
+    "remix-utils": "^6.6.0",
     "remixicon": "^3.4.0",
     "swiper": "^8.4.7"
   },

@@ -1,6 +1,7 @@
 import Input from "~/kits/input";
-import {useState} from "react";
+import {useState,useContext} from "react";
 import useLogin from "~/hook/useLogin";
+import { NavLink } from "@remix-run/react";
 
 export default function Form_login() {
     const [email, setEmail] = useState("")
@@ -9,9 +10,7 @@ export default function Form_login() {
     const login = useLogin()
 
     const submit = (e:any) => {
-        e.preventDefault()
         login(email,password)
-        console.log("hey")
     }
 
     return (
@@ -20,7 +19,7 @@ export default function Form_login() {
                    setValue={setEmail} propsSetValue={""} value={email}/>
             <Input name={"password"} type={"password"} placeholder={"Mot de passe"}
                    setValue={setPassword} propsSetValue={""} value={password}/>
-            <button className={"button"} type="submit" onClick={(e) => submit(e)}>Connexion</button>
+            <NavLink className={"button"} type="submit" onClick={(e:any) => submit(e)} to={"/"}>Connexion</NavLink>
             <a href={""} className={"sub_link"}>Tu as oublié ton mot de passe ?</a>
         </form>
     )

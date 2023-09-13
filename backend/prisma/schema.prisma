@@ -8,111 +8,112 @@ generator client {
 }
 
 model User {
-  id             Int  @id @default(autoincrement())
-  email          String         @unique
-  name           String?
-  firstName      String?
-  password       String
-  token          String?
-  profilePicture String?
-  createdAt      DateTime       @default(now())
-  lastUpdate     DateTime   @updatedAt
-  lastConnection DateTime?
-  roles          Json
-  phoneNumber    String?
-  genre          String?
-  nationality    String?
-  progress       Json
-  birthDate      DateTime?
-  postalAddress  String?
-  Certifications  Certification[]
-  Comments        Comment[]
-  Answers         Answer[]
-  Lessons         Lesson[]
-  Trainings       Training[]
-  Annotations     Annotation[]
-  Classrooms      Classroom[]
-  Discounts       Discount[]
-  Subscriptions   Subscription[]
+  id                  Int             @id @default(autoincrement())
+  email               String          @unique
+  name                String?
+  firstName           String?
+  password            String
+  profilePicture      String?
+  createdAt           DateTime        @default(now())
+  lastUpdate          DateTime        @updatedAt
+  lastConnection      DateTime?
+  roles               Json
+  phoneNumber         String?
+  genre               String?
+  nationality         String?
+  progress            Json
+  birthDate           DateTime?
+  postalAddress       String?
+  Certifications      Certification[]
+  Comments            Comment[]
+  Answers             Answer[]
+  Annotations         Annotation[]
+  teachingClassrooms  Classrooms[]     @relation("ClassroomProfessor")
+  attendingClassrooms Classrooms[]     @relation("ClassroomStudents")
+  trainingsCreated    Training[]      @relation("TrainingAuthor")
+  Trainings           Training[]      @relation("TrainingStudents")
+  lessonsCreated      Lesson[]        @relation("LessonAuthor")
+  attendingLessons    Lesson[]        @relation("LessonStudents")
+  Discounts           Discount[]
+  Subscriptions       Subscription[]
 }
 
 model Certification {
-  id             Int  @id @unique @default(autoincrement())
+  id             Int       @id @unique @default(autoincrement())
   name           String?
   graduationDate DateTime?
-  userId      Int?
-  user        User?     @relation(fields: [userId], references: [id], onDelete: NoAction)
+  userId         Int?
+  user           User?     @relation(fields: [userId], references: [id], onDelete: NoAction)
 }
 
 model Lesson {
-  id             Int  @id @default(autoincrement())
+  id              Int            @id @default(autoincrement())
   title           String?
-  description     String?
+  description     String?        @db.Text
   numberSteps     Int?
+  steps           Json?
   difficultyLevel String?
-  price           Int?
-  duration        String?
   nbViews         Int?
   nbCompleted     Int?
   userId          Int?
-  user            User?          @relation(fields: [userId], references: [id])
+  bannerPicture   String?
+  author          User?          @relation("LessonAuthor", fields: [userId], references: [id])
+  students        User[]         @relation("LessonStudents")
   tags            Tag[]
   trainings       Training[]
   comments        Comment[]
-  classrooms      Classroom[]
   subscriptions   Subscription[]
   videos          Video[]
-  discounts       Discount[]
-  annotations      Annotation[]
+  annotations     Annotation[]
+  professors      Professor[]
 }
 
-model Classroom {
-  id             Int  @id @default(autoincrement())
-  title      String?
-  createdAt  DateTime   @default(now())
-  lastUpdate DateTime   @updatedAt
-  lessons    Lesson[]
-  userId     Int?
-  trainingId Int?
-  author       User?      @relation( fields: [userId], references: [id])
-  training Training? @relation(fields: [trainingId], references: [id])
+model Classrooms {
+  id            Int        @id @default(autoincrement())
+  title         String?
+  createdAt     DateTime   @default(now())
+  lastUpdate    DateTime   @updatedAt
+  userId        Int?
+  bannerPicture String?
+  description   String?    @db.Text
+  author        User?      @relation("ClassroomProfessor", fields: [userId], references: [id])
+  students      User[]     @relation("ClassroomStudents")
+  trainings      Training[]
 }
 
 model Training {
-  id             Int  @id @default(autoincrement())
+  id              Int            @id @default(autoincrement())
   title           String?
-  description     String?
+  description     String?        @db.Text
   difficultyLevel String?
   createdAt       DateTime       @default(now())
   lastUpdate      DateTime       @updatedAt
-  accesibility    Boolean
-  price           Int?
-  duration        String?
   userId          Int?
-  user            User?          @relation(fields: [userId], references: [id])
-  // autor           User?         @relation(fields: [id], references: [id])
   nbViews         Int?
-  nbrCompleted    Int?
-  nbrCertified    Int?
+  nbCompleted     Int?
+  nbCertified     Int?
+  bannerPicture   String?
+  author          User?          @relation("TrainingAuthor", fields: [userId], references: [id])
+  students        User[]         @relation("TrainingStudents")
   lessons         Lesson[]
-  classrooms      Classroom[]
+  classrooms      Classrooms[]
   tags            Tag[]
   subscriptions   Subscription[]
-  discounts       Discount[]
+  professors      Professor[]
 }
 
 model Comment {
-  id             Int  @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   content     String?
   createdAt   DateTime @default(now())
   lastUpdate  DateTime @updatedAt
   nbUpvotes   Int?     @default(0)
   nbDownvotes Int?
   userId      Int?
-  lessonId      Int?
-  lesson      Lesson?    @relation(fields: [lessonId], references: [id])
+  lessonId    Int?
+  lesson      Lesson?  @relation(fields: [lessonId], references: [id])
   answer      Answer[]
-  user        User?     @relation(fields: [userId], references: [id], onDelete: NoAction)
+  user        User?    @relation(fields: [userId], references: [id], onDelete: NoAction)
 }
 
 model Answer {
@@ -123,8 +124,8 @@ model Answer {
   commentId  Int?
   userId     Int?
   validation Boolean
-  user        User?     @relation(fields: [userId], references: [id], onDelete: NoAction)
-  comment        Comment?     @relation(fields: [commentId], references: [id])
+  user       User?    @relation(fields: [userId], references: [id], onDelete: NoAction)
+  comment    Comment? @relation(fields: [commentId], references: [id])
 }
 
 model Annotation {
@@ -134,25 +135,25 @@ model Annotation {
   lastUpdate DateTime @updatedAt
   userId     Int?
   lessonId   Int?
-  author      User?     @relation(fields: [userId], references: [id])
-  lessons     Lesson? @relation(fields: [lessonId], references: [id])
+  author     User?    @relation(fields: [userId], references: [id])
+  lessons    Lesson?  @relation(fields: [lessonId], references: [id])
 }
 
 model Tag {
-  id             Int  @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   title       String?
   trainings   Training[]
   videos      Video[]
   shortVideos ShortVideo[]
-  lessons    Lesson[]
+  lessons     Lesson[]
 }
 
 model Subscription {
-  id             Int  @id @default(autoincrement())
+  id                 Int        @id @default(autoincrement())
   title              String?
   subscriptionType   String?
+  subscriptionTarget String?
   subscriptionStatus Boolean
-  price              Int?
   createdAt          DateTime   @default(now())
   lastUpdate         DateTime   @updatedAt
   lessons            Lesson[]
@@ -160,34 +161,48 @@ model Subscription {
   discounts          Discount[]
   user               User?      @relation(fields: [userId], references: [id])
   nbSubscribers      Int?
-  userId Int?
+  nbCertified        Int?
+  userId             Int?
 }
 
 model Discount {
-  id             Int  @id @default(autoincrement())
+  id             Int            @id @default(autoincrement())
   title          String?
   percentage     Int?
   startDate      DateTime?
   endDate        DateTime?
   discountStatus Boolean
-  createdAt      DateTime   @default(now())
-  lastUpdate     DateTime   @updatedAt
+  createdAt      DateTime       @default(now())
+  lastUpdate     DateTime       @updatedAt
   userId         Int?
-  author         User?      @relation(fields: [userId], references: [id])
-  lessons        Lesson[]
-  trainings      Training[]
+  author         User?          @relation(fields: [userId], references: [id])
   nbPurchases    Int?
-  subscriptions          Subscription[]
+  subscriptions  Subscription[]
+}
+
+model Professor {
+  id          Int       @id @default(autoincrement())
+  firstname   String?
+  lastname    String?
+  description String?   @db.Text
+  instruments Json?
+  nationality String?
+  profilePicture String?
+  awards      Json?
+  video       Video[]
+  lesson      Lesson[]
+  training    Training[]
 }
 
 model Video {
-  id             Int  @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   title       String?
   url         String?
   createdAt   DateTime     @default(now())
   lastUpdate  DateTime     @updatedAt
+  professors  Professor[]
   tags        Tag[]
-  lessons    Lesson[]
+  lessons     Lesson[]
   shortVideos ShortVideo[]
 }
 
@@ -198,6 +213,6 @@ model ShortVideo {
   createdAt  DateTime @default(now())
   lastUpdate DateTime @updatedAt
   tags       Tag[]
-  videoId Int?
+  videoId    Int?
   video      Video?   @relation(fields: [videoId], references: [id])
 }

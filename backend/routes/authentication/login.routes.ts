@@ -31,24 +31,24 @@ router.post('/', async function (req, res, next) {
 
     if (!getCookie(req)) {
         const roles = existingUser.roles
-        const { accessToken } = generateToken({ email, password, roles });
+        const userId = existingUser.id
+        const { accessToken } = generateToken({ userId, email, password, roles });
 
         // Create cookie
         const cookie = sendCookie(res, accessToken);
 
-        res.json({
+        return res.json({
             message: 'Login successful',
-            accessToken,
-            'cookie': getCookie(req)
+            token: accessToken,
+            cookie: getCookie(req)
         });
 
     }
 
-    res.json({
-        message: 'Login successful !',
-        test: existingUser.roles,
+    return res.json({
+        message: 'Login successful',
         token: getCookie(req),
-        'cookie': getCookie(req)
+        cookie: getCookie(req)
     });
 
 });
@@ -69,7 +69,7 @@ router.put('/', async function (req, res, next) {
         data: req.body,
     });
 
-    res.json({
+    return res.json({
         message: 'User updated',
     });
 });
@@ -81,7 +81,7 @@ router.delete('/', async function (req, res, next) {
             id: id,
         },
     })
-    res.json({
+    return res.json({
         message: 'user deleted',
     });
 });

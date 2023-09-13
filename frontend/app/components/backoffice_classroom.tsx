@@ -6,22 +6,40 @@ import Color_picker from "~/kits/color_picker";
 import Checkbox from "~/kits/checkbox";
 import Textarea from "~/kits/textarea";
 import {NavLink, Outlet, useLocation} from "@remix-run/react";
+import useDeleteElement from "~/hook/useDeleteElement";
+import useRemoveLessonFromTraining from "~/hook/useRemoveLessonFromTraining";
+import getIdFromUrl from "~/helper/getIdFromUrl";
 
 type Props = {
     id: number,
     title: string,
-    professor: string,
-    description: string
-    imgLink: string
+    author: {
+        firstName: string,
+        name: string
+    },
+    description: string,
+    imgLink: string,
+    creation_type: string
 };
 export default function Backoffice_classroom({
                                                  id,
                                                  title,
-                                                 professor,
+                                                 author,
                                                  description,
                                                  imgLink,
+                                                 creation_type
                                              }: Props) {
 
+    const deleteElement = useDeleteElement()
+    const getCurrentId = getIdFromUrl(1)
+
+    const submit = (e) => {
+        if(!getCurrentId) {
+            deleteElement(creation_type,id)
+        }
+
+        window.location.reload()
+    }
 
     return (
         <div className={"backoffice_classroom_container"}>
@@ -31,7 +49,7 @@ export default function Backoffice_classroom({
             <div className={"classroom_info"}>
                 <div className={"classroom_header_info"}>
                     <p>{title}</p>
-                    <p>{professor}</p>
+                    <p>{author.firstName} {author.name}</p>
                 </div>
                 <p className={"classroom_description"}>
                     {description}
@@ -40,7 +58,7 @@ export default function Backoffice_classroom({
                     <NavLink className={"button"} to={id.toString()+"/edit"}>
                         Modifier
                     </NavLink>
-                    <button className={"button button_alert"}>Supprimer</button>
+                    <button className={"button button_alert"} type="submit" onClick={(e) => submit(e)}>Supprimer</button>
                 </div>
             </div>
         </div>
