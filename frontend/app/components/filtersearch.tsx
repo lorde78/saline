@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState, useEffect } from 'react';
+import '../styles/input.css';
 
 interface Course {
     id: number;
@@ -24,6 +25,7 @@ const CourseSearch: React.FC = () => {
     const [courses, setCourses] = useState<Course[]>([]);
     const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
     const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false); 
 
     useEffect(() => {
         const jsonData: Course[] = [
@@ -126,13 +128,16 @@ const CourseSearch: React.FC = () => {
     const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const query = e.target.value;
         setSearchQuery(query);
-
+        setIsLoading(true);
 
         const filtered = filterCourses(query);
-        setFilteredCourses(filtered);
+        
+        setTimeout(() => {
+            setFilteredCourses(filtered);
+            setShowSuggestions(query.length > 0);
+            setIsLoading(false); 
+          }, 1000);
 
-
-        setShowSuggestions(query.length > 0);
     };
 
     const filterCourses = (query: string) => {
@@ -154,7 +159,9 @@ const CourseSearch: React.FC = () => {
                 placeholder="Rechercher un cours..."
                 value={searchQuery}
                 onChange={handleSearchInputChange}
+                className='input'
             />
+            {isLoading && <div className="loading-spinner">Loading...</div>}
             {showSuggestions && (
                 <ul>
                     {filteredCourses.map((course) => (
