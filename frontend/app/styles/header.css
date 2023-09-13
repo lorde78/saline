@@ -13,7 +13,7 @@ header {
 }
 
 .menu_initiale {
-	z-index: 100000;
+	z-index: 0;
 	position: fixed;
 	top: 0;
 	right: -100%;

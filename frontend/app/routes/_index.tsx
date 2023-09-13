@@ -76,7 +76,7 @@ export default function Index() {
  
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <Header />
+      <Header search={false}/>
       <Slider slides={slides} />
       <SectionInstrument />
       <MiniSlider slides={slides}/>

@@ -2,9 +2,14 @@ import {useEffect, useState} from 'react';
 import '../styles/header.css';
 import {Link} from 'react-router-dom';
 import LanguageSelect from './selectlanguage';
+import Input from "~/kits/input";
+import Header_shersh from "~/components/header_search";
 
+type Props = {
+    search: boolean,
+}
 
-export default function Header() {
+export default function Header({search}: Props) {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [windowInnerWidth, setWindowInnerWidth] = useState(0);
     const toggleMenu = () => {
@@ -55,6 +60,11 @@ export default function Header() {
                     <div className="line bottom"></div>
                 </div>
             </nav>
+            {search ?
+                <Header_shersh/>
+                :
+                <></>
+            }
         </header>
     );
 }
