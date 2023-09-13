@@ -3,6 +3,6 @@ FROM nginx:1.25.0-alpine
 ADD nginx.conf /etc/nginx/
 ADD server.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80 443 81 8080 8081
+EXPOSE 80 443 81 8080 8081 3040
 
 CMD ["nginx"]
