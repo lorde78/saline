@@ -13,6 +13,11 @@ import inputStyles from "~/styles/input.css";
 import EditPassword from "~/components/editPassword";
 import EditFormule from '~/components/editFormule';
 import formuleStyles from "~/styles/formule.css";
+import Formation from '~/kits/formations';
+import Header from "~/components/header";
+import Footer from "~/components/footer";
+
+
 import { useGlobalEffect } from '~/helper/globalHelper';
 
 const userInfo = {
@@ -28,20 +33,30 @@ export function links() {
   return [{rel: 'stylesheet', href: resetStyles}, {rel: 'stylesheet', href: profileStyles}, {rel: 'stylesheet', href: globalStyles}, {rel: 'stylesheet', href: inputStyles}, {rel: 'stylesheet', href: formuleStyles}]
 }
 
-export default function Profil_page() {
+export default function Profile() {
   useGlobalEffect()
+    return (
 
-  return (
-      <div className="profile-page">
-        {/* <UserInfos src="/assets/images/pdp.png"/> */}
-        {/* <Formule subscription="Annuel" /> */}
-        {/* <Accordion title="Vos formations" content="Content 1" picto="ri-book-mark-line" />
-        <Accordion title="Vos commentaires" content="Content 2" picto="ri-message-3-line" />
-        <Accordion title="Vos certifications" content="Content 3" picto="ri-graduation-cap-line" /> */}
-        {/* <EditUserProfile userInfo={userInfo} /> */}
-        {/* <EditPassword /> */}
-        {/* <Form_register_complementary /> */}
-        <EditFormule />
-      </div>
-  )
+      <>
+            <Header/>
+            <main className={"max_width_container margin-top-20"}>
+                <div className={"main_section_container-grid margin-top-20 max_width"}>
+                  <div className="profile-page">
+                    <UserInfos src="/assets/images/pdp.png"/>
+                    <Formule subscription="Annuel" />
+                    <Accordion type="formations" title="Vos formations" picto="ri-book-mark-line" />
+                    <Accordion type="comments" title="Vos commentaires" picto="ri-message-3-line" />
+                    <Accordion type="graduations" title="Vos certifications" picto="ri-graduation-cap-line" />
+                    {/* <Formation /> */}
+                    {/* <EditUserProfile userInfo={userInfo} /> */}
+                    {/* <EditPassword /> */}
+                    {/* <Form_register_complementary /> */}
+                    {/* <EditFormule /> */}
+                  </div>
+                </div>
+            </main>
+
+            <Footer/>
+        </>
+    )
 }

@@ -22,8 +22,10 @@ const userInfo = {
   lastName: 'Doe',
   email: 'john.doe@example.com',
   gender: 'Homme',
-  dateOfBirth: '1990-07-05',
+  birthDate: '1990-07-05',
+  country: 'France',
   address: '28 rue Albert, Mars',
+  postalCode: 75000,
 };
 
 
@@ -34,16 +36,7 @@ export function links() {
 export default function Profile() {
     return (
         <div className="profile-page">
-          {/* <UserInfos src="/assets/images/pdp.png"/> */}
-          {/* <Formule subscription="Annuel" /> */}
-          {/* <Accordion type="formations" title="Vos formations" picto="ri-book-mark-line" />
-          <Accordion type="comments" title="Vos commentaires" picto="ri-message-3-line" />
-          <Accordion type="graduations" title="Vos certifications" picto="ri-graduation-cap-line" /> */}
-          {/* <Formation /> */}
           <EditUserProfile userInfo={userInfo} />
-          {/* <EditPassword /> */}
-          {/* <Form_register_complementary /> */}
-          {/* <EditFormule /> */}
         </div>
     )
 }

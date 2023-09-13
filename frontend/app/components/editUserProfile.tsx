@@ -1,3 +1,5 @@
+import Input from "~/kits/input";
+import Select from "~/kits/select";
 import { useState, ChangeEvent, FormEvent } from 'react';
 import HeaderNav from "~/kits/headerNav";
 import "~/styles/editProfile.css";
@@ -7,8 +9,10 @@ type UserInfo = {
   lastName: string;
   email: string;
   gender: string;
-  dateOfBirth: string;
+  birthDate: string;
+  country: string;
   address: string;
+  postalCode: number;
 };
 
 type Props = {
@@ -16,20 +20,66 @@ type Props = {
 };
 
 export default function EditUserProfile ({ userInfo }: Props) {
-  const [formData, setFormData] = useState<UserInfo>(userInfo);
+    const [formData, setFormData] = useState<UserInfo>(userInfo);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+    const [email, setEmail] = useState("")
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [birthDate, setBirthDate] = useState("")
+    const [gender, setGender] = useState("")
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const [genderData, setGenderData] = useState([
+        {value: "Quel est ton Genre", option: ""},
+        {value: "Homme", option: "Men"},
+        {value: "Femme", option: "Woman"},
+        {value: "Autre", option: "Other"}
+    ])
+
+    const [genderSelected, setGenderSelected] = useState(0)
+    const [country, setCountry] = useState("")
+    const [address, setAddress] = useState("")
+    const [postalCode, setPostalCode] = useState("")
+
+    const changeGender = (value: string, id: number) => {
+        setGenderSelected(id)
+        setGender(value)
+    }
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        switch (name) {
+          case "email":
+            setEmail(value);
+            break;
+          case "firstname":
+            setFirstName(value);
+            break;
+          case "lastname":
+            setLastName(value);
+            break;
+          case "BirthDate":
+            setBirthDate(value);
+            break;
+          case "Country":
+            setCountry(value);
+            break;
+          case "Address":
+            setAddress(value);
+            break;
+          case "PostalCode":
+            setPostalCode(value);
+            break;
+          // Ajoutez d'autres cas si vous avez d'autres champs
+          default:
+            break;
+        }
+      };
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Logique pour envoyer les données modifiées au serveur
     console.log(formData);
-  };
+    };
 
   return (
     <div>
@@ -38,56 +88,32 @@ export default function EditUserProfile ({ userInfo }: Props) {
         
         <p className="form_section">Infos personnel</p>
  
-        <input
-          className="input_content"
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          />
-        <input
-          className="input_content"
-          type="text"
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleChange}
-          />
-        
-        <input
-          className="input_content"
-          type="text"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-          />
+        <Input name={"email"} type={"email"} placeholder={"Mail"}
+                   setValue={setEmail} propsSetValue={formData.email} value={email || formData.email}/>
 
-        <select 
-          className="input_content input_select"
-          name="gender"
-          onChange={handleChange}
-          defaultValue={formData.gender}
-        >
-          <option value="Homme">Homme</option>
-          <option value="Femme">Femme</option>
-          <option value="Autre">Autre</option>
-        </select>
-        
-        <input
-          className="input_content"
-          type="date"
-          name="dateOfBirth"
-          value={formData.dateOfBirth}
-          onChange={handleChange}
+        <Input name={"firstname"} type={"text"} placeholder={"Prénom"}
+                setValue={setFirstName} propsSetValue={formData.firstName} value={firstName || formData.firstName}/>
+
+        <Input name={"lastname"} type={"text"} placeholder={"Nom"}
+                setValue={setLastName} propsSetValue={formData.lastName} value={lastName || formData.lastName}/>
+        <Select
+            optionSelected={genderSelected}
+            setOptionSelected={setGenderSelected}
+            contents={genderData}
+            setValue={changeGender}
+            propsSetValue={""}
+            
+
         />
         
-        <p className="form_section">Adresse</p>
-        <input
-          className="input_content"
-          type="text"
-          name="address"
-          value={formData.address}
-          onChange={handleChange}
-        />
+        <Input name={"BirthDate"} type={"date"} placeholder={"Date de naissance"}
+                   setValue={setBirthDate} propsSetValue={formData.birthDate} value={birthDate || formData.birthDate}/>
+        <Input name={"Country"} type={"text"} placeholder={"Pays"}
+                setValue={setCountry} propsSetValue={formData.country} value={country || formData.country}/>
+        <Input name={"Address"} type={"text"} placeholder={"Adresse"}
+                setValue={setAddress} propsSetValue={formData.address} value={address || formData.address}/>
+        <Input name={"PostalCode"} type={"text"} placeholder={"Code postal"}
+                setValue={setPostalCode} propsSetValue={formData.postalCode} value={postalCode || formData.postalCode}/>
         
         <button className='button' type="submit">Valider</button>
       </form>
