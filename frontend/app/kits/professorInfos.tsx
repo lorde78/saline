@@ -3,27 +3,35 @@ import "~/styles/professorInfos.css";
 import Tag from "./tag";
 
 type Props = {
-    src: string;
+    src: any;
   };
   
-export default function ProfessorInfos({ src }: Props) {
+export default function ProfessorInfos({ data }: Props) {
 
 
 return (
     <div>
         <div className="professor-infos_container">
             <figure className="profile-pic">
-                <img src={src} alt="photo de profile" />
+                <img src={data.imageLink} alt="photo de profile" />
             </figure>
 
             <div className="professor-role">
                 <p>Rôle:</p>
-                <Tag role="Professeur"/>
+                {data.roles.map ((role, i) => {
+                    return (
+                        <Tag role={role.title}/>
+                    )
+                })}
             </div>
 
             <div className="professor-instrument">
                 <p>Instrument:</p>
-                <Tag role="Piano"/>
+                {data.instruments.map ((instrument, i) => {
+                    return (
+                        <Tag role={instrument.title}/>
+                    )
+                })}
             </div>
         </div>
         <div className="professor-reward">
