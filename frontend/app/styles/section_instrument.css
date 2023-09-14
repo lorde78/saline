@@ -4,6 +4,10 @@
 	padding-top: 50px;
 	background-color: #121525;
 	padding-bottom: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 .secion_instrument_list {
@@ -11,6 +15,7 @@
 	grid-template-columns: repeat(3, 1fr);
 	row-gap: 20px;
 	column-gap: 55px;
+	margin: 0 auto;
 }
 
 .secion_instrument_list_item {
@@ -27,6 +32,7 @@
 
 .section_instrument_container h2 {
 	margin-bottom: 40px;
+	text-align: center;
 }
 
 .secion_instrument_list svg {
@@ -48,9 +54,5 @@
 @media (min-width: 1080px) {
 	.secion_instrument_list {
 		grid-template-columns: repeat(6, 1fr);
-	}
-
-	.section_instrument_container h2{
-		text-align: center;
 	}
 }

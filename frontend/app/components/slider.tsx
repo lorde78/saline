@@ -24,9 +24,13 @@ export const Slider: React.FunctionComponent<SliderProps> = ({ slides }) => {
     const calculateNumVisibleSlides = () => {
         const windowWidth = window.innerWidth;
 
-        for (const breakpoint of breakpoints) {
-            if (windowWidth >= breakpoint.width) {
-                setNumVisibleSlides(breakpoint.slides);
+        if (windowWidth < breakpoints[0].width) {
+            setNumVisibleSlides(1);
+        } else {
+            for (const breakpoint of breakpoints) {
+                if (windowWidth >= breakpoint.width) {
+                    setNumVisibleSlides(breakpoint.slides);
+                }
             }
         }
     };
