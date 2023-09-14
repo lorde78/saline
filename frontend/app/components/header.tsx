@@ -4,9 +4,10 @@ import {Link} from 'react-router-dom';
 import LanguageSelect from './selectlanguage';
 import Input from "~/kits/input";
 import Header_shersh from "~/components/header_search";
+import {NavLink} from "@remix-run/react";
 
 type Props = {
-    search: boolean,
+    search?: boolean,
 }
 
 export default function Header({search}: Props) {
@@ -16,14 +17,27 @@ export default function Header({search}: Props) {
         setMenuOpen(!isMenuOpen);
     };
 
-
     useEffect(() => {
-        console.log(window.innerWidth)
-        setWindowInnerWidth(window.innerWidth)
-        if (window.innerWidth >= 750) {
-            setMenuOpen(false)
-        }
-    }, [windowInnerWidth])
+        const handleResize = () => {
+            const currentWidth = window.innerWidth;
+            setWindowInnerWidth(currentWidth);
+
+            // Fermer le menu quand l'écran passe de 749px à 750px
+            if (currentWidth === 750 && isMenuOpen) {
+                setMenuOpen(false);
+            }
+        };
+
+        // Initialement définir la largeur de la fenêtre
+        handleResize();
+
+        window.addEventListener('resize', handleResize);
+
+        // Supprimer l'écouteur lorsque le composant est démonté
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [isMenuOpen]);
 
     return (
         <header>
@@ -44,21 +58,43 @@ export default function Header({search}: Props) {
                         <></>}
                     <div className={isMenuOpen ? 'menu_initiale menu_open' : 'menu_initiale'}>
                         <ul>
-                            <li><Link to="/">A propos</Link></li>
-                            <li><Link to="/">Contact</Link></li>
-                            <li><Link to="/">Masterclasses</Link></li>
-                            <li><Link to="/">Offres</Link></li>
-                            <li><Link to="/">FAQ</Link></li>
-                            <li><Link to="/">Professeurs</Link></li>
+                            {isMenuOpen || windowInnerWidth <= 750 ?
+                                <li>
+                                    <NavLink to={"/profile"}>
+                                        <div className={"pp_card_small"}>
+                                            <img src={"/assets/images/pdp.png"}/>
+                                        </div>
+                                    </NavLink>
+                                </li>
+                                :
+                                <></>
+                            }
+                            <li><NavLink to={"/courses"}>Cours</NavLink></li>
+                            <li><NavLink to={"/trainings"}>Parours</NavLink></li>
+                            <li><NavLink to={"/classrooms"}>Classe</NavLink></li>
+                            <li><NavLink to={"/logout"} className={"text_alert"}>Déconnexion</NavLink></li>
+                            {/*<li><NavLink to={"/authentication"}>Connexion</NavLink></li>*/}
                         </ul>
                     </div>
                 </div>
-                <LanguageSelect/>
+                <div style={{display: "flex", gap: 20,}}>
+                    <LanguageSelect/>
+                    {isMenuOpen || windowInnerWidth <= 750 ?
+                        <></>
+                        :
+                        <NavLink to={"/profile"}>
+                            <div className={"pp_card_small"}>
+                                <img src={"/assets/images/pdp.png"}/>
+                            </div>
+                        </NavLink>
+                    }
+                </div>
                 <div className={`burger burger-button ${isMenuOpen ? "croix" : ""}`} onClick={toggleMenu}>
                     <div className="line top"></div>
                     <div className="line middle"></div>
                     <div className="line bottom"></div>
                 </div>
+
             </nav>
             {search ?
                 <Header_shersh/>
