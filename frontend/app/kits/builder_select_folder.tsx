@@ -34,30 +34,32 @@ export default function Builder_select_folder({icon, folderType, idType, buttonM
     const [inputSet, setInputSet] = useState(false)
 
     useEffect(() => {
-        let uploadedFile = null;
-        let url = null;
-        let preview = null;
+        if (filesData) {
+            let uploadedFile = null;
+            let url = null;
+            let preview = null;
 
-        if (dbFile) {
-            uploadedFile = dbFile
-        } else {
-            uploadedFile = filesData.find((file: any) => file.fileType === fileType)
-
-        }
-
-        if (uploadedFile) {
-            if (typeof uploadedFile === "string") {
-                url = uploadedFile
-                preview = document.getElementById("preview_" + idType);
+            if (dbFile) {
+                uploadedFile = dbFile
             } else {
-                url = URL.createObjectURL(uploadedFile.file);
-                preview = document.getElementById("preview_" + idType);
+                uploadedFile = filesData.find((file: any) => file.fileType === fileType)
+
             }
 
-            // @ts-ignore
-            preview.src = url;
-            // @ts-ignore
-            preview.style.display = "block";
+            if (uploadedFile) {
+                if (typeof uploadedFile === "string") {
+                    url = uploadedFile
+                    preview = document.getElementById("preview_" + idType);
+                } else {
+                    url = URL.createObjectURL(uploadedFile.file);
+                    preview = document.getElementById("preview_" + idType);
+                }
+
+                // @ts-ignore
+                preview.src = url;
+                // @ts-ignore
+                preview.style.display = "block";
+            }
         }
     },[])
 
@@ -75,13 +77,19 @@ export default function Builder_select_folder({icon, folderType, idType, buttonM
 
     const typePreview = () => {
       switch (idType) {
-          case "video":
+          case "Video":
               return (
-                  <video id={"preview_" + idType} className={"preview"}>
-                      <source src="" />
-                  </video>
+                  <iframe
+                      src=""
+                      id={"preview_" + idType}
+                      frameBorder='0'
+                      allow='autoplay; encrypted-media'
+                      allowFullScreen
+                      title='video'
+                      className={"preview"}
+                  />
               )
-          case "pdf":
+          case "PDF":
               return (
                   <iframe src="" id={"preview_" + idType} className={"preview"}> </iframe>
               )

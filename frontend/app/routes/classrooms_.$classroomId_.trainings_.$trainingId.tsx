@@ -1,16 +1,15 @@
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
 import stylesRefacto from "~/styles/styleRefacto.css";
-import {NavLink} from "@remix-run/react";
 import Header from "~/components/header";
 import Footer from "~/components/footer";
 import User_preview_card from "~/components/user_preview_card";
 import Header_section_page from "~/kits/header_section_page";
 import {useGlobalEffect} from "~/helper/globalHelper";
-import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import getIdFromUrl from "~/helper/getIdFromUrl";
+import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import Loader from "~/kits/loader";
 
 
@@ -23,36 +22,41 @@ export function links() {
     ]
 }
 
-interface Classroom {
-    title: string;
-    bannerPicture: string;
-    description: string;
-    trainings: any;
-}
-
 interface Training {
     id: number;
     title: string;
+    bannerPicture: string;
+    description: string;
     author: {
         name: string;
         firstName: string;
     };
+    lessons: any;
+}
+
+interface Course {
+    id: number;
+    title: string;
     bannerPicture: string;
     description: string;
-    status: string | undefined;
+    author: {
+        name: string,
+        firstName: string
+    }
 }
-export default function Classroom_ClassroomId() {
+
+export default function Classrooms_ClassroomId_Trainings_TrainingId() {
     useGlobalEffect()
     const [loader, setLoader] = useState(false);
     const getCurrentId = getIdFromUrl(0)
 
-    const [classroom, setClassroom] = useState<Classroom | null>(null);
-    const getCurrentClassroom = useGetCurrentElement();
+    const [training, setTraining] = useState<Training | null>(null);
+    const getCurrentTraining = useGetCurrentElement();
 
-    const getClassroom = async () => {
-        const currentClassroom = await getCurrentClassroom("classroom", getCurrentId);
+    const getTraining = async () => {
+        const currentClassroom = await getCurrentTraining("training", getCurrentId);
         //@ts-ignore
-        setClassroom(currentClassroom);
+        setTraining(currentClassroom);
         setLoader(true);
     };
 
@@ -67,7 +71,7 @@ export default function Classroom_ClassroomId() {
             }
         };
 
-        getClassroom()
+        getTraining()
     }, []);
 
     return (
@@ -75,30 +79,25 @@ export default function Classroom_ClassroomId() {
             {loader ? (
                 <>
                     <Header/>
-                    <Header_section_page numberUndoPage={1}  title={classroom?.title || ""}/>
+                    <Header_section_page numberUndoPage={1} title={training?.title || ""}/>
                     <main className={"max_width_container"}>
                         <div className={"main_section_container-flex max_width"}>
                             <div className={"big_banner_image"} style={{height: bannerHeight}}>
-                                <img src={classroom?.bannerPicture} alt={"bannière de la classe"}/>
+                                <img src={training?.bannerPicture} alt={"bannière du cour"}/>
                             </div>
-                            <p>{classroom?.description}</p>
-                            <div className={"classroom_links"}>
-                                <NavLink className={"button"} to={"students"}>
-                                    Listes des élèves
-                                </NavLink>
-                            </div>
+                            <p>{training?.description}</p>
                             <div className={"main_section_container-grid"}>
                                 {
-                                    classroom?.trainings.map((training: Training, i: any) => {
+                                    training?.lessons.map((lesson: Course, i: any) => {
                                         return (
                                             <User_preview_card
-                                                id={training.id}
-                                                title={training.title}
-                                                author={training.author}
-                                                imgLink={training.bannerPicture}
-                                                description={training.description}
+                                                id={lesson.id}
+                                                title={lesson.title}
+                                                author={lesson.author}
+                                                imgLink={lesson.bannerPicture}
+                                                description={lesson.description}
                                                 status={"A faire"}
-                                                redirectTo={`trainings/${training.id}`}
+                                                redirectTo={`courses/${lesson.id}`}
                                             />
                                         )
                                     })

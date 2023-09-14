@@ -88,16 +88,16 @@ export default function Trainings_TrainingId() {
                             <p>{training?.description}</p>
                             <div className={"main_section_container-grid"}>
                                 {
-                                    training?.lessons.map((lesson: Course, i: any) => {
+                                    training?.lessons.map((course: Course, i: any) => {
                                         return (
                                             <User_preview_card
-                                                id={lesson.id}
-                                                title={lesson.title}
-                                                author={lesson.author}
-                                                imgLink={lesson.bannerPicture}
-                                                description={lesson.description}
+                                                id={course.id}
+                                                title={course.title}
+                                                author={course.author}
+                                                imgLink={course.bannerPicture}
+                                                description={course.description}
                                                 status={"A faire"}
-                                                redirectTo={"courses"}
+                                                redirectTo={`courses/${course.id}`}
                                             />
                                         )
                                     })
