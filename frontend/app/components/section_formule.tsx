@@ -30,7 +30,7 @@ export const Offre: React.FunctionComponent<SliderProps> = ({
     const [selectedOffre, setSelectedOffre] = React.useState<string | null>(null);
 
     const handleOffreSelection = (offre: string) => {
-      setSelectedOffre(offre);
+        setSelectedOffre(offre);
     };
 
     const offres: Offre[] = [
@@ -124,70 +124,69 @@ export const Offre: React.FunctionComponent<SliderProps> = ({
                                     </svg>
                                 </div>
                             )}
-                              <div>
-                            <h3>{offre.title}</h3>
-                            <div className="section_formule_item_information">
-                                <span>{offre.price}</span>
-                                <span>{offre.reduction}</span>
-                                <span>{offre.payment}</span>
-                            </div>
-                          
-                            <ul>
-                                {offre.avantage_1 && (
-                                    <li>
-                                        <div className="items">
-                                            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M15 0.341888C14.6095 -0.0486359 13.9763 -0.0486359 13.5858 0.341888L6.34068 7.58699C5.95016 7.97752 5.31699 7.97752 4.92647 7.58699L2.38507 5.04559C1.99454 4.65507 1.36138 4.65507 0.970855 5.04559C0.580331 5.43612 0.58033 6.06928 0.970855 6.45981L3.51774 9C4.68969 10.1689 6.58688 10.1677 7.7574 8.9974L15 1.7561C15.3905 1.36558 15.3905 0.732413 15 0.341888Z" fill="white" />
-                                            </svg>
-                                        </div>
-                                        <span className="items">{offre.avantage_1}</span>
-                                    </li>
-                                )}
-                                {offre.avantage_2 && (
-                                    <li>
-                                        <div className="items">
-                                            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M15 0.341888C14.6095 -0.0486359 13.9763 -0.0486359 13.5858 0.341888L6.34068 7.58699C5.95016 7.97752 5.31699 7.97752 4.92647 7.58699L2.38507 5.04559C1.99454 4.65507 1.36138 4.65507 0.970855 5.04559C0.580331 5.43612 0.58033 6.06928 0.970855 6.45981L3.51774 9C4.68969 10.1689 6.58688 10.1677 7.7574 8.9974L15 1.7561C15.3905 1.36558 15.3905 0.732413 15 0.341888Z" fill="white" />
-                                            </svg>
-                                        </div>
-                                        <span className="items">{offre.avantage_2}</span>
-                                    </li>
-                                )}
-                                {offre.avantage_3 && (
-                                    <li>
-                                        <div className="items">
-                                            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M15 0.341888C14.6095 -0.0486359 13.9763 -0.0486359 13.5858 0.341888L6.34068 7.58699C5.95016 7.97752 5.31699 7.97752 4.92647 7.58699L2.38507 5.04559C1.99454 4.65507 1.36138 4.65507 0.970855 5.04559C0.580331 5.43612 0.58033 6.06928 0.970855 6.45981L3.51774 9C4.68969 10.1689 6.58688 10.1677 7.7574 8.9974L15 1.7561C15.3905 1.36558 15.3905 0.732413 15 0.341888Z" fill="white" />
-                                            </svg>
-                                        </div>
-                                        <span className="items">{offre.avantage_3}</span>
-                                    </li>
-                                )}
-                                {offre.avantage_4 && (
-                                    <li>
-                                        <div className="items">
-                                            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M15 0.341888C14.6095 -0.0486359 13.9763 -0.0486359 13.5858 0.341888L6.34068 7.58699C5.95016 7.97752 5.31699 7.97752 4.92647 7.58699L2.38507 5.04559C1.99454 4.65507 1.36138 4.65507 0.970855 5.04559C0.580331 5.43612 0.58033 6.06928 0.970855 6.45981L3.51774 9C4.68969 10.1689 6.58688 10.1677 7.7574 8.9974L15 1.7561C15.3905 1.36558 15.3905 0.732413 15 0.341888Z" fill="white" />
-                                            </svg>
-                                        </div>
-                                        <span className="items">{offre.avantage_4}</span>
-                                    </li>
-                                )}
-                                {offre.avantage_5 && (
-                                    <li>
-                                        <div className="items">
-                                            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M15 0.341888C14.6095 -0.0486359 13.9763 -0.0486359 13.5858 0.341888L6.34068 7.58699C5.95016 7.97752 5.31699 7.97752 4.92647 7.58699L2.38507 5.04559C1.99454 4.65507 1.36138 4.65507 0.970855 5.04559C0.580331 5.43612 0.58033 6.06928 0.970855 6.45981L3.51774 9C4.68969 10.1689 6.58688 10.1677 7.7574 8.9974L15 1.7561C15.3905 1.36558 15.3905 0.732413 15 0.341888Z" fill="white" />
-                                            </svg>
-                                        </div>
+                            <div>
+                                <h3>{offre.title}</h3>
+                                <div className="section_formule_item_information">
+                                    <span>{offre.price}</span>
+                                    <span>{offre.reduction}</span>
+                                    <span>{offre.payment}</span>
+                                </div>
 
-                                        <span className="items">{offre.avantage_5}</span>
-                                    </li>
-                                )}
-                                
-                            </ul>
+                                <ul>
+                                    {offre.avantage_1 && (
+                                        <li className="items">
+                                            <div className="items_icon">
+                                                <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M15 0.341888C14.6095 -0.0486359 13.9763 -0.0486359 13.5858 0.341888L6.34068 7.58699C5.95016 7.97752 5.31699 7.97752 4.92647 7.58699L2.38507 5.04559C1.99454 4.65507 1.36138 4.65507 0.970855 5.04559C0.580331 5.43612 0.58033 6.06928 0.970855 6.45981L3.51774 9C4.68969 10.1689 6.58688 10.1677 7.7574 8.9974L15 1.7561C15.3905 1.36558 15.3905 0.732413 15 0.341888Z" fill="white" />
+                                                </svg>
+                                            </div>
+                                            <span className="items_text">{offre.avantage_1}</span>
+                                        </li>
+                                    )}
+                                    {offre.avantage_2 && (
+                                        <li className="items">
+                                            <div className="items_icon">
+                                                <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M15 0.341888C14.6095 -0.0486359 13.9763 -0.0486359 13.5858 0.341888L6.34068 7.58699C5.95016 7.97752 5.31699 7.97752 4.92647 7.58699L2.38507 5.04559C1.99454 4.65507 1.36138 4.65507 0.970855 5.04559C0.580331 5.43612 0.58033 6.06928 0.970855 6.45981L3.51774 9C4.68969 10.1689 6.58688 10.1677 7.7574 8.9974L15 1.7561C15.3905 1.36558 15.3905 0.732413 15 0.341888Z" fill="white" />
+                                                </svg>
+                                            </div>
+                                            <span className="items_text">{offre.avantage_2}</span>
+                                        </li>
+                                    )}
+                                    {offre.avantage_3 && (
+                                        <li className="items">
+                                            <div className="items_icon">
+                                                <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M15 0.341888C14.6095 -0.0486359 13.9763 -0.0486359 13.5858 0.341888L6.34068 7.58699C5.95016 7.97752 5.31699 7.97752 4.92647 7.58699L2.38507 5.04559C1.99454 4.65507 1.36138 4.65507 0.970855 5.04559C0.580331 5.43612 0.58033 6.06928 0.970855 6.45981L3.51774 9C4.68969 10.1689 6.58688 10.1677 7.7574 8.9974L15 1.7561C15.3905 1.36558 15.3905 0.732413 15 0.341888Z" fill="white" />
+                                                </svg>
+                                            </div>
+                                            <span className="items_text">{offre.avantage_3}</span>
+                                        </li>
+                                    )}
+                                    {offre.avantage_4 && (
+                                        <li className="items">
+                                            <div className="items_icon">
+                                                <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M15 0.341888C14.6095 -0.0486359 13.9763 -0.0486359 13.5858 0.341888L6.34068 7.58699C5.95016 7.97752 5.31699 7.97752 4.92647 7.58699L2.38507 5.04559C1.99454 4.65507 1.36138 4.65507 0.970855 5.04559C0.580331 5.43612 0.58033 6.06928 0.970855 6.45981L3.51774 9C4.68969 10.1689 6.58688 10.1677 7.7574 8.9974L15 1.7561C15.3905 1.36558 15.3905 0.732413 15 0.341888Z" fill="white" />
+                                                </svg>
+                                            </div>
+                                            <span className="items_text">{offre.avantage_4}</span>
+                                        </li>
+                                    )}
+                                    {offre.avantage_5 && (
+                                        <li className="items">
+                                            <div className="items_icon">
+                                                <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M15 0.341888C14.6095 -0.0486359 13.9763 -0.0486359 13.5858 0.341888L6.34068 7.58699C5.95016 7.97752 5.31699 7.97752 4.92647 7.58699L2.38507 5.04559C1.99454 4.65507 1.36138 4.65507 0.970855 5.04559C0.580331 5.43612 0.58033 6.06928 0.970855 6.45981L3.51774 9C4.68969 10.1689 6.58688 10.1677 7.7574 8.9974L15 1.7561C15.3905 1.36558 15.3905 0.732413 15 0.341888Z" fill="white" />
+                                                </svg>
+                                            </div>
+                                            <span className="items_text">{offre.avantage_5}</span>
+                                        </li>
+                                    )}
+
+                                </ul>
                             </div>
-                            
+
                             <Link to={'paymentpage'} className="button">{offre.buttonText}</Link>
                         </div>
                     </SwiperSlide>

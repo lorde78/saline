@@ -4,6 +4,7 @@
 	padding-bottom: 100px;
     overflow: hidden;
 }
+
 .section_formule_container h2 {
 	margin-bottom: 40px;
 	padding-left: 40px;
@@ -38,7 +39,7 @@
 	align-items: baseline;
 	gap: 10px;
 }
-
+ 
 .section_formule_item_avantage span {
 	font-size: 14px;
 }
@@ -58,18 +59,6 @@
 	overflow: visible !important;
 }
 
-.section_formule_item ul li {
-	display: grid;
-	grid-template-columns: auto 1fr;
-	grid-gap: 16px;
-}
-
-.section_formule_item ul li .items {
-	display: flex;
-	align-items: center;
-	font-size: 14px;
-}
-
 .section_formule_container .swiper-slide {
 	width: 350px;
 }
@@ -80,3 +69,16 @@
 	}
 }
 
+.items {
+	display: flex;
+	align-items: baseline;
+}
+
+.items_icon {
+	margin-right: 10px;
+}
+
+.items_text {
+	text-align: left;
+	font-size: 14px;
+}
