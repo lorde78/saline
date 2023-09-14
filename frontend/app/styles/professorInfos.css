@@ -19,6 +19,8 @@
 
 .professor-reward {
     display: flex;
+    align-items: center;
+    gap: 20px;
     margin: 40px 0;
 }
 
