@@ -37,6 +37,7 @@ export const MiniSlider: React.FunctionComponent<SliderProps> = ({ slides }) => 
         <div className="mini_swiper_container">
             <h2>Progressez aux côtés des plus grands professeurs.</h2>
             <SwiperComponent
+                className={"mini_swiper"}
                 slidesPerView={2}
                 spaceBetween={20}
                 breakpoints={{
@@ -55,8 +56,11 @@ export const MiniSlider: React.FunctionComponent<SliderProps> = ({ slides }) => 
                     <SwiperSlide key={index}>
                         <img src={slide.src} alt={slide.title} />
                         <div className="custom_text_socket_container">
-                            <h3>{slide.name}</h3>
-                            <span>{slide.desc}</span>
+                            <div>
+                                <h3>{slide.name}</h3>
+                                <span>{slide.desc}</span>
+                            </div>
+
                         </div>
                     </SwiperSlide>
                 ))}
