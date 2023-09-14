@@ -69,7 +69,7 @@ export default function Trainings() {
                                             imgLink={training.bannerPicture}
                                             description={training.description}
                                             status={"A faire"}
-                                            redirectTo={"trainings"}
+                                            redirectTo={`${training.id}`}
                                         />
                                     )
                                 })

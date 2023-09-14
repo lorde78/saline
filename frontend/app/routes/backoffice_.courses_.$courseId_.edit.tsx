@@ -134,7 +134,8 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
             ];
         } else if (value === "review") {
             newCourseData[stepSelected].data = {
-                reviewUrl: ""
+                reviewUrl: "",
+                fileType: ""
             };
         }
         setCoursesData(newCourseData);

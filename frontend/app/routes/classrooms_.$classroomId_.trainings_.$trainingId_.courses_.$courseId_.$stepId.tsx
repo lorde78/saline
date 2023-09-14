@@ -34,7 +34,7 @@ interface Step {
     value: string;
 }
 
-export default function Courses_CourseId_StepId() {
+export default function Classrooms_ClassroomId_Trainings_TrainingId_Courses_CourseId_StepId() {
     useGlobalEffect()
     const [loader, setLoader] = useState(false);
     const getCurrentId = getIdFromUrl(1)

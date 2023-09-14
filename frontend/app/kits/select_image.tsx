@@ -2,7 +2,7 @@ import 'remixicon/fonts/remixicon.css'
 import {useState} from "react";
 
 class props {
-    setValue: any;
+    setValue?: any;
 }
 
 export default function Select_image({setValue}:props) {

@@ -74,7 +74,7 @@ export default function Courses_CourseId() {
         <>
             {loader ? (
                 <>
-                    <Header search={true}/>
+                    <Header/>
                     <Header_section_page numberUndoPage={1} title={course?.title || ""}/>
                     <main className={"max_width_container"}>
                         <div className={"main_section_container-flex max_width"}>
