@@ -12,6 +12,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import useCreateBuilderElement from "~/hook/useCreateBuilderElement";
 import editLink from "~/helper/editLink";
 import {LoaderFunction} from "@remix-run/node";
+import useUploadFile from "~/hook/useUploadFile";
 
 type Props = {
     creation_type: string,
@@ -55,43 +56,70 @@ export default function Builder_creation({creation_type, relId, relType}: Props)
         }
     }
 
+    const uploadHook = useUploadFile()
     const creationHook = useCreateBuilderElement()
-    let createdId = null;
+    let createdId: any = null;
+    let bannerUrl: any = null;
 
     const submit = async (e: any) => {
         e.preventDefault()
-        const formData = new FormData();
         const currentUserId = getcurrentUserId()
-        formData.append('title', title);
-        formData.append('userId', currentUserId);
-        // @ts-ignore
-        formData.append("bannerPicture",banner);
-        formData.append('description', description);
+        const fileUpload = new FormData();
 
+        // @ts-ignore
+        fileUpload.append("bannerPicture",banner);
+
+        try {
+            bannerUrl = await uploadHook(fileUpload,"image")
+        } catch(err) {
+            console.log("Erreur lors de l'envoi du fichier :", err);
+        }
+
+        let formData:any = {
+            "title": title,
+            "userId": currentUserId,
+            "bannerPicture": bannerUrl,
+            "description": description
+
+        }
 
         switch (creation_type) {
             case 'training':
-                // @ts-ignore
-                formData.append('difficultyLevel', difficulty);
+                formData = {
+                    ...formData,
+                    "difficultyLevel": difficulty
+                }
+
                 break;
 
             case 'lesson':
-                // @ts-ignore
-                formData.append('difficultyLevel', difficulty);
+                formData = {
+                    ...formData,
+                    "difficultyLevel": difficulty
+                }
+
                 break;
         }
 
         switch (relType) {
             case 'training':
             case 'classroom':
-                formData.append('relType', relType);
-                // @ts-ignore
-                formData.append('relId', relId.toString());
+                formData = {
+                    ...formData,
+                    "relType": relType,
+                    "relId": relId
+                }
+
                 break;
         }
-        createdId = await creationHook(formData,creation_type).then(res => res.id)
 
-        // navigate(editPath + "/" + createdId + "/edit")
+        try {
+            createdId = await creationHook(formData,creation_type).then(res => res.id)
+        } catch(err) {
+            console.log("Erreur lors de l'envoi du fichier :", err);
+        }
+
+        navigate(editPath + "/" + createdId + "/edit")
     }
 
     const complementaryForm = () => {

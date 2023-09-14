@@ -81,9 +81,9 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
         if(currentCourse.steps) {
             //@ts-ignore
             setCoursesData(currentCourse.steps);
-            //@ts-ignore
-            setCourseName(currentCourse.title);
         }
+        //@ts-ignore
+        setCourseName(currentCourse.title);
         setLoader(true);
     };
 
