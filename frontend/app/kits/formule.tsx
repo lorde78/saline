@@ -1,11 +1,11 @@
-import React from "react";
-import "~/style/formule.css";
+import {NavLink} from "@remix-run/react";
+import FormuleTag from "./formuleTag";
 
-type FormuleProps = {
+type Props = {
   subscription: string;
 };
 
-const Formule: React.FC<FormuleProps> = ({ subscription }) => {
+export default function Formule({ subscription }: Props) {
 
   return (
     <div className="formule">
@@ -23,12 +23,12 @@ const Formule: React.FC<FormuleProps> = ({ subscription }) => {
           </div>
         </div>
         
+      <NavLink className='' to={"edit/formula"}>
         <p className="formule_edit-sub">Modifier mon abonnement</p>
+      </NavLink>
       </div>
       
       
     </div>
   );
 };
-
-export default Formule;

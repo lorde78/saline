@@ -7,38 +7,48 @@ interface ContentProps {
 }
 
 interface Props {
-    id: string
-    name: string
+    optionSelected: number
+    setOptionSelected: any
     contents: ContentProps[]
+    setValue: any
+    propsSetValue: any
 }
 
-export default function Select({id, name, contents}: Props) {
+/***
+ * exemple de contente: 
+ * [{value:"Men", option:"Homme"},{value:"Woman", option:"Femme"}, {value:"Other", option:"Autre"}]
+ */
+export default function Select({optionSelected, setOptionSelected, contents, setValue, propsSetValue}: Props) {
     const [showOptionTrue, setShowOptionTrue] = useState(false)
-    const [genderSelect, setGenderSelect] = useState("Quel est votre Genre ?")
-    const [genderSelectValue, setGenderSelectValue] = useState("")
 
     const showOptions = () => {
         setShowOptionTrue(!showOptionTrue)
     }
 
-    const selctOption = (value: string, option:string) => {
-        setGenderSelect(option)
-        setGenderSelectValue(value)
+    const selctOption = (value: string, id:number) => {
         setShowOptionTrue(false)
+        setOptionSelected(id)
+        setValue(value,id, propsSetValue)
     }
 
     return (
         <div className="input-container" id={"select_container"}>
             <div onClick={showOptions} className="select_button">
-                <span>{genderSelect}</span>
+                <span>{contents[optionSelected].value}</span>
                 <i className="ri-expand-up-down-line"></i>
             </div>
-            <ul className={"options"}>
-                {contents.map((content) => {
+            {showOptionTrue ?
+                <span className={"overlay"}
+                      onClick={showOptions}
+                ></span>
+                :
+                <></>}
+            <ul className={showOptionTrue ? "options options-visible" : "options"}>
+                {contents.map((content, i) => {
                     return (
-                        <li onClick={() => selctOption(content.value, content.option)}
-                            className={showOptionTrue ? "option options-visible" : "option"}>
-                            {content.option}
+                        <li onClick={() => selctOption(content.value, i)}
+                            className={showOptionTrue ? "option option-visible" : "option"}>
+                            {content.value}
                         </li>
                     )
                 })}

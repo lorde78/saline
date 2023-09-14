@@ -1,0 +1,25 @@
+.graduations_container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin: 15px 0;
+}
+
+
+.graduation-pic {
+    height: 80px;
+    width: 158px;
+    overflow: hidden;
+}
+
+.graduation-pic > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.graduation_text {
+    display: flex;
+    justify-content: space-between;
+}

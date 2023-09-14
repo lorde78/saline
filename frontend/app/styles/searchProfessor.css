@@ -1,0 +1,21 @@
+.result_professor_container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin: 15px 0;
+}
+
+
+.result_professor-pic {
+    height: 205px;
+    min-height: 205px;
+    min-width: fit-content;
+    overflow: hidden;
+}
+
+.result_professor-pic > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
