@@ -13,9 +13,9 @@
 
 .section_partenaires_list {
 	display: flex;
-	gap: 30px;
-	align-items: baseline;
-	justify-content: space-evenly;
+    gap: 50px;
+    align-items: baseline;
+    justify-content: center;
 }
 
 .section_partenaires_item img {
