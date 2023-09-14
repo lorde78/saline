@@ -22,7 +22,7 @@ export const SectionSalinePlus: React.FC = () => {
         },
         {
             icon: "/assets/images/icones/music.png",
-            text: "Vidéos multi-angles, partitions annotées avec les recommandations des professeurs, analyses de oeuvres et plus encore..."
+            text: "Vidéos multi-angles, partitions annotées avec les recommandations des professeurs, analyses de œuvres et plus encore..."
         },
     ];
 
@@ -31,7 +31,9 @@ export const SectionSalinePlus: React.FC = () => {
             <ul className="section_plus_saline_list">
                 {salines.map((saline, index) => (
                     <li className="section_plus_saline_item" key={index}>
-                        <img src={saline.icon} alt="" />
+                        <div className="icon-container">
+                            <img src={saline.icon} alt="" />
+                        </div>
                         <p>{saline.text}</p>
                     </li>
                 ))}
