@@ -93,7 +93,7 @@ export default function Backoffice_Trainings_TrainingId_Edit_Add() {
         <>
             {loader ?
                 <>
-                    <Header_section_page numberUndoPage={1} title={"Ajouter un cours"}/>
+                    <Header_section_page numberUndoPage={1} title={"Ajouter un cours"} logout={true}/>
                     <section className={"max_width_container"}>
                         <div className={"backoffice_training_preview_container max_width"}>
                             <button className={"button"} onClick={(e) => submit(e)}>Ajouter les cours</button>

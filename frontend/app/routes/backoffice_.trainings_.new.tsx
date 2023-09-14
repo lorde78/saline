@@ -35,7 +35,7 @@ export default function Backoffice_Trainings_New() {
 
     return (
         <>
-            <Header_section_page numberUndoPage={1} title={"Créer un parcours"} />
+            <Header_section_page numberUndoPage={1} title={"Créer un parcours"} logout={true}/>
             <section className={"max_width_container"}>
                 <div className={"builder_container max_width"}>
                     {/* @ts-ignore */}

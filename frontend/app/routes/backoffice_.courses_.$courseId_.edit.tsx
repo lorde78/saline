@@ -144,7 +144,7 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
         <>
             {loader ? (
                 <>
-                    <Header_section_page title={courseName} numberUndoPage={2} />
+                    <Header_section_page title={courseName} numberUndoPage={2} edit={true} logout={true} />
                     <div className={"builder_container"}>
                         <Builder_navigation
                             courseData={courseData}

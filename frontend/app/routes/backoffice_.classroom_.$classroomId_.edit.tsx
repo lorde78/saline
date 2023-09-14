@@ -60,7 +60,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit() {
         <>
             {loader ? (
                 <>
-                    <Header_section_page numberUndoPage={2} title={classroom?.title || ""} />
+                    <Header_section_page numberUndoPage={2} title={classroom?.title || ""}  logout={true} edit={true}/>
                     <section className={"max_width_container"}>
                         <div className={"main_section_container-flex max_width"}>
                             <div className={"big_banner_image"} style={{ height: bannerHeight }}>

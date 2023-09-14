@@ -93,28 +93,6 @@
     gap: 10px;
 }
 
-.professors_card {
-    width: 150px;
-    height: 200px;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: var(--secondary-color);
-}
-.pp_card_small {
-    width: 60px;
-    height: 60px;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: var(--secondary-color);
-}
-
-.professors_card img,
-.pp_card_small img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
 /* courses video */
 
 .courses_preview_video {
