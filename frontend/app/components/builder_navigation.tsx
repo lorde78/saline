@@ -5,15 +5,17 @@ import useAddStepsToLesson from "~/hook/useAddStepsToLesson";
 import getIdFromUrl from "~/helper/getIdFromUrl";
 import {useNavigate} from "react-router-dom";
 import editLink from "~/helper/editLink";
+import useUploadFile from "~/hook/useUploadFile";
 
 type Props = {
-    courseData: any
-    setCoursesData: any
-    stepSelected: number
-    setStepSelected: any
-    typeExercise: any
-    exerciseSelected: number
-    setExerciseSelected: any
+    courseData: any;
+    setCoursesData: any;
+    stepSelected: number;
+    setStepSelected: any;
+    typeExercise: any;
+    exerciseSelected: number;
+    setExerciseSelected: any;
+    filesData: any;
 }
 export default function Builder_navigation({
                                                courseData,
@@ -22,12 +24,15 @@ export default function Builder_navigation({
                                                setStepSelected,
                                                typeExercise,
                                                exerciseSelected,
-                                               setExerciseSelected
+                                               setExerciseSelected,
+                                               filesData
                                            }: Props) {
     const getCurrentId = getIdFromUrl(1)
     const navigate = useNavigate()
     const editPath = editLink(2)
     const addSteps = useAddStepsToLesson()
+
+    const uploadHook = useUploadFile()
 
     const selecStep = (value: string, id: number) => {
         // @ts-ignore
@@ -101,7 +106,7 @@ export default function Builder_navigation({
             setCoursesData(newCourseData)
         }
     }
-    const resetStep = () => {
+    const resetStep = async () => {
         let newCourseData = [...courseData]
         newCourseData[stepSelected].type = ""
         newCourseData[stepSelected].data = {}
@@ -109,13 +114,53 @@ export default function Builder_navigation({
         setCoursesData(newCourseData)
     }
 
-    const sendData = () => {
+    const sendData = async () => {
         courseData.map((row: any) => {
           if (row.type === "") {
               alert("Veuillez choisir un type pour l'étape " + row.id)
               return
           }
         })
+
+        let urls: { fileUrl: any; stepId: any; }[] = [];
+
+        await Promise.all(filesData.map(async (file: any) => {
+            const fileUpload = new FormData();
+            fileUpload.append("fileToUpload", file.file)
+            let fileUrl = await uploadHook(fileUpload, file.fileType)
+            urls.push({
+                fileUrl: fileUrl,
+                stepId: file.stepId
+            })
+        }))
+
+        for (const file of filesData) {
+            let newCourseData = [...courseData]
+            let docIndex = null;
+
+            const isMatching = urls.find(url => url.stepId === file.stepId)
+
+            if (isMatching) {
+                switch (file.fileType) {
+                    case 'documentations':
+                        docIndex = newCourseData.findIndex((row: any) => row.id === file.stepId)
+
+                        if (docIndex !== -1)
+                            newCourseData[docIndex].data.infoDescription.url = isMatching.fileUrl;
+                        setCoursesData(newCourseData)
+                        break;
+
+                    case 'instructions':
+                        docIndex = newCourseData.findIndex((row: any) => row.id === file.stepId)
+
+                        if (docIndex !== -1)
+                            newCourseData[docIndex].data.reviewUrl = isMatching.fileUrl;
+                        setCoursesData(newCourseData)
+                        break;
+                }
+            }
+        }
+
         addSteps(courseData,true,getCurrentId)
 
         navigate(editPath+"?isPosted=true")

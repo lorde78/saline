@@ -67,7 +67,7 @@ export default function Builder_creation({creation_type, relId, relType}: Props)
         const fileUpload = new FormData();
 
         // @ts-ignore
-        fileUpload.append("bannerPicture",banner);
+        fileUpload.append("fileToUpload",banner);
 
         try {
             bannerUrl = await uploadHook(fileUpload,"image")

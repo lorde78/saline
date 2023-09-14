@@ -9,7 +9,7 @@ router.post('/', async function (req, res, next) {
     let directory = req.query.dir;
     let upload = createUpload(directory).upload;
 
-    upload.single("bannerPicture")(req, res, function (err) {
+    upload.single("fileToUpload")(req, res, function (err) {
         if (err) {
             return res.status(500).json({ error: err.message });
         }

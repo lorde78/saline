@@ -5,7 +5,7 @@ export default function useUploadFile() {
         let directory = null;
         switch(file_type) {
             case 'documentations':
-                directory = "uploads/files/documentations"
+                directory = "uploads/files/documentations/"
                 break;
 
             case 'instructions':

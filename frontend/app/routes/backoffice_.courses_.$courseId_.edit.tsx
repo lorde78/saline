@@ -65,6 +65,8 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
     const getCurrentId = getIdFromUrl(1);
     const [loader, setLoader] = useState(false);
 
+    const [filesData,setFilesData] = useState([])
+
     const [courseName, setCourseName] = useState<string>(""); // Ajouter un type de chaîne
     const [courseData, setCoursesData] = useState<CourseData>([
         {
@@ -104,7 +106,10 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
         if (value === "video") {
             newCourseData[stepSelected].data = {
                 video: "",
-                infoDescription: "",
+                infoDescription: {
+                    text: "",
+                    url: ""
+                },
                 description: "",
             };
         } else if (value === "exercise/qcm") {
@@ -128,7 +133,9 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
                 },
             ];
         } else if (value === "review") {
-            newCourseData[stepSelected].data = {};
+            newCourseData[stepSelected].data = {
+                reviewUrl: ""
+            };
         }
         setCoursesData(newCourseData);
     };
@@ -147,12 +154,15 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
                             typeExercise={typeExercise}
                             exerciseSelected={exerciseSelected}
                             setExerciseSelected={setExerciseSelected}
+                            filesData={filesData}
                         />
                         {courseData[stepSelected].type === "video" ? (
                             <Builder_step_video
                                 courseData={courseData}
                                 setCoursesData={setCoursesData}
                                 stepSelected={stepSelected}
+                                filesData={filesData}
+                                setFilesData={setFilesData}
                             />
                         ) : courseData[stepSelected].type === "exercise/qcm" ? (
                             <Builder_step_exercice
@@ -173,6 +183,8 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
                                 courseData={courseData}
                                 setCoursesData={setCoursesData}
                                 stepSelected={stepSelected}
+                                filesData={filesData}
+                                setFilesData={setFilesData}
                             />
                         ) : (
                             <Builder_select_step

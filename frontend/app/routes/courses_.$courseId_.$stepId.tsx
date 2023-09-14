@@ -90,7 +90,7 @@ export default function Courses_CourseId_StepId() {
         <>
             {loader ? (
                 <>
-                    <Header/>
+                    <Header search={true}/>
                     <Header_section_page numberUndoPage={1} title={title || ""}/>
                     <main className={"max_width_container margin-top-20"}>
                         <div className={"main_section_container-flex max_width"}>
