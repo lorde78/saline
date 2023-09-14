@@ -10,7 +10,7 @@
     padding: 30px 0;
 }
 
-.header-nav > i {
+.header-nav > .return-button {
     position: absolute;
     left: 0;
 }

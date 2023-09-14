@@ -1,3 +1,4 @@
+import {NavLink} from "@remix-run/react";
 import FormuleTag from "./formuleTag";
 
 type Props = {
@@ -20,7 +21,9 @@ export default function Formule({ subscription }: Props) {
           </div>
         </div>
         
+      <NavLink className='' to={"edit/formula"}>
         <p className="formule_edit-sub">Modifier mon abonnement</p>
+      </NavLink>
       </div>
       
       
