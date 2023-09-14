@@ -132,7 +132,7 @@ merge:
     - docker push ${URL_GIT}remix-preprod
     - fi
     - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
-        - docker tag mysql:5.7 ${URL_GIT}db-prod
+    - docker tag mysql:5.7 ${URL_GIT}db-prod
     - docker push ${URL_GIT}db-prod
     - docker tag saline-web3-academy-express ${URL_GIT}express-prod
     - docker build -t ${URL_GIT}express-prod backend
