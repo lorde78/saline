@@ -67,7 +67,7 @@ export default function Classroom() {
         <>
             {loader ?
                 <>
-                    <Header/>
+                    <Header search={true}/>
                     <main className={"max_width_container margin-top-20"}>
                         <h1>Liste des classes</h1>
                         <div className={"main_section_container-grid margin-top-20 max_width"}>

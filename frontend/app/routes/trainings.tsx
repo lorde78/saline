@@ -10,6 +10,7 @@ import {useGlobalEffect} from "~/helper/globalHelper";
 import {signinContext} from "~/context/signinContext";
 import useGetAllElements from "~/hook/useGetAllElements";
 import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
+import Loader from "~/kits/loader";
 
 
 export function links() {
@@ -34,43 +35,54 @@ interface Training {
 
 export default function Trainings() {
     useGlobalEffect()
+    const [loader, setLoader] = useState(false);
 
     const [trainings, setTrainings] = useState<Training[]>([]);
     // @ts-ignore
     const getAllTrainings = useGetAllElements();
 
+    const getTrainings = async () => {
+        const currentTraining = await getAllTrainings("training","");
+        setTrainings(currentTraining);
+        setLoader(true);
+    };
+
     useEffect(() => {
-        getAllTrainings("training","").then(r => {
-            if (!trainings.length) {
-                setTrainings(r);
-            }
-        })
+        getTrainings()
     }, [])
 
     return (
         <>
-            <Header/>
-            <main className={"max_width_container margin-top-20"}>
-                <h1>Liste des parcours</h1>
-                <div className={"main_section_container-grid margin-top-20 max_width"}>
-                    {
-                        trainings.map((training, i) => {
-                            return (
-                                <User_preview_card
-                                    id={training.id}
-                                    title={training.title}
-                                    author={training.author}
-                                    imgLink={training.bannerPicture}
-                                    description={training.description}
-                                    status={"A faire"}
-                                    redirectTo={"trainings"}
-                                />
-                            )
-                        })
-                    }
-                </div>
-            </main>
-            <Footer/>
+            {loader ? (
+                <>
+                    <Header search={true}/>
+                    <main className={"max_width_container margin-top-20"}>
+                        <h1>Liste des parcours</h1>
+                        <div className={"main_section_container-grid margin-top-20 max_width"}>
+                            {(trainings ?? []).length !== 0 ? (
+                                trainings.map((training, i) => {
+                                    return (
+                                        <User_preview_card
+                                            id={training.id}
+                                            title={training.title}
+                                            author={training.author}
+                                            imgLink={training.bannerPicture}
+                                            description={training.description}
+                                            status={"A faire"}
+                                            redirectTo={"trainings"}
+                                        />
+                                    )
+                                })
+                            ) : (
+                                <p>Aucun parcours n'existe pour le moment.</p>
+                            )}
+                        </div>
+                    </main>
+                    <Footer/>
+                </>
+            ) : (
+                <Loader/>
+            )}
         </>
     )
         ;

@@ -43,20 +43,20 @@ export default function Backoffice_edit_training({
     }
 
     return (
-        <div className={"backoffice_training_container backoffice_training_container-open"}>
-            <div className={"training_image"}>
+        <div className={"preview_card preview_card-row"}>
+            <div className={"banner_image"}>
                 <img src={imgLink} alt={"bannière du cours"}/>
             </div>
-            <div className={"training_info"}>
-                <div className={"training_header_info"}>
+            <div className={"preview_card_content"}>
+                <div className={"content_header"}>
                     <p>{title}</p>
                     <p>{author.firstName} {author.name}</p>
                 </div>
-                <p className={"training_description"}>
+                <p className={"training_description margin-top-20"}>
                     {description}
                 </p>
                 {showButton ?
-                    <div className={"training_button"}>
+                    <div className={"preview_card_button margin-top-20"}>
                         <NavLink className={"button"} to={`/backoffice/courses/${id}/edit`}>
                             Modifier
                         </NavLink>

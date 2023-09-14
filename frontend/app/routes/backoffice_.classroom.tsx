@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
-import classroom from "~/styles/backofficeClassrooom.css";
+import styleRefacto from "~/styles/styleRefacto.css";
 import { NavLink, Outlet, useLocation } from "@remix-run/react";
 import Backoffice_classroom from "~/components/backoffice_classroom";
 import Header_section_page from "~/kits/header_section_page";
@@ -14,7 +14,7 @@ export function links() {
         { rel: 'stylesheet', href: resetStyles },
         { rel: 'stylesheet', href: styles },
         { rel: 'stylesheet', href: input },
-        { rel: 'stylesheet', href: classroom }
+        { rel: 'stylesheet', href: styleRefacto }
     ];
 }
 
@@ -46,8 +46,8 @@ export default function Backoffice_Classroom() {
     return (
         <>
             <Header_section_page numberUndoPage={1} title={"Classes"} />
-            <section className={"max_width_container"}>
-                <div className={"backoffice_classroom_preview_container max_width"}>
+            <section className={"max_width_container margin-top-20"}>
+                <div className={"main_section_container-flex max_width"}>
                     <NavLink to={"new"} className={"button"}>
                         Créer une classe
                     </NavLink>

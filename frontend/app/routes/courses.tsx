@@ -8,6 +8,7 @@ import Footer from "~/components/footer";
 import User_preview_card from "~/components/user_preview_card";
 import {useGlobalEffect} from "~/helper/globalHelper";
 import useGetAllElements from "~/hook/useGetAllElements";
+import Loader from "~/kits/loader";
 
 
 export function links() {
@@ -32,43 +33,53 @@ interface Course {
 
 export default function Courses() {
     useGlobalEffect()
+    const [loader, setLoader] = useState(false);
 
     const [courses, setCourses] = useState<Course[]>([]);
     // @ts-ignore
     const getAllCourses = useGetAllElements();
 
+    const getCourses = async () => {
+        const currentCourse = await getAllCourses("lesson","");
+        setCourses(currentCourse);
+        setLoader(true);
+    };
+
     useEffect(() => {
-        getAllCourses("lesson","").then(r => {
-            if (!courses.length) {
-                setCourses(r);
-            }
-        })
-    }, [])
+        getCourses();
+    }, []);
 
     return (
         <>
-            <Header/>
-            <main className={"max_width_container margin-top-20"}>
-                <h1>Liste des cours</h1>
-                <div className={"main_section_container-grid margin-top-20 max_width"}>
-                    {
-                        courses.map((course, i) => {
-                            return (
-                                <User_preview_card
-                                    id={course.id}
-                                    title={course.title}
-                                    author={course.author}
-                                    imgLink={course.bannerPicture}
-                                    description={course.description}
-                                    redirectTo={"courses"}
-                                />
-                            )
-                        })
-                    }
-                </div>
-            </main>
-            <Footer/>
+            {loader ? (
+                <>
+                    <Header search={true}/>
+                    <main className={"max_width_container margin-top-20"}>
+                        <h1>Liste des cours</h1>
+                        <div className={"main_section_container-grid margin-top-20 max_width"}>
+                            {(courses ?? []).length !== 0 ? (
+                                courses.map((course, i) => {
+                                    return (
+                                        <User_preview_card
+                                            id={course.id}
+                                            title={course.title}
+                                            author={course.author}
+                                            imgLink={course.bannerPicture}
+                                            description={course.description}
+                                            redirectTo={"courses"}
+                                        />
+                                    )
+                                })
+                            ) : (
+                                <p>Aucun cours n'existe pour le moment.</p>
+                            )}
+                        </div>
+                    </main>
+                    <Footer/>
+                </>
+            ) : (
+                <Loader/>
+            )}
         </>
-    )
-        ;
+    );
 }

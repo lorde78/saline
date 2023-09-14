@@ -74,16 +74,16 @@ export default function Courses_CourseId() {
         <>
             {loader ? (
                 <>
-                    <Header/>
+                    <Header search={true}/>
                     <Header_section_page numberUndoPage={1} title={course?.title || ""}/>
                     <main className={"max_width_container"}>
                         <div className={"main_section_container-flex max_width"}>
                             <div className={"big_banner_image"} style={{height: bannerHeight}}>
-                                <img src={course?.bannerPicture} alt={"bannière du cour"}/>
+                                <img src={course?.bannerPicture} alt={"bannière du cours"}/>
                             </div>
                             <p>{course?.description}</p>
                             <div className={"main_section_container-flex max_width"}>
-                                {
+                                {(course?.steps ?? []).length !== 0 ? (
                                     course?.steps.map((step: Step, i: number) => {
                                         return (
                                             <User_preview_card_noimage
@@ -94,7 +94,9 @@ export default function Courses_CourseId() {
                                             />
                                         )
                                     })
-                                }
+                                ) : (
+                                    <p>Aucune étape n'existe dans ce cours.</p>
+                                )}
                             </div>
                         </div>
                     </main>

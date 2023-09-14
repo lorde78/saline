@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
-import classroom from "~/styles/backofficeClassrooom.css";
+import styleRefacto from "~/styles/styleRefacto.css";
 import Header_section_page from "~/kits/header_section_page";
 import Checkbox from "~/kits/checkbox";
 import { useGlobalEffect } from "~/helper/globalHelper";
@@ -18,7 +18,7 @@ export function links() {
         {rel: 'stylesheet', href: resetStyles},
         {rel: 'stylesheet', href: styles},
         {rel: 'stylesheet', href: input},
-        {rel: 'stylesheet', href: classroom}
+        { rel: 'stylesheet', href: styleRefacto }
     ]
 }
 
@@ -54,7 +54,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
         getClassroom()
     }, []);
 
-    const [studentsAdd, setStudentsAdd] = useState([])
+    const [studentsAdd, setStudentsAdd] = useState<{ [key: string]: any }>({});
 
     const checkStudents = (value:boolean, props:any) => {
         let newStudentsAdd = {...studentsAdd}
@@ -76,19 +76,20 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
         window.location.reload()
     }
 
+    // @ts-ignore
     return (
         <>
             {loader ?
                 <>
                     {/* @ts-ignore */}
-                    <Header_section_page numberUndoPage={1} title={classroom.title}/>
+                    <Header_section_page numberUndoPage={1} title={classroom?.title}/>
                     <section className={"max_width_container"}>
-                        <div className={"classroom_container-open max_width"}>
-                            <div className={"classroom_image_banner"} style={{height: bannerHeight}}>
+                        <div className={"main_section_container-flex max_width"}>
+                            <div className={"big_banner_image"} style={{height: bannerHeight}}>
                                 {/* @ts-ignore */}
-                                <img src={classroom.bannerPicture} alt={"bannière de la classe"}/>
+                                <img src={classroom?.bannerPicture} alt={"bannière de la classe"}/>
                             </div>
-                            <div className={"classroom_links"}>
+                            <div className={"main_section_container-flex"}>
                                 <NavLink to={"add"} className={"button"}>
                                     Ajouter des élèves
                                 </NavLink>
@@ -96,12 +97,11 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
                                     Supprimer les élèves sélectionnés
                                 </button>
                             </div>
-                            <div className={"backoffice_students_preview_container"}>
-                                {
+                            <div className={"main_section_container-flex"}>
+                                {/* @ts-ignore */
+                                    (classroom?.students ?? []).length !== 0 ? (
                                     /* @ts-ignore */
-                                    classroom.students.map((student, i) => {
-                                        // @ts-ignore
-                                        let item = studentsAdd[student.id].value
+                                    classroom?.students.map((student, i) => {
                                         return (
                                             <Checkbox
                                                 name={"studentName" + student.id}
@@ -109,11 +109,13 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
                                                 text={student.firstName + " " + student.name}
                                                 setValue={checkStudents}
                                                 propsSetValue={{id: student.id}}
-                                                value={item ? item.value : false}
+                                                value={studentsAdd[student.id] ? studentsAdd[student.id].value : false}
                                             />
                                         )
                                     })
-                                }
+                                    ) : (
+                                        <p>Aucun élève ne participe à cette classe.</p>
+                                    )}
                             </div>
                         </div>
                     </section>

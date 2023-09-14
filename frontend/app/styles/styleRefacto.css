@@ -38,6 +38,13 @@
     }
 }
 
+.preview_card_button {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+}
+
 .main_section_container-flex .big_banner_image {
     width: 100%;
     transition: .4s;

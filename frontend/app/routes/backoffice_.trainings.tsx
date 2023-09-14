@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
-import training from "~/styles/backofficeTraining.css";
+import styleRefacto from "~/styles/styleRefacto.css";
 import Header_section_page from "~/kits/header_section_page";
 import Backoffice_training from "~/components/backoffice_training";
 import { NavLink } from "@remix-run/react";
@@ -25,7 +25,7 @@ export function links() {
         { rel: 'stylesheet', href: resetStyles },
         { rel: 'stylesheet', href: styles },
         { rel: 'stylesheet', href: input },
-        { rel: 'stylesheet', href: training }
+        { rel: 'stylesheet', href: styleRefacto }
     ];
 }
 
@@ -47,8 +47,8 @@ export default function Backoffice_Trainings() {
     return (
         <>
             <Header_section_page numberUndoPage={1} title={"Parcours"} />
-            <section className={"max_width_container"}>
-                <div className={"backoffice_training_preview_container max_width"}>
+            <section className={"max_width_container margin-top-20"}>
+                <div className={"main_section_container-flex max_width"}>
                     <NavLink to={"new"} className={"button"}>
                         Ajouter un parcours
                     </NavLink>
