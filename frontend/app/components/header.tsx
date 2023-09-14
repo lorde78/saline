@@ -13,7 +13,7 @@ export default function Header() {
 
 
     useEffect(() => {
-        console.log(window.innerWidth)
+        
         setWindowInnerWidth(window.innerWidth)
         if (window.innerWidth >= 750) {
             setMenuOpen(false)

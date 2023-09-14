@@ -1,5 +1,4 @@
-import * as React from "react";
-import "swiper/swiper-bundle.min.css";
+import React, { useEffect, useState } from "react";
 import '../styles/slider.css';
 import '../styles/style.css';
 
@@ -13,54 +12,82 @@ interface SliderProps {
 }
 
 export const Slider: React.FunctionComponent<SliderProps> = ({ slides }) => {
-    const [Swiper, setSwiper] = React.useState<any>(null);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [numVisibleSlides, setNumVisibleSlides] = useState(1);
 
-    React.useEffect(() => {
-        import("swiper/react").then((module) => {
-            setSwiper(module);
-        });
+    const breakpoints = [
+        { width: 600, slides: 2 },
+        { width: 900, slides: 3 },
+        { width: 1100, slides: 4 },
+    ];
+
+    const calculateNumVisibleSlides = () => {
+        const windowWidth = window.innerWidth;
+
+        for (const breakpoint of breakpoints) {
+            if (windowWidth >= breakpoint.width) {
+                setNumVisibleSlides(breakpoint.slides);
+            }
+        }
+    };
+
+    const handleAutoplay = () => {
+        const timer = setInterval(() => {
+            setCurrentIndex((prevIndex) =>
+                (prevIndex + 1) % slides.length
+            );
+        }, 3000);
+        return () => clearInterval(timer);
+    };
+
+    useEffect(() => {
+        calculateNumVisibleSlides();
+        handleAutoplay();
+        const handleResize = () => {
+            calculateNumVisibleSlides();
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
     }, []);
 
-    if (!Swiper) {
-        return null;
-    }
+    const generateDuplicatedSlides = () => {
+        const duplicatedSlides = [];
+        const totalSlides = slides.length;
+        for (let i = 0; i < numVisibleSlides; i++) {
+            for (let j = 0; j < totalSlides; j++) {
+                const index = (currentIndex + j) % totalSlides;
+                duplicatedSlides.push(slides[index]);
+            }
+        }
+        return duplicatedSlides;
+    };
 
-    const { Swiper: SwiperComponent, SwiperSlide } = Swiper;
-
-    const defaultSlides: Slide[] = [];
-
-    const allSlides = slides.length > 0 ? slides : defaultSlides;
+    const duplicatedSlides = generateDuplicatedSlides();
 
     return (
         <div className="swiper_home_container">
-            <SwiperComponent
-                slidesPerView={1}
-                autoplay={{  
-                    delay: 3000, 
-                    disableOnInteraction: false, 
-                }}
-                breakpoints={{
-                    576: {
-                        slidesPerView: 2,
-                    },
-                    768: {
-                        slidesPerView: 3,
-                    },
-                    992: {
-                        slidesPerView: 4,
-                    },
-                }}
+            <div
+                className={`custom-carousel visible-${numVisibleSlides}`}
             >
-                {allSlides.map((slide, index) => (
-                    <SwiperSlide key={index}>
+                {duplicatedSlides.map((slide, index) => (
+                    <div
+                        key={index}
+                        className={`carousel-slide ${index >= currentIndex && index < currentIndex + numVisibleSlides
+                                ? 'active'
+                                : ''
+                            }`}
+                    >
                         <img src={slide.src} alt={slide.title} />
-                    </SwiperSlide>
+                    </div>
                 ))}
-            </SwiperComponent>
+            </div>
             <div className="custom_text_socket_container">
                 <div className="custom_text_socket">
-                    Faites partie des meilleurs
-                    musiciens au monde.
+                    Faites partie des meilleurs musiciens au monde.
                 </div>
                 <a className="button">La suite</a>
             </div>

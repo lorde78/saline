@@ -49,4 +49,8 @@
 	.secion_instrument_list {
 		grid-template-columns: repeat(6, 1fr);
 	}
+
+	.section_instrument_container h2{
+		text-align: center;
+	}
 }

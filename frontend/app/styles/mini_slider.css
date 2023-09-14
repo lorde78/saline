@@ -4,6 +4,8 @@
 	margin-bottom: 100px;
 }
 
+
+
 .mini_swiper_container h2 {
 	margin-bottom: 40px;
     padding-top: 40px;
@@ -46,5 +48,11 @@
 
 	.mini_swiper_container .custom_text_socket_container span{
 		font-size: 14px;
+	}
+}
+
+@media screen and (min-width: 1000px){
+	.mini_swiper_container h2{
+		text-align: center;
 	}
 }

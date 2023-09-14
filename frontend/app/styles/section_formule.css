@@ -72,4 +72,9 @@
 	width: 350px;
 }
 
+@media screen and (min-width: 1000px){
+	.section_formule_container h2{
+		text-align: center;
+	}
+}
 
