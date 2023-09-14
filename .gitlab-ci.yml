@@ -59,15 +59,22 @@ build-code-all:
     - cd backend && touch .env
     - if [ "$CI_COMMIT_REF_NAME" = "dev" ]; then
     - echo "DATABASE_URL=${DEV_DATABASE_URL}" >> .env
+    - echo "BASE_URL=${DEV_BASE_URL}" >> .env
+    - echo "JWT_REFRESH_SECRET=${DEV_JWT_REFRESH_SECRET}" >> .env
+    - echo "JWT_ACCESS_SECRET=${DEV_JWT_ACCESS_SECRET}" >> .env
     - fi
     - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
     - echo "DATABASE_URL=${PREPROD_DATABASE_URL}" >> .env
+    - echo "BASE_URL=${PREPROD_BASE_URL}" >> .env
+    - echo "JWT_REFRESH_SECRET=${PREPROD_REFRESH_SECRET}" >> .env
+    - echo "JWT_ACCESS_SECRET=${PREPROD_JWT_ACCESS_SECRET}" >> .env
     - fi
     - if [ "$CI_COMMIT_REF_NAME" = "main" ]; then
     - echo "DATABASE_URL=${DATABASE_URL}" >> .env
-    - fi
+    - echo "BASE_URL=${BASE_URL}" >> .env
     - echo "JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}" >> .env
     - echo "JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}" >> .env
+    - fi
     - cd ..  && touch .env
     - if [ "$CI_COMMIT_REF_NAME" = "dev" ]; then
     - echo "ENV_TARGET=preprod" >> .env
