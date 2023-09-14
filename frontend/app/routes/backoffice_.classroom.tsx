@@ -45,7 +45,7 @@ export default function Backoffice_Classroom() {
 
     return (
         <>
-            <Header_section_page numberUndoPage={1} title={"Classes"} />
+            <Header_section_page numberUndoPage={1} title={"Classes"} logout={true}/>
             <section className={"max_width_container margin-top-20"}>
                 <div className={"main_section_container-flex max_width"}>
                     <NavLink to={"new"} className={"button"}>

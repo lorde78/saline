@@ -33,7 +33,7 @@ export default function Backoffice_Users_UserId() {
 
     return (
         <>
-            <Header_section_page numberUndoPage={1} title={user.firstName + " " + user.lastName}/>
+            <Header_section_page numberUndoPage={1} title={user.firstName + " " + user.lastName} logout={true}/>
             <section className={"max_width_container"}>
                 <div className={"main_section_container-flex margin-top-20 max_width"}>
                     <UserInfos src={user.imgLink}/>

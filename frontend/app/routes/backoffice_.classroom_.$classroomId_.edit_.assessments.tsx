@@ -74,7 +74,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Assessments() {
 
     return (
         <>
-            <Header_section_page numberUndoPage={1} title={"évaluations"} />
+            <Header_section_page numberUndoPage={1} title={"évaluations"}  logout={true}/>
             <section className={"max_width_container"}>
                 <div className={"backoffice_assessments_preview_container max_width"}>
                     {assessments.map((assessment, i) => (

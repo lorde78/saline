@@ -22,7 +22,7 @@ export default function Backoffice_Classroom_New() {
 
     return (
         <>
-            <Header_section_page numberUndoPage={1} title={"Créer une classe"} />
+            <Header_section_page numberUndoPage={1} title={"Créer une classe"} logout={true} />
             <section className={"max_width_container"}>
                 <div className={"builder_container max_width"}>
                     <Builder_creation creation_type={"classroom"}/>

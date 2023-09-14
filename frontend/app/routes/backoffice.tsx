@@ -42,6 +42,9 @@ export default function Backoffice() {
                     <NavLink className={"button"} to={"trainings"}>
                         Parcours
                     </NavLink>
+                    <NavLink className={"button"} to={"users"}>
+                        Users
+                    </NavLink>
                     <NavLink className={"button"} to={"courses"}>
                         Cours
                     </NavLink>

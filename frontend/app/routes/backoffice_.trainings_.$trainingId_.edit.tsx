@@ -74,7 +74,7 @@ export default function Backoffice_Trainings_TrainingId_Edit() {
         <>
             {loader ? (
                 <>
-                    <Header_section_page numberUndoPage={2} title={training?.title ?? ''} />
+                    <Header_section_page numberUndoPage={2} title={training?.title ?? ''} logout={true} edit={true}/>
                     <section className={"max_width_container"}>
                         <div className={"backoffice_training_preview_container max_width"}>
                             <div className={"button_header"}>

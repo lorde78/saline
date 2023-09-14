@@ -43,7 +43,7 @@ export default function BackofficeTrainingsTrainingId_CourseId() {
 
     return (
         <>
-            <Header_section_page numberUndoPage={1} title={"Créer un cours"} />
+            <Header_section_page numberUndoPage={1} title={"Créer un cours"} logout={true} />
             <section className={"max_width_container"}>
                 <div className={"builder_container max_width"}>
                     <Builder_creation creation_type={"lesson"} relId={loaderData.relId} relType={loaderData.relType} />

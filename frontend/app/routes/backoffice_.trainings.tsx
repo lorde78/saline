@@ -46,7 +46,7 @@ export default function Backoffice_Trainings() {
 
     return (
         <>
-            <Header_section_page numberUndoPage={1} title={"Parcours"} />
+            <Header_section_page numberUndoPage={1} title={"Parcours"} logout={true}/>
             <section className={"max_width_container margin-top-20"}>
                 <div className={"main_section_container-flex max_width"}>
                     <NavLink to={"new"} className={"button"}>

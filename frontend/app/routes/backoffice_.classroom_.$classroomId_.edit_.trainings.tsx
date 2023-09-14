@@ -52,7 +52,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Trainings() {
         <>
             {loader ?
                 <>
-                    <Header_section_page numberUndoPage={1} title={classroom.title} />
+                    <Header_section_page numberUndoPage={1} title={classroom.title}  logout={true}/>
                     <section className={"max_width_container"}>
                         <div className={"backoffice_training_preview_container max_width"}>
                             <div className={"button_header"}>
