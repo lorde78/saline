@@ -29,18 +29,18 @@ export default function User_course_video_nav({
                 )
             case "Informations":
                 return (
-                    <>
-                        {informations.document ?
-                            <iframe src="informations.document" id={"preview_" + id} className={"preview"}></iframe>
+                    <div className={"grid_content"}>
+                        {informations.url ?
+                            <iframe src={informations.url} id={"preview_" + id} className={"course_preview_folder"}></iframe>
                             :
                             <></>
                         }
                         {informations ?
-                            <p>{informations}</p>
+                            <p>{informations.text}</p>
                             :
                             <p>Aucune description</p>
                         }
-                    </>
+                    </div>
                 )
             case
             "Commentaires"

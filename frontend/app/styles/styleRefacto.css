@@ -3,6 +3,19 @@
     flex-direction: column;
     gap: 20px;
 }
+.main_section_container-flex-row {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+@media screen and (min-width: 500px) {
+    .main_section_container-flex-row {
+        justify-content: space-between;
+    }
+}
 
 .main_section_container-grid {
     display: grid;
@@ -106,6 +119,35 @@
 .courses_preview_video iframe {
     width: 100%;
     height: 100%;
+}
+
+.grid_content {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: 20px;
+}
+
+@media(min-width: 500px) {
+    .grid_content {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.course_preview_folder {
+    position: relative;
+    display: flex;
+    height: 500px;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 50px;
+    overflow: hidden;
+    align-self: center;
+    justify-self: center;
+    margin-bottom: 20px;
 }
 
 .courses_content_container {
@@ -213,7 +255,7 @@
     gap: 10px;
 }
 
-    /* courses QCM */
+/* courses QCM */
 
 
 /* courses bindlist */
@@ -252,3 +294,63 @@
     color: var(--action-color);
 }
 /* courses bindlist */
+
+
+.professor_card_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.professor_card_container img {
+    transition: .4s;
+}
+.professor_card_container:hover img {
+    transform: scale(1.1);
+}
+
+
+/*slider infini*/
+.top_page_container {
+    position: relative;
+    padding-bottom: 50px;
+}
+
+.infinite-slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+.infinite-slider {
+    height: 60vh;
+    display: flex;
+    white-space: nowrap;
+}
+
+.infinite-slider img {
+    flex-shrink: 0;
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.2s;
+}
+
+.top_page_container > div:last-child {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    background: linear-gradient(180deg, rgba(31, 22, 61, 0.00) 0%, #121525 55.21%);
+}
+.top_page_container > div:last-child .button  {
+    width: 50vw;
+}

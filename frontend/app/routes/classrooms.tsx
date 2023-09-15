@@ -80,6 +80,7 @@ export default function Classroom() {
                                             author={classroom.author}
                                             imgLink={classroom.bannerPicture}
                                             description={classroom.description}
+                                            redirectTo={"classrooms"}
                                         />
                                     );
                                 })
