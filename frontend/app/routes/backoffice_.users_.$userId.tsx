@@ -8,6 +8,8 @@ import {useState} from "react";
 import UserInfos from "~/kits/userInfos";
 import Accordion from "~/kits/accordion";
 import Formule from "~/kits/formule";
+import {Slider} from "~/components/slider";
+import Select from "~/kits/select";
 
 export function links() {
     return [
@@ -31,16 +33,33 @@ export default function Backoffice_Users_UserId() {
             createdAt: "12/12/2020"
         })
 
+    const [role, setRole] = useState("")
+    const [roleData, setRoleData] = useState([
+        {value: "User", option: "User"},
+        {value: "Responsable pédagogique", option: "Responsable pédagogique"},
+        {value: "Professeur", option: "Professeur"},
+        {value: "Marketing", option: "Marketing"},
+        {value: "Admin", option: "Admin"},
+    ])
+    const [roleSelected, setRoleSelected] = useState(0)
+
     return (
         <>
             <Header_section_page numberUndoPage={1} title={user.firstName + " " + user.lastName} logout={true}/>
             <section className={"max_width_container"}>
                 <div className={"main_section_container-flex margin-top-20 max_width"}>
-                    <UserInfos src={user.imgLink}/>
-                    <Formule subscription="Annuel" />
-                    <Accordion title="Vos formations" content="Content 1" picto="ri-book-mark-line" />
-                    <Accordion title="Vos commentaires" content="Content 2" picto="ri-message-3-line" />
-                    <Accordion title="Vos certifications" content="Content 3" picto="ri-graduation-cap-line" />
+                    <div className={"pp_card_small"}>
+                        <img src={user.imgLink}/>
+                    </div>
+                    <h2>Role :</h2>
+                    <Select
+                        optionSelected={roleSelected}
+                        setOptionSelected={setRoleSelected}
+                        contents={roleData}
+                        setValue={setRole}
+                        propsSetValue={""}
+                    />
+                    <button className={"button"}>Valider</button>
                 </div>
             </section>
         </>
