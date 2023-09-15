@@ -31,6 +31,7 @@ export default function Select({optionSelected, setOptionSelected, contents, set
         setValue(value,id, propsSetValue)
     }
 
+
     return (
         <div className="input-container" id={"select_container"}>
             <div onClick={showOptions} className="select_button">

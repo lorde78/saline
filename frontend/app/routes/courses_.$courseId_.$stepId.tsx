@@ -14,7 +14,6 @@ import {useGlobalEffect} from "~/helper/globalHelper";
 import getIdFromUrl from "~/helper/getIdFromUrl";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import Loader from "~/kits/loader";
-import builder from "~/styles/builder.css";
 
 
 export function links() {
@@ -23,7 +22,6 @@ export function links() {
         {rel: 'stylesheet', href: styles},
         {rel: 'stylesheet', href: input},
         {rel: 'stylesheet', href: stylesRefacto},
-        { rel: "stylesheet", href: builder }
     ]
 }
 
@@ -92,7 +90,7 @@ export default function Courses_CourseId_StepId() {
         <>
             {loader ? (
                 <>
-                    <Header/>
+                    <Header search={true}/>
                     <Header_section_page numberUndoPage={1} title={title || ""}/>
                     <main className={"max_width_container margin-top-20"}>
                         <div className={"main_section_container-flex max_width"}>

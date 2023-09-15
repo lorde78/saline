@@ -37,7 +37,7 @@
 
 textarea {
     resize: none;
-    height: 9rem;
+    height: 100%;
 }
 
 .input:focus {
@@ -97,9 +97,6 @@ textarea {
 }
 
 
-<<<<<<< HEAD
-#select_container {
-=======
 
 /*checkbox style */
 .checkbox {
@@ -156,7 +153,6 @@ input:checked + .check svg {
 }
 
 .input-container #select_container {
->>>>>>> dev
     position: relative;
     display: flex;
     flex-direction: column;
@@ -173,20 +169,12 @@ input:checked + .check svg {
 
 .input-container .options {
     position: absolute;
-<<<<<<< HEAD
-    top: 100%;
-
-    width: 100%;
-    height: auto;
-    border-radius: 0 0 5px 5px;
-=======
     top: 110%;
     flex-direction: column;
     width: 100%;
     height: auto;
     max-height: 200px;
     border-radius: 10px;
->>>>>>> dev
 
 
     background-color: var(--secondary-color);
@@ -217,14 +205,10 @@ input:checked + .check svg {
     color: var(--secondary-color);
 }
 
-<<<<<<< HEAD
-.options-visible {
-=======
 .input-container .options-visible {
     overflow-y: scroll;
 }
 .input-container .option-visible {
->>>>>>> dev
     opacity: 100%;
     height: 100%;
     padding: 10px 20px;

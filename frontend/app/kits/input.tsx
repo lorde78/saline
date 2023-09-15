@@ -5,6 +5,9 @@ type Props = {
     name: string
     type: string
     placeholder: string
+    setValue: any
+    propsSetValue : any
+    value: any
 };
 
 /***
@@ -40,7 +43,8 @@ type Props = {
  *
  */
 
-export default function Input({type, name, placeholder}: Props) {
+
+export default function Input({type, name, placeholder, setValue, propsSetValue, value}: Props) {
 
     const [typeInput, setTypeInput] = useState(type)
     const [eye, setEye] = useState("ri-eye-2-line")

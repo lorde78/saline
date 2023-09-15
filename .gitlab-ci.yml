@@ -62,21 +62,18 @@ build-code-all:
     - echo "BASE_URL=${DEV_BASE_URL}" >> .env
     - echo "JWT_REFRESH_SECRET=${DEV_JWT_REFRESH_SECRET}" >> .env
     - echo "JWT_ACCESS_SECRET=${DEV_JWT_ACCESS_SECRET}" >> .env
-    - echo "PORT=${DEV_PORT}" >> .env
     - fi
     - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
     - echo "DATABASE_URL=${PREPROD_DATABASE_URL}" >> .env
     - echo "BASE_URL=${PREPROD_BASE_URL}" >> .env
     - echo "JWT_REFRESH_SECRET=${PREPROD_REFRESH_SECRET}" >> .env
     - echo "JWT_ACCESS_SECRET=${PREPROD_JWT_ACCESS_SECRET}" >> .env
-    - echo "PORT=${PREPROD_PORT}" >> .env
     - fi
     - if [ "$CI_COMMIT_REF_NAME" = "main" ]; then
     - echo "DATABASE_URL=${DATABASE_URL}" >> .env
     - echo "BASE_URL=${BASE_URL}" >> .env
     - echo "JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}" >> .env
     - echo "JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}" >> .env
-    - echo "PORT=${PORT}" >> .env
     - fi
     - cd ..  && touch .env
     - if [ "$CI_COMMIT_REF_NAME" = "dev" ]; then
@@ -135,7 +132,7 @@ merge:
     - docker push ${URL_GIT}remix-preprod
     - fi
     - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
-    - docker tag mysql:5.7 ${URL_GIT}db-prod
+        - docker tag mysql:5.7 ${URL_GIT}db-prod
     - docker push ${URL_GIT}db-prod
     - docker tag saline-web3-academy-express ${URL_GIT}express-prod
     - docker build -t ${URL_GIT}express-prod backend
@@ -150,7 +147,7 @@ merge:
 
 
 
-# DEPLOY ---
+# DEPLOY --
 deploy-containers:
   image: alpine:latest
   extends: 

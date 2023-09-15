@@ -1,5 +1,5 @@
 import React from "react";
-import "~/style/tag.css";
+import "~/styles/tag.css";
 
 type Props = {
     role: string;

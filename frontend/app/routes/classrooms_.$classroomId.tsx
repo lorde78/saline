@@ -98,7 +98,7 @@ export default function Classroom_ClassroomId() {
                                                 imgLink={training.bannerPicture}
                                                 description={training.description}
                                                 status={"A faire"}
-                                                redirectTo={`trainings/${training.id}`}
+                                                redirectTo={"trainings"}
                                             />
                                         )
                                     })

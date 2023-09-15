@@ -65,7 +65,7 @@ export default function Backoffice_Courses() {
 
     return (
         <>
-            <Header_section_page title={"Cours"} numberUndoPage={1} logout={true} />
+            <Header_section_page title={"Cours"} numberUndoPage={2} logout={true} />
             {/*<Header_section_page numberUndoPage={1} title={"Cours"} />*/}
             <section className={"max_width_container margin-top-20"}>
                 <div className={"main_section_container-flex max_width"}>

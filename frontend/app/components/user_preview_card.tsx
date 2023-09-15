@@ -11,7 +11,7 @@ type Props = {
     description: string
     imgLink: string
     status?: string
-    redirectTo: string
+    redirectTo?: string
 };
 export default function User_preview_card({
                                           id,
@@ -50,7 +50,7 @@ export default function User_preview_card({
     }
 
     return (
-        <NavLink to={redirectTo} className={"preview_card"}>
+        <NavLink to={`/${redirectTo}/${id.toString()}`} className={"preview_card"}>
             <div className={"banner_image"}>
                 <img src={imgLink} alt={""}/>
             </div>

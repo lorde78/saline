@@ -70,7 +70,7 @@ export default function Header({search}: Props) {
                                 <></>
                             }
                             <li><NavLink to={"/courses"}>Cours</NavLink></li>
-                            <li><NavLink to={"/trainings"}>Parcours</NavLink></li>
+                            <li><NavLink to={"/trainings"}>Parours</NavLink></li>
                             <li><NavLink to={"/classrooms"}>Classe</NavLink></li>
                             <li><NavLink to={"/logout"} className={"text_alert"}>Déconnexion</NavLink></li>
                             {/*<li><NavLink to={"/authentication"}>Connexion</NavLink></li>*/}

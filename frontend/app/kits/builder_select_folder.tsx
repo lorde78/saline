@@ -1,6 +1,7 @@
 import 'remixicon/fonts/remixicon.css'
 import {useEffect, useState} from "react";
 import {preview} from "vite";
+import {html} from "mdast-util-to-markdown/lib/handle/html";
 
 
 interface Props {
@@ -33,40 +34,36 @@ export default function Builder_select_folder({icon, folderType, idType, buttonM
     const [inputSet, setInputSet] = useState(false)
 
     useEffect(() => {
-        if (filesData) {
-            let uploadedFile = null;
-            let url = null;
-            let preview = null;
+        let uploadedFile = null;
+        let url = null;
+        let preview = null;
 
-            if (dbFile) {
-                uploadedFile = dbFile
+        if (dbFile) {
+            uploadedFile = dbFile
+        } else {
+            uploadedFile = filesData.find((file: any) => file.fileType === fileType)
+
+        }
+
+        if (uploadedFile) {
+            if (typeof uploadedFile === "string") {
+                url = uploadedFile
+                preview = document.getElementById("preview_" + idType);
             } else {
-                uploadedFile = filesData.find((file: any) => file.fileType === fileType)
-
+                url = URL.createObjectURL(uploadedFile.file);
+                preview = document.getElementById("preview_" + idType);
             }
 
-            if (uploadedFile) {
-                if (typeof uploadedFile === "string") {
-                    url = uploadedFile
-                    preview = document.getElementById("preview_" + idType);
-                } else {
-                    url = URL.createObjectURL(uploadedFile.file);
-                    preview = document.getElementById("preview_" + idType);
-                }
-
-                // @ts-ignore
-                preview.src = url;
-                // @ts-ignore
-                preview.style.display = "block";
-            }
+            // @ts-ignore
+            preview.src = url;
+            // @ts-ignore
+            preview.style.display = "block";
         }
     },[])
 
     const showPreview = (input:any) => {
         setInputSet(true)
-        console.log(input);
         var url = URL.createObjectURL(input);
-        console.log(' lien : ' + url)
         var preview = document.getElementById("preview_" + idType);
 
         // @ts-ignore
@@ -78,24 +75,17 @@ export default function Builder_select_folder({icon, folderType, idType, buttonM
 
     const typePreview = () => {
       switch (idType) {
-          case "Video":
+          case "video":
               return (
-                  <iframe
-                      src=""
-                      id={"preview_" + idType}
-                      frameBorder='0'
-                      allow='autoplay; encrypted-media'
-                      allowFullScreen
-                      title='video'
-                      className={"preview"}
-                  />
+                  <video id={"preview_" + idType} className={"preview"}>
+                      <source src="" />
+                  </video>
               )
-          case "PDF":
+          case "pdf":
               return (
                   <iframe src="" id={"preview_" + idType} className={"preview"}> </iframe>
               )
           default :
-              console.log(idType)
               return
       }
     }

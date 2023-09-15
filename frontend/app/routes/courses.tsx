@@ -66,7 +66,7 @@ export default function Courses() {
                                             author={course.author}
                                             imgLink={course.bannerPicture}
                                             description={course.description}
-                                            redirectTo={`${course.id}`}
+                                            redirectTo={"courses"}
                                         />
                                     )
                                 })
