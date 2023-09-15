@@ -95,7 +95,7 @@ export default function Comment({
         <div>
           <div className="comment_responses">
             {responsesData &&
-              responsesData.map((response, i) => {
+              responsesData.map((response:any, i:any) => {
                 return (
                   <Response
                     key={i}

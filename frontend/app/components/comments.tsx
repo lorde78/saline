@@ -12,7 +12,7 @@ export default function Comments ({ commentsData, needResponses }: Props) {
 
   return (
       <div className="comments_container">
-        {commentsData.map((comment, i) => {
+        {commentsData.map((comment:any, i:any) => {
           return (<Comment
             key={i}
             username={comment.username}
