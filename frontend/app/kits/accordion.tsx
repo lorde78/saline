@@ -3,11 +3,13 @@ import Comments from "~/components/comments";
 import "~/styles/accordion.css";
 import Formation from "./formations";
 import Graduation from "./graduations";
+import LessonsFromProf from "~/kits/lessonsFromProf";
 
 type Props = {
   type: string;
   title: string;
   picto: string;
+  data?: any;
 };
 
 const fakeCommentData = [
@@ -83,7 +85,7 @@ const fakeGraduationsData = [
   },
 ];
 
-export default function Accordion({type, title, picto}: Props) {
+export default function Accordion({type, title, picto, data}: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [contentHeight, setContentHeight] = useState<number | undefined>(undefined);
 
@@ -95,15 +97,17 @@ export default function Accordion({type, title, picto}: Props) {
 
     switch (type) {
       case "comments":
-
         return <Comments commentsData={fakeCommentData} />
       
       case "formations":
-          return <Formation formationData={fakeFormationsData}/>
+        return <Formation formationData={fakeFormationsData}/>
 
       case "graduations":
-          return <Graduation graduationData={fakeGraduationsData}/>
-          
+        return <Graduation graduationData={fakeGraduationsData}/>
+
+      case "lessons":
+        return <LessonsFromProf lessonData={data}/>;
+
       default:
           break
   }

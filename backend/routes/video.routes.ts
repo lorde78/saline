@@ -1,15 +1,15 @@
 var express = require('express');
+// @ts-ignore
 const { database } = require('../config/db.ts');
 
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { title, url, lessonsId } = req.body;
+    const { title, url } = req.body;
     const video = await database.video.create({
         data: {
             title: title,
-            url: url,
-            lessonsId: parseInt(lessonsId),
+            url: url
         }
     })
 
@@ -32,19 +32,33 @@ router.delete('/', async function (req, res, next) {
 });
 
 router.put('/', async function (req, res, next) {
-    const { id } = req.query;
+    const { id, profId } = req.query;
+    let updateVideo = null;
 
     if (!id) {
         res.status(400);
         throw new Error('You must provide an id ');
     }
 
-    const updateVideo = await database.video.update({
-        where: {
-            id: parseInt(id),
-        },
-        data: req.body
-    })
+    if (!profId) {
+        updateVideo = await database.video.update({
+            where: {
+                id: parseInt(id),
+            },
+            data: req.body
+        })
+    } else {
+        updateVideo = await database.video.update({
+            where: {
+                id: parseInt(id),
+            },
+            data: {
+                professors: {
+                    connect: {id: parseInt(profId)}
+                }
+            }
+        })
+    }
 
     res.json({
         message: 'video updated',
@@ -52,19 +66,29 @@ router.put('/', async function (req, res, next) {
 });
 
 router.get('/', async function (req, res, next) {
-    const { id, lessonId } = req.query;
-    if (!id || !lessonId) {
-        res.status(400);
-        throw new Error('You must provide an id or lessonId. ');
+    const { id } = req.query;
+    let videos = null;
+
+    if (!id) {
+        videos = await database.video.findMany({
+            include: {
+                lessons: true,
+                professors: true
+            }
+        })
+    } else {
+        videos = await database.video.findMany({
+            where: {
+                    id: parseInt(id),
+            },
+            include: {
+                lessons: true,
+                professors: true
+            }
+        })
     }
-    const videos = await database.video.findMany({
-        where: {
-            OR: [
-                { videoId: parseInt(id) },
-                { lessonId: parseInt(lessonId) },
-            ],
-        },
-    })
+
+
     res.json({
         "videos": videos
     });

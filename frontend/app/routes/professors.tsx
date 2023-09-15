@@ -53,7 +53,6 @@ interface Professor {
 export default function Professors() {
     useGlobalEffect();
     const [loader, setLoader] = useState(false);
-
     const [professors, setProfessors] = useState<Professor[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
 

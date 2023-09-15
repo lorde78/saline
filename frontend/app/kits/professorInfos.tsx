@@ -3,33 +3,62 @@ import "~/styles/professorInfos.css";
 import Tag from "./tag";
 
 type Props = {
-    src: string;
+    profilePicture: string;
+    jobs: any;
+    instruments: any;
+    awards: any;
   };
-  
-export default function ProfessorInfos({ src }: Props) {
 
+interface Job {
+    title: string
+}
 
-return (
-    <div>
-        <div className="professor-infos_container">
-            <figure className="profile-pic">
-                <img src={src} alt="photo de profile" />
-            </figure>
+interface Instrument {
+    title: string
+}
 
-            <div className="professor-role">
-                <p>Rôle:</p>
-                <Tag role="Professeur"/>
+interface Award {
+    text: string
+}
+
+export default function ProfessorInfos({ profilePicture, jobs, instruments, awards }: Props) {
+
+    return (
+        <div>
+            <div className="professor-infos_container">
+                <figure className="profile-pic">
+                    <img src={profilePicture} alt="photo de profile" />
+                </figure>
+
+                <div className="professor-role">
+                    <p>Rôle:</p>
+                    {jobs.map((job:Job, i:number) => {
+                        return (
+                            <Tag role={job.title} key={i}/>
+                        )
+                    })}
+                </div>
+
+                <div className="professor-instrument">
+                    <p>Instrument:</p>
+                    {instruments.map((instrument:Instrument, i:number) => {
+                        return (
+                            <Tag role={instrument.title} key={i}/>
+                        )
+                    })}
+                </div>
             </div>
 
-            <div className="professor-instrument">
-                <p>Instrument:</p>
-                <Tag role="Piano"/>
+            <div className="professor-reward">
+                {awards.map((award:Award, i:number) => {
+                    return (
+                        <>
+                            <i className="ri-award-line"></i>
+                            <p>{award.text}</p>
+                        </>
+                    )
+                })}
             </div>
         </div>
-        <div className="professor-reward">
-            <i className="ri-award-line"></i>
-            <p>En 1990, il gagne le Premier Prix de la "Genva Competition".</p>
-        </div>
-    </div>
-);
+    );
 };

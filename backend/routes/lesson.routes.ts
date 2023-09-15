@@ -105,7 +105,14 @@ router.put('/', async function (req, res, next) {
                         id: parseInt(id),
                     },
                     data: {
-                        steps: req.body.steps
+                        steps: req.body.steps,
+                        videos: {
+                            connect: req.body.steps.map(step => {
+                                if (step.type === "video") {
+                                    return {id: parseInt(step.id)}
+                                }
+                            })
+                        }
                     }
                 })
             }
