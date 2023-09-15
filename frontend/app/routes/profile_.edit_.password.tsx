@@ -14,27 +14,61 @@ import EditPassword from "~/components/editPassword";
 import EditFormule from '~/components/editFormule';
 import formuleStyles from "~/styles/formule.css";
 import Formation from '~/kits/formations';
-
-
-
-const userInfo = {
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'john.doe@example.com',
-  gender: 'Homme',
-  dateOfBirth: '1990-07-05',
-  address: '28 rue Albert, Mars',
-};
-
+import Header from "~/components/header";
+import Header_section_page from "~/kits/header_section_page";
+import React, {useContext, useEffect, useState} from "react";
+import Footer from "~/components/footer";
+import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
+import {useGlobalEffect} from "~/helper/globalHelper";
+import {signinContext} from "~/context/signinContext";
+import useGetCurrentElement from "~/hook/useGetCurrentElement";
 
 export function links() {
-  return [{rel: 'stylesheet', href: resetStyles}, {rel: 'stylesheet', href: profileStyles}, {rel: 'stylesheet', href: globalStyles}, {rel: 'stylesheet', href: inputStyles}, {rel: 'stylesheet', href: formuleStyles}]
+    return [{rel: 'stylesheet', href: resetStyles}, {rel: 'stylesheet', href: profileStyles}, {rel: 'stylesheet', href: globalStyles}, {rel: 'stylesheet', href: inputStyles}, {rel: 'stylesheet', href: formuleStyles}]
 }
 
-export default function Profile() {
+export default function Profile_Edit_Password() {
+    useGlobalEffect()
+    const [loader, setLoader] = useState(false);
+    // @ts-ignore
+    const [signin, setSignin] = useContext(signinContext);
+
+    const [currentUser, setCurrentUser] = useState<any>("")
+    const getCurrentUser = useGetCurrentElement();
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                if (signin) {
+                    const currentUserId = await useGetCurrentUserId(signin);
+                    setLoader(true)
+                    getCurrentUser("user", currentUserId).then((r: any) => {
+                        if (currentUser === "") {
+                            setCurrentUser(r);
+                            setLoader(true)
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchUser()
+    }, [signin])
+
     return (
-        <div className="profile-page">
-          <EditPassword />
-        </div>
+        <>
+            <Header/>
+            <Header_section_page numberUndoPage={2} title={"Modifier mon password"} logout={true}/>
+            <main className={"max_width_container margin-top-20"}>
+                <div className={"main_section_container-grid margin-top-20 max_width"}>
+                    <div className="profile-page">
+                        <EditPassword userInfo={currentUser}/>
+                    </div>
+                </div>
+            </main>
+            <Footer/>
+        </>
     )
 }

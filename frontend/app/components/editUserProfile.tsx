@@ -1,26 +1,35 @@
 import Input from "~/kits/input";
 import Select from "~/kits/select";
-import { useState, ChangeEvent, FormEvent } from 'react';
+import React, {useState, ChangeEvent, FormEvent, useEffect} from 'react';
 import HeaderNav from "~/kits/headerNav";
 import "~/styles/editProfile.css";
+import Loader from "~/kits/loader";
+import useUpdateUser from "~/hook/useUpdateUser";
+import editLink from "~/helper/editLink";
+import {useNavigate} from "react-router-dom";
+import Header_section_page from "~/kits/header_section_page";
 
 type UserInfo = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  gender: string;
-  birthDate: string;
-  country: string;
-  address: string;
-  postalCode: number;
+    id: number;
+    firstName: string;
+    name: string;
+    email: string;
+    gender: string;
+    birthDate: string;
+    country: string;
+    postalAddress: string;
 };
 
 type Props = {
-  userInfo: UserInfo;
+    userInfo: UserInfo;
 };
 
-export default function EditUserProfile ({ userInfo }: Props) {
+export default function EditUserProfile({userInfo}: Props) {
+    const editPath = editLink(1)
+    const navigate = useNavigate()
+
     const [formData, setFormData] = useState<UserInfo>(userInfo);
+    const updateUser = useUpdateUser();
 
     const [email, setEmail] = useState("")
     const [firstName, setFirstName] = useState("")
@@ -38,7 +47,6 @@ export default function EditUserProfile ({ userInfo }: Props) {
     const [genderSelected, setGenderSelected] = useState(0)
     const [country, setCountry] = useState("")
     const [address, setAddress] = useState("")
-    const [postalCode, setPostalCode] = useState("")
 
     const changeGender = (value: string, id: number) => {
         setGenderSelected(id)
@@ -46,77 +54,99 @@ export default function EditUserProfile ({ userInfo }: Props) {
     }
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         switch (name) {
-          case "email":
-            setEmail(value);
-            break;
-          case "firstname":
-            setFirstName(value);
-            break;
-          case "lastname":
-            setLastName(value);
-            break;
-          case "BirthDate":
-            setBirthDate(value);
-            break;
-          case "Country":
-            setCountry(value);
-            break;
-          case "Address":
-            setAddress(value);
-            break;
-          case "PostalCode":
-            setPostalCode(value);
-            break;
-          // Ajoutez d'autres cas si vous avez d'autres champs
-          default:
-            break;
+            case "email":
+                setEmail(value);
+                break;
+            case "firstname":
+                setFirstName(value);
+                break;
+            case "lastname":
+                setLastName(value);
+                break;
+            case "BirthDate":
+                setBirthDate(value);
+                break;
+            case "Country":
+                setCountry(value);
+                break;
+            case "Address":
+                setAddress(value);
+                break;
+                break;
+            // Ajoutez d'autres cas si vous avez d'autres champs
+            default:
+                break;
         }
-      };
-
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Logique pour envoyer les données modifiées au serveur
-    console.log(formData);
     };
 
-  return (
-    <div>
-      <HeaderNav namePage="Modifier mon profil"/>
-      <form className="edit-profile_form" onSubmit={handleSubmit}>
-        
-        <p className="form_section">Infos personnel</p>
- 
-        <Input name={"email"} type={"email"} placeholder={"Mail"}
-                   setValue={setEmail} propsSetValue={formData.email} value={email || formData.email}/>
+    useEffect(() => {
+        setFormData(userInfo);
 
-        <Input name={"firstname"} type={"text"} placeholder={"Prénom"}
-                setValue={setFirstName} propsSetValue={formData.firstName} value={firstName || formData.firstName}/>
+        setEmail(userInfo.email)
+        setFirstName(userInfo.firstName)
+        setLastName(userInfo.name)
+        setBirthDate(userInfo.birthDate)
+        setGender(userInfo.gender)
+        setCountry(userInfo.country)
+        setAddress(userInfo.postalAddress)
+    }, [userInfo]);
 
-        <Input name={"lastname"} type={"text"} placeholder={"Nom"}
-                setValue={setLastName} propsSetValue={formData.lastName} value={lastName || formData.lastName}/>
-        <Select
-            optionSelected={genderSelected}
-            setOptionSelected={setGenderSelected}
-            contents={genderData}
-            setValue={changeGender}
-            propsSetValue={""}
-            
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
 
-        />
-        
-        <Input name={"BirthDate"} type={"date"} placeholder={"Date de naissance"}
-                   setValue={setBirthDate} propsSetValue={formData.birthDate} value={birthDate || formData.birthDate}/>
-        <Input name={"Country"} type={"text"} placeholder={"Pays"}
-                setValue={setCountry} propsSetValue={formData.country} value={country || formData.country}/>
-        <Input name={"Address"} type={"text"} placeholder={"Adresse"}
-                setValue={setAddress} propsSetValue={formData.address} value={address || formData.address}/>
-        <Input name={"PostalCode"} type={"text"} placeholder={"Code postal"}
-                setValue={setPostalCode} propsSetValue={formData.postalCode} value={postalCode || formData.postalCode}/>
-        
-        <button className='button' type="submit">Valider</button>
-      </form>
-    </div>
-  );
+        const isoDate = new Date(birthDate).toISOString();
+        let newFormData = {
+            "email" : email,
+            "firstName" : firstName,
+            "name" : lastName,
+            "genre": gender,
+            "nationality": country,
+            "birthDate": isoDate,
+            "postalAddress": address
+        }
+
+        updateUser(newFormData,userInfo.id)
+
+        navigate(editPath)
+    };
+
+    return (
+        <div>
+            <form className="edit-profile_form" onSubmit={handleSubmit}>
+
+                <p className="form_section">Infos personnel</p>
+
+                <Input name={"email"} type={"email"} placeholder={"Mail"}
+                       setValue={setEmail} propsSetValue={""} value={email}/>
+
+                <Input name={"firstname"} type={"text"} placeholder={"Prénom"}
+                       setValue={setFirstName} propsSetValue={""}
+                       value={firstName}/>
+
+                <Input name={"lastname"} type={"text"} placeholder={"Nom"}
+                       setValue={setLastName} propsSetValue={""} value={lastName}/>
+                <Select
+                    optionSelected={genderSelected}
+                    setOptionSelected={setGenderSelected}
+                    contents={genderData}
+                    setValue={changeGender}
+                    propsSetValue={""}
+                />
+
+                <Input name={"BirthDate"} type={"date"} placeholder={"Date de naissance"}
+                       setValue={setBirthDate} propsSetValue={""}
+                       value={birthDate}/>
+                <Input name={"Country"} type={"text"} placeholder={"Pays"}
+                       setValue={setCountry} propsSetValue={""}
+                       value={country}/>
+                <Input name={"Address"} type={"text"} placeholder={"Adresse"}
+                       setValue={setAddress} propsSetValue={""}
+                       value={address}/>
+
+                <button className='button' type="submit">Valider</button>
+            </form>
+        </div>
+    );
 };

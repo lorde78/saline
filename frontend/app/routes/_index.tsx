@@ -40,6 +40,8 @@ export function links() {
 }
 
 export default function Index() {
+    useGlobalEffect()
+
     const slides = [
         {
             src: "/assets/images/first.png",

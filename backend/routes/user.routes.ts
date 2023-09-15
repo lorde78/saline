@@ -59,6 +59,8 @@ router.put('/', async function (req, res, next) {
 
     res.json({
         message: 'user updated',
+        updateUser,
+        test: req.body
     });
 });
 

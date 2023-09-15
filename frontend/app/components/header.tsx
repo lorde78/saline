@@ -1,21 +1,54 @@
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import '../styles/header.css';
 import {Link} from 'react-router-dom';
 import LanguageSelect from './selectlanguage';
 import Input from "~/kits/input";
 import Header_shersh from "~/components/header_search";
 import {NavLink} from "@remix-run/react";
+import {useGlobalEffect} from "~/helper/globalHelper";
+import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
+import {signinContext} from "~/context/signinContext";
+import useGetCurrentElement from "~/hook/useGetCurrentElement";
 
 type Props = {
     search?: boolean,
 }
 
 export default function Header({search}: Props) {
+    useGlobalEffect()
+    const [loader, setLoader] = useState(false);
+    // @ts-ignore
+    const [signin, setSignin] = useContext(signinContext);
+
+    const [currentUser,setCurrentUser] = useState<string>("")
+    const getCurrentUser = useGetCurrentElement();
+
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [windowInnerWidth, setWindowInnerWidth] = useState(0);
     const toggleMenu = () => {
         setMenuOpen(!isMenuOpen);
     };
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                if (signin) {
+                    const currentUserId = await useGetCurrentUserId(signin);
+                    setLoader(true)
+                    getCurrentUser("user",currentUserId).then((r: any) => {
+                        if (currentUser === "") {
+                            setCurrentUser(r.profilePicture);
+                            setLoader(true)
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchUser()
+    }, [signin])
 
     useEffect(() => {
         const handleResize = () => {
@@ -58,13 +91,17 @@ export default function Header({search}: Props) {
                         <></>}
                     <div className={isMenuOpen ? 'menu_initiale menu_open' : 'menu_initiale'}>
                         <ul>
-                            {isMenuOpen || windowInnerWidth <= 750 ?
+                            {isMenuOpen ?
                                 <li>
-                                    <NavLink to={"/profile"}>
-                                        <div className={"pp_card_small"}>
-                                            <img src={"/assets/images/pdp.png"}/>
-                                        </div>
-                                    </NavLink>
+                                    {loader ? (
+                                        <NavLink to={"/profile"}>
+                                            <div className={"pp_card_small"}>
+                                                <img src={currentUser}/>
+                                            </div>
+                                        </NavLink>
+                                    ) : (
+                                        <div className={"pp_card_small"}/>
+                                    )}
                                 </li>
                                 :
                                 <></>
@@ -84,11 +121,17 @@ export default function Header({search}: Props) {
                     {isMenuOpen || windowInnerWidth <= 750 ?
                         <></>
                         :
-                        <NavLink to={"/profile"}>
-                            <div className={"pp_card_small"}>
-                                <img src={"/assets/images/pdp.png"}/>
-                            </div>
-                        </NavLink>
+                        <>
+                            {loader ? (
+                                <NavLink to={"/profile"}>
+                                    <div className={"pp_card_small"}>
+                                        <img src={currentUser}/>
+                                    </div>
+                                </NavLink>
+                            ) : (
+                                <div className={"pp_card_small"}/>
+                            )}
+                        </>
                     }
                 </div>
                 <div className={`burger burger-button ${isMenuOpen ? "croix" : ""}`} onClick={toggleMenu}>

@@ -79,7 +79,7 @@ export default function Classrooms_ClassroomId_Trainings_TrainingId() {
             {loader ? (
                 <>
                     <Header/>
-                    <Header_section_page numberUndoPage={1} title={training?.title || ""}/>
+                    <Header_section_page numberUndoPage={2} title={training?.title || ""}/>
                     <main className={"max_width_container"}>
                         <div className={"main_section_container-flex max_width"}>
                             <div className={"big_banner_image"} style={{height: bannerHeight}}>

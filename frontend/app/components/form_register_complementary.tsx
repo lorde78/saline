@@ -45,6 +45,7 @@ export default function Form_register_complementary() {
 
     return (
         <form className={"authentication_form_container"}>
+            {/* @ts-ignore */}
             <Select_image/>
             <Select
                 optionSelected={genderSelected}

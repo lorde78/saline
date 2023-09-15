@@ -1,7 +1,11 @@
 var express = require('express');
+// @ts-ignore
 const { sendCookie, getCookie } = require('../../helpers/cookie.helper.ts');
+// @ts-ignore
 const { database } = require('../../config/db.ts');
+// @ts-ignore
 const bcrypt = require('bcrypt');
+// @ts-ignore
 const { generateToken } = require('../../utils/jwt.utils.ts');
 
 var router = express.Router();

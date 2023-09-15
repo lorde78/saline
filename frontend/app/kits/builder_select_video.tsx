@@ -19,7 +19,6 @@ interface Video {
 
 export default function Builder_select_video({videoSelect, setVideoSelect}:Props) {
     const [videoSelectOpen, setVideoSelectOpen] = useState(false)
-    const [loader, setLoader] = useState(false);
 
     const [video, setVideo] = useState<Video>({
         title: "",
@@ -35,7 +34,6 @@ export default function Builder_select_video({videoSelect, setVideoSelect}:Props
         }
         const currentVideo = await getCurrentVideo("video", videoSelect.id);
         setVideo(currentVideo);
-        setLoader(true);
     };
 
     useEffect(() => {

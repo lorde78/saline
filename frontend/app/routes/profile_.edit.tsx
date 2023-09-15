@@ -1,42 +1,82 @@
-import 'remixicon/fonts/remixicon.css'
-import Accordion from "~/kits/accordion";
-import Formule from "~/kits/formule";
-import UserInfos from "~/kits/userInfos";
+import 'remixicon/fonts/remixicon.css';
 import resetStyles from "~/styles/reset.css";
 import globalStyles from "~/styles/style.css";
 import profileStyles from "~/styles/profileStyle.css";
 import EditUserProfile from "~/components/editUserProfile";
-import Form_login from "~/components/form_login";
-import Form_register from "~/components/form_register";
-import Form_register_complementary from "~/components/form_register_complementary";
 import inputStyles from "~/styles/input.css";
-import EditPassword from "~/components/editPassword";
-import EditFormule from '~/components/editFormule';
 import formuleStyles from "~/styles/formule.css";
-import Formation from '~/kits/formations';
-
-
+import {useGlobalEffect} from "~/helper/globalHelper";
+import React, {useContext, useEffect, useState} from "react";
+import {signinContext} from "~/context/signinContext";
+import useGetCurrentElement from "~/hook/useGetCurrentElement";
+import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
+import Header from "~/components/header";
+import Footer from "~/components/footer";
+import Header_section_page from "~/kits/header_section_page";
 
 const userInfo = {
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'john.doe@example.com',
-  gender: 'Homme',
-  birthDate: '1990-07-05',
-  country: 'France',
-  address: '28 rue Albert, Mars',
-  postalCode: 75000,
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'john.doe@example.com',
+    gender: 'Homme',
+    birthDate: '1990-07-05',
+    country: 'France',
+    address: '28 rue Albert, Mars',
+    postalCode: 75000,
 };
 
-
 export function links() {
-  return [{rel: 'stylesheet', href: resetStyles}, {rel: 'stylesheet', href: profileStyles}, {rel: 'stylesheet', href: globalStyles}, {rel: 'stylesheet', href: inputStyles}, {rel: 'stylesheet', href: formuleStyles}]
+    return [{rel: 'stylesheet', href: resetStyles}, {rel: 'stylesheet', href: profileStyles}, {rel: 'stylesheet', href: globalStyles}, {rel: 'stylesheet', href: inputStyles}, {rel: 'stylesheet', href: formuleStyles}]
 }
 
 export default function Profile() {
+    useGlobalEffect()
+    const [loader, setLoader] = useState(false);
+    // @ts-ignore
+    const [signin, setSignin] = useContext(signinContext);
+
+    const [currentUser, setCurrentUser] = useState<any>("")
+    const getCurrentUser = useGetCurrentElement();
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                if (signin) {
+                    const currentUserId = await useGetCurrentUserId(signin);
+                    setLoader(true)
+                    getCurrentUser("user", currentUserId).then((r: any) => {
+                        if (currentUser === "") {
+                            setCurrentUser(r);
+                            setLoader(true)
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchUser()
+    }, [signin])
+
     return (
-        <div className="profile-page">
-          <EditUserProfile userInfo={userInfo} />
-        </div>
+        <>
+            {loader ? (
+                <>
+                    <Header/>
+                    <Header_section_page numberUndoPage={1} title={"Modifier mon profil"} logout={true} />
+                    <main className={"max_width_container margin-top-20"}>
+                        <div className={"main_section_container-grid margin-top-20 max_width"}>
+                            <div className="profile-page">
+                                <EditUserProfile userInfo={currentUser}/>
+                            </div>
+                        </div>
+                    </main>
+                    <Footer/>
+                </>
+            ) : (
+                <div className="profile-page"/>
+            )}
+        </>
     )
 }

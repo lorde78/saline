@@ -11,8 +11,8 @@ import {
 import { useState, useEffect } from "react";
 import { signinContext } from "./context/signinContext";
 import { registerContext } from "./context/registerContext";
-import {useGetJWT, useGlobalEffect} from "~/helper/globalHelper";
 import useGetCookies from "~/hook/useGetCookies";
+import Loader from "~/kits/loader";
 // import { I18nextProvider } from 'react-i18next';
 // import i18n from './i18n.ts';
 
@@ -23,6 +23,17 @@ export const links: LinksFunction = () => [
 export default function App() {
 	const [signin,setSignin] = useState<string>();
 	const [registerData,setRegister] = useState<any>([]);
+	const [loader, setLoader] = useState(false);
+
+	useEffect(() => {
+		if (document.readyState === "complete") {
+			setTimeout(() => { setLoader(true)},1000)
+		} else {
+			window.onload = () => {
+				setTimeout(() => { setLoader(true)},1000)
+			};
+		}
+	}, []);
 
 	return (
 		<registerContext.Provider value ={[registerData,setRegister]}>
@@ -35,6 +46,7 @@ export default function App() {
 						<Links />
 					</head>
 					<body>
+						{loader ? <></>  : <Loader/> }
 						<Outlet />
 						<ScrollRestoration />
 						<Scripts />
