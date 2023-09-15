@@ -4,6 +4,9 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev --port 3001",
+    "dev_vm": "remix dev --port 3021",
+    "prod": "remix dev --port 3001",
+    "preprod": "remix dev --port 3011",
     "start": "remix-serve build",
     "typecheck": "tsc"
   },
