@@ -3,9 +3,10 @@ import Input from "~/kits/input";
 import Search_filter_popup from "~/components/search_filter_popup";
 
 type Props = {
-    onSearch: (searchTerm: string) => void
+    onSearch: (searchTerm: string) => void,
+    setActiveFilters: any
 }
-export default function Header_search({onSearch}: Props) {
+export default function Header_search({onSearch, setActiveFilters}: Props) {
 
     const [search, setSearch] = useState("");
     const [isFilter, setIsFilter] = useState(false);
@@ -33,6 +34,7 @@ export default function Header_search({onSearch}: Props) {
                 <Search_filter_popup
                     isFilter={isFilter}
                     setIsFilter={setIsFilter}
+                    setActiveFilters={setActiveFilters}
                 />
                 :
                 <></>
