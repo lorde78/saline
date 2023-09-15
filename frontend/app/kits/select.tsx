@@ -38,12 +38,7 @@ export default function Select({optionSelected, setOptionSelected, contents, set
                 <span>{contents[optionSelected].value}</span>
                 <i className="ri-expand-up-down-line"></i>
             </div>
-            {showOptionTrue ?
-                <span className={"overlay"}
-                      onClick={showOptions}
-                ></span>
-                :
-                <></>}
+            {showOptionTrue ? <span className={"overlay"} onClick={showOptions} /> : <></>}
             <ul className={showOptionTrue ? "options options-visible" : "options"}>
                 {contents.map((content, i) => {
                     return (
