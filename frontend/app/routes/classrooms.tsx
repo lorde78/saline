@@ -39,8 +39,13 @@ export default function Classroom() {
     const [loader, setLoader] = useState(false);
     // @ts-ignore
     const [signin, setSignin] = useContext(signinContext);
-
+    const [searchTerm, setSearchTerm] = useState("");
     const [classrooms, setClassrooms] = useState<Classrooms[]>([]);
+    const filteredClassrooms = classrooms.filter(classroom =>
+        classroom.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        classroom.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     const getAllClassrooms = useGetAllElements();
 
     useEffect(() => {
@@ -67,12 +72,12 @@ export default function Classroom() {
         <>
             {loader ?
                 <>
-                    <Header search={true}/>
+                    <Header search={true} onSearch={setSearchTerm} />
                     <main className={"max_width_container margin-top-20"}>
                         <h1>Liste des classes</h1>
                         <div className={"main_section_container-grid margin-top-20 max_width"}>
-                            {classrooms.length !== 0 ? (
-                                classrooms.map((classroom, i) => {
+                            {filteredClassrooms.length !== 0 ? (
+                                filteredClassrooms.map((classroom, i) => {
                                     return (
                                         <User_preview_card
                                             id={classroom.id}

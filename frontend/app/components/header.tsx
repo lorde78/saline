@@ -8,9 +8,10 @@ import {NavLink} from "@remix-run/react";
 
 type Props = {
     search?: boolean,
+    onSearch?: (searchTerm: string) => void
 }
 
-export default function Header({search}: Props) {
+export default function Header({search, onSearch}: Props) {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [windowInnerWidth, setWindowInnerWidth] = useState(0);
     const toggleMenu = () => {
@@ -99,7 +100,8 @@ export default function Header({search}: Props) {
 
             </nav>
             {search ?
-                <Header_shersh/>
+                // @ts-ignore
+                <Header_shersh onSearch={onSearch}/>
                 :
                 <></>
             }
