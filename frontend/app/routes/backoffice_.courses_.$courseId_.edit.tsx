@@ -105,7 +105,10 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
         newCourseData[stepSelected].type = value;
         if (value === "video") {
             newCourseData[stepSelected].data = {
-                video: "",
+                video: {
+                    title: "",
+                    id: ""
+                },
                 infoDescription: {
                     text: "",
                     url: ""

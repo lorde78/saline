@@ -25,6 +25,7 @@ var trainingRouter = require('./routes/training.routes.ts');
 var videoRouter = require('./routes/video.routes.ts');
 var userRouter = require('./routes/user.routes.ts');
 var uploadRouter = require('./routes/upload.routes.ts');
+var professorRouter = require('./routes/professor.routes.ts');
 
 var app = express();
 
@@ -74,6 +75,7 @@ app.use('/subscription', subscriptionRouter);
 app.use('/classroom', classroomRouter);
 app.use('/user', userRouter);
 app.use('/upload', uploadRouter);
+app.use('/professor', professorRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

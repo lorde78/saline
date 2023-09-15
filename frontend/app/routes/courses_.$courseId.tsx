@@ -44,7 +44,7 @@ interface Step {
 export default function Courses_CourseId() {
     useGlobalEffect()
     const [loader, setLoader] = useState(false);
-    const getCurrentId = getIdFromUrl(0)
+    const getCurrentId = getIdFromUrl(0);
 
     const [course, setCourse] = useState<Course | null>(null);
     const getCurrentCourse = useGetCurrentElement();
