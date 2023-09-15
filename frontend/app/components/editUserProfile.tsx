@@ -69,7 +69,6 @@ export default function EditUserProfile ({ userInfo }: Props) {
           case "PostalCode":
             setPostalCode(value);
             break;
-          // Ajoutez d'autres cas si vous avez d'autres champs
           default:
             break;
         }

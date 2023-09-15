@@ -6,7 +6,7 @@ export default function PopupProfile () {
   
 
   return (
-    <div className="popup-profile_container">
+    <div className="popup-profile_contain">
       <NavLink className='' to={"edit"}>
         <p>Modifier mon profil</p>
       </NavLink>

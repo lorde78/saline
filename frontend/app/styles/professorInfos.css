@@ -5,13 +5,13 @@
 }
 
 
-.profile-pic {
+.professor-infos_container > .profile-pic {
     height: 205px;
     min-height: 205px;
     overflow: hidden;
 }
 
-.profile-pic > img {
+.professor-infos_container > .profile-pic > img {
     width: 100%;
     height: 100%;
     object-fit: cover;

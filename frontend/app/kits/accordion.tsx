@@ -96,7 +96,7 @@ export default function Accordion({type, title, picto}: Props) {
     switch (type) {
       case "comments":
 
-        return <Comments commentsData={fakeCommentData} />
+        return <Comments commentsData={fakeCommentData} needResponses={false}/>
       
       case "formations":
           return <Formation formationData={fakeFormationsData}/>

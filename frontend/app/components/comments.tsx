@@ -3,9 +3,10 @@ import Comment from "~/kits/comment";
 
 type Props = {
   commentsData: any;
+  needResponses: boolean;
 };
 
-export default function Comments ({ commentsData }: Props) {
+export default function Comments ({ commentsData, needResponses }: Props) {
 
     
 
@@ -21,6 +22,7 @@ export default function Comments ({ commentsData }: Props) {
             upvote={comment.upvote}
             downvote={comment.downvote}
             responsesData={comment.responsesData}
+            needResponses= {needResponses}
             />
         )})}
         
