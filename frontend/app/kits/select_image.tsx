@@ -9,6 +9,7 @@ export default function Select_image({setValue}:props) {
 
     const showPreview = (input:any) => {
         var url = URL.createObjectURL(input);
+        console.log(' image : ' + url)
         var preview = document.getElementById("image_preview");
         // @ts-ignore
         preview.src = url;

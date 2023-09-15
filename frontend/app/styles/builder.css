@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 /*page*/
 .builder_container {
     display: flex;
@@ -147,6 +149,7 @@
 }
 
 /*kits*/
+>>>>>>> dev
 .builder_block_button {
     display: flex;
     flex-direction: column;
@@ -211,6 +214,8 @@
     width: 100%;
     height: 100%;
     z-index: 1;
+<<<<<<< HEAD
+=======
 }
 
 
@@ -280,4 +285,5 @@
     .builder_popup_select_video #popup {
         grid-template-columns: 1fr 1fr  1fr;
     }
+>>>>>>> dev
 }

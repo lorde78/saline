@@ -12,9 +12,11 @@ export default function Formule({ subscription }: Props) {
 
       <div className="formule_infos">
         <p className="formule_title">Votre formule</p>
+
         <div className="formule_choice">
-          
-          <FormuleTag subscription={subscription} />
+          <div className="formule_sub">
+            <p>{subscription}</p>
+          </div>
           <div className="formule_price">
             <p className="formule_price_value">9.9€/Mois</p>
             <p className="formule_price_total">Paiement annuel de 118.8€</p>
