@@ -32,11 +32,15 @@ interface Course {
 }
 
 export default function Courses() {
-    useGlobalEffect()
+    useGlobalEffect();
     const [loader, setLoader] = useState(false);
-
     const [courses, setCourses] = useState<Course[]>([]);
-    // @ts-ignore
+    const [searchTerm, setSearchTerm] = useState("");
+    const filteredCourses = courses.filter(course =>
+        course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        course.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     const getAllCourses = useGetAllElements();
 
     const getCourses = async () => {
@@ -53,12 +57,12 @@ export default function Courses() {
         <>
             {loader ? (
                 <>
-                    <Header search={true}/>
+                    <Header search={true} onSearch={setSearchTerm}/>
                     <main className={"max_width_container margin-top-20"}>
                         <h1>Liste des cours</h1>
                         <div className={"main_section_container-grid margin-top-20 max_width"}>
-                            {(courses ?? []).length !== 0 ? (
-                                courses.map((course, i) => {
+                            {(filteredCourses ?? []).length !== 0 ? (
+                                filteredCourses.map((course, i) => {
                                     return (
                                         <User_preview_card
                                             id={course.id}

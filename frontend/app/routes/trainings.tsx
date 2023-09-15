@@ -12,7 +12,6 @@ import useGetAllElements from "~/hook/useGetAllElements";
 import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
 import Loader from "~/kits/loader";
 
-
 export function links() {
     return [
         {rel: 'stylesheet', href: resetStyles},
@@ -38,6 +37,11 @@ export default function Trainings() {
     const [loader, setLoader] = useState(false);
 
     const [trainings, setTrainings] = useState<Training[]>([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const filteredTrainings = trainings.filter(training =>
+        training.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        training.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
     // @ts-ignore
     const getAllTrainings = useGetAllElements();
 
@@ -55,12 +59,12 @@ export default function Trainings() {
         <>
             {loader ? (
                 <>
-                    <Header search={true}/>
+                    <Header search={true} onSearch={setSearchTerm}/>
                     <main className={"max_width_container margin-top-20"}>
                         <h1>Liste des parcours</h1>
                         <div className={"main_section_container-grid margin-top-20 max_width"}>
-                            {(trainings ?? []).length !== 0 ? (
-                                trainings.map((training, i) => {
+                            {(filteredTrainings ?? []).length !== 0 ? (
+                                filteredTrainings.map((training, i) => {  // Change to filteredTrainings here
                                     return (
                                         <User_preview_card
                                             id={training.id}
@@ -84,6 +88,5 @@ export default function Trainings() {
                 <Loader/>
             )}
         </>
-    )
-        ;
+    );
 }

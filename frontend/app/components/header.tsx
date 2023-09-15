@@ -12,6 +12,7 @@ import useGetCurrentElement from "~/hook/useGetCurrentElement";
 
 type Props = {
     search?: boolean,
+    onSearch?: (searchTerm: string) => void
 }
 
 export default function Header({search}: Props) {
@@ -142,7 +143,8 @@ export default function Header({search}: Props) {
 
             </nav>
             {search ?
-                <Header_shersh/>
+                // @ts-ignore
+                <Header_shersh onSearch={onSearch}/>
                 :
                 <></>
             }
