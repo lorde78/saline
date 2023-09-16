@@ -2,13 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import '../styles/header.css';
 import { Link } from 'react-router-dom';
 import LanguageSelect from './selectlanguage';
-// import Input from './Input'; // Changer le chemin d'importation
-// import HeaderSearch from './HeaderSearch'; // Changer le nom du composant
 import { NavLink } from '@remix-run/react';
 import { useGlobalEffect } from '../helper/globalHelper';
 import useGetCurrentUserId from '../hook/useGetCurrentUserId';
 import { signinContext } from '../context/signinContext';
 import useGetCurrentElement from '../hook/useGetCurrentElement';
+import Header_search from "~/components/header_search";
 
 type Props = {
     search?: boolean;
