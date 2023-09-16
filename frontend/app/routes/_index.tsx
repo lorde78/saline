@@ -16,8 +16,8 @@ import slider from "~/styles/slider.css";
 import mini_slider from "~/styles/mini_slider.css";
 import styleRefacto from "~/styles/styleRefacto.css";
 import Builder_select_folder from "~/kits/builder_select_folder";
-import Select_image from "~/kits/select_image";
-import {useGlobalEffect} from "~/helper/globalHelper";
+// import Select_image from "~/kits/select_image";
+import { useGlobalEffect } from "~/helper/globalHelper";
 import InfiniteSlider from "~/components/infiniteSlider";
 
 
