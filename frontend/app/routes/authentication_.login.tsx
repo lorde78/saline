@@ -7,6 +7,7 @@ import authentication from "~/styles/authentication.css";
 import Header_section_page from "~/kits/header_section_page";
 import { useGlobalEffect } from "~/helper/globalHelper";
 import {redirectFromLoginIfLogged} from "~/helper/redirectFromLoginIfLogged";
+import styleRefacto from "~/styles/styleRefacto.css";
 
 type LinkProps = {
     rel: string;
@@ -26,6 +27,7 @@ export function links(): LinkProps[] {
         { rel: "stylesheet", href: styles },
         { rel: "stylesheet", href: input },
         { rel: "stylesheet", href: authentication },
+        { rel: 'stylesheet', href: styleRefacto }
     ];
 }
 
