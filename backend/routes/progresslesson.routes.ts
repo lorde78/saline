@@ -14,7 +14,6 @@ router.post('/', async function (req, res, next) {
         progressLesson = await database.progressLesson.create({
             data: {
                 status: status,
-                progress: progress,
                 urlEval: urlEval,
                 student: {
                     connect: {id: parseInt(studentId)}
@@ -50,17 +49,34 @@ router.post('/', async function (req, res, next) {
 })
 
 router.get('/', async function (req, res, next) {
-    const {id} = req.query;
+    const {id, userId, lessonId} = req.query;
     let progressLesson = null;
 
-    if (!id) {
-        progressLesson = await database.progressLesson.findMany({})
+    if (!id && !userId && !lessonId) {
+        progressLesson = await database.progressLesson.findMany()
     } else {
-        progressLesson = await database.progressLesson.findMany({
-            where: {
-                id: parseInt(id),
+        if (id) {
+            progressLesson = await database.progressLesson.findMany({
+                where: {
+                    id: id
+                }
+            })
+        } else {
+            if (userId) {
+                progressLesson = await database.progressLesson.findMany({
+                    where: {
+                        studentId: parseInt(userId),
+                    }
+                })
             }
-        })
+            if (lessonId) {
+                progressLesson = await database.progressLesson.findMany({
+                    where: {
+                        lessonId: parseInt(lessonId),
+                    }
+                })
+            }
+        }
     }
 
     res.json({

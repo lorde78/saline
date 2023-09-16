@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -12,6 +12,12 @@ import getIdFromUrl from "~/helper/getIdFromUrl";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import Loader from "~/kits/loader";
 import {isLogged} from "~/helper/isLogged";
+import {useNavigate} from "react-router-dom";
+import {useLocation} from "@remix-run/react";
+import useGetProgress from "~/hook/useGetProgress";
+import useStartProgress from "~/hook/useStartProgress";
+import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
+import {signinContext} from "~/context/signinContext";
 
 
 export function links() {
@@ -46,17 +52,48 @@ export default function Courses_CourseId() {
     useGlobalEffect()
     isLogged("user");
     const [loader, setLoader] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
     const getCurrentId = getIdFromUrl(0);
+    // @ts-ignore
+    const [signin, setSignin] = useContext(signinContext);
+    const [currentUserId, setCurrentUserId] = useState("")
 
     const [course, setCourse] = useState<Course | null>(null);
     const getCurrentCourse = useGetCurrentElement();
 
+    const [progressCourse, setProgressCourse] = useState<any>();
+    const getCurrentProgressCourse = useGetProgress();
+    const [hasToStart,setHasToStart] = useState(false);
+    const startProgress = useStartProgress();
+
     const getCourse = async () => {
         const currentClassroom = await getCurrentCourse("lesson", getCurrentId);
+        const currentProgressCourse = await getCurrentProgressCourse("progressLesson","lessonId",getCurrentId);
         //@ts-ignore
         setCourse(currentClassroom);
+        setProgressCourse(currentProgressCourse);
+        if (currentProgressCourse.length === 0) {
+            setHasToStart(true);
+        }
         setLoader(true);
     };
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                if (signin) {
+                    const userId = await useGetCurrentUserId(signin);
+                    setCurrentUserId(userId)
+                    setLoader(true);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchUser()
+    }, [signin])
 
     const [bannerHeight, setBannerHeight] = useState(400)
 
@@ -72,6 +109,21 @@ export default function Courses_CourseId() {
         getCourse()
     }, []);
 
+    const startCourse = (e:any) => {
+        e.preventDefault();
+
+        let formData = {
+            status: "En cours",
+            urlEval: "",
+            studentId: currentUserId,
+            lessonId: getCurrentId
+        }
+
+        startProgress("progressLesson",formData);
+
+        navigate(location.pathname);
+    }
+
     return (
         <>
             {loader ? (
@@ -84,6 +136,11 @@ export default function Courses_CourseId() {
                                 <img src={course?.bannerPicture} alt={"bannière du cours"}/>
                             </div>
                             <p>{course?.description}</p>
+                            {hasToStart ? (
+                                <button className="button" onClick={(e) => {startCourse(e)}}>Démarrer ce Cours</button>
+                            ) : (
+                                <></>
+                            )}
                             <div className={"main_section_container-flex max_width"}>
                                 {(course?.steps ?? []).length !== 0 ? (
                                     course?.steps.map((step: Step, i: number) => {
@@ -93,6 +150,7 @@ export default function Courses_CourseId() {
                                                 title={step.value}
                                                 type={step.type}
                                                 status={"A faire"}
+                                                disable={hasToStart}
                                             />
                                         )
                                     })

@@ -28,10 +28,10 @@ router.post('/', async function (req, res, next) {
 })
 
 router.get('/', async function (req, res, next) {
-    const {id, trainingId, userId, lessonId} = req.query;
+    const {id, trainingId, userId} = req.query;
     let progressTraining = null;
 
-    if (!id && !trainingId && !userId && !lessonId) {
+    if (!id && !trainingId && !userId) {
         progressTraining = await database.progressTraining.findMany()
     } else {
         if (id) {
@@ -51,14 +51,7 @@ router.get('/', async function (req, res, next) {
             if (userId) {
                 progressTraining = await database.progressTraining.findMany({
                     where: {
-                        trainingId: parseInt(userId),
-                    }
-                })
-            }
-            if (lessonId) {
-                progressTraining = await database.progressTraining.findMany({
-                    where: {
-                        trainingId: parseInt(lessonId),
+                        studentId: parseInt(userId),
                     }
                 })
             }

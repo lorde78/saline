@@ -2,16 +2,18 @@ import 'remixicon/fonts/remixicon.css'
 import {NavLink, Outlet, useLocation} from "@remix-run/react";
 
 type Props = {
-    id: number
-    title: string
-    type: string
-    status: string
+    id: number;
+    title: string;
+    type: string;
+    status: string;
+    disable?: boolean;
 };
 export default function User_preview_card_noimage({
                                                       id,
                                                       title,
                                                       type,
-                                                      status
+                                                      status,
+                                                      disable
                                                   }: Props) {
     title = title.charAt(0).toUpperCase() + title.slice(1);
 
@@ -61,16 +63,34 @@ export default function User_preview_card_noimage({
     }
 
     return (
-        <NavLink to={id.toString()} className={"preview_card"}>
-            <div className={"preview_card_content"}>
-                <div className={"content_header"}>
-                    <p>{title}</p>
-                    <div className={"header_content-right"}>
-                        {setStatus()}
-                        {setType()}
+        <>
+            {
+                disable ? (
+                    <div className={"preview_card"}>
+                        <div className={"preview_card_content"}>
+                            <div className={"content_header"}>
+                                <p>{title}</p>
+                                <div className={"header_content-right"}>
+                                    {setStatus()}
+                                    {setType()}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </NavLink>
+                ) : (
+                    <NavLink to={id.toString()} className={"preview_card"}>
+                        <div className={"preview_card_content"}>
+                            <div className={"content_header"}>
+                                <p>{title}</p>
+                                <div className={"header_content-right"}>
+                                    {setStatus()}
+                                    {setType()}
+                                </div>
+                            </div>
+                        </div>
+                    </NavLink>
+                )
+            }
+        </>
     );
 }
