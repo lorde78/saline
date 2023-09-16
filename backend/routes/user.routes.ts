@@ -45,7 +45,7 @@ router.delete('/', async function (req, res, next) {
 });
 
 router.put('/', async function (req, res, next) {
-    const { id, passChange } = req.query;
+    const { id, passChange, roleChange } = req.query;
     let updateUser = null;
 
     if (!id) {
@@ -53,7 +53,7 @@ router.put('/', async function (req, res, next) {
         throw new Error('You must provide an id ');
     }
 
-    if (!passChange) {
+    if (!passChange && !roleChange) {
         updateUser = await database.user.update({
             where: {
                 id: parseInt(id),
@@ -61,21 +61,37 @@ router.put('/', async function (req, res, next) {
             data: req.body
         })
     } else {
-        let newPassword = req.body.password
-        updateUser = await database.user.update({
-            where: {
-                id: parseInt(id),
-            },
-            data: {
-                password: bcrypt.hashSync(newPassword, 12)
+        if(passChange) {
+            if (JSON.parse(passChange) === true) {
+                let newPassword = req.body.password
+                updateUser = await database.user.update({
+                    where: {
+                        id: parseInt(id),
+                    },
+                    data: {
+                        password: bcrypt.hashSync(newPassword, 12)
+                    }
+                })
             }
-        })
+        }
+        if (roleChange) {
+            if (JSON.parse(roleChange) === true) {
+                let newRoles = req.body.roles.split(",")
+                updateUser = await database.user.update({
+                    where: {
+                        id: parseInt(id),
+                    },
+                    data: {
+                        roles: newRoles
+                    }
+                })
+            }
+        }
     }
 
     res.json({
         message: 'user updated',
-        updateUser,
-        test: req.body
+        updateUser
     });
 });
 

@@ -22,7 +22,6 @@ export function links() {
     ];
 }
 
-
 export default function Backoffice_Users() {
     useGlobalEffect()
     isLogged("backoffice");
