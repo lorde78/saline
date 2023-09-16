@@ -19,6 +19,8 @@ import Builder_select_folder from "~/kits/builder_select_folder";
 import Select_image from "~/kits/select_image";
 import {useGlobalEffect} from "~/helper/globalHelper";
 import InfiniteSlider from "~/components/infiniteSlider";
+// // import Select_image from "~/kits/select_image";
+// import { useGlobalEffect } from "~/helper/globalHelper";
 
 
 export const meta: V2_MetaFunction = () => {
