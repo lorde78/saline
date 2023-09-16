@@ -13,6 +13,7 @@ import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import getIdFromUrl from "~/helper/getIdFromUrl";
 import Loader from "~/kits/loader";
 import {isLogged} from "~/helper/isLogged";
+import styleRefacto from "~/styles/styleRefacto.css";
 
 interface Training {
     id: number;
@@ -40,7 +41,7 @@ export function links() {
         { rel: 'stylesheet', href: resetStyles },
         { rel: 'stylesheet', href: styles },
         { rel: 'stylesheet', href: input },
-        { rel: 'stylesheet', href: training }
+        { rel: 'stylesheet', href: styleRefacto }
     ];
 }
 
@@ -78,7 +79,7 @@ export default function Backoffice_Trainings_TrainingId_Edit() {
                 <>
                     <Header_section_page numberUndoPage={2} title={training?.title ?? ''} logout={true} edit={true}/>
                     <section className={"max_width_container"}>
-                        <div className={"backoffice_training_preview_container max_width"}>
+                        <div className={"main_section_container-flex max_width margin-top-20"}>
                             <div className={"button_header"}>
                                 <NavLink to={`/backoffice/courses/new?relId=${getCurrentId}&relType=training`} className={"button"}>
                                     Créer un cours

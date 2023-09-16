@@ -42,15 +42,18 @@ export default function Backoffice_assessment({
 
     return (
         <>
-
-            <NavLink className={"assessment_container"} to={id.toString()}>
-                <div className={"assessment_container-left"}>
-                    <p>{studen}</p>
-                    <p>{course}</p>
-                </div>
-                <div className={"assessment_container-right"}>
-                    <p>{status}</p>
-                    {statusColor()}
+            <NavLink to={id.toString()} className={"preview_card"}>
+                <div className={"preview_card_content"}>
+                    <div className={"content_header"}>
+                        <div className={"header_content-left"}>
+                            <p>{studen}</p>
+                            <p>{course}</p>
+                        </div>
+                        <div className={"preview_card_status"}>
+                            <p>{status}</p>
+                            {statusColor()}
+                        </div>
+                    </div>
                 </div>
             </NavLink>
         </>

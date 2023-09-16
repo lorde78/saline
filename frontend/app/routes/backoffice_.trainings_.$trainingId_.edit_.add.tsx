@@ -1,4 +1,4 @@
-import { Key, useEffect, useState} from "react";
+import {Key, useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -16,6 +16,7 @@ import useAddLessonsToTraining from "~/hook/useAddLessonsToTraining";
 import {useNavigate} from "react-router-dom";
 import editLink from "~/helper/editLink";
 import {isLogged} from "~/helper/isLogged";
+import styleRefacto from "~/styles/styleRefacto.css";
 
 interface Course {
     id: number;
@@ -34,7 +35,7 @@ export function links() {
         {rel: 'stylesheet', href: resetStyles},
         {rel: 'stylesheet', href: styles},
         {rel: 'stylesheet', href: input},
-        {rel: 'stylesheet', href: training}
+        {rel: 'stylesheet', href: styleRefacto}
     ];
 }
 
@@ -97,13 +98,13 @@ export default function Backoffice_Trainings_TrainingId_Edit_Add() {
                 <>
                     <Header_section_page numberUndoPage={1} title={"Ajouter un cours"} logout={true}/>
                     <section className={"max_width_container"}>
-                        <div className={"backoffice_training_preview_container max_width"}>
+                        <div className={"main_section_container-flex max_width margin-top-20"}>
                             <button className={"button"} onClick={(e) => submit(e)}>Ajouter les cours</button>
                             {
-                                courses.filter((course: any) => !course.trainings.some((training:any) => training.id === getCurrentId)).map((course: any) => {
+                                courses.filter((course: any) => !course.trainings.some((training: any) => training.id === getCurrentId)).map((course: any) => {
                                     let id = course.id;
                                     return (
-                                        <div className={"course_preview_container"} key={course.id}>
+                                        <div className={"main_section_container-flex-row"} key={course.id}>
                                             <Checkbox
                                                 name={"checkbox"}
                                                 type={"checkbox"}
@@ -112,15 +113,17 @@ export default function Backoffice_Trainings_TrainingId_Edit_Add() {
                                                 propsSetValue={{id: course.id}}
                                                 value={coursesAdd[id] ? coursesAdd[id].value : false}
                                             />
-                                            <Backoffice_edit_training
-                                                id={course.id}
-                                                title={course.title}
-                                                author={course.author}
-                                                imgLink={course.bannerPicture}
-                                                description={course.description}
-                                                showButton={false}
-                                                creation_type={"lesson"}
-                                            />
+                                            <div className={"width90"}>
+                                                <Backoffice_edit_training
+                                                    id={course.id}
+                                                    title={course.title}
+                                                    author={course.author}
+                                                    imgLink={course.bannerPicture}
+                                                    description={course.description}
+                                                    showButton={false}
+                                                    creation_type={"lesson"}
+                                                />
+                                            </div>
                                         </div>
                                     )
                                 })
@@ -130,7 +133,7 @@ export default function Backoffice_Trainings_TrainingId_Edit_Add() {
                     </section>
                 </>
                 :
-                <Loader />
+                <Loader/>
             }
         </>
     )

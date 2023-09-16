@@ -7,8 +7,7 @@ import Backoffice_assessment from "~/components/backoffice_assessment";
 import { Outlet, useLocation } from "@remix-run/react";
 import Header_section_page from "~/kits/header_section_page";
 import { useGlobalEffect } from "~/helper/globalHelper";
-import {useNavigate} from "react-router-dom";
-import {signinContext} from "~/context/signinContext";
+import stylesRefacto from "~/styles/styleRefacto.css";
 import {isLogged} from "~/helper/isLogged";
 
 type Assessment = {
@@ -29,7 +28,8 @@ export function links() {
         { rel: 'stylesheet', href: resetStyles },
         { rel: 'stylesheet', href: styles },
         { rel: 'stylesheet', href: input },
-        { rel: 'stylesheet', href: assessment }
+        { rel: 'stylesheet', href: assessment },
+        {rel: 'stylesheet', href: stylesRefacto},
     ];
 }
 
@@ -78,9 +78,9 @@ export default function Backoffice_Assessments() {
 
     return (
         <>
-            <Header_section_page numberUndoPage={1} title={"Bannières"} logout={true}/>
+            <Header_section_page numberUndoPage={1} title={"évaluations"} logout={true}/>
             <section className={"max_width_container"}>
-                <div className={"backoffice_assessments_preview_container max_width"}>
+                <div className={"main_section_container-flex max_width margin-top-20"}>
                     {assessments.map((assessment, i) => (
                         <Backoffice_assessment
                             key={i}

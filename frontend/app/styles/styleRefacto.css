@@ -23,6 +23,13 @@
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
 
+.button_header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+}
+
 .preview_card {
     display: flex;
     flex-direction: column;
@@ -31,6 +38,9 @@
     border-radius: 8px;
     overflow: hidden;
     background-color: var(--secondary-color);
+}
+.width90 {
+    width: 90%;
 }
 
 .preview_card-row {
@@ -94,6 +104,13 @@
     display: flex;
     flex-direction: column;
     align-items: end;
+    justify-content: center;
+    gap: 10px;
+}
+.preview_card .preview_card_content .content_header .header_content-left {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
     justify-content: center;
     gap: 10px;
 }

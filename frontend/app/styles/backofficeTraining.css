@@ -7,12 +7,7 @@
     padding: 20px;
 }
 
-.backoffice_training_preview_container .button_header {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    gap: 20px;
-}
+
 
 .backoffice_training_container {
     display: flex;
