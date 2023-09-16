@@ -13,7 +13,7 @@ import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import Loader from "~/kits/loader";
 import {isLogged} from "~/helper/isLogged";
 import {useNavigate} from "react-router-dom";
-import {useLocation} from "@remix-run/react";
+import {NavLink, useLocation} from "@remix-run/react";
 import useGetProgress from "~/hook/useGetProgress";
 import useStartProgress from "~/hook/useStartProgress";
 import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
@@ -121,7 +121,7 @@ export default function Courses_CourseId() {
 
         startProgress("progressLesson",formData);
 
-        navigate(location.pathname);
+        window.location.reload();
     }
 
     return (
@@ -137,7 +137,7 @@ export default function Courses_CourseId() {
                             </div>
                             <p>{course?.description}</p>
                             {hasToStart ? (
-                                <button className="button" onClick={(e) => {startCourse(e)}}>Démarrer ce Cours</button>
+                                <NavLink className="button" to={location.pathname} onClick={(e) => {startCourse(e)}}>Démarrer ce Cours</NavLink>
                             ) : (
                                 <></>
                             )}

@@ -132,7 +132,7 @@ export default function Trainings_TrainingId() {
 
         startProgress("progressTraining",formData);
 
-        navigate(location.pathname);
+        window.location.reload();
     }
 
     return (
