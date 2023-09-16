@@ -7,6 +7,7 @@ import { registerContext } from "~/context/registerContext";
 import useRegister from "~/hook/useRegister";
 import { NavLink } from "@remix-run/react";
 import {useNavigate} from "react-router-dom";
+import useUploadFile from "~/hook/useUploadFile";
 
 export default function Form_register_complementary() {
     // @ts-ignore
@@ -33,18 +34,33 @@ export default function Form_register_complementary() {
         setGender(value)
     }
 
+    const uploadHook = useUploadFile()
     const register = useRegister()
+    let pictureUrl: any = null;
 
-    const submit = (e:any) => {
+    const submit = async (e:any) => {
         e.preventDefault();
+        const fileUpload = new FormData();
+
+        // @ts-ignore
+        fileUpload.append("fileToUpload", profilePicture);
+
+        try {
+            pictureUrl = await uploadHook(fileUpload, "image")
+        } catch (err) {
+            console.log("Erreur lors de l'envoi du fichier :", err);
+        }
+
+        const isoDate = new Date(birthDate).toISOString();
         let formData = {
             ...registerData,
-            "profilePicture": profilePicture,
+            "profilePicture": pictureUrl,
             "genre": gender,
             "nationality": country,
-            "birthDate": birthDate,
+            "birthDate": isoDate,
             "postalAddress":  address + ", " + postalCode
         }
+
         register(formData)
 
         navigate("/")

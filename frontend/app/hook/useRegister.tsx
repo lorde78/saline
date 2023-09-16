@@ -17,7 +17,8 @@ export default function useRegister() {
                     "genre": formData.genre,
                     "birthDate": formData.birthDate,
                     "nationality": formData.nationality,
-                    "postalAddress": formData.postalAddress
+                    "postalAddress": formData.postalAddress,
+                    "profilePicture": formData.profilePicture
                 })
             })
             return res.data
