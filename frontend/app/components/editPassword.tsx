@@ -28,7 +28,7 @@ export default function EditPassword({userInfo}: Props) {
         }
 
         if (password === confirmPassword) {
-            updateUser(formData, userInfo.id);
+            updateUser(formData, userInfo.id,"&passChange=true");
 
             navigate(editPath);
         }

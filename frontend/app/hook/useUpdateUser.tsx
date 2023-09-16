@@ -1,11 +1,11 @@
 import { AxiosInstance } from "~/axios/axiosInstance";
 
 export default function useUpdateUser() {
-    return async (formData:any,userId: number) => {
+    return async (formData:any,userId: number,params:string) => {
 
         try {
             const res = await AxiosInstance({
-                url: `/user?id=${userId}`,
+                url: `/user?id=${userId}${params}`,
                 method: 'put',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
