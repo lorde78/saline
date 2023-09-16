@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -5,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var clearModule = require('clear-module');
 var cors = require('cors');
+
 
 var registerRouter = require('./routes/authentication/register.routes.ts');
 var loginRouter = require('./routes/authentication/login.routes.ts');
@@ -22,6 +24,8 @@ var tagRouter = require('./routes/tag.routes.ts');
 var trainingRouter = require('./routes/training.routes.ts');
 var videoRouter = require('./routes/video.routes.ts');
 var userRouter = require('./routes/user.routes.ts');
+var uploadRouter = require('./routes/upload.routes.ts');
+var professorRouter = require('./routes/professor.routes.ts');
 
 var app = express();
 
@@ -48,7 +52,7 @@ app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -70,6 +74,8 @@ app.use('/discount', discountRouter);
 app.use('/subscription', subscriptionRouter);
 app.use('/classroom', classroomRouter);
 app.use('/user', userRouter);
+app.use('/upload', uploadRouter);
+app.use('/professor', professorRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

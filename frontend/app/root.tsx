@@ -11,10 +11,10 @@ import {
 import { useState, useEffect } from "react";
 import { signinContext } from "./context/signinContext";
 import { registerContext } from "./context/registerContext";
-import {useGetJWT, useGlobalEffect} from "~/helper/globalHelper";
 import useGetCookies from "~/hook/useGetCookies";
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import Loader from "~/kits/loader";
 // import { I18nextProvider } from 'react-i18next';
 // import i18n from './i18n.ts';
 
@@ -27,6 +27,17 @@ const stripePromise = loadStripe('pk_test_51JKIu7BzGTnzBgyWsw6NG5pnmeUadeBMsd3Md
 export default function App() {
 	const [signin,setSignin] = useState<string>();
 	const [registerData,setRegister] = useState<any>([]);
+	const [loader, setLoader] = useState(false);
+
+	useEffect(() => {
+		if (document.readyState === "complete") {
+			setTimeout(() => { setLoader(true)},1000)
+		} else {
+			window.onload = () => {
+				setTimeout(() => { setLoader(true)},1000)
+			};
+		}
+	}, []);
 
 	return (
 		<registerContext.Provider value ={[registerData,setRegister]}>
@@ -40,6 +51,7 @@ export default function App() {
 						<Links />
 					</head>
 					<body>
+						{loader ? <></>  : <Loader/> }
 						<Outlet />
 						<ScrollRestoration />
 						<Scripts />

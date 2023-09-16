@@ -2,14 +2,17 @@ import Builder_select_video from "~/kits/builder_select_video";
 import Builder_navigation_step_video from "~/components/builder_navigation_step_video";
 
 type Props = {
-    courseData: any
-    setCoursesData: any
-    stepSelected: number
+    courseData: any;
+    setCoursesData: any;
+    stepSelected: number;
+    filesData: any;
+    setFilesData: any;
 }
-export default function Builder_step_video({courseData, setCoursesData, stepSelected}: Props) {
-    const selectVideo = (value:string) => {
+export default function Builder_step_video({courseData, setCoursesData, stepSelected, filesData, setFilesData}: Props) {
+    const selectVideo = (value:any) => {
         let newCourseData = [...courseData]
-        newCourseData[stepSelected].data.video = value
+        newCourseData[stepSelected].data.video.title = value.title
+        newCourseData[stepSelected].data.video.id = value.id
         setCoursesData(newCourseData)
     }
     const setDescription = (value:string) => {
@@ -20,8 +23,34 @@ export default function Builder_step_video({courseData, setCoursesData, stepSele
 
     const setInfoDescription = (value:string) => {
         let newCourseData = [...courseData]
-        newCourseData[stepSelected].data.infoDescription = value
+        newCourseData[stepSelected].data.infoDescription.text = value
         setCoursesData(newCourseData)
+    }
+
+    const setFileInfo = (value:any) => {
+        const fileType = "documentations";
+
+        const existingIndex = filesData.findIndex((entry: { fileType: string; }) => entry.fileType === fileType);
+
+        if (existingIndex !== -1) {
+            setFilesData((prevData: any) => {
+                const newData = [...prevData];
+                newData[existingIndex] = {
+                    ...newData[existingIndex],
+                    file: value,
+                };
+                return newData;
+            });
+        } else {
+            setFilesData((prevData: any) => [
+                ...prevData,
+                {
+                    file: value,
+                    fileType: fileType,
+                    stepId: stepSelected+1
+                },
+            ]);
+        }
     }
 
     return (
@@ -35,7 +64,8 @@ export default function Builder_step_video({courseData, setCoursesData, stepSele
                 setDescription={setDescription}
                 infoDescription={courseData[stepSelected].data.infoDescription}
                 setInfoDescription={setInfoDescription}
-
+                setFileInfo={setFileInfo}
+                filesData={filesData}
             />
         </section>
     )

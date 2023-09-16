@@ -15,6 +15,7 @@ import { useLoaderData } from "@remix-run/react";
 import getIdFromUrl from "~/helper/getIdFromUrl";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import Loader from "~/kits/loader";
+import {isLogged} from "~/helper/isLogged";
 
 type LoaderData = {
     relId: string | null;
@@ -62,8 +63,11 @@ export function links() {
 
 export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
     useGlobalEffect();
+    isLogged("backoffice");
     const getCurrentId = getIdFromUrl(1);
     const [loader, setLoader] = useState(false);
+
+    const [filesData,setFilesData] = useState([])
 
     const [courseName, setCourseName] = useState<string>(""); // Ajouter un type de chaîne
     const [courseData, setCoursesData] = useState<CourseData>([
@@ -78,8 +82,10 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
 
     const getCourse = async () => {
         const currentCourse = await getCurrentCourse("lesson", getCurrentId);
-        //@ts-ignore
-        setCoursesData(currentCourse.steps);
+        if(currentCourse.steps) {
+            //@ts-ignore
+            setCoursesData(currentCourse.steps);
+        }
         //@ts-ignore
         setCourseName(currentCourse.title);
         setLoader(true);
@@ -101,8 +107,14 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
         newCourseData[stepSelected].type = value;
         if (value === "video") {
             newCourseData[stepSelected].data = {
-                video: "",
-                infoDescription: "",
+                video: {
+                    title: "",
+                    id: ""
+                },
+                infoDescription: {
+                    text: "",
+                    url: ""
+                },
                 description: "",
             };
         } else if (value === "exercise/qcm") {
@@ -126,7 +138,10 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
                 },
             ];
         } else if (value === "review") {
-            newCourseData[stepSelected].data = {};
+            newCourseData[stepSelected].data = {
+                reviewUrl: "",
+                fileType: ""
+            };
         }
         setCoursesData(newCourseData);
     };
@@ -135,7 +150,7 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
         <>
             {loader ? (
                 <>
-                    <Header_section_page title={courseName} numberUndoPage={2} />
+                    <Header_section_page title={courseName} numberUndoPage={2} edit={true} logout={true} />
                     <div className={"builder_container"}>
                         <Builder_navigation
                             courseData={courseData}
@@ -145,12 +160,15 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
                             typeExercise={typeExercise}
                             exerciseSelected={exerciseSelected}
                             setExerciseSelected={setExerciseSelected}
+                            filesData={filesData}
                         />
                         {courseData[stepSelected].type === "video" ? (
                             <Builder_step_video
                                 courseData={courseData}
                                 setCoursesData={setCoursesData}
                                 stepSelected={stepSelected}
+                                filesData={filesData}
+                                setFilesData={setFilesData}
                             />
                         ) : courseData[stepSelected].type === "exercise/qcm" ? (
                             <Builder_step_exercice
@@ -171,6 +189,8 @@ export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
                                 courseData={courseData}
                                 setCoursesData={setCoursesData}
                                 stepSelected={stepSelected}
+                                filesData={filesData}
+                                setFilesData={setFilesData}
                             />
                         ) : (
                             <Builder_select_step

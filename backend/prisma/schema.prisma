@@ -189,6 +189,7 @@ model Professor {
   nationality String?
   profilePicture String?
   awards      Json?
+  jobs        Json?
   video       Video[]
   lesson      Lesson[]
   training    Training[]

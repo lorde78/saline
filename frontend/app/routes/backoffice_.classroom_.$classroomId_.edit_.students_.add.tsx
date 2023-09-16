@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
-import classroom from "~/styles/backofficeClassrooom.css";
+import styleRefacto from "~/styles/styleRefacto.css";
 import Header_section_page from "~/kits/header_section_page";
 import Checkbox from "~/kits/checkbox";
 import { useGlobalEffect } from "~/helper/globalHelper";
@@ -14,18 +14,20 @@ import { NavLink, useNavigate } from "react-router-dom";
 import editLink from "~/helper/editLink";
 import useGetAllElements from "~/hook/useGetAllElements";
 import useAddStudentsToClassroom from "~/hook/useAddStudentsToClassroom";
+import {isLogged} from "~/helper/isLogged";
 
 export function links() {
     return [
         { rel: 'stylesheet', href: resetStyles },
         { rel: 'stylesheet', href: styles },
         { rel: 'stylesheet', href: input },
-        { rel: 'stylesheet', href: classroom }
+        { rel: 'stylesheet', href: styleRefacto }
     ];
 }
 
 export default function Backoffice_Classroom_ClassroomId_Edit_Students_Add() {
     useGlobalEffect();
+    isLogged("backoffice");
     const addStudents = useAddStudentsToClassroom();
     const navigate = useNavigate();
     const editPath = editLink(4);
@@ -56,7 +58,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students_Add() {
             }
         };
 
-        getAllStudents("user").then(r => {
+        getAllStudents("user","").then(r => {
             if (!students.length) {
                 setStudents(r);
             }
@@ -90,18 +92,19 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Students_Add() {
         <>
             {loader ?
                 <>
-                    <Header_section_page numberUndoPage={1} title={classroom.title} />
+                    <Header_section_page numberUndoPage={1} title={classroom.title}  logout={true}/>
                     <section className={"max_width_container"}>
-                        <div className={"classroom_container-open max_width"}>
-                            <div className={"classroom_image_banner"} style={{ height: bannerHeight }}>
+                        <div className={"main_section_container-flex max_width"}>
+                            <div className={"big_banner_image"} style={{ height: bannerHeight }}>
                                 <img src={classroom.bannerPicture} alt={"bannière de la classe"} />
                             </div>
-                            <div className={"classroom_links"}>
+                            <div className={"main_section_container-flex"}>
                                 <button className={"button"} onClick={(e) => submit(e)}>Ajouter les élèves</button>
                             </div>
-                            <div className={"backoffice_students_preview_container"}>
+                            <div className={"main_section_container-flex"}>
                                 {
                                     students.filter(student => {
+                                        //@ts-ignore
                                         return !student.attendingClassrooms.some(classroom => classroom.id === getCurrentId);
                                     }).map((student, i) => {
                                         return (

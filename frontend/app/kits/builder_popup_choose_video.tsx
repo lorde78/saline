@@ -1,7 +1,8 @@
 import 'remixicon/fonts/remixicon.css'
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {preview} from "vite";
 import {html} from "mdast-util-to-markdown/lib/handle/html";
+import useGetAllElements from "~/hook/useGetAllElements";
 
 
 interface Props {
@@ -10,36 +11,30 @@ interface Props {
     setVideoSelectOpen: any
 }
 
-export default function Builder_popup_choose_video({videoSelect, setVideoSelect, setVideoSelectOpen}: Props) {
-    const [videosList, setVideosList] = useState(
-        {
-            "videos": [
-                {
-                    "link": "https://www.youtube.com/embed/dQw4w9WgXcQ"
-                },
-                {
-                    "link": "https://www.youtube.com/embed/Zi_XLOBDo_Y"
-                },
-                {
-                    "link": "https://www.youtube.com/embed/Zi_XLOBDo_Y"
-                },
-                {
-                    "link": "https://www.youtube.com/embed/Zi_XLOBDo_Y"
-                },
-                {
-                    "link": "https://www.youtube.com/embed/Zi_XLOBDo_Y"
-                },
-                {
-                    "link": "https://www.youtube.com/embed/Zi_XLOBDo_Y"
-                },
-                {
-                    "link": "https://www.youtube.com/embed/Ss6vLmLcCbU"
-                }
-            ]
-        }
-    )
+interface Video {
+    id: number;
+    title: string;
+    url: string;
+}
 
-    const chooseVideo = (video:string) => {
+export default function Builder_popup_choose_video({videoSelect, setVideoSelect, setVideoSelectOpen}: Props) {
+    const [loader, setLoader] = useState(false);
+
+    const [videos, setVideos] = useState<Video>();
+    // @ts-ignore
+    const getAllVideos = useGetAllElements();
+
+    const getVideos = async () => {
+        const allVideos = await getAllVideos("video", "");
+        setVideos(allVideos);
+        setLoader(true);
+    };
+
+    useEffect(() => {
+        getVideos()
+    }, [])
+
+    const chooseVideo = (video:Video) => {
         setVideoSelect(video)
         setVideoSelectOpen(false)
         const body = document.body;
@@ -53,23 +48,30 @@ export default function Builder_popup_choose_video({videoSelect, setVideoSelect,
     }
 
     return (
-        <div className={"builder_popup_select_video"}>
-            <div id={"popup"}>
-                < i onClick={closePopup} className="ri-close-line"></i>
-                {videosList.videos.map((video) => {
-                    return (
-                        <div>
-                            <iframe src={video.link}
-                                    title="YouTube video player" frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowFullScreen ></iframe>
-                            <button onClick={() => chooseVideo(video.link)} className={"button"}>
-                                Selectioner
-                            </button>
-                        </div>
-                    )
-                })}
-            </div>
-        </div>
+        <>
+            {loader ? (
+                <div className={"builder_popup_select_video"}>
+                    <div id={"popup"}>
+                        < i onClick={closePopup} className="ri-close-line"></i>
+                        {//@ts-ignore
+                            videos?.map((video: Video, i: number) => {
+                            return (
+                                <div>
+                                    <iframe src={video.url}
+                                            title="YouTube video player" frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            allowFullScreen ></iframe>
+                                    <button onClick={() => chooseVideo(video)} className={"button"}>
+                                        Sélectioner
+                                    </button>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
+            ) : (
+                <></>
+            )}
+        </>
     )
 }

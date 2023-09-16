@@ -12,6 +12,8 @@ import useGetAllElements from "~/hook/useGetAllElements";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import getIdFromUrl from "~/helper/getIdFromUrl";
 import Loader from "~/kits/loader";
+import {isLogged} from "~/helper/isLogged";
+import styleRefacto from "~/styles/styleRefacto.css";
 
 interface Training {
     id: number;
@@ -39,12 +41,13 @@ export function links() {
         { rel: 'stylesheet', href: resetStyles },
         { rel: 'stylesheet', href: styles },
         { rel: 'stylesheet', href: input },
-        { rel: 'stylesheet', href: training }
+        { rel: 'stylesheet', href: styleRefacto }
     ];
 }
 
 export default function Backoffice_Trainings_TrainingId_Edit() {
     useGlobalEffect();
+    isLogged("backoffice");
     const getCurrentId = getIdFromUrl(1);
     const [loader, setLoader] = useState(false);
 
@@ -52,7 +55,7 @@ export default function Backoffice_Trainings_TrainingId_Edit() {
     const getCurrentTraining = useGetCurrentElement();
 
     const [courses, setCourses] = useState<Course[]>([]);
-    const getCourses = useGetAllElements<Course>();
+    const getCourses = useGetAllElements();
 
     const getTraining = async () => {
         const currentTraining = await getCurrentTraining("training", getCurrentId);
@@ -61,7 +64,7 @@ export default function Backoffice_Trainings_TrainingId_Edit() {
     };
 
     useEffect(() => {
-        getCourses("lesson").then(r => {
+        getCourses("lesson","").then(r => {
             if (!courses.length) {
                 setCourses(r);
             }
@@ -74,9 +77,9 @@ export default function Backoffice_Trainings_TrainingId_Edit() {
         <>
             {loader ? (
                 <>
-                    <Header_section_page numberUndoPage={2} title={training?.title ?? ''} />
+                    <Header_section_page numberUndoPage={2} title={training?.title ?? ''} logout={true} edit={true}/>
                     <section className={"max_width_container"}>
-                        <div className={"backoffice_training_preview_container max_width"}>
+                        <div className={"main_section_container-flex max_width margin-top-20"}>
                             <div className={"button_header"}>
                                 <NavLink to={`/backoffice/courses/new?relId=${getCurrentId}&relType=training`} className={"button"}>
                                     Créer un cours

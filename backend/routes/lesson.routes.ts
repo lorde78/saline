@@ -1,9 +1,9 @@
 var express = require('express');
+// @ts-ignore
 const { database } = require('../config/db.ts');
-
 var router = express.Router();
 
-router.post('/', async function (req, res, next) {
+router.post('/',async function (req, res, next) {
     const { title, description, difficultyLevel, userId, bannerPicture, relType, relId } = req.body;
     let lesson = null;
 
@@ -35,7 +35,7 @@ router.post('/', async function (req, res, next) {
             }
         })
     }
-    
+
 
     res.json({
         message: 'lesson added',
@@ -105,7 +105,14 @@ router.put('/', async function (req, res, next) {
                         id: parseInt(id),
                     },
                     data: {
-                        steps: req.body.steps
+                        steps: req.body.steps,
+                        videos: {
+                            connect: req.body.steps.map(step => {
+                                if (step.type === "video") {
+                                    return {id: parseInt(step.id)}
+                                }
+                            })
+                        }
                     }
                 })
             }

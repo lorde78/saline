@@ -1,4 +1,5 @@
 var express = require('express');
+// @ts-ignore
 const { database } = require('../config/db.ts');
 
 var router = express.Router();
@@ -120,7 +121,7 @@ router.get('/', async function (req, res, next) {
     const { id, userId } = req.query;
     let classrooms = null;
 
-    if (!id) {
+    if (!id && !userId) {
         classrooms = await database.classroom.findMany({
             include: {
                 author: {
@@ -134,24 +135,42 @@ router.get('/', async function (req, res, next) {
             }
         })
     } else {
-        classrooms = await database.classroom.findMany({
-            where: {
-                OR: [
-                    {id: parseInt(id)},
-                    {userId: parseInt(userId)},
-                ],
-            },
-            include: {
-                author: {
-                    select: {
-                        name: true,
-                        firstName: true
+        if (id) {
+            classrooms = await database.classroom.findMany({
+                where: {
+                    id: parseInt(id)
+                },
+                include: {
+                    author: {
+                        select: {
+                            name: true,
+                            firstName: true
+                        }
+                    },
+                    students: true,
+                    trainings: true
+                }
+            })
+        }
+        if (userId) {
+            classrooms = await database.classroom.findMany({
+                where: {
+                    students: {
+                        some: {
+                            id: parseInt(userId)
+                        }
                     }
                 },
-                students: true,
-                trainings: true
-            }
-        })
+                include: {
+                    author: {
+                        select: {
+                            name: true,
+                            firstName: true
+                        }
+                    }
+                }
+            })
+        }
     }
 
     res.json({

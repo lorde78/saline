@@ -3,18 +3,20 @@ import Comments from "~/components/comments";
 import "~/styles/accordion.css";
 import Formation from "./formations";
 import Graduation from "./graduations";
+import LessonsFromProf from "~/kits/lessonsFromProf";
 
 type Props = {
   type: string;
   title: string;
   picto: string;
+  data?: any;
 };
 
 const fakeCommentData = [
   {
     username: "John Doe",
     content: "Comment on fait pour faire ça ? Merci beaucoup",
-    userpic: "/assets/images/1000x1500-pour-site14.png",
+    userpic: "/assets/images/pdp.png",
     date: "21/08",
     upvote: 6,
     downvote: 7,
@@ -22,7 +24,7 @@ const fakeCommentData = [
       {
         username: "Alice",
         content: "C'est assez simple, voici comment faire : ...",
-        userpic: "/assets/images/1000x1500-pour-site14.png",
+        userpic: "/assets/images/pdp.png",
         date: "22/08",
         upvote: 12,
         downvote: 3,
@@ -30,7 +32,7 @@ const fakeCommentData = [
       {
         username: "Bob",
         content: "Je suis d'accord avec Alice, voici une autre méthode : ...",
-        userpic: "/assets/images/1000x1500-pour-site14.png",
+        userpic: "/assets/images/pdp.png",
         date: "22/08",
         upvote: 8,
         downvote: 2,
@@ -40,7 +42,7 @@ const fakeCommentData = [
   {
     username: "Eva",
     content: "Super commentaire !",
-    userpic: "/assets/images/1000x1500-pour-site14.png",
+    userpic: "/assets/images/pdp.png",
     date: "23/08",
     upvote: 4,
     downvote: 1,
@@ -50,14 +52,20 @@ const fakeCommentData = [
 const fakeFormationsData = [
   {
     title: "C'est le titre",
-    thumbnail: "/assets/images/1000x1500-pour-site14.png",
+    thumbnail: "/assets/images/square.jpg",
     progress: 100,
     status: "terminée"
     
   },
   {
-    title: "Super commentaire !",
-    thumbnail: "/assets/images/1000x1500-pour-site14.png",
+    title: "Cours 1",
+    thumbnail: "/assets/images/square.jpg",
+    progress: 23,
+    status: "en cours"
+  },
+  {
+    title: "Cours 1",
+    thumbnail: "/assets/images/square.jpg",
     progress: 23,
     status: "en cours"
   },
@@ -66,18 +74,18 @@ const fakeFormationsData = [
 const fakeGraduationsData = [
   {
     title: "Cours 1",
-    thumbnail: "/assets/images/1000x1500-pour-site14.png",
+    thumbnail: "/assets/images/rect.jpg",
     professor: "Professeur",
     
   },
   {
     title: "Cours 2",
-    thumbnail: "/assets/images/1000x1500-pour-site14.png",
+    thumbnail: "/assets/images/rect.jpg",
     professor: "Professeur",
   },
 ];
 
-export default function Accordion({type, title, picto}: Props) {
+export default function Accordion({type, title, picto, data}: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [contentHeight, setContentHeight] = useState<number | undefined>(undefined);
 
@@ -89,15 +97,17 @@ export default function Accordion({type, title, picto}: Props) {
 
     switch (type) {
       case "comments":
-
         return <Comments commentsData={fakeCommentData} />
       
       case "formations":
-          return <Formation formationData={fakeFormationsData}/>
+        return <Formation formationData={fakeFormationsData}/>
 
       case "graduations":
-          return <Graduation graduationData={fakeGraduationsData}/>
-          
+        return <Graduation graduationData={fakeGraduationsData}/>
+
+      case "lessons":
+        return <LessonsFromProf lessonData={data}/>;
+
       default:
           break
   }

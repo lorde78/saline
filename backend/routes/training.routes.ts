@@ -1,4 +1,5 @@
 var express = require('express');
+// @ts-ignore
 const { database } = require('../config/db.ts');
 
 var router = express.Router();

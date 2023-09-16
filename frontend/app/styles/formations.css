@@ -14,9 +14,8 @@
 
 
 .formation-pic {
-    height: 205px;
-    min-height: 205px;
-    min-width: fit-content;
+    height: 80px;
+    width: 80px;
     overflow: hidden;
 }
 

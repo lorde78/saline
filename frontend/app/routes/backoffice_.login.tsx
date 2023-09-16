@@ -7,6 +7,7 @@ import authentication from "~/styles/authentication.css";
 import Header_section_page from "~/kits/header_section_page";
 import Form_login from "~/components/form_login";
 import { useGlobalEffect } from "~/helper/globalHelper";
+import {redirectFromLoginIfLogged} from "~/helper/redirectFromLoginIfLogged";
 
 export const meta: V2_MetaFunction = () => {
     return [
@@ -26,6 +27,7 @@ export function links() {
 
 export default function Backoffice_Login() {
     useGlobalEffect();
+    redirectFromLoginIfLogged("backoffice");
 
     return (
         <div className={"authentication_container"}>

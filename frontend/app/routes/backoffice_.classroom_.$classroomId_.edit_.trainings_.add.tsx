@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -6,26 +6,29 @@ import training from "~/styles/backofficeTraining.css";
 import Header_section_page from "~/kits/header_section_page";
 import Backoffice_edit_training from "~/components/backoffice_edit_training";
 import Checkbox from "~/kits/checkbox";
-import { useGlobalEffect } from "~/helper/globalHelper";
+import {useGlobalEffect} from "~/helper/globalHelper";
 import useGetAllElements from "~/hook/useGetAllElements";
 import getIdFromUrl from "~/helper/getIdFromUrl";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import Loader from "~/kits/loader";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import editLink from "~/helper/editLink";
 import useAddTrainingsToClassroom from "~/hook/useAddTrainingsToClassroom";
+import {isLogged} from "~/helper/isLogged";
+import styleRefacto from "~/styles/styleRefacto.css";
 
 export function links() {
     return [
-        { rel: 'stylesheet', href: resetStyles },
-        { rel: 'stylesheet', href: styles },
-        { rel: 'stylesheet', href: input },
-        { rel: 'stylesheet', href: training }
+        {rel: 'stylesheet', href: resetStyles},
+        {rel: 'stylesheet', href: styles},
+        {rel: 'stylesheet', href: input},
+        {rel: 'stylesheet', href: styleRefacto}
     ];
 }
 
 export default function Backoffice_Classroom_ClassroomId_Edit_Trainings_Add() {
     useGlobalEffect();
+    isLogged("backoffice");
     const addTraining = useAddTrainingsToClassroom();
     const navigate = useNavigate();
     const editPath = editLink(4);
@@ -46,7 +49,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Trainings_Add() {
     };
 
     useEffect(() => {
-        getAllTrainings("training").then(r => {
+        getAllTrainings("training", "").then(r => {
             if (!trainings.length) {
                 setTrainings(r);
             }
@@ -58,7 +61,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Trainings_Add() {
     const [trainingsAdd, setTrainingsAddAdd] = useState<any>({});
 
     const checkTrainings = (value: boolean, props: any) => {
-        let newTrainingsAdd = { ...trainingsAdd };
+        let newTrainingsAdd = {...trainingsAdd};
         if (value) {
             // @ts-ignore
             newTrainingsAdd[props.id] = props.id;
@@ -71,7 +74,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Trainings_Add() {
 
     const submit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
-        addTraining(Object.values(trainingsAdd), true, getCurrentId);
+        addTraining(trainingsAdd, true, getCurrentId);
 
         navigate(editPath + "/" + getCurrentId + "/edit/trainings");
     };
@@ -80,35 +83,37 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Trainings_Add() {
         <>
             {loader ?
                 <>
-                    <Header_section_page numberUndoPage={1} title={classroom.title} />
+                    <Header_section_page numberUndoPage={1} title={classroom.title} logout={true}/>
                     <section className={"max_width_container"}>
-                        <div className={"backoffice_training_preview_container max_width"}>
+                        <div className={"main_section_container-flex max_width margin-top-20"}>
                             <button className={"button"} onClick={(e) => submit(e)}>Ajouter les parcours</button>
                             {
                                 trainings.filter(course => {
-                                    return !course.classrooms.some(classroom => classroom.id === getCurrentId);
+                                    return !course.classrooms.some((classroom: any) => classroom.id === getCurrentId);
                                 }).map((training) => {
                                     let id = training.id;
                                     return (
-                                        <div className={"course_preview_container"} key={id}>
+                                        <div className={"main_section_container-flex-row"} key={classroom.id}>
                                             <Checkbox
                                                 name={"checkbox"}
                                                 type={"checkbox"}
                                                 text={""}
                                                 setValue={checkTrainings}
-                                                propsSetValue={{ id: id }}
+                                                propsSetValue={{id: id}}
                                                 // @ts-ignore
                                                 value={trainingsAdd[id] ? trainingsAdd[id].value : false}
                                             />
-                                            <Backoffice_edit_training
-                                                id={training.id}
-                                                title={training.title}
-                                                author={training.author}
-                                                imgLink={training.bannerPicture}
-                                                description={training.description}
-                                                showButton={false}
-                                                creation_type={"training"}
-                                            />
+                                            <div className={"width90"}>
+                                                <Backoffice_edit_training
+                                                    id={training.id}
+                                                    title={training.title}
+                                                    author={training.author}
+                                                    imgLink={training.bannerPicture}
+                                                    description={training.description}
+                                                    showButton={false}
+                                                    creation_type={"training"}
+                                                />
+                                            </div>
                                         </div>
                                     )
                                 })
@@ -118,7 +123,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Trainings_Add() {
                     </section>
                 </>
                 :
-                <Loader />
+                <Loader/>
             }
         </>
     )

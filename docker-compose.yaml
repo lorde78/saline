@@ -21,8 +21,8 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: saline_remix
-    command: npm run build && npm run serve
-    ports: ['3001:3001','8002:8002']
+    command: npm run dev && npm run serve
+    ports: ['3001:3001']
 
   db:
     image: mysql:5.7

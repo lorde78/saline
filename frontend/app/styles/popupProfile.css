@@ -10,6 +10,7 @@
     color: #121525;
     font-size: 0.875rem;
     font-weight: 500;
+    z-index:1000;
 }
 
 .popup-profile_container > p {

@@ -7,6 +7,11 @@ import Header from "~/components/header";
 import Footer from "~/components/footer";
 import User_preview_card from "~/components/user_preview_card";
 import Header_section_page from "~/kits/header_section_page";
+import {useGlobalEffect} from "~/helper/globalHelper";
+import getIdFromUrl from "~/helper/getIdFromUrl";
+import useGetCurrentElement from "~/hook/useGetCurrentElement";
+import Loader from "~/kits/loader";
+import {isLogged} from "~/helper/isLogged";
 
 
 export function links() {
@@ -18,36 +23,45 @@ export function links() {
     ]
 }
 
+interface Training {
+    id: number;
+    title: string;
+    bannerPicture: string;
+    description: string;
+    author: {
+        name: string;
+        firstName: string;
+    };
+    lessons: any;
+}
+
+interface Course {
+    id: number;
+    title: string;
+    bannerPicture: string;
+    description: string;
+    author: {
+        name: string,
+        firstName: string
+    }
+}
+
 export default function Trainings_TrainingId() {
+    useGlobalEffect()
+    isLogged("user");
+    const [loader, setLoader] = useState(false);
+    const getCurrentId = getIdFromUrl(0)
 
+    const [training, setTraining] = useState<Training | null>(null);
+    const getCurrentTraining = useGetCurrentElement();
 
-    const [training, setTrainings] = useState({
-            id: 0,
-            title: "Steampunk",
-            professor: "Jean Paul",
-            description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
-            status: "Terminé",
-            courses: [
-                {
-                    id: 0,
-                    title: "course 1",
-                    professor: "Jean Paul",
-                    description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-                    imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
-                    status: "Terminé"
-                },
-                {
-                    id: 1,
-                    title: "course 2",
-                    professor: "Jean Paul",
-                    description: "Lorem Ipsum is simply dummy text of the printing and typesetting Lorem Ipsum is simply dummy text of the printing and typesetting... Lorem Ipsum is simply dummy text of the printing and typesetting...",
-                    imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
-                    status: "Non commencé"
-                },
-            ]
-        }
-    )
+    const getTraining = async () => {
+        const currentClassroom = await getCurrentTraining("training", getCurrentId);
+        //@ts-ignore
+        setTraining(currentClassroom);
+        setLoader(true);
+    };
+
     const [bannerHeight, setBannerHeight] = useState(400)
 
     useEffect(() => {
@@ -58,36 +72,46 @@ export default function Trainings_TrainingId() {
                 setBannerHeight(400)
             }
         };
+
+        getTraining()
     }, []);
+
     return (
         <>
-            <Header/>
-            <Header_section_page numberUndoPage={1} title={training.title}/>
-            <main className={"max_width_container"}>
-                <div className={"main_section_container-flex max_width"}>
-                    <div className={"big_banner_image"} style={{height: bannerHeight}}>
-                        <img src={training.imgLink} alt={"bannière du cour"}/>
-                    </div>
-                    <p>{training.description}</p>
-                    <div className={"main_section_container-grid"}>
-                        {
-                            training.courses.map((training, i) => {
-                                return (
-                                    <User_preview_card
-                                        id={training.id}
-                                        title={training.title}
-                                        professor={training.professor}
-                                        imgLink={training.imgLink}
-                                        description={training.description}
-                                        status={training.status}
-                                    />
-                                )
-                            })
-                        }
-                    </div>
-                </div>
-            </main>
-            <Footer/>
+            {loader ? (
+                <>
+                    <Header/>
+                    <Header_section_page numberUndoPage={1} title={training?.title || ""}/>
+                    <main className={"max_width_container"}>
+                        <div className={"main_section_container-flex max_width"}>
+                            <div className={"big_banner_image"} style={{height: bannerHeight}}>
+                                <img src={training?.bannerPicture} alt={"bannière du cour"}/>
+                            </div>
+                            <p>{training?.description}</p>
+                            <div className={"main_section_container-grid"}>
+                                {
+                                    training?.lessons.map((course: Course, i: any) => {
+                                        return (
+                                            <User_preview_card
+                                                id={course.id}
+                                                title={course.title}
+                                                author={course.author}
+                                                imgLink={course.bannerPicture}
+                                                description={course.description}
+                                                status={"A faire"}
+                                                redirectTo={`courses/${course.id}`}
+                                            />
+                                        )
+                                    })
+                                }
+                            </div>
+                        </div>
+                    </main>
+                    <Footer/>
+                </>
+            ) : (
+                <Loader/>
+            )}
         </>
     )
         ;

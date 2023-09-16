@@ -16,6 +16,7 @@ import formuleStyles from "~/styles/formule.css";
 import ProfessorInfos from '~/kits/professorInfos';
 import Professor_profile from '~/components/professorProfile';
 import SearchProfessor from '~/components/searchProfessor';
+import {isLogged} from "~/helper/isLogged";
 
 
 const fakeProfessorsData = [
@@ -44,6 +45,7 @@ export function links() {
 }
 
 export default function Professor_page() {
+    isLogged("user");
     return (
         <div className="professor-profile">
             {/* <Professor_profile /> */}

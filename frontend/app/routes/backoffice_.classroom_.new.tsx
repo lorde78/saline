@@ -7,6 +7,7 @@ import Header_section_page from "~/kits/header_section_page";
 import Builder_creation from "~/components/builder_creation";
 import { useGlobalEffect } from "~/helper/globalHelper";
 import { Outlet, useLocation } from "@remix-run/react";
+import {isLogged} from "~/helper/isLogged";
 
 export function links() {
     return [
@@ -19,13 +20,14 @@ export function links() {
 
 export default function Backoffice_Classroom_New() {
     useGlobalEffect();
+    isLogged("backoffice");
 
     return (
         <>
-            <Header_section_page numberUndoPage={1} title={"Créer une classe"} />
+            <Header_section_page numberUndoPage={1} title={"Créer une classe"} logout={true} />
             <section className={"max_width_container"}>
                 <div className={"builder_container max_width"}>
-                    <Builder_creation creation_type={"classroom"} />
+                    <Builder_creation creation_type={"classroom"}/>
                 </div>
             </section>
         </>

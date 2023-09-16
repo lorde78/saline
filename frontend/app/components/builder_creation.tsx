@@ -1,5 +1,5 @@
 import Select from "~/kits/select";
-import {useContext, useEffect, useState} from "react";
+import {MouseEvent, useContext, useEffect, useState} from "react";
 import Select_image from "~/kits/select_image";
 import Header_section_page from "~/kits/header_section_page";
 import Input from "~/kits/input";
@@ -12,14 +12,22 @@ import {useNavigate, useParams} from "react-router-dom";
 import useCreateBuilderElement from "~/hook/useCreateBuilderElement";
 import editLink from "~/helper/editLink";
 import {LoaderFunction} from "@remix-run/node";
+import useUploadFile from "~/hook/useUploadFile";
+import Select_multiple from "~/kits/select_multiple";
 
 type Props = {
     creation_type: string,
-    relId: number,
-    relType: string
+    relId?: number,
+    relType?: string
 }
 
-export default function Builder_creation({creation_type,relId,relType}: Props) {
+
+interface TagData {
+    value: string;
+    option: string;
+}
+
+export default function Builder_creation({creation_type, relId, relType}: Props) {
     const editPath = editLink(1)
 
     const [id, setId] = useState(10)
@@ -39,32 +47,76 @@ export default function Builder_creation({creation_type,relId,relType}: Props) {
     const [difficultySelected, setDifficultySelected] = useState(0)
     // Difficulty Select
 
+    // tag Select
+    const [tags, setTags] = useState<string[]>([]);
+    const [tagsData, setTagsData] = useState<TagData[]>([
+        {value: "Piano", option: "Piano"},
+        {value: "Batterie", option: "Drum"},
+        {value: "Basse", option: "Bass"},
+        {value: "Chant", option: "Singing"},
+        {value: "Violon", option: "Violin"},
+        {value: "Saxophone", option: "Saxophone"},
+        {value: "Trompette", option: "Trumpet"},
+        {value: "Flûte", option: "Flute"},
+        {value: "Guitare", option: "Guitar"},
+    ]);
+    const [tagsSelected, setTagsSelected] = useState<number[]>([]);
+
+    useEffect(() => {
+        console.log(tagsSelected);
+    }, [tagsSelected]);
+    const changeTags = (value: string, id: number) => {
+        if (tagsSelected.includes(id)) {
+            setTagsSelected(tagsSelected.filter(optionId => optionId !== id));
+            setTags(tags.filter(tag => tag !== value));
+        } else {
+            setTagsSelected([...tagsSelected, id]);
+            setTags([...tags, value]);
+        }
+    }
+
+
     const location = useLocation()
     const navigate = useNavigate()
 
+    // @ts-ignore
     const [signin, setSignin] = useContext(signinContext)
 
     const getcurrentUserId = () => {
         try {
             if (signin) {
-                return  useGetCurrentUserId(signin)
+                return useGetCurrentUserId(signin)
             }
         } catch (error) {
             console.error(error)
         }
     }
 
+    const uploadHook = useUploadFile()
     const creationHook = useCreateBuilderElement()
-    let createdId = null;
+    let createdId: any = null;
+    let bannerUrl: any = null;
 
-    const submit = async (e) => {
+    const submit = async (e: any) => {
         e.preventDefault()
         const currentUserId = getcurrentUserId()
-        let formData:any = {
+        const fileUpload = new FormData();
+
+        // @ts-ignore
+        fileUpload.append("fileToUpload", banner);
+
+        try {
+            bannerUrl = await uploadHook(fileUpload, "image")
+        } catch (err) {
+            console.log("Erreur lors de l'envoi du fichier :", err);
+        }
+
+        let formData: any = {
             "title": title,
             "userId": currentUserId,
-            "bannerPicture": "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
+            "bannerPicture": bannerUrl,
             "description": description
+
         }
 
         switch (creation_type) {
@@ -73,6 +125,7 @@ export default function Builder_creation({creation_type,relId,relType}: Props) {
                     ...formData,
                     "difficultyLevel": difficulty
                 }
+
                 break;
 
             case 'lesson':
@@ -80,6 +133,7 @@ export default function Builder_creation({creation_type,relId,relType}: Props) {
                     ...formData,
                     "difficultyLevel": difficulty
                 }
+
                 break;
         }
 
@@ -91,17 +145,21 @@ export default function Builder_creation({creation_type,relId,relType}: Props) {
                     "relType": relType,
                     "relId": relId
                 }
+
                 break;
         }
 
-        createdId = await creationHook(formData,creation_type).then(res => res.id)
+        try {
+            createdId = await creationHook(formData, creation_type).then(res => res.id)
+        } catch (err) {
+            console.log("Erreur lors de l'envoi du fichier :", err);
+        }
 
         navigate(editPath + "/" + createdId + "/edit")
     }
 
     const complementaryForm = () => {
-        switch(creation_type) {
-            case 'training':
+        switch (creation_type) {
             case 'lesson':
                 return (
                     <div>
@@ -116,16 +174,27 @@ export default function Builder_creation({creation_type,relId,relType}: Props) {
                             />
                         </div>
                         <div>
-
+                            <h3>Sélectionner un tag</h3>
+                            <Select_multiple
+                                optionsSelected={tagsSelected}
+                                setOptionsSelected={setTagsSelected}
+                                contents={tagsData}
+                                setValue={changeTags}
+                            />
                         </div>
                     </div>
+                )
+            default :
+                return (
+                    <></>
                 )
         }
     }
 
+
     return (
-        <form className={"builder_creation"}>
-            <Select_image/>
+        <form className={"builder_creation"} onSubmit={submit}>
+            <Select_image setValue={setBanner}/>
             <Input
                 name={"title"}
                 type={'text'}
@@ -142,7 +211,7 @@ export default function Builder_creation({creation_type,relId,relType}: Props) {
                 value={description}
             />
             {complementaryForm()}
-            <button onClick={(e) => submit(e)} className={"button"}>Créer</button>
+            <button type="submit" className={"button"}>Créer</button>
         </form>
     )
 }

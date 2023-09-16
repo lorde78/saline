@@ -4,18 +4,23 @@ import {NavLink, Outlet, useLocation} from "@remix-run/react";
 type Props = {
     id: number
     title: string
-    professor: string
+    author: {
+        name: string,
+        firstName: string
+    }
     description: string
     imgLink: string
-    status: string
+    status?: string
+    redirectTo: string
 };
 export default function User_preview_card({
                                           id,
                                           title,
-                                          professor,
+                                          author,
                                           description,
                                           imgLink,
-                                          status
+                                          status,
+                                          redirectTo
                                       }: Props) {
 
 
@@ -39,13 +44,13 @@ export default function User_preview_card({
         return (
             <div className={"preview_card_status"}>
                 <span className={"status_color status_color-" + statusColor}/>
-                <p>{status}</p>
+                <p>{status ? status: author.firstName + " " + author.name}</p>
             </div>
         )
     }
 
     return (
-        <NavLink to={id.toString()} className={"preview_card"}>
+        <NavLink to={redirectTo} className={"preview_card"}>
             <div className={"banner_image"}>
                 <img src={imgLink} alt={""}/>
             </div>

@@ -7,6 +7,7 @@ import backofficeFormula from "~/styles/backofficeFormula.css";
 import Backoffice_edit_formula from "~/components/backoffice_edit_formula";
 import Header_section_page from "~/kits/header_section_page";
 import { useGlobalEffect } from "~/helper/globalHelper";
+import {isLogged} from "~/helper/isLogged";
 
 type FormulaMust = {
     name: string;
@@ -34,6 +35,7 @@ export function links() {
 
 export default function Backoffice_Formulas() {
     useGlobalEffect();
+    isLogged("backoffice");
 
     const [formula, setFormula] = useState<Formula>({
         id: 1,
@@ -97,7 +99,7 @@ export default function Backoffice_Formulas() {
 
     return (
         <>
-            <Header_section_page numberUndoPage={1} title={formula.name} />
+            <Header_section_page numberUndoPage={1} title={formula.name} logout={true} />
             <section className={"max_width_container"}>
                 <div className={"backoffice_formulas_container max_width"}>
                     <Backoffice_edit_formula

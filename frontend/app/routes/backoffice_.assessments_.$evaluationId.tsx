@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -6,6 +6,9 @@ import assessment from "~/styles/backofficeAssessment.css";
 import Backoffice_assessment from "~/components/backoffice_assessment";
 import Backoffice_edit_assessment from "~/components/backoffice_edit_assessment";
 import { useGlobalEffect } from "~/helper/globalHelper";
+import {useNavigate} from "react-router-dom";
+import {signinContext} from "~/context/signinContext";
+import {isLogged} from "~/helper/isLogged";
 
 export function links() {
     return [
@@ -18,6 +21,7 @@ export function links() {
 
 export default function BackofficeAssessmentsEvaluationId() {
     useGlobalEffect();
+    isLogged("backoffice");
 
     return (
         <div className={"backoffice_assessment_id_container "}>

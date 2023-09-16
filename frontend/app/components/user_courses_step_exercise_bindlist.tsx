@@ -9,8 +9,7 @@ interface Step {
     id: number;
     value: string;
     type: string;
-    professor: string;
-    status: string;
+    status?: string;
     data: BindData[];
 }
 

@@ -5,13 +5,15 @@ import Builder_select_folder from "~/kits/builder_select_folder";
 import Textarea from "~/kits/textarea";
 
 type Props = {
-    description: string
-    setDescription: any
-    infoDescription: string
-    setInfoDescription: any
+    description: string;
+    setDescription: any;
+    infoDescription: any;
+    setInfoDescription: any;
+    setFileInfo: any;
+    filesData: any;
 }
 
-export default function Builder_navigation_step_video({ description, setDescription, infoDescription, setInfoDescription }: Props) {
+export default function Builder_navigation_step_video({ description, setDescription, infoDescription, setInfoDescription, filesData, setFileInfo }: Props) {
     const [stepsNav, setStepsNav] = useState("Description")
 
     const displayNav = () => {
@@ -29,18 +31,14 @@ export default function Builder_navigation_step_video({ description, setDescript
                 return (
                     <div className={"nav_information"}>
                         <Builder_select_folder icon={"ri-file-2-line"} folderType={"application/pdf"} idType={"pdf"}
-                                               buttonMessage={"Sélectionner un fichier"}/>
+                                               buttonMessage={"Sélectionner un fichier"} dbFile={infoDescription.url} setFileInfo={setFileInfo} filesData={filesData} fileType={"documentations"}/>
                         <Textarea name={"Description"}
                                   placeholder={"Description"}
                                   setValue={setInfoDescription}
                                   propsSetValue={""}
-                                  value={infoDescription}
+                                  value={infoDescription.text}
                         />
                     </div>
-                )
-            case "Parcours":
-                return (
-                    "Parcours"
                 )
             case "Professeurs":
                 return (
@@ -56,7 +54,6 @@ export default function Builder_navigation_step_video({ description, setDescript
             <nav>
                 <button onClick={() => setStepsNav("Description")}>Description</button>
                 <button onClick={() => setStepsNav("Information")}>Information</button>
-                <button onClick={() => setStepsNav("Parcours")}>Parcours</button>
                 <button onClick={() => setStepsNav("Professeurs")}>Professeurs</button>
             </nav>
             <div>

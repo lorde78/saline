@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -10,6 +10,12 @@ import User_courses_step_exercise_bindlist from "~/components/user_courses_step_
 import User_courses_step_exercise_qcm from "~/components/user_courses_step_exercise_qcm";
 import User_courses_step_video from "~/components/user_courses_step_video";
 import User_courses_step_review from "~/components/user_courses_step_review";
+import {useGlobalEffect} from "~/helper/globalHelper";
+import getIdFromUrl from "~/helper/getIdFromUrl";
+import useGetCurrentElement from "~/hook/useGetCurrentElement";
+import Loader from "~/kits/loader";
+import builder from "~/styles/builder.css";
+import {isLogged} from "~/helper/isLogged";
 
 
 export function links() {
@@ -18,113 +24,51 @@ export function links() {
         {rel: 'stylesheet', href: styles},
         {rel: 'stylesheet', href: input},
         {rel: 'stylesheet', href: stylesRefacto},
+        { rel: "stylesheet", href: builder }
     ]
 }
 
+interface Step {
+    id: number;
+    data: any;
+    type: string;
+    value: string;
+}
+
 export default function Courses_CourseId_StepId() {
+    useGlobalEffect()
+    isLogged("user");
+    const [loader, setLoader] = useState(false);
+    const getCurrentId = getIdFromUrl(1)
+    const getStepId = getIdFromUrl(0)
 
+    const [step, setStep] = useState<Step | null>(null);
+    const getCurrentCourse = useGetCurrentElement();
 
-    const [step, setStep] = useState(
-        {
-            id: 1,
-            value: "étape 1",
-            type: "video",
-            professor: "Jean Paul",
-            status: "Terminé",
-            data:
-                {
-                    description: "On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).",
-                    information: {
-                        infoDescription: "On sait depuis longtemps que ",
-                        document: ""
-                    },
-                    video: "https://www.youtube.com/embed/Zi_XLOBDo_Y",
-                    professors: [
-                        {
-                            id: 0,
-                            img: "https://www.w3schools.com/howto/img_avatar.png",
-                            name: "Jean Paul",
-                            roles: ["Professeur", "Administrateur"],
-                            instruments: ["Guitare"]
-                        },
-                        {
-                            id: 1,
-                            img: "https://www.w3schools.com/howto/img_avatar.png",
-                            name: "Jean Damien",
-                            roles: ["Professeur"],
-                            instruments: ["Guitare", "Basse"],
-                        }
-                    ],
-                    comments: [
-                        {
-                            id: 0,
-                        }
-                    ],
-                }
-        }
+    const getCourse = async () => {
+        const currentClassroom = await getCurrentCourse("lesson", getCurrentId);
+        //@ts-ignore
+        setStep(currentClassroom.steps[getStepId-1]);
+        setLoader(true);
+    };
 
-        // {
-        //     id: 2,
-        //     value: "étape 2",
-        //     type: "exercise/qcm",
-        //     professor: "Jean Paul",
-        //     status: "En cours",
-        //     data: [
-        //         {
-        //             question: 'Question 1',
-        //             multipleChoice: true,
-        //             choice: [
-        //                 {answer: 'Réponse 1', goodAnswer: true},
-        //                 {answer: 'Réponse 2', goodAnswer: true},
-        //                 {answer: 'Réponse 3', goodAnswer: false},
-        //             ]
-        //         },
-        //         {
-        //             question: 'Question 2',
-        //             multipleChoice: false,
-        //             choice: [
-        //                 {answer: 'Réponse 1', goodAnswer: true},
-        //                 {answer: 'Réponse 2', goodAnswer: false},
-        //             ]
-        //         }
-        //     ]
-        // }
+    const [bannerHeight, setBannerHeight] = useState(400)
 
-        // {
-        //     id: 3,
-        //     value: "étape 3",
-        //     type: "exercise/bind_list",
-        //     professor: "Jean Paul",
-        //     status: "Non commencé",
-        //     data: [
-        //         {
-        //             bind1: "pommes",
-        //             bind2: "fruits",
-        //         },
-        //         {
-        //             bind1: "carottes",
-        //             bind2: "léguemes",
-        //         },
-        //         {
-        //             bind1: "poivres",
-        //             bind2: "épices",
-        //         },
-        //     ]
-        // }
+    useEffect(() => {
+        window.onscroll = function () {
+            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                setBannerHeight(200)
+            } else {
+                setBannerHeight(400)
+            }
+        };
 
-        // {
-        //     id: 4,
-        //     value: "étape 4",
-        //     type: "review",
-        //     professor: "Jean Paul",
-        //     status: "Non commencé",
-        //     data: {}
-        // }
-    )
+        getCourse()
+    }, []);
 
 
     const typeStep = () => {
-        switch (step.type) {
+        switch (step?.type) {
             case "video":
                 return (
                     <User_courses_step_video step={step}/>
@@ -143,18 +87,25 @@ export default function Courses_CourseId_StepId() {
                 )
         }
     }
-
+    // @ts-ignore
+    let title = step?.value.charAt(0).toUpperCase() + step?.value.slice(1);
 
     return (
         <>
-            <Header/>
-            <Header_section_page numberUndoPage={1} title={step.value}/>
-            <main className={"max_width_container margin-top-20"}>
-                <div className={"main_section_container-flex max_width"}>
-                    {typeStep()}
-                </div>
-            </main>
-            <Footer/>
+            {loader ? (
+                <>
+                    <Header/>
+                    <Header_section_page numberUndoPage={1} title={title || ""}/>
+                    <main className={"max_width_container margin-top-20"}>
+                        <div className={"main_section_container-flex max_width"}>
+                            {typeStep()}
+                        </div>
+                    </main>
+                    <Footer/>
+                </>
+            ) : (
+                <Loader/>
+            )}
         </>
     )
         ;

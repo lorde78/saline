@@ -6,11 +6,15 @@ import { useState, useContext } from "react";
 import { registerContext } from "~/context/registerContext";
 import useRegister from "~/hook/useRegister";
 import { NavLink } from "@remix-run/react";
+import {useNavigate} from "react-router-dom";
+import useUploadFile from "~/hook/useUploadFile";
 
 export default function Form_register_complementary() {
     // @ts-ignore
     const [registerData,setRegister] = useContext(registerContext)
+    const navigate = useNavigate()
 
+    const [profilePicture, setProfilePicture] = useState()
     const [birthDate, setBirthDate] = useState("")
     const [gender, setGender] = useState("")
     const [genderData, setGenderData] = useState([
@@ -30,22 +34,42 @@ export default function Form_register_complementary() {
         setGender(value)
     }
 
+    const uploadHook = useUploadFile()
     const register = useRegister()
+    let pictureUrl: any = null;
 
-    const submit = (e:any) => {
+    const submit = async (e:any) => {
+        e.preventDefault();
+        const fileUpload = new FormData();
+
+        // @ts-ignore
+        fileUpload.append("fileToUpload", profilePicture);
+
+        try {
+            pictureUrl = await uploadHook(fileUpload, "image")
+        } catch (err) {
+            console.log("Erreur lors de l'envoi du fichier :", err);
+        }
+
+        const isoDate = new Date(birthDate).toISOString();
         let formData = {
             ...registerData,
+            "profilePicture": pictureUrl,
             "genre": gender,
             "nationality": country,
-            "birthDate": birthDate,
+            "birthDate": isoDate,
             "postalAddress":  address + ", " + postalCode
         }
+
         register(formData)
+
+        navigate("/")
     }
 
     return (
-        <form className={"authentication_form_container"}>
-            <Select_image/>
+        <form className={"authentication_form_container"} onSubmit={submit}>
+            {/* @ts-ignore */}
+            <Select_image setValue={setProfilePicture}/>
             <Select
                 optionSelected={genderSelected}
                 setOptionSelected={setGenderSelected}
@@ -66,7 +90,7 @@ export default function Form_register_complementary() {
                       text={"J’ai lu et j’accepte la Politique de confidentialité"}
                       setValue={setPrivacy}
                       propsSetValue={""} value={privacy}/>
-            <NavLink className={"button"} type="submit" onClick={(e:any) => submit(e)} to={"/"}>Inscription</NavLink>
+            <button className={"button"} type="submit" >Inscription</button>
         </form>
     )
 }

@@ -33,7 +33,7 @@ export default function Backoffice_classroom({
     const deleteElement = useDeleteElement()
     const getCurrentId = getIdFromUrl(1)
 
-    const submit = (e) => {
+    const submit = (e:any) => {
         if(!getCurrentId) {
             deleteElement(creation_type,id)
         }
@@ -42,19 +42,19 @@ export default function Backoffice_classroom({
     }
 
     return (
-        <div className={"backoffice_classroom_container"}>
-            <div className={"classroom_image"}>
-                <img src={imgLink} alt={"bannière du cour"}/>
+        <div className={"preview_card"}>
+            <div className={"banner_image"}>
+                <img src={imgLink} alt={"bannière de la classe"}/>
             </div>
-            <div className={"classroom_info"}>
-                <div className={"classroom_header_info"}>
+            <div className={"preview_card_content"}>
+                <div className={"content_header"}>
                     <p>{title}</p>
                     <p>{author.firstName} {author.name}</p>
                 </div>
-                <p className={"classroom_description"}>
+                <p className={"training_description margin-top-20"}>
                     {description}
                 </p>
-                <div className={"classroom_button"}>
+                <div className={"preview_card_button margin-top-20"}>
                     <NavLink className={"button"} to={id.toString()+"/edit"}>
                         Modifier
                     </NavLink>

@@ -1,4 +1,4 @@
-import 'remixicon/fonts/remixicon.css'
+import 'remixicon/fonts/remixicon.css';
 import Accordion from "~/kits/accordion";
 import Formule from "~/kits/formule";
 import UserInfos from "~/kits/userInfos";
@@ -13,35 +13,85 @@ import inputStyles from "~/styles/input.css";
 import EditPassword from "~/components/editPassword";
 import EditFormule from '~/components/editFormule';
 import formuleStyles from "~/styles/formule.css";
-import { useGlobalEffect } from '~/helper/globalHelper';
+import Formation from '~/kits/formations';
+import Header from "~/components/header";
+import Footer from "~/components/footer";
 
-const userInfo = {
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'john.doe@example.com',
-  gender: 'Homme',
-  dateOfBirth: '1990-07-05',
-  address: '28 rue Albert, Mars',
-};
+
+import { useGlobalEffect } from '~/helper/globalHelper';
+import {useContext, useEffect, useState} from "react";
+import {signinContext} from "~/context/signinContext";
+import useGetCurrentElement from "~/hook/useGetCurrentElement";
+import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
+import Loader from "~/kits/loader";
+import {useNavigate} from "react-router-dom";
+import {isLogged} from "~/helper/isLogged";
 
 export function links() {
   return [{rel: 'stylesheet', href: resetStyles}, {rel: 'stylesheet', href: profileStyles}, {rel: 'stylesheet', href: globalStyles}, {rel: 'stylesheet', href: inputStyles}, {rel: 'stylesheet', href: formuleStyles}]
 }
 
-export default function Profil_page() {
-  useGlobalEffect()
+export default function Profile() {
+    useGlobalEffect()
+    isLogged("user");
+    const [loader, setLoader] = useState(false);
+    const navigate = useNavigate()
+    // @ts-ignore
+    const [signin, setSignin] = useContext(signinContext);
 
-  return (
-      <div className="profile-page">
-        {/* <UserInfos src="/assets/images/pdp.png"/> */}
-        {/* <Formule subscription="Annuel" /> */}
-        {/* <Accordion title="Vos formations" content="Content 1" picto="ri-book-mark-line" />
-        <Accordion title="Vos commentaires" content="Content 2" picto="ri-message-3-line" />
-        <Accordion title="Vos certifications" content="Content 3" picto="ri-graduation-cap-line" /> */}
-        {/* <EditUserProfile userInfo={userInfo} /> */}
-        {/* <EditPassword /> */}
-        {/* <Form_register_complementary /> */}
-        <EditFormule />
-      </div>
-  )
+    const [currentUser,setCurrentUser] = useState<any>("")
+    const getCurrentUser = useGetCurrentElement();
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                if (signin) {
+                    const currentUserId = await useGetCurrentUserId(signin);
+                    setLoader(true)
+                    getCurrentUser("user",currentUserId).then((r: any) => {
+                        if (currentUser === "") {
+                            setCurrentUser(r);
+                            setLoader(true)
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchUser()
+    }, [signin])
+
+
+    return (
+
+        <>
+            {loader ? (
+                <>
+                    <Header/>
+                    <main className={"max_width_container margin-top-20"}>
+                        <div className={"main_section_container-grid margin-top-20 max_width"}>
+                            <div className="profile-page">
+                                <UserInfos data={currentUser}/>
+                                <Formule subscription="Annuel" />
+                                <Accordion type="formations" title="Vos formations" picto="ri-book-mark-line" />
+                                <Accordion type="comments" title="Vos commentaires" picto="ri-message-3-line" />
+                                <Accordion type="graduations" title="Vos certifications" picto="ri-graduation-cap-line" />
+                                {/* <Formation /> */}
+                                {/* <EditUserProfile userInfo={userInfo} /> */}
+                                {/* <EditPassword /> */}
+                                {/* <Form_register_complementary /> */}
+                                {/* <EditFormule /> */}
+                            </div>
+                        </div>
+                    </main>
+
+                    <Footer/>
+                </>
+                ) : (
+                  <Loader/>
+            )}
+        </>
+        )
 }

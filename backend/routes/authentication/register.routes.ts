@@ -1,13 +1,17 @@
 var express = require('express');
+// @ts-ignore
 const { sendCookie, getCookie } = require('../../helpers/cookie.helper.ts');
+// @ts-ignore
 const { database } = require('../../config/db.ts');
+// @ts-ignore
 const bcrypt = require('bcrypt');
+// @ts-ignore
 const { generateToken } = require('../../utils/jwt.utils.ts');
 
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    let { email, password, firstname, profilePicture, phoneNumber, genre, nationality, name, birthdate, postalAddress, roles } = req.body;
+    let { email, password, firstName, profilePicture, phoneNumber, genre, nationality, name, birthdate, postalAddress, roles } = req.body;
     const roleDefault = ["ROLE_USER"];
     roles = roles ? roleDefault.concat(roles) : roleDefault;
 
@@ -32,7 +36,7 @@ router.post('/', async function (req, res, next) {
             email: email,
             password: bcrypt.hashSync(password, 12),
             name: name,
-            firstname: firstname,
+            firstName: firstName,
             profilePicture: profilePicture || "",
             phoneNumber: phoneNumber || "",
             genre: genre,
