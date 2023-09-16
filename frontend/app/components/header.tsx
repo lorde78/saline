@@ -15,7 +15,7 @@ type Props = {
     onSearch?: (searchTerm: string) => void
 }
 
-export default function Header({search}: Props) {
+export default function Header({search, onSearch}: Props) {
     useGlobalEffect()
     const [loader, setLoader] = useState(false);
     // @ts-ignore
