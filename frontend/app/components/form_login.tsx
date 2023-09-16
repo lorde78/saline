@@ -1,9 +1,10 @@
 import Input from "~/kits/input";
-import {useState,useContext} from "react";
+import React, {useState,useContext} from "react";
 import useLogin from "~/hook/useLogin";
 import {NavLink, useLocation} from "@remix-run/react";
 import {useNavigate} from "react-router-dom";
 import editLink from "~/helper/editLink";
+import Notif from "~/kits/notif";
 
 export default function Form_login() {
     const [email, setEmail] = useState("")
@@ -14,15 +15,21 @@ export default function Form_login() {
 
     const login = useLogin()
 
+    const [responseStatusMessage, setResponseStatusMessage] = useState("")
+    const [responseStatusTrue, setResponseStatusTrue] = useState(false)
+
     const submit = async (e:any) => {
+        setResponseStatusTrue(false)
         e.preventDefault()
         const response = await login(email,password)
+
 
         switch(response.status) {
             case 401:
             case 404:
             case 400:
-                console.log(response.data.message);
+                setResponseStatusMessage("Informations invalides")
+                setResponseStatusTrue(true)
                 break;
 
             default:
@@ -37,6 +44,12 @@ export default function Form_login() {
 
     return (
         <form className={"authentication_form_container"}>
+            {responseStatusTrue ? (
+                <Notif text={responseStatusMessage} type={"error"} />
+            ) : (
+                <></>
+            )}
+
             <Input name={"email"} type={"email"} placeholder={"Mail"}
                    setValue={setEmail} propsSetValue={""} value={email}/>
             <Input name={"password"} type={"password"} placeholder={"Mot de passe"}
