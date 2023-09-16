@@ -16,7 +16,8 @@ export default function useLogin() {
             });
             return res.data;
         } catch (err) {
-            return console.log(err);
+            // @ts-ignore
+            return err.response;
         }
     }
 }

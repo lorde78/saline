@@ -1,6 +1,8 @@
 var express = require('express');
 // @ts-ignore
 const { database } = require('../config/db.ts');
+// @ts-ignore
+const bcrypt = require('bcrypt');
 
 var router = express.Router();
 
@@ -43,19 +45,32 @@ router.delete('/', async function (req, res, next) {
 });
 
 router.put('/', async function (req, res, next) {
-    const { id } = req.query;
+    const { id, passChange } = req.query;
+    let updateUser = null;
 
     if (!id) {
         res.status(400);
         throw new Error('You must provide an id ');
     }
 
-    const updateUser = await database.user.update({
-        where: {
-            id: parseInt(id),
-        },
-        data: req.body
-    })
+    if (!passChange) {
+        updateUser = await database.user.update({
+            where: {
+                id: parseInt(id),
+            },
+            data: req.body
+        })
+    } else {
+        let newPassword = req.body.password
+        updateUser = await database.user.update({
+            where: {
+                id: parseInt(id),
+            },
+            data: {
+                password: bcrypt.hashSync(newPassword, 12)
+            }
+        })
+    }
 
     res.json({
         message: 'user updated',

@@ -4,8 +4,12 @@ import input from "~/styles/input.css";
 import styleRefacto from "~/styles/styleRefacto.css";
 import formula from "~/styles/formule.css";
 import Header_section_page from "~/kits/header_section_page";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import Backoffice_users_carde from "~/components/backoffice_users_carde"
+import {useGlobalEffect} from "~/helper/globalHelper";
+import {signinContext} from "~/context/signinContext";
+import useGetAllElements from "~/hook/useGetAllElements";
+import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
 
 export function links() {
     return [
@@ -19,46 +23,36 @@ export function links() {
 
 
 export default function Backoffice_Users() {
+    useGlobalEffect()
+    const [loader, setLoader] = useState(false);
+    // @ts-ignore
+    const [signin, setSignin] = useContext(signinContext);
 
-    const [users, setUsers] = useState([
-        {
-            id: 1,
-            firstName: "Jean",
-            lastName: "Paul",
-            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
-            formula: "Annuel",
-            createdAt: "12/12/2020"
-        },
-        {
-            id: 2,
-            firstName: "Jean",
-            lastName: "Paul",
-            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
-            formula: "Annuel",
-            createdAt: "12/12/2020"
-        },
-        {
-            id: 3,
-            firstName: "Jean",
-            lastName: "Paul",
-            imgLink: "https://previews.123rf.com/images/vishalgokulwale/vishalgokulwale1503/vishalgokulwale150300001/37908967-bleu-dessin-anim%C3%A9-caract%C3%A8re-pouce-pose.jpg",
-            formula: "Annuel",
-            createdAt: "12/12/2020"
-        }
-    ])
+    const [users, setUsers] = useState<any>([]);
+    const getAllUsers = useGetAllElements();
+
+    const getUsers = async () => {
+        const currentUsers = await getAllUsers("user", "");
+        setUsers(currentUsers);
+        setLoader(true);
+    };
+
+    useEffect(() => {
+        getUsers()
+    }, [])
 
     return (
         <>
             <Header_section_page numberUndoPage={1} title={"Liste des utilisateurs"} logout={true}/>
             <section className={"max_width_container"}>
                 <div className={"main_section_container-flex margin-top-20 max_width"}>
-                    {users.map((user, i) => {
+                    {users.map((user: any, i: number) => {
                             return (
                                 <Backoffice_users_carde
                                     id={user.id}
-                                    name={user.firstName + " " + user.lastName}
-                                    imgLink={user.imgLink}
-                                    formula={user.formula}
+                                    name={user.firstName + " " + user.name}
+                                    imgLink={user.profilePicture}
+                                    formula={user.formula || "Gratuit"}
                                     createdAt={user.createdAt}
                                 />
                             )

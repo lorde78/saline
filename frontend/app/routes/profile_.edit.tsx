@@ -14,17 +14,6 @@ import Header from "~/components/header";
 import Footer from "~/components/footer";
 import Header_section_page from "~/kits/header_section_page";
 
-const userInfo = {
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@example.com',
-    gender: 'Homme',
-    birthDate: '1990-07-05',
-    country: 'France',
-    address: '28 rue Albert, Mars',
-    postalCode: 75000,
-};
-
 export function links() {
     return [{rel: 'stylesheet', href: resetStyles}, {rel: 'stylesheet', href: profileStyles}, {rel: 'stylesheet', href: globalStyles}, {rel: 'stylesheet', href: inputStyles}, {rel: 'stylesheet', href: formuleStyles}]
 }
