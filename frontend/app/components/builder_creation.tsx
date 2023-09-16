@@ -193,7 +193,7 @@ export default function Builder_creation({creation_type, relId, relType}: Props)
 
 
     return (
-        <form className={"builder_creation"}>
+        <form className={"builder_creation"} onSubmit={submit}>
             <Select_image setValue={setBanner}/>
             <Input
                 name={"title"}
@@ -211,7 +211,7 @@ export default function Builder_creation({creation_type, relId, relType}: Props)
                 value={description}
             />
             {complementaryForm()}
-            <button onClick={(e) => submit(e)} className={"button"}>Créer</button>
+            <button type="submit" className={"button"}>Créer</button>
         </form>
     )
 }

@@ -54,8 +54,6 @@ export default function Profile() {
                             setLoader(true)
                         }
                     });
-                } else {
-                    navigate('/authentication/login');
                 }
             } catch (error) {
                 console.error(error);
