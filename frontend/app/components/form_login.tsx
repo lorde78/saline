@@ -43,18 +43,17 @@ export default function Form_login() {
     }
 
     return (
-        <form className={"authentication_form_container"}>
+        <form className={"authentication_form_container"} onSubmit={submit}>
             {responseStatusTrue ? (
                 <Notif text={responseStatusMessage} type={"error"} />
             ) : (
                 <></>
             )}
-
             <Input name={"email"} type={"email"} placeholder={"Mail"}
                    setValue={setEmail} propsSetValue={""} value={email}/>
             <Input name={"password"} type={"password"} placeholder={"Mot de passe"}
                    setValue={setPassword} propsSetValue={""} value={password}/>
-            <button className={"button"} type="submit" onClick={(e:any) => submit(e)} >Connexion</button>
+            <button className={"button"} type="submit">Connexion</button>
             <a href={""} className={"sub_link"}>Tu as oublié ton mot de passe ?</a>
         </form>
     )
