@@ -13,11 +13,18 @@ import useCreateBuilderElement from "~/hook/useCreateBuilderElement";
 import editLink from "~/helper/editLink";
 import {LoaderFunction} from "@remix-run/node";
 import useUploadFile from "~/hook/useUploadFile";
+import Select_multiple from "~/kits/select_multiple";
 
 type Props = {
     creation_type: string,
     relId?: number,
     relType?: string
+}
+
+
+interface TagData {
+    value: string;
+    option: string;
 }
 
 export default function Builder_creation({creation_type, relId, relType}: Props) {
@@ -39,6 +46,35 @@ export default function Builder_creation({creation_type, relId, relType}: Props)
     ])
     const [difficultySelected, setDifficultySelected] = useState(0)
     // Difficulty Select
+
+    // tag Select
+    const [tags, setTags] = useState<string[]>([]);
+    const [tagsData, setTagsData] = useState<TagData[]>([
+        {value: "Piano", option: "Piano"},
+        {value: "Batterie", option: "Drum"},
+        {value: "Basse", option: "Bass"},
+        {value: "Chant", option: "Singing"},
+        {value: "Violon", option: "Violin"},
+        {value: "Saxophone", option: "Saxophone"},
+        {value: "Trompette", option: "Trumpet"},
+        {value: "Flûte", option: "Flute"},
+        {value: "Guitare", option: "Guitar"},
+    ]);
+    const [tagsSelected, setTagsSelected] = useState<number[]>([]);
+
+    useEffect(() => {
+        console.log(tagsSelected);
+    }, [tagsSelected]);
+    const changeTags = (value: string, id: number) => {
+        if (tagsSelected.includes(id)) {
+            setTagsSelected(tagsSelected.filter(optionId => optionId !== id));
+            setTags(tags.filter(tag => tag !== value));
+        } else {
+            setTagsSelected([...tagsSelected, id]);
+            setTags([...tags, value]);
+        }
+    }
+
 
     const location = useLocation()
     const navigate = useNavigate()
@@ -67,15 +103,15 @@ export default function Builder_creation({creation_type, relId, relType}: Props)
         const fileUpload = new FormData();
 
         // @ts-ignore
-        fileUpload.append("fileToUpload",banner);
+        fileUpload.append("fileToUpload", banner);
 
         try {
-            bannerUrl = await uploadHook(fileUpload,"image")
-        } catch(err) {
+            bannerUrl = await uploadHook(fileUpload, "image")
+        } catch (err) {
             console.log("Erreur lors de l'envoi du fichier :", err);
         }
 
-        let formData:any = {
+        let formData: any = {
             "title": title,
             "userId": currentUserId,
             "bannerPicture": bannerUrl,
@@ -114,8 +150,8 @@ export default function Builder_creation({creation_type, relId, relType}: Props)
         }
 
         try {
-            createdId = await creationHook(formData,creation_type).then(res => res.id)
-        } catch(err) {
+            createdId = await creationHook(formData, creation_type).then(res => res.id)
+        } catch (err) {
             console.log("Erreur lors de l'envoi du fichier :", err);
         }
 
@@ -123,8 +159,7 @@ export default function Builder_creation({creation_type, relId, relType}: Props)
     }
 
     const complementaryForm = () => {
-        switch(creation_type) {
-            case 'training':
+        switch (creation_type) {
             case 'lesson':
                 return (
                     <div>
@@ -139,12 +174,23 @@ export default function Builder_creation({creation_type, relId, relType}: Props)
                             />
                         </div>
                         <div>
-
+                            <h3>Sélectionner un tag</h3>
+                            <Select_multiple
+                                optionsSelected={tagsSelected}
+                                setOptionsSelected={setTagsSelected}
+                                contents={tagsData}
+                                setValue={changeTags}
+                            />
                         </div>
                     </div>
                 )
+            default :
+                return (
+                    <></>
+                )
         }
     }
+
 
     return (
         <form className={"builder_creation"}>

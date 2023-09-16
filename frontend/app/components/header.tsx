@@ -9,13 +9,15 @@ import {useGlobalEffect} from "~/helper/globalHelper";
 import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
 import {signinContext} from "~/context/signinContext";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
+import Header_search from "~/components/header_search";
 
 type Props = {
     search?: boolean,
-    onSearch?: (searchTerm: string) => void
+    onSearch?: (searchTerm: string) => void,
+    setActiveFilters?: (activeFilters: any) => void
 }
 
-export default function Header({search, onSearch}: Props) {
+export default function Header({search, setActiveFilters, onSearch}: Props) {
     useGlobalEffect()
     const [loader, setLoader] = useState(false);
     // @ts-ignore
@@ -144,7 +146,7 @@ export default function Header({search, onSearch}: Props) {
             </nav>
             {search ?
                 // @ts-ignore
-                <Header_shersh onSearch={onSearch}/>
+                <Header_search onSearch={onSearch} setActiveFilters={setActiveFilters} />
                 :
                 <></>
             }

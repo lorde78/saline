@@ -5,6 +5,7 @@
   "scripts": {
     "start": "npx prisma generate && node ./bin/www",
     "start:dev": "npx prisma generate && nodemon --ignore node_modules ./bin/www",
+    "start:prod": "npx prisma generate && npx prisma db push && nodemon --ignore node_modules ./bin/www",
     "dev": "npx prisma generate && nodemon --config nodemon.json src/index.ts",
     "dev:debug": "nodemon --config nodemon.json --inspect-brk src/index.ts",
     "restart": "docker-compose down express && docker-compose up -d express",

@@ -5,8 +5,9 @@ import Checkbox from "~/kits/checkbox";
 type Props = {
     setIsFilter: any,
     isFilter: boolean,
+    setActiveFilters: any
 }
-export default function Search_filter_popup({setIsFilter, isFilter}: Props) {
+export default function Search_filter_popup({setIsFilter, isFilter,setActiveFilters}: Props) {
 
     const [filters, setFilter] = useState({
         "Instruments": [
@@ -57,19 +58,30 @@ export default function Search_filter_popup({setIsFilter, isFilter}: Props) {
 
     const [search, setSearch] = useState("Instruments");
 
+
     const changeValue = (value, props) => {
-        let newFilters = {...filters};
+        let newFilters = { ...filters };
         newFilters[search][props.index].value = value;
         setFilter(newFilters);
-        console.log(newFilters)
-        console.log(value)
+
+        let updatedFilters = newFilters[search].filter(item => item.value).map(item => item.name);
+        if (search === "Instruments") {
+            setActiveFilters(prev => ({ ...prev, instruments: updatedFilters }));
+        } else if (search === "Status") {
+            setActiveFilters(prev => ({ ...prev, status: updatedFilters }));
+        }
     }
     const resetFilter = () => {
-        let newFilters = {...filters};
+        let newFilters = {...filters}
         newFilters[search].map((filter, i) => {
-            newFilters[search][i].value = false;
-        })
+            newFilters[search][i].value = false
+        });
         setFilter(newFilters);
+        if (search === "Instruments") {
+            setActiveFilters(prev => ({ ...prev, instruments: [] }))
+        } else if (search === "Status") {
+            setActiveFilters(prev => ({ ...prev, status: [] }))
+        }
     }
 
     return (

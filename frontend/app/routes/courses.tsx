@@ -36,18 +36,34 @@ export default function Courses() {
     const [loader, setLoader] = useState(false);
     const [courses, setCourses] = useState<Course[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
-    const filteredCourses = courses.filter(course =>
-        course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        course.description.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const [activeFilters, setActiveFilters] = useState({
+        instruments: [],
+        status: []
+    });
+    const filteredCourses = courses.filter(course => {
+        const matchesSearchTerm = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            course.description.toLowerCase().includes(searchTerm.toLowerCase())
+
+
+        const matchesInstrument = activeFilters.instruments.length === 0 ||
+            activeFilters.instruments.includes(course.instrument)
+        const matchesStatus = activeFilters.status.length === 0 ||
+            activeFilters.status.includes(course.status);
+
+        return matchesSearchTerm && matchesInstrument && matchesStatus;
+    });
+    useEffect(() => {
+        console.log(activeFilters);
+    }, [activeFilters]);
 
     const getAllCourses = useGetAllElements();
 
     const getCourses = async () => {
-        const currentCourse = await getAllCourses("lesson","");
+        const currentCourse = await getAllCourses("lesson", "");
         setCourses(currentCourse);
         setLoader(true);
     };
+
 
     useEffect(() => {
         getCourses();
@@ -57,7 +73,7 @@ export default function Courses() {
         <>
             {loader ? (
                 <>
-                    <Header search={true} onSearch={setSearchTerm}/>
+                    <Header search={true} onSearch={setSearchTerm} setActiveFilters={setActiveFilters}/>
                     <main className={"max_width_container margin-top-20"}>
                         <h1>Liste des cours</h1>
                         <div className={"main_section_container-grid margin-top-20 max_width"}>

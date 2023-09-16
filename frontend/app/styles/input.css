@@ -213,6 +213,11 @@ input:checked + .check svg {
     height: 100%;
     padding: 10px 20px;
 }
+.input-container .option-selected {
+    background-color: var(--action-color);
+    color: var(--secondary-color);
+}
+
 
 
 
