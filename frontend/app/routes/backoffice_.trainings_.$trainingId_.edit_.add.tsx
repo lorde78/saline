@@ -15,6 +15,7 @@ import Loader from "~/kits/loader";
 import useAddLessonsToTraining from "~/hook/useAddLessonsToTraining";
 import {useNavigate} from "react-router-dom";
 import editLink from "~/helper/editLink";
+import {isLogged} from "~/helper/isLogged";
 
 interface Course {
     id: number;
@@ -39,6 +40,7 @@ export function links() {
 
 export default function Backoffice_Trainings_TrainingId_Edit_Add() {
     useGlobalEffect();
+    isLogged("backoffice");
     const addLesson = useAddLessonsToTraining();
     const navigate = useNavigate();
     const editPath = editLink(3);

@@ -8,6 +8,7 @@ import Backoffice_training from "~/components/backoffice_training";
 import { NavLink } from "@remix-run/react";
 import { useGlobalEffect } from "~/helper/globalHelper";
 import useGetAllElements from "~/hook/useGetAllElements";
+import {isLogged} from "~/helper/isLogged";
 
 interface Training {
     id: number;
@@ -31,6 +32,7 @@ export function links() {
 
 export default function Backoffice_Trainings() {
     useGlobalEffect();
+    isLogged("backoffice");
 
     const [trainings, setTrainings] = useState<Training[]>([]);
     // @ts-ignore
@@ -50,7 +52,7 @@ export default function Backoffice_Trainings() {
             <section className={"max_width_container margin-top-20"}>
                 <div className={"main_section_container-flex max_width"}>
                     <NavLink to={"new"} className={"button"}>
-                        Ajouter un parcours
+                        Créer un parcours
                     </NavLink>
                     {(trainings ?? []).length !== 0 ? (
                         trainings.map((training, i) => (

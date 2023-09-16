@@ -24,6 +24,8 @@ import {signinContext} from "~/context/signinContext";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
 import Loader from "~/kits/loader";
+import {useNavigate} from "react-router-dom";
+import {isLogged} from "~/helper/isLogged";
 
 export function links() {
   return [{rel: 'stylesheet', href: resetStyles}, {rel: 'stylesheet', href: profileStyles}, {rel: 'stylesheet', href: globalStyles}, {rel: 'stylesheet', href: inputStyles}, {rel: 'stylesheet', href: formuleStyles}]
@@ -31,7 +33,9 @@ export function links() {
 
 export default function Profile() {
     useGlobalEffect()
+    isLogged("user");
     const [loader, setLoader] = useState(false);
+    const navigate = useNavigate()
     // @ts-ignore
     const [signin, setSignin] = useContext(signinContext);
 
@@ -50,6 +54,8 @@ export default function Profile() {
                             setLoader(true)
                         }
                     });
+                } else {
+                    navigate('/authentication/login');
                 }
             } catch (error) {
                 console.error(error);

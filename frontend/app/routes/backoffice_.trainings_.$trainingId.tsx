@@ -7,6 +7,7 @@ import Header_section_page from "~/kits/header_section_page";
 import Builder_creation from "~/components/builder_creation";
 import { useGlobalEffect } from "~/helper/globalHelper";
 import { LoaderFunction } from "@remix-run/node";
+import {isLogged} from "~/helper/isLogged";
 
 interface LoaderData {
     relId: string | null;
@@ -31,6 +32,7 @@ export let loader: LoaderFunction = ({ request }) => {
 
 export default function Backoffice_Trainings_New() {
     useGlobalEffect();
+    isLogged("backoffice");
     const loaderData = useLoaderData<LoaderData>();
 
     return (

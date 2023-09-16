@@ -7,6 +7,11 @@ import authentication from "~/styles/authentication.css";
 import Header_section_page from "~/kits/header_section_page";
 import Form_login from "~/components/form_login";
 import { useGlobalEffect } from "~/helper/globalHelper";
+import {useContext, useEffect} from "react";
+import {signinContext} from "~/context/signinContext";
+import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
+import {useNavigate} from "react-router-dom";
+import {isLogged} from "~/helper/isLogged";
 
 type NavLinkProps = {
     className?: string;
@@ -31,6 +36,7 @@ export function links() {
 
 export default function Backoffice() {
     useGlobalEffect();
+    isLogged("backoffice");
 
     return (
         <>

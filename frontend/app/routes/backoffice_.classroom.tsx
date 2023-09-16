@@ -8,6 +8,7 @@ import Backoffice_classroom from "~/components/backoffice_classroom";
 import Header_section_page from "~/kits/header_section_page";
 import { useGlobalEffect } from "~/helper/globalHelper";
 import useGetAllElements from "~/hook/useGetAllElements";
+import {isLogged} from "~/helper/isLogged";
 
 export function links() {
     return [
@@ -31,6 +32,7 @@ interface Classroom {
 
 export default function Backoffice_Classroom() {
     useGlobalEffect();
+    isLogged("backoffice");
 
     const [classrooms, setClassrooms] = useState<Classroom[]>([]);
     const getAllClassrooms = useGetAllElements();

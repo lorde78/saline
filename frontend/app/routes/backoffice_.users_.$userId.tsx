@@ -16,6 +16,7 @@ import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
 import Loader from "~/kits/loader";
 import {useNavigate} from "react-router-dom";
+import {isLogged} from "~/helper/isLogged";
 
 export function links() {
     return [
@@ -30,6 +31,7 @@ export function links() {
 
 export default function Backoffice_Users_UserId() {
     useGlobalEffect()
+    isLogged("backoffice");
     const [loader, setLoader] = useState(false);
     const navigate = useNavigate()
     // @ts-ignore

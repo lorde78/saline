@@ -12,6 +12,7 @@ import {useGlobalEffect} from "~/helper/globalHelper";
 import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
 import {signinContext} from "~/context/signinContext";
 import Loader from "~/kits/loader";
+import {isLogged} from "~/helper/isLogged";
 
 
 export function links() {
@@ -36,6 +37,7 @@ interface Classrooms {
 
 export default function Classroom() {
     useGlobalEffect()
+    isLogged("user");
     const [loader, setLoader] = useState(false);
     // @ts-ignore
     const [signin, setSignin] = useContext(signinContext);

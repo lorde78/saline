@@ -10,6 +10,7 @@ import {useGlobalEffect} from "~/helper/globalHelper";
 import {signinContext} from "~/context/signinContext";
 import useGetAllElements from "~/hook/useGetAllElements";
 import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
+import {isLogged} from "~/helper/isLogged";
 
 export function links() {
     return [
@@ -24,6 +25,7 @@ export function links() {
 
 export default function Backoffice_Users() {
     useGlobalEffect()
+    isLogged("backoffice");
     const [loader, setLoader] = useState(false);
     // @ts-ignore
     const [signin, setSignin] = useContext(signinContext);

@@ -14,6 +14,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import editLink from "~/helper/editLink";
 import useGetAllElements from "~/hook/useGetAllElements";
 import useAddStudentsToClassroom from "~/hook/useAddStudentsToClassroom";
+import {isLogged} from "~/helper/isLogged";
 
 export function links() {
     return [
@@ -26,6 +27,7 @@ export function links() {
 
 export default function Backoffice_Classroom_ClassroomId_Edit_Students_Add() {
     useGlobalEffect();
+    isLogged("backoffice");
     const addStudents = useAddStudentsToClassroom();
     const navigate = useNavigate();
     const editPath = editLink(4);

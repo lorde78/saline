@@ -6,6 +6,7 @@ import input from "~/styles/input.css";
 import backofficeBanner from "~/styles/backofficeBanner.css";
 import Header_section_page from "~/kits/header_section_page";
 import { useGlobalEffect } from "~/helper/globalHelper";
+import {isLogged} from "~/helper/isLogged";
 
 export function links() {
     return [
@@ -27,6 +28,7 @@ interface Banner {
 
 export default function Backoffice_Banners() {
     useGlobalEffect();
+    isLogged("backoffice");
 
     const [banners, setBanners] = useState<Banner[]>([
         {

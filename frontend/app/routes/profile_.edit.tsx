@@ -13,6 +13,7 @@ import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
 import Header from "~/components/header";
 import Footer from "~/components/footer";
 import Header_section_page from "~/kits/header_section_page";
+import {isLogged} from "~/helper/isLogged";
 
 export function links() {
     return [{rel: 'stylesheet', href: resetStyles}, {rel: 'stylesheet', href: profileStyles}, {rel: 'stylesheet', href: globalStyles}, {rel: 'stylesheet', href: inputStyles}, {rel: 'stylesheet', href: formuleStyles}]
@@ -20,6 +21,7 @@ export function links() {
 
 export default function Profile() {
     useGlobalEffect()
+    isLogged("user");
     const [loader, setLoader] = useState(false);
     // @ts-ignore
     const [signin, setSignin] = useContext(signinContext);

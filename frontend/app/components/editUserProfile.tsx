@@ -107,7 +107,7 @@ export default function EditUserProfile({userInfo}: Props) {
             "postalAddress": address
         }
 
-        updateUser(newFormData,userInfo.id)
+        updateUser(newFormData,userInfo.id,"")
 
         navigate(editPath)
     };

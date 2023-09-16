@@ -11,6 +11,7 @@ import Header_section_page from "~/kits/header_section_page";
 import { useGlobalEffect } from "~/helper/globalHelper";
 import { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import {isLogged} from "~/helper/isLogged";
 
 export const meta: V2_MetaFunction = () => {
     return [
@@ -37,6 +38,7 @@ export let loader: LoaderFunction = ({ request }) => {
 
 export default function BackofficeTrainingsTrainingId_CourseId() {
     useGlobalEffect();
+    isLogged("backoffice");
     const loaderData = useLoaderData();
 
     return (

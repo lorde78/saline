@@ -8,6 +8,7 @@ import Header_section_page from "~/kits/header_section_page";
 import Backoffice_formulas from "~/components/backoffice_formulas";
 import { useGlobalEffect } from "~/helper/globalHelper";
 import useGetSubscriptions from "~/hook/useGetSubscriptions";
+import {isLogged} from "~/helper/isLogged";
 
 
 export function links() {
@@ -22,6 +23,7 @@ export function links() {
 
 export default function Backoffice_Formulas() {
     useGlobalEffect()
+    isLogged("backoffice");
 
     const [formulas, setFormulas] = useState([
             {

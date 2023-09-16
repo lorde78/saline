@@ -9,6 +9,7 @@ import User_preview_card from "~/components/user_preview_card";
 import {useGlobalEffect} from "~/helper/globalHelper";
 import useGetAllElements from "~/hook/useGetAllElements";
 import Loader from "~/kits/loader";
+import {isLogged} from "~/helper/isLogged";
 
 
 export function links() {
@@ -33,6 +34,7 @@ interface Course {
 
 export default function Courses() {
     useGlobalEffect();
+    isLogged("user");
     const [loader, setLoader] = useState(false);
     const [courses, setCourses] = useState<Course[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
@@ -43,7 +45,6 @@ export default function Courses() {
     const filteredCourses = courses.filter(course => {
         const matchesSearchTerm = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
             course.description.toLowerCase().includes(searchTerm.toLowerCase())
-
 
         const matchesInstrument = activeFilters.instruments.length === 0 ||
             activeFilters.instruments.includes(course.instrument)

@@ -15,6 +15,7 @@ import { useLoaderData } from "@remix-run/react";
 import getIdFromUrl from "~/helper/getIdFromUrl";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import Loader from "~/kits/loader";
+import {isLogged} from "~/helper/isLogged";
 
 type LoaderData = {
     relId: string | null;
@@ -62,6 +63,7 @@ export function links() {
 
 export default function BackofficeTrainingsTrainingIdCourseId_EditStepId() {
     useGlobalEffect();
+    isLogged("backoffice");
     const getCurrentId = getIdFromUrl(1);
     const [loader, setLoader] = useState(false);
 

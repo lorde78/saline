@@ -15,6 +15,7 @@ import getIdFromUrl from "~/helper/getIdFromUrl";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import Loader from "~/kits/loader";
 import builder from "~/styles/builder.css";
+import {isLogged} from "~/helper/isLogged";
 
 
 export function links() {
@@ -36,6 +37,7 @@ interface Step {
 
 export default function Courses_CourseId_StepId() {
     useGlobalEffect()
+    isLogged("user");
     const [loader, setLoader] = useState(false);
     const getCurrentId = getIdFromUrl(1)
     const getStepId = getIdFromUrl(0)

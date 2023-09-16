@@ -11,6 +11,7 @@ import {useGlobalEffect} from "~/helper/globalHelper";
 import getIdFromUrl from "~/helper/getIdFromUrl";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import Loader from "~/kits/loader";
+import {isLogged} from "~/helper/isLogged";
 
 
 export function links() {
@@ -47,6 +48,7 @@ interface Course {
 
 export default function Trainings_TrainingId() {
     useGlobalEffect()
+    isLogged("user");
     const [loader, setLoader] = useState(false);
     const getCurrentId = getIdFromUrl(0)
 

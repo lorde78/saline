@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -7,6 +7,9 @@ import Backoffice_assessment from "~/components/backoffice_assessment";
 import { Outlet, useLocation } from "@remix-run/react";
 import Header_section_page from "~/kits/header_section_page";
 import { useGlobalEffect } from "~/helper/globalHelper";
+import {useNavigate} from "react-router-dom";
+import {signinContext} from "~/context/signinContext";
+import {isLogged} from "~/helper/isLogged";
 
 type Assessment = {
     studen: string;
@@ -32,6 +35,7 @@ export function links() {
 
 export default function Backoffice_Assessments() {
     useGlobalEffect();
+    isLogged("backoffice");
 
     const [assessments, setAssessments] = useState<Assessment[]>([
         {

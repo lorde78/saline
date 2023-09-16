@@ -7,6 +7,7 @@ import Backoffice_assessment from "~/components/backoffice_assessment";
 import { Outlet, useLocation } from "@remix-run/react";
 import Header_section_page from "~/kits/header_section_page";
 import { useGlobalEffect } from "~/helper/globalHelper";
+import {isLogged} from "~/helper/isLogged";
 
 export function links() {
     return [
@@ -32,6 +33,7 @@ interface Assessment {
 
 export default function Backoffice_Classroom_ClassroomId_Edit_Assessments() {
     useGlobalEffect();
+    isLogged("backoffice");
 
     const [assessments, setAssessments] = useState<Assessment[]>([
         {

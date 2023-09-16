@@ -12,6 +12,7 @@ import useGetAllElements from "~/hook/useGetAllElements";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import getIdFromUrl from "~/helper/getIdFromUrl";
 import Loader from "~/kits/loader";
+import {isLogged} from "~/helper/isLogged";
 
 interface Training {
     id: number;
@@ -45,6 +46,7 @@ export function links() {
 
 export default function Backoffice_Trainings_TrainingId_Edit() {
     useGlobalEffect();
+    isLogged("backoffice");
     const getCurrentId = getIdFromUrl(1);
     const [loader, setLoader] = useState(false);
 

@@ -1,13 +1,16 @@
 import Input from "~/kits/input";
 import {useState,useContext} from "react";
 import useLogin from "~/hook/useLogin";
-import { NavLink } from "@remix-run/react";
+import {NavLink, useLocation} from "@remix-run/react";
 import {useNavigate} from "react-router-dom";
+import editLink from "~/helper/editLink";
 
 export default function Form_login() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate()
+    let location = useLocation()
+    let path = location.pathname
 
     const login = useLogin()
 
@@ -23,7 +26,11 @@ export default function Form_login() {
                 break;
 
             default:
-                navigate("/backoffice/");
+                if(path.split("/")[1] === "/authentication/") {
+                    navigate("/");
+                } else {
+                    navigate("/backoffice/");
+                }
                 break
         }
     }

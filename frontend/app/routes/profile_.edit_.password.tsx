@@ -22,6 +22,7 @@ import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
 import {useGlobalEffect} from "~/helper/globalHelper";
 import {signinContext} from "~/context/signinContext";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
+import {isLogged} from "~/helper/isLogged";
 
 export function links() {
     return [{rel: 'stylesheet', href: resetStyles}, {rel: 'stylesheet', href: profileStyles}, {rel: 'stylesheet', href: globalStyles}, {rel: 'stylesheet', href: inputStyles}, {rel: 'stylesheet', href: formuleStyles}]
@@ -29,6 +30,7 @@ export function links() {
 
 export default function Profile_Edit_Password() {
     useGlobalEffect()
+    isLogged("user");
     const [loader, setLoader] = useState(false);
     // @ts-ignore
     const [signin, setSignin] = useContext(signinContext);

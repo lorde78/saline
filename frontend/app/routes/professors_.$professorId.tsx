@@ -14,6 +14,7 @@ import Accordion from "~/kits/accordion";
 import Header_section_page from "~/kits/header_section_page";
 import getIdFromUrl from "~/helper/getIdFromUrl";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
+import {isLogged} from "~/helper/isLogged";
 
 export function links() {
     return [
@@ -38,6 +39,7 @@ interface Professor {
 }
 export default function Professors() {
     useGlobalEffect()
+    isLogged("user");
     const [loader, setLoader] = useState(false);
     const getCurrentId = getIdFromUrl(0)
 

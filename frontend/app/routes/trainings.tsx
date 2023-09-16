@@ -11,6 +11,7 @@ import {signinContext} from "~/context/signinContext";
 import useGetAllElements from "~/hook/useGetAllElements";
 import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
 import Loader from "~/kits/loader";
+import {isLogged} from "~/helper/isLogged";
 
 export function links() {
     return [
@@ -34,6 +35,7 @@ interface Training {
 
 export default function Trainings() {
     useGlobalEffect()
+    isLogged("user");
     const [loader, setLoader] = useState(false);
 
     const [trainings, setTrainings] = useState<Training[]>([]);

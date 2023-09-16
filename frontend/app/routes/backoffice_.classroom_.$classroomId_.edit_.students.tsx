@@ -11,6 +11,7 @@ import getIdFromUrl from "~/helper/getIdFromUrl";
 import Loader from "~/kits/loader";
 import useRemoveStudentsFromClassroom from "~/hook/useRemoveStudentsFromClassroom";
 import {NavLink} from "@remix-run/react";
+import {isLogged} from "~/helper/isLogged";
 
 
 export function links() {
@@ -24,6 +25,7 @@ export function links() {
 
 export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
     useGlobalEffect()
+    isLogged("backoffice");
     const getCurrentId = getIdFromUrl(2)
     const [loader,setLoader] = useState(false)
 

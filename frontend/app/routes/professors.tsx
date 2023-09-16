@@ -10,6 +10,7 @@ import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
 import stylesRefacto from "~/styles/styleRefacto.css";
+import {isLogged} from "~/helper/isLogged";
 
 export function links() {
     return [
@@ -52,6 +53,7 @@ interface Professor {
 
 export default function Professors() {
     useGlobalEffect();
+    isLogged("user");
     const [loader, setLoader] = useState(false);
     const [professors, setProfessors] = useState<Professor[]>([]);
     const [searchTerm, setSearchTerm] = useState("");

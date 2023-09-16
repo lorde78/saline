@@ -9,6 +9,7 @@ import { useGlobalEffect } from "~/helper/globalHelper";
 import getIdFromUrl from "~/helper/getIdFromUrl";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import Loader from "~/kits/loader";
+import {isLogged} from "~/helper/isLogged";
 
 
 export function links() {
@@ -29,6 +30,7 @@ interface Classroom {
 
 export default function Backoffice_Classroom_ClassroomId_Edit() {
     useGlobalEffect();
+    isLogged("backoffice");
     const getCurrentId = getIdFromUrl(1);
     const [loader, setLoader] = useState(false);
 

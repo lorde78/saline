@@ -14,6 +14,7 @@ import EditPassword from "~/components/editPassword";
 import EditFormule from '~/components/editFormule';
 import formuleStyles from "~/styles/formule.css";
 import Formation from '~/kits/formations';
+import {isLogged} from "~/helper/isLogged";
 
 
 
@@ -32,6 +33,7 @@ export function links() {
 }
 
 export default function Profile() {
+    isLogged("user");
     return (
         <div className="profile-page">
           <EditFormule />

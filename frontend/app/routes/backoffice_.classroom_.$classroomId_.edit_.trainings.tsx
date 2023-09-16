@@ -11,6 +11,7 @@ import useGetAllElements from "~/hook/useGetAllElements";
 import getIdFromUrl from "~/helper/getIdFromUrl";
 import Loader from "~/kits/loader";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
+import {isLogged} from "~/helper/isLogged";
 
 export function links() {
     return [
@@ -23,6 +24,7 @@ export function links() {
 
 export default function Backoffice_Classroom_ClassroomId_Edit_Trainings() {
     useGlobalEffect();
+    isLogged("backoffice");
     const getCurrentId = getIdFromUrl(2);
     const [loader, setLoader] = useState(false);
 

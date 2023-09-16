@@ -11,6 +11,7 @@ import { useGlobalEffect } from "~/helper/globalHelper";
 import useGetAllElements from "~/hook/useGetAllElements";
 import Notif from "~/kits/notif";
 import {LoaderFunction} from "@remix-run/node";
+import {isLogged} from "~/helper/isLogged";
 
 interface Course {
     id: number;
@@ -50,6 +51,7 @@ export let loader: LoaderFunction = ({ request }) => {
 
 export default function Backoffice_Courses() {
     useGlobalEffect();
+    isLogged("backoffice");
     const loaderData = useLoaderData() as LoaderData;
 
     const [courses, setCourses] = useState<Course[]>([]);
