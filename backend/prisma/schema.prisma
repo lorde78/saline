@@ -24,7 +24,6 @@ model User {
   progress            Json
   birthDate           DateTime?
   postalAddress       String?
-  Certifications      Certification[]
   Comments            Comment[]
   Answers             Answer[]
   Annotations         Annotation[]
@@ -36,14 +35,8 @@ model User {
   attendingLessons    Lesson[]        @relation("LessonStudents")
   Discounts           Discount[]
   Subscriptions       Subscription[]
-}
-
-model Certification {
-  id             Int       @id @unique @default(autoincrement())
-  name           String?
-  graduationDate DateTime?
-  userId         Int?
-  user           User?     @relation(fields: [userId], references: [id], onDelete: NoAction)
+  progressLesson      ProgressLesson[]
+  progressTraining    ProgressTraining[]
 }
 
 model Lesson {
@@ -66,40 +59,65 @@ model Lesson {
   videos          Video[]
   annotations     Annotation[]
   professors      Professor[]
+  progressLesson  ProgressLesson[]
 }
 
 model Classroom {
-  id            Int        @id @default(autoincrement())
-  title         String?
-  createdAt     DateTime   @default(now())
-  lastUpdate    DateTime   @updatedAt
-  userId        Int?
-  bannerPicture String?
-  description   String?    @db.Text
-  author        User?      @relation("ClassroomProfessor", fields: [userId], references: [id])
-  students      User[]     @relation("ClassroomStudents")
+  id             Int        @id @default(autoincrement())
+  title          String?
+  createdAt      DateTime   @default(now())
+  lastUpdate     DateTime   @updatedAt
+  userId         Int?
+  bannerPicture  String?
+  description    String?    @db.Text
+  author         User?      @relation("ClassroomProfessor", fields: [userId], references: [id])
+  students       User[]     @relation("ClassroomStudents")
   trainings      Training[]
+  progressLesson ProgressLesson[]
 }
 
 model Training {
-  id              Int            @id @default(autoincrement())
-  title           String?
-  description     String?        @db.Text
-  difficultyLevel String?
-  createdAt       DateTime       @default(now())
-  lastUpdate      DateTime       @updatedAt
-  userId          Int?
-  nbViews         Int?
-  nbCompleted     Int?
-  nbCertified     Int?
-  bannerPicture   String?
-  author          User?          @relation("TrainingAuthor", fields: [userId], references: [id])
-  students        User[]         @relation("TrainingStudents")
-  lessons         Lesson[]
-  classrooms      Classroom[]
-  tags            Tag[]
-  subscriptions   Subscription[]
-  professors      Professor[]
+  id               Int            @id @default(autoincrement())
+  title            String?
+  description      String?        @db.Text
+  difficultyLevel  String?
+  createdAt        DateTime       @default(now())
+  lastUpdate       DateTime       @updatedAt
+  userId           Int?
+  nbViews          Int?
+  nbCompleted      Int?
+  nbCertified      Int?
+  bannerPicture    String?
+  author           User?          @relation("TrainingAuthor", fields: [userId], references: [id])
+  students         User[]         @relation("TrainingStudents")
+  lessons          Lesson[]
+  classrooms       Classroom[]
+  tags             Tag[]
+  subscriptions    Subscription[]
+  professors       Professor[]
+  progressTraining ProgressTraining[]
+}
+
+model ProgressLesson {
+  id             Int        @id @unique @default(autoincrement())
+  status         String?
+  progress       Json?
+  urlEval        String?
+  studentId      Int?
+  classroomId    Int?
+  lessonId       Int?
+  student        User?      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  classroom      Classroom? @relation(fields: [classroomId], references: [id], onDelete: Cascade)
+  lesson         Lesson?    @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+}
+
+model ProgressTraining {
+  id             Int        @id @unique @default(autoincrement())
+  status         String?
+  studentId      Int?
+  trainingId     Int?
+  student        User?      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  training       Training? @relation(fields: [trainingId], references: [id], onDelete: Cascade)
 }
 
 model Comment {

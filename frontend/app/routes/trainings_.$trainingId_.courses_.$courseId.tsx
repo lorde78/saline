@@ -77,7 +77,7 @@ export default function Trainings_TrainingId_Courses_CourseId() {
             {loader ? (
                 <>
                     <Header/>
-                    <Header_section_page numberUndoPage={1} title={course?.title || ""}/>
+                    <Header_section_page numberUndoPage={2} title={course?.title || ""}/>
                     <main className={"max_width_container"}>
                         <div className={"main_section_container-flex max_width"}>
                             <div className={"big_banner_image"} style={{height: bannerHeight}}>
