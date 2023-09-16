@@ -11,13 +11,14 @@ import useGetAllElements from "~/hook/useGetAllElements";
 import getIdFromUrl from "~/helper/getIdFromUrl";
 import Loader from "~/kits/loader";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
+import styleRefacto from "~/styles/styleRefacto.css";
 
 export function links() {
     return [
         { rel: 'stylesheet', href: resetStyles },
         { rel: 'stylesheet', href: styles },
         { rel: 'stylesheet', href: input },
-        { rel: 'stylesheet', href: training }
+        { rel: 'stylesheet', href: styleRefacto }
     ];
 }
 
@@ -54,7 +55,7 @@ export default function Backoffice_Classroom_ClassroomId_Edit_Trainings() {
                 <>
                     <Header_section_page numberUndoPage={1} title={classroom.title}  logout={true}/>
                     <section className={"max_width_container"}>
-                        <div className={"backoffice_training_preview_container max_width"}>
+                        <div className={"main_section_container-flex max_width margin-top-20"}>
                             <div className={"button_header"}>
                                 <NavLink to={`/backoffice/trainings/new?relId=${getCurrentId}&relType=classroom`} className={"button"}>
                                     Créer un parcours
