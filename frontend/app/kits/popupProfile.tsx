@@ -3,7 +3,6 @@ import "~/styles/popupProfile.css";
 
   
 export default function PopupProfile () {
-  
 
   return (
     <div className="popup-profile_container">
@@ -18,7 +17,6 @@ export default function PopupProfile () {
       <NavLink className='' to={"edit/formula"}>
         <p>Changer mon abonnement</p>
       </NavLink>
-      <p className="delete-button">Supprimer mon compte</p>
     </div>
   );
 };

@@ -2,8 +2,10 @@ import Input from "~/kits/input";
 import { NavLink } from "@remix-run/react";
 import { useState, useContext } from "react";
 import { registerContext } from "~/context/registerContext";
+import {useNavigate} from "react-router-dom";
 
 export default function Form_register() {
+    const navigate = useNavigate()
 
     const [email, setEmail] = useState("")
     const [firstName, setFirstName] = useState("")
@@ -14,8 +16,7 @@ export default function Form_register() {
 
 
     const submit = (e:any) => {
-        e.preventDefault();
-
+        e.preventDefault()
         let formData = {
             "email" : email,
             "firstName" : firstName,
@@ -23,6 +24,8 @@ export default function Form_register() {
             "password" : password
         }
         setRegister(formData)
+
+        navigate("/authentication/register/complementary")
     }
 
     return (
@@ -39,7 +42,7 @@ export default function Form_register() {
             <Input name={"password"} type={"password"} placeholder={"Mot de passe"}
                    setValue={setPassword} propsSetValue={""} value={password}/>
 
-            <NavLink className={"button"} type="submit" to={"complementary"}>Suivant</NavLink>
+            <button className={"button"} type="submit">Suivant</button>
             <a href={""} className={"sub_link"}>Voir la Politique confidentialité</a>
         </form>
     )
