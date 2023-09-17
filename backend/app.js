@@ -26,6 +26,8 @@ var videoRouter = require('./routes/video.routes.ts');
 var userRouter = require('./routes/user.routes.ts');
 var uploadRouter = require('./routes/upload.routes.ts');
 var professorRouter = require('./routes/professor.routes.ts');
+var progressLesson = require('./routes/progresslesson.routes.ts');
+var progressTraining = require('./routes/progresstraining.routes.ts');
 
 var app = express();
 
@@ -33,7 +35,7 @@ var app = express();
 app.use((req,res,next) => {
     res.setHeader(
         "Access-Control-Allow-Origin",
-        `${process.env.BASE_URL}`
+        `${process.env.REMIX_URL}`
     );
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
@@ -75,7 +77,9 @@ app.use('/subscription', subscriptionRouter);
 app.use('/classroom', classroomRouter);
 app.use('/user', userRouter);
 app.use('/upload', uploadRouter);
-app.use('/professor', professorRouter)
+app.use('/professor', professorRouter);
+app.use('/progresslesson', progressLesson);
+app.use('/progresstraining', progressTraining);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

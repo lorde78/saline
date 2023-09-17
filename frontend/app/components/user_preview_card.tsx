@@ -2,28 +2,28 @@ import 'remixicon/fonts/remixicon.css'
 import {NavLink, Outlet, useLocation} from "@remix-run/react";
 
 type Props = {
-    id: number
-    title: string
+    id: number;
+    title: string;
     author: {
         name: string,
         firstName: string
-    }
-    description: string
-    imgLink: string
-    status?: string
-    redirectTo: string
+    };
+    description: string;
+    imgLink: string;
+    status?: string;
+    redirectTo: string;
+    disable?: boolean;
 };
 export default function User_preview_card({
-                                          id,
-                                          title,
-                                          author,
-                                          description,
-                                          imgLink,
-                                          status,
-                                          redirectTo
-                                      }: Props) {
-
-
+                                              id,
+                                              title,
+                                              author,
+                                              description,
+                                              imgLink,
+                                              status,
+                                              redirectTo,
+                                              disable
+                                          }: Props) {
     const setStatus = () => {
         let statusColor
         switch (status) {
@@ -44,25 +44,46 @@ export default function User_preview_card({
         return (
             <div className={"preview_card_status"}>
                 <span className={"status_color status_color-" + statusColor}/>
-                <p>{status ? status: author.firstName + " " + author.name}</p>
+                <p>{status ? status : author.firstName + " " + author.name}</p>
             </div>
         )
     }
 
     return (
-        <NavLink to={redirectTo} className={"preview_card"}>
-            <div className={"banner_image"}>
-                <img src={imgLink} alt={""}/>
-            </div>
-            <div className={"preview_card_content"}>
-                <div className={"content_header"}>
-                    <p>{title}</p>
-                    {setStatus()}
-                </div>
-                <p className={"training_description"}>
-                    {description}
-                </p>
-            </div>
-        </NavLink>
+        <>
+            {
+                disable ? (
+                    <div className={"preview_card"}>
+                        <div className={"banner_image"}>
+                            <img src={imgLink} alt={""}/>
+                        </div>
+                        <div className={"preview_card_content"}>
+                            <div className={"content_header"}>
+                                <p>{title}</p>
+                                {setStatus()}
+                            </div>
+                            <p className={"training_description"}>
+                                {description}
+                            </p>
+                        </div>
+                    </div>
+                ) : (
+                    <NavLink to={redirectTo} className={"preview_card"}>
+                        <div className={"banner_image"}>
+                            <img src={imgLink} alt={""}/>
+                        </div>
+                        <div className={"preview_card_content"}>
+                            <div className={"content_header"}>
+                                <p>{title}</p>
+                                {setStatus()}
+                            </div>
+                            <p className={"training_description"}>
+                                {description}
+                            </p>
+                        </div>
+                    </NavLink>
+                )
+            }
+        </>
     );
 }

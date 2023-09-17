@@ -37,13 +37,15 @@ interface Step {
 
 type Props = {
     step: Step;
+    setValue: any
 }
 
 interface Video {
     title: string;
     url: string
 }
-export default function User_courses_step_video({step}: Props) {
+
+export default function User_courses_step_video({step, setValue}: Props) {
     const [video, setVideo] = useState<Video>({
         title: "",
         url: ""
@@ -64,6 +66,9 @@ export default function User_courses_step_video({step}: Props) {
         getVideo()
     }, [])
 
+    useEffect(() => {
+        setValue(step.id, 'video', {watched: true});
+    }, []);
     return (
         <>
             <div className={"courses_preview_video"}>
