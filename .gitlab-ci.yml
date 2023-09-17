@@ -101,10 +101,11 @@ build-code-all:
     - if [ "$CI_COMMIT_REF_NAME" = "main" ]; then
     - echo "BASE_URL=${BASE_URL}" >> .env
     - fi
-    - cd axios
+    - cd app/axios
     - sed -i '2s/.*/'"const baseURL = ${BASE_URL}"'/' "axiosInstance.tsx"
     - cat axiosInstance.tsx
-    - cd .. && cd ..
+    - cd ../../..
+    - pwd
     - docker compose up -d db && docker compose up -d express && docker compose up -d remix
     - docker ps -a
     - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
