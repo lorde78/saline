@@ -1,8 +1,8 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
-import { Meta, Links, Scripts } from '@remix-run/react';
+import {Meta, Links, Scripts, useLoaderData} from '@remix-run/react';
 import Header from './components/header';
 import Footer from './components/footer';
-import type { LinksFunction } from "@remix-run/node";
+import {LinksFunction, LoaderArgs, json} from "@remix-run/node";
 import {
     LiveReload,
     Outlet,
@@ -25,6 +25,8 @@ export const links: LinksFunction = () => [
 // const stripePromise = loadStripe('pk_test_51JKIu7BzGTnzBgyWsw6NG5pnmeUadeBMsd3Md8goHk3g99DC1QX2AruZ0dByisAdUEoZr6nkk5ZtYUKyAUeA1A0S00CFFdwkZk');
 
 export default function App() {
+    const loaderData = useLoaderData<typeof loader>();
+
 	const [signin,setSignin] = useState<string>();
 	const [registerData,setRegister] = useState<any>([]);
 	const [loader, setLoader] = useState(false);

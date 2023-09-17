@@ -4,7 +4,8 @@ export default function useRemoveTrainingFromClassroom() {
     return async (trainingId: any, addTraining: boolean, classroomId: number) => {
 
         try {
-            const res = await AxiosInstance({
+            const axiosInstance = AxiosInstance();
+            const res = await axiosInstance({
                 url: `/classroom?id=${classroomId}&addTraining=${addTraining}&trainingsIdList=${trainingId}`,
                 method: 'put',
                 headers: {

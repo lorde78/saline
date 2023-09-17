@@ -4,7 +4,8 @@ export default function useUpdateUser() {
     return async (formData:any,userId: number,passChange:boolean,roleChange:boolean) => {
 
         try {
-            const res = await AxiosInstance({
+            const axiosInstance = AxiosInstance();
+            const res = await axiosInstance({
                 url: `/user?id=${userId}&passChange=${passChange}&roleChange=${roleChange}`,
                 method: 'put',
                 headers: {

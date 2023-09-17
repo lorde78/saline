@@ -3,7 +3,8 @@ import { AxiosInstance } from "~/axios/axiosInstance"
 export default function useRegister() {
     return async (formData: any) => {
         try {
-            const res = await AxiosInstance({
+            const axiosInstance = AxiosInstance();
+            const res = await axiosInstance({
                 url: '/register',
                 method: 'post',
                 headers: {

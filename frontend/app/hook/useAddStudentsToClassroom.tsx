@@ -7,7 +7,8 @@ export default function useAddStudentsToClassroom() {
         const encodedList = JSON.stringify(arrayIdList)
 
         try {
-            const res = await AxiosInstance({
+            const axiosInstance = AxiosInstance();
+            const res = await axiosInstance({
                 url: `/classroom?id=${classroomId}&addStudent=${addStudent}&studentsIdList=${encodeURIComponent(encodedList)}`,
                 method: 'put',
                 headers: {

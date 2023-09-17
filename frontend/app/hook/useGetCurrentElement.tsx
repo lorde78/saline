@@ -3,7 +3,8 @@ import { AxiosInstance } from "~/axios/axiosInstance";
 export default function useGetCurrentElement() {
     return async (creation_type: string, elementId: number) => {
         try {
-            const res = await AxiosInstance({
+            const axiosInstance = AxiosInstance();
+            const res = await axiosInstance({
                 url: `/${creation_type}?id=${elementId}`,
                 method: 'get',
                 headers: {

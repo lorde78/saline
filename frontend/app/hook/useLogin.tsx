@@ -1,9 +1,11 @@
-import { AxiosInstance } from "~/axios/axiosInstance";
+import {AxiosInstance} from "~/axios/axiosInstance";
 
 export default function useLogin() {
     return async (email: string, password: string) => {
+        const axiosInstance = AxiosInstance();
+        console.log(axiosInstance);
         try {
-            const res = await AxiosInstance({
+            const res = await axiosInstance({
                 url: '/login',
                 method: 'post',
                 headers: {

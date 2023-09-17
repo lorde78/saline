@@ -4,7 +4,8 @@ export default function useAddStepsToLesson() {
     return async (stepsData: any, updateSteps: boolean, lessonId: number) => {
 
         try {
-            const res = await AxiosInstance({
+            const axiosInstance = AxiosInstance();
+            const res = await axiosInstance({
                 url: `/lesson?id=${lessonId}&updateSteps=${updateSteps}`,
                 method: 'put',
                 headers: {
