@@ -4,13 +4,14 @@ import {useState} from "react";
 
 type Props = {
     step: any
+    setValue: any
 }
 interface FileEntry {
     file: any;
     fileType: string;
     stepId?: number;
 }
-export default function User_courses_step_review({step}: Props) {
+export default function User_courses_step_review({step, setValue}: Props) {
     const [filesData, setFilesData] = useState<FileEntry[]>([])
     const setFileType = () => {
         switch(step.data.fileType) {

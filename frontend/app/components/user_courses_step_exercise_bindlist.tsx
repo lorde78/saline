@@ -15,8 +15,9 @@ interface Step {
 
 type Props = {
     step: Step;
+    setValue: any
 }
-export default function User_courses_step_exercise_bindlist({step}: Props) {
+export default function User_courses_step_exercise_bindlist({step, setValue}: Props) {
     const bind1Refs = useRef<(HTMLDivElement | null)[]>([]);
     const bind2Refs = useRef<(HTMLDivElement | null)[]>([]);
     const [resizeCounter, setResizeCounter] = useState(0);
@@ -114,6 +115,7 @@ export default function User_courses_step_exercise_bindlist({step}: Props) {
         } else {
             alert("Certaines réponses sont incorrectes.");
         }
+        setValue(step.id, 'exercise/qcm', answers)
     }
 
     useEffect(() => {
