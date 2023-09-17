@@ -12,6 +12,7 @@ import useGetAllElements from "~/hook/useGetAllElements";
 import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
 import Loader from "~/kits/loader";
 import {isLogged} from "~/helper/isLogged";
+import useGetProgress from "~/hook/useGetProgress";
 
 export function links() {
     return [
@@ -47,9 +48,15 @@ export default function Trainings() {
     // @ts-ignore
     const getAllTrainings = useGetAllElements();
 
+    const [progressTrainings, setProgressTrainings] = useState<any>();
+    const getAllProgressTrainings = useGetProgress();
+    const [hasToStart,setHasToStart] = useState(false);
+
     const getTrainings = async () => {
         const currentTraining = await getAllTrainings("training","");
+        const allTrainings = await getAllProgressTrainings("progressTraining");
         setTrainings(currentTraining);
+        setProgressTrainings(allTrainings);
         setLoader(true);
     };
 
@@ -66,7 +73,8 @@ export default function Trainings() {
                         <h1>Liste des parcours</h1>
                         <div className={"main_section_container-grid margin-top-20 max_width"}>
                             {(filteredTrainings ?? []).length !== 0 ? (
-                                filteredTrainings.map((training, i) => {  // Change to filteredTrainings here
+                                filteredTrainings.map((training, i) => {
+                                    let currentProgress = progressTrainings.filter((progress:any) => progress.trainingId === training.id);
                                     return (
                                         <User_preview_card
                                             id={training.id}
@@ -74,7 +82,7 @@ export default function Trainings() {
                                             author={training.author}
                                             imgLink={training.bannerPicture}
                                             description={training.description}
-                                            status={"A faire"}
+                                            status={currentProgress[0] ? currentProgress[0].status : "A faire"}
                                             redirectTo={`${training.id}`}
                                         />
                                     )

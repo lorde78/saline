@@ -70,7 +70,7 @@ export default function Trainings_TrainingId() {
     const getCurrentId = getIdFromUrl(0);
     // @ts-ignore
     const [signin, setSignin] = useContext(signinContext);
-    const [currentUserId, setCurrentUserId] = useState("")
+    const [currentUserId, setCurrentUserId] = useState("");
 
     const [training, setTraining] = useState<Training | null>(null);
     const getCurrentTraining = useGetCurrentElement();
@@ -80,24 +80,31 @@ export default function Trainings_TrainingId() {
     const [hasToStart,setHasToStart] = useState(false);
     const startProgress = useStartProgress();
 
+    const [progressCourses, setProgressCourses] = useState<any>();
+    const getAllProgressCourses = useGetProgress();
+
     const getTraining = async () => {
         const currentTraining = await getCurrentTraining("training", getCurrentId);
         const currentProgressTraining = await getCurrentProgressTraining("progressTraining", "trainingId", getCurrentId);
+        const allProgress = await getAllProgressCourses("progressLesson");
         //@ts-ignore
         setTraining(currentTraining);
-        setProgressTraining(currentProgressTraining);
+        setProgressTraining(currentProgressTraining[0]);
+        setProgressCourses(allProgress);
         if (currentProgressTraining.length === 0) {
             setHasToStart(true);
         }
+        setLoader(true);
     };
+
+    const [bannerHeight, setBannerHeight] = useState(400)
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 if (signin) {
                     const userId = await useGetCurrentUserId(signin);
-                    setCurrentUserId(userId)
-                    setLoader(true);
+                    setCurrentUserId(userId);
                 }
             } catch (error) {
                 console.error(error);
@@ -107,7 +114,6 @@ export default function Trainings_TrainingId() {
         fetchUser()
     }, [signin])
 
-    const [bannerHeight, setBannerHeight] = useState(400)
 
     useEffect(() => {
         window.onscroll = function () {
@@ -140,7 +146,7 @@ export default function Trainings_TrainingId() {
             {loader ? (
                 <>
                     <Header/>
-                    <Header_section_page numberUndoPage={1} title={training?.title || ""}/>
+                    <Header_section_page numberUndoPage={1} title={training?.title || ""} status={progressTraining ? progressTraining.status : "A faire"}/>
                     <main className={"max_width_container"}>
                         <div className={"main_section_container-flex max_width"}>
                             <div className={"big_banner_image"} style={{height: bannerHeight}}>
@@ -155,6 +161,7 @@ export default function Trainings_TrainingId() {
                             <div className={"main_section_container-grid"}>
                                 {
                                     training?.lessons.map((course: Course, i: any) => {
+                                        let currentProgress = progressCourses.filter((progress:any) => progress.lessonId === course.id)
                                         return (
                                             <User_preview_card
                                                 id={course.id}
@@ -162,7 +169,7 @@ export default function Trainings_TrainingId() {
                                                 author={course.author}
                                                 imgLink={course.bannerPicture}
                                                 description={course.description}
-                                                status={"A faire"}
+                                                status={currentProgress[0] ? currentProgress[0].status : "A faire"}
                                                 redirectTo={`courses/${course.id}`}
                                                 disable={hasToStart}
                                             />

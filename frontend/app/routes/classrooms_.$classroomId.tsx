@@ -14,6 +14,7 @@ import getIdFromUrl from "~/helper/getIdFromUrl";
 import Loader from "~/kits/loader";
 import Backoffice_training from "~/components/backoffice_training";
 import {isLogged} from "~/helper/isLogged";
+import useGetProgress from "~/hook/useGetProgress";
 
 
 export function links() {
@@ -52,10 +53,15 @@ export default function Classroom_ClassroomId() {
     const [classroom, setClassroom] = useState<Classroom | null>(null);
     const getCurrentClassroom = useGetCurrentElement();
 
+    const [progressTrainings, setProgressTrainings] = useState<any>();
+    const getAllProgressTrainings = useGetProgress();
+
     const getClassroom = async () => {
         const currentClassroom = await getCurrentClassroom("classroom", getCurrentId);
+        const allTrainings = await getAllProgressTrainings("progressTraining");
         //@ts-ignore
         setClassroom(currentClassroom);
+        setProgressTrainings(allTrainings);
         setLoader(true);
     };
 
@@ -93,6 +99,7 @@ export default function Classroom_ClassroomId() {
                             <div className={"main_section_container-grid"}>
                                 {
                                     classroom?.trainings.map((training: Training, i: any) => {
+                                        let currentProgress = progressTrainings.filter((progress:any) => progress.trainingId === training.id);
                                         return (
                                             <User_preview_card
                                                 id={training.id}
@@ -100,7 +107,7 @@ export default function Classroom_ClassroomId() {
                                                 author={training.author}
                                                 imgLink={training.bannerPicture}
                                                 description={training.description}
-                                                status={"A faire"}
+                                                status={currentProgress[0] ? currentProgress[0].status : "A faire"}
                                                 redirectTo={`trainings/${training.id}`}
                                             />
                                         )

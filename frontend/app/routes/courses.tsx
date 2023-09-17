@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -10,6 +10,9 @@ import {useGlobalEffect} from "~/helper/globalHelper";
 import useGetAllElements from "~/hook/useGetAllElements";
 import Loader from "~/kits/loader";
 import {isLogged} from "~/helper/isLogged";
+import useGetProgress from "~/hook/useGetProgress";
+import useStartProgress from "~/hook/useStartProgress";
+import {signinContext} from "~/context/signinContext";
 
 
 export function links() {
@@ -42,6 +45,10 @@ export default function Courses() {
         instruments: [],
         status: []
     });
+
+    const [progressCourses, setProgressCourses] = useState<any>();
+    const getAllProgressCourses = useGetProgress();
+
     const filteredCourses = courses.filter(course => {
         const matchesSearchTerm = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
             course.description.toLowerCase().includes(searchTerm.toLowerCase())
@@ -53,6 +60,7 @@ export default function Courses() {
 
         return matchesSearchTerm && matchesInstrument && matchesStatus;
     });
+
     useEffect(() => {
         console.log(activeFilters);
     }, [activeFilters]);
@@ -60,8 +68,10 @@ export default function Courses() {
     const getAllCourses = useGetAllElements();
 
     const getCourses = async () => {
-        const currentCourse = await getAllCourses("lesson", "");
-        setCourses(currentCourse);
+        const allCourses = await getAllCourses("lesson", "");
+        const allProgress = await getAllProgressCourses("progressLesson");
+        setCourses(allCourses);
+        setProgressCourses(allProgress);
         setLoader(true);
     };
 
@@ -80,6 +90,7 @@ export default function Courses() {
                         <div className={"main_section_container-grid margin-top-20 max_width"}>
                             {(filteredCourses ?? []).length !== 0 ? (
                                 filteredCourses.map((course, i) => {
+                                    let currentProgress = progressCourses.filter((progress:any) => progress.lessonId === course.id)
                                     return (
                                         <User_preview_card
                                             id={course.id}
@@ -87,6 +98,7 @@ export default function Courses() {
                                             author={course.author}
                                             imgLink={course.bannerPicture}
                                             description={course.description}
+                                            status={currentProgress[0] ? currentProgress[0].status : "A faire"}
                                             redirectTo={`${course.id}`}
                                         />
                                     )
