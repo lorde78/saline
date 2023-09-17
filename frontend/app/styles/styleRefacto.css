@@ -115,7 +115,7 @@
     gap: 10px;
 }
 
-.preview_card .preview_card_content .content_header .preview_card_status {
+.preview_card_status {
     display: flex;
     justify-content: center;
     align-items: center;

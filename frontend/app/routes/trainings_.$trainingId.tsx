@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -12,6 +12,12 @@ import getIdFromUrl from "~/helper/getIdFromUrl";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import Loader from "~/kits/loader";
 import {isLogged} from "~/helper/isLogged";
+import useGetProgress from "~/hook/useGetProgress";
+import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
+import {signinContext} from "~/context/signinContext";
+import useStartProgress from "~/hook/useStartProgress";
+import {useNavigate} from "react-router-dom";
+import {useLocation} from "@remix-run/react";
 
 
 export function links() {
@@ -46,23 +52,68 @@ interface Course {
     }
 }
 
+interface progressTraining {
+    id: number;
+    status: string;
+    studentId: number;
+    trainingId: number;
+    student: any;
+    training: any;
+}
+
 export default function Trainings_TrainingId() {
     useGlobalEffect()
     isLogged("user");
     const [loader, setLoader] = useState(false);
-    const getCurrentId = getIdFromUrl(0)
+    const navigate = useNavigate();
+    const location = useLocation();
+    const getCurrentId = getIdFromUrl(0);
+    // @ts-ignore
+    const [signin, setSignin] = useContext(signinContext);
+    const [currentUserId, setCurrentUserId] = useState("");
 
     const [training, setTraining] = useState<Training | null>(null);
     const getCurrentTraining = useGetCurrentElement();
 
+    const [progressTraining, setProgressTraining] = useState<any>();
+    const getCurrentProgressTraining = useGetProgress();
+    const [hasToStart,setHasToStart] = useState(false);
+    const startProgress = useStartProgress();
+
+    const [progressCourses, setProgressCourses] = useState<any>();
+    const getAllProgressCourses = useGetProgress();
+
     const getTraining = async () => {
-        const currentClassroom = await getCurrentTraining("training", getCurrentId);
+        const currentTraining = await getCurrentTraining("training", getCurrentId);
+        const currentProgressTraining = await getCurrentProgressTraining("progressTraining", "trainingId", getCurrentId);
+        const allProgress = await getAllProgressCourses("progressLesson");
         //@ts-ignore
-        setTraining(currentClassroom);
+        setTraining(currentTraining);
+        setProgressTraining(currentProgressTraining[0]);
+        setProgressCourses(allProgress);
+        if (currentProgressTraining.length === 0) {
+            setHasToStart(true);
+        }
         setLoader(true);
     };
 
     const [bannerHeight, setBannerHeight] = useState(400)
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                if (signin) {
+                    const userId = await useGetCurrentUserId(signin);
+                    setCurrentUserId(userId);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchUser()
+    }, [signin])
+
 
     useEffect(() => {
         window.onscroll = function () {
@@ -76,21 +127,41 @@ export default function Trainings_TrainingId() {
         getTraining()
     }, []);
 
+    const startTraining = (e:any) => {
+        e.preventDefault();
+
+        let formData = {
+            status: "En cours",
+            studentId: currentUserId,
+            trainingId: getCurrentId
+        }
+
+        startProgress("progressTraining",formData);
+
+        window.location.reload();
+    }
+
     return (
         <>
             {loader ? (
                 <>
                     <Header/>
-                    <Header_section_page numberUndoPage={1} title={training?.title || ""}/>
+                    <Header_section_page numberUndoPage={1} title={training?.title || ""} status={progressTraining ? progressTraining.status : "A faire"}/>
                     <main className={"max_width_container"}>
                         <div className={"main_section_container-flex max_width"}>
                             <div className={"big_banner_image"} style={{height: bannerHeight}}>
                                 <img src={training?.bannerPicture} alt={"bannière du cour"}/>
                             </div>
                             <p>{training?.description}</p>
+                            {hasToStart ? (
+                                <button className="button" onClick={(e) => {startTraining(e)}}>Démarrer ce Parcours</button>
+                            ) : (
+                                <></>
+                            )}
                             <div className={"main_section_container-grid"}>
                                 {
                                     training?.lessons.map((course: Course, i: any) => {
+                                        let currentProgress = progressCourses.filter((progress:any) => progress.lessonId === course.id)
                                         return (
                                             <User_preview_card
                                                 id={course.id}
@@ -98,8 +169,9 @@ export default function Trainings_TrainingId() {
                                                 author={course.author}
                                                 imgLink={course.bannerPicture}
                                                 description={course.description}
-                                                status={"A faire"}
+                                                status={currentProgress[0] ? currentProgress[0].status : "A faire"}
                                                 redirectTo={`courses/${course.id}`}
+                                                disable={hasToStart}
                                             />
                                         )
                                     })

@@ -33,9 +33,10 @@ interface SetExerciseProps {
 
 type Props = {
     step: Step;
+    setValue: any
 }
 
-export default function User_courses_step_exercise_qcm({ step }: Props) {
+export default function User_courses_step_exercise_qcm({ step, setValue }: Props) {
     const setDefaultExerciseAnswer = (): ExerciseAnswer => {
         return step.data.map(qcm => qcm.choice.map(() => ({ value: false })));
     }
@@ -99,6 +100,7 @@ export default function User_courses_step_exercise_qcm({ step }: Props) {
         } else {
             alert(`Vous avez ${correctAnswersCount} bonnes réponses sur ${step.data.length} questions.`);
         }
+        setValue(step.id, 'exercise/qcm', exerciseAnswer)
     }
 
 

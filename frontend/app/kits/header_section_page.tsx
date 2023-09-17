@@ -2,16 +2,44 @@ import {NavLink, useLocation} from "@remix-run/react";
 import editLink from "~/helper/editLink";
 
 type Props = {
-    title: string
-    numberUndoPage: number
-    logout?: boolean
-    edit?: boolean
+    title: string;
+    numberUndoPage: number;
+    logout?: boolean;
+    edit?: boolean;
+    status?: any;
 };
 
 
-export default function Header_section_page({title, numberUndoPage, edit, logout}: Props) {
-    const editPath = editLink(numberUndoPage)
-    const editPagePath = editLink(1)
+export default function Header_section_page({title, status, numberUndoPage, edit, logout}: Props) {
+    const editPath = editLink(numberUndoPage);
+    const editPagePath = editLink(1);
+
+    const setStatus = () => {
+        let statusColor;
+        switch (status) {
+            case "En cours":
+                statusColor = "yellow";
+                break;
+            case "Terminé":
+                statusColor = "green";
+                break;
+            case "A faire":
+                statusColor = "gray";
+                break;
+            case "Non commencé":
+                statusColor = "gray";
+                break;
+
+            default:
+                return (<></>)
+        }
+        return (
+            <div className={"preview_card_status"}>
+                <span className={"status_color status_color-" + statusColor}/>
+                <p>{status}</p>
+            </div>
+        )
+    }
 
     return (
         <header className={"header_section_page"}>
@@ -20,7 +48,12 @@ export default function Header_section_page({title, numberUndoPage, edit, logout
                     <i className="ri-arrow-left-line"></i>
                 </NavLink>
             </nav>
-            <div><h1>{title}</h1></div>
+            <div>
+                <div>
+                    <h1>{title}</h1>
+                    {setStatus()}
+                </div>
+            </div>
             {edit ?
                 <NavLink to={editPagePath}>
                     <i className="ri-edit-line"></i>

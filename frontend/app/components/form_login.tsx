@@ -23,7 +23,6 @@ export default function Form_login() {
         e.preventDefault()
         const response = await login(email,password)
 
-
         switch(response.status) {
             case 401:
             case 404:
