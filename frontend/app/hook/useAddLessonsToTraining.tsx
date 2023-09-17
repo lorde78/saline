@@ -7,8 +7,7 @@ export default function useAddLessonsToTraining() {
         const encodedList = JSON.stringify(arrayIdList)
 
         try {
-            const axiosInstance = AxiosInstance();
-            const res = await axiosInstance({
+            const res = await AxiosInstance({
                 url: `/training?id=${trainingId}&addToTraining=${addToTraining}&lessonsIdList=${encodeURIComponent(encodedList)}`,
                 method: 'put',
                 headers: {

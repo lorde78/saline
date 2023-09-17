@@ -3,8 +3,7 @@ import { AxiosInstance } from "~/axios/axiosInstance";
 export default function useStartProgress() {
     return async (progress_type: string, formData:any) => {
         try {
-            const axiosInstance = AxiosInstance();
-            const res = await axiosInstance({
+            const res = await AxiosInstance({
                 url: `/${progress_type}`,
                 method: 'post',
                 headers: {

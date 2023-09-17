@@ -3,8 +3,7 @@ import { AxiosInstance } from "~/axios/axiosInstance"
 export default function useGetSubscriptions() {
     return async () => {
         try {
-            const axiosInstance = AxiosInstance();
-            const res = await axiosInstance({
+            const res = await AxiosInstance({
                 url: '/subscription',
                 method: 'get',
                 headers: {

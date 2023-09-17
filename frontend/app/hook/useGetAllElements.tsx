@@ -3,8 +3,7 @@ import { AxiosInstance } from "~/axios/axiosInstance";
 export default function useGetAllElements() {
     return async (creation_type: string,queryParams: string) => {
         try {
-            const axiosInstance = AxiosInstance();
-            const res = await axiosInstance({
+            const res = await AxiosInstance({
                 url: `/${creation_type}${queryParams}`,
                 method: 'get',
                 headers: {

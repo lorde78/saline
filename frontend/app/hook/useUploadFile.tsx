@@ -22,8 +22,7 @@ export default function useUploadFile() {
         }
 
         try {
-            const axiosInstance = AxiosInstance();
-            const res = await axiosInstance({
+            const res = await AxiosInstance({
                 url: `/upload?dir=${directory}`,
                 method: 'post',
                 headers: {

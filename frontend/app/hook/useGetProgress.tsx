@@ -5,8 +5,7 @@ export default function useGetProgress() {
         let url = paramElement ? `/${progress_type}?${paramElement}=${element_id}` : `/${progress_type}`
 
         try {
-            const axiosInstance = AxiosInstance();
-            const res = await axiosInstance({
+            const res = await AxiosInstance({
                 url: url,
                 method: 'get',
                 headers: {

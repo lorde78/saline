@@ -3,8 +3,7 @@ import { AxiosInstance } from "~/axios/axiosInstance";
 export default function useCreateBuilderElement() {
     return async (formData: any, creation_type: string) => {
         try {
-            const axiosInstance = AxiosInstance();
-            const res = await axiosInstance({
+            const res = await AxiosInstance({
                 url: `/${creation_type}`,
                 method: 'post',
                 headers: {
