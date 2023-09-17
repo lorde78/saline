@@ -88,6 +88,17 @@ build-code-all:
     - if [ "$CI_COMMIT_REF_NAME" = "main" ]; then
     - echo "ENV_TARGET=production" >> .env
     - fi
+    - cd frontend && touch .env
+    - if [ "$CI_COMMIT_REF_NAME" = "dev" ]; then
+    - echo "BASE_URL_REMIX=${DEV_BASE_URL_REMIX}" >> .env
+    - fi
+    - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
+    - echo "BASE_URL_REMIX=${PREPROD_BASE_URL_REMIX}" >> .env
+    - fi
+    - if [ "$CI_COMMIT_REF_NAME" = "main" ]; then
+    - echo "BASE_URL_REMIX=${BASE_URL_REMIX}" >> .env
+    - fi
+    - cd ..
     - docker compose up -d db && docker compose up -d express && docker compose up -d remix
     - docker ps -a
     - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
