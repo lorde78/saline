@@ -103,6 +103,7 @@ build-code-all:
     - fi
     - cd axios
     - sed -i '2s/.*/'"const baseURL = ${BASE_URL}"'/' "axiosInstance.tsx"
+    - cat axiosInstance.tsx
     - cd .. && cd ..
     - docker compose up -d db && docker compose up -d express && docker compose up -d remix
     - docker ps -a
