@@ -43,7 +43,10 @@ export const Slider: React.FunctionComponent<SliderProps> = ({ slides }) => {
         }, 3000);
         return () => clearInterval(timer);
     };
-
+    const handleSlideChange = () => {
+        const nextIndex = (currentIndex + 1) % slides.length;
+        setCurrentIndex(nextIndex);
+    };
     useEffect(() => {
         calculateNumVisibleSlides();
         handleAutoplay();
@@ -72,15 +75,23 @@ export const Slider: React.FunctionComponent<SliderProps> = ({ slides }) => {
 
     const duplicatedSlides = generateDuplicatedSlides();
 
+    useEffect(() => {
+        const timer = setInterval(() => {
+            handleSlideChange();
+        }, 3000);
+
+        return () => clearInterval(timer);
+    }, [currentIndex]);
+
     return (
         <div className="swiper_home_container">
             <div
-                className={`custom-carousel visible-${numVisibleSlides}`}
+                className={`custom_carousel visible_${numVisibleSlides}`}
             >
                 {duplicatedSlides.map((slide, index) => (
                     <div
                         key={index}
-                        className={`carousel-slide ${index >= currentIndex && index < currentIndex + numVisibleSlides
+                        className={`carousel_slide ${index >= currentIndex && index < currentIndex + numVisibleSlides
                                 ? 'active'
                                 : ''
                             }`}

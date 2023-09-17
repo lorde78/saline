@@ -1,17 +1,4 @@
-#language-select {
-	color: #121525;
-	font-size: 12px;
-	font-weight: 600;
-	border: none;
-}
-
-#language-select option {
-	border: none;
-	appearance: none;
-	line-height: normal;
-}
-
-.custom-select {
+.custom_select {
 	color: #121525;
 	font-size: 12px;
 	font-weight: 600;
@@ -23,19 +10,20 @@
 	line-height: 1;
 }
 
-.custom-select-container {
+
+.custom_select_container {
 	position: relative;
 }
 
-.custom-select.open svg {
+.custom_select.open svg {
 	transform: rotate(180deg);
 }
 
-.custom-select svg {
+.custom_select svg {
 	transition: transform 0.3s ease;
 }
 
-.custom-select-container .options {
+.custom_select_container .options {
 	position: absolute;
 	top: 100%;
 	left: 0;
@@ -50,7 +38,7 @@
 	transition: opacity 0.4s ease;
 }
 
-.custom-select-container .option {
+.custom_select_container .option {
 	padding: 10px;
 	cursor: pointer;
 	font-size: 12px;
@@ -58,26 +46,26 @@
 	font-weight: 600;
 }
 
-.custom-select-container .option:hover {
+.custom_select_container .option:hover {
 	background-color: #f4f4f4;
 }
 
-.custom-select.open {
+.custom_select.open {
 	border-bottom: 2px solid #f4f4f4;
 }
 
-.custom-select.open + .options {
+.custom_select.open + .options {
 	opacity: 1;
 }
 
-.custom-select-container .option:not(:last-child) {
+.custom_select_container .option:not(:last-child) {
 	border-bottom: 2px solid #f4f4f4;
 }
 
-.custom-select-container .option:hover {
+.custom_select_container .option:hover {
 	background-color: #f2f2f2;
 }
 
-.custom-select-container .selected-option{
+.custom_select_container .selected_ption{
 	width: 40px;
 }

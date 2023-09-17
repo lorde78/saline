@@ -119,7 +119,7 @@ export default function Header({ search, setActiveFilters, onSearch }: Props) {
                         </ul>
                     </div>
                 </div>
-                <div style={{ display: "flex", gap: 20, }}>
+                <div>
                     <LanguageSelect />
                     {isMenuOpen || windowInnerWidth <= 750 ?
                         <></>
