@@ -22,7 +22,7 @@ export const links: LinksFunction = () => [
     ...(cssBundleHref ? [{rel: "stylesheet", href: cssBundleHref}] : []),
 ];
 
-const stripePromise = loadStripe('pk_test_51JKIu7BzGTnzBgyWsw6NG5pnmeUadeBMsd3Md8goHk3g99DC1QX2AruZ0dByisAdUEoZr6nkk5ZtYUKyAUeA1A0S00CFFdwkZk');
+// const stripePromise = loadStripe('pk_test_51JKIu7BzGTnzBgyWsw6NG5pnmeUadeBMsd3Md8goHk3g99DC1QX2AruZ0dByisAdUEoZr6nkk5ZtYUKyAUeA1A0S00CFFdwkZk');
 
 export default function App() {
 	const [signin,setSignin] = useState<string>();
@@ -42,7 +42,7 @@ export default function App() {
 	return (
 		<registerContext.Provider value ={[registerData,setRegister]}>
 			<signinContext.Provider value={[signin,setSignin]}>
-			<Elements stripe={stripePromise}>
+			{/*<Elements stripe={stripePromise}>*/}
 				<html lang="en">
 					<head>
 						<meta charSet="utf-8" />
@@ -58,7 +58,7 @@ export default function App() {
 						<LiveReload port={8002}/>
 					</body>
 				</html>
-				</Elements>
+				{/*</Elements>*/}
 			</signinContext.Provider>
 		</registerContext.Provider>
 	);
