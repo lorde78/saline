@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -16,6 +16,8 @@ import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import Loader from "~/kits/loader";
 import builder from "~/styles/builder.css";
 import {isLogged} from "~/helper/isLogged";
+import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
+import {signinContext} from "~/context/signinContext";
 
 
 export function links() {
@@ -24,7 +26,7 @@ export function links() {
         {rel: 'stylesheet', href: styles},
         {rel: 'stylesheet', href: input},
         {rel: 'stylesheet', href: stylesRefacto},
-        { rel: "stylesheet", href: builder }
+        {rel: "stylesheet", href: builder}
     ]
 }
 
@@ -38,6 +40,9 @@ interface Step {
 export default function Courses_CourseId_StepId() {
     useGlobalEffect()
     isLogged("user");
+    // @ts-ignore
+    const [signin, setSignin] = useContext(signinContext);
+    const [currentUserId, setCurrentUserId] = useState("")
     const [loader, setLoader] = useState(false);
     const getCurrentId = getIdFromUrl(1)
     const getStepId = getIdFromUrl(0)
@@ -48,7 +53,7 @@ export default function Courses_CourseId_StepId() {
     const getCourse = async () => {
         const currentClassroom = await getCurrentCourse("lesson", getCurrentId);
         //@ts-ignore
-        setStep(currentClassroom.steps[getStepId-1]);
+        setStep(currentClassroom.steps[getStepId - 1]);
         setLoader(true);
     };
 
@@ -66,24 +71,100 @@ export default function Courses_CourseId_StepId() {
         getCourse()
     }, []);
 
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                if (signin) {
+                    const userId = await useGetCurrentUserId(signin);
+                    setCurrentUserId(userId)
+                    setLoader(true);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchUser()
+    }, [signin])
+
+    type StepType = 'video' | 'exercise/qcm' | 'exercise/bind_list' | 'review';
+
+    type ResponseValue =
+        | { watched: boolean }
+        | Array<Array<{ value: boolean }>>
+        | { [key: string]: string }
+        | { reviewUrl: string };
+
+    type ResponseItem = {
+        stepId: number;
+        type: StepType;
+        response: ResponseValue;
+    };
+
+    type ResponsesType = {
+        [stepId: number]: ResponseItem;
+    }
+
+    type AnswerStepsType = {
+        userId: string;
+        courseId: number;
+        responses: ResponsesType;
+    };
+
+    const [answerSteps, setAnswerSteps] = useState<AnswerStepsType>({
+        userId: "",
+        courseId: 0,
+        responses: {}
+    });
+
+    const setValue = (stepId: number, type: StepType, value: ResponseValue) => {
+        let newAnswerSteps = {...answerSteps};
+        newAnswerSteps.userId = currentUserId;
+        newAnswerSteps.courseId = getCurrentId;
+        const responseItem: ResponseItem = {
+            stepId,
+            type,
+            response: value
+        };
+
+        switch (type) {
+            case 'video':
+            case 'exercise/qcm':
+            case 'exercise/bind_list':
+            case 'review':
+                newAnswerSteps.responses[stepId] = responseItem;
+                break;
+            default:
+                console.error(`Unknown step type: ${type}`);
+                break;
+        }
+
+        setAnswerSteps(newAnswerSteps);
+    }
+
+    useEffect(() => {
+        if (answerSteps.userId != "") {
+            console.log(answerSteps)
+        }
+    }, [answerSteps]);
 
     const typeStep = () => {
         switch (step?.type) {
             case "video":
                 return (
-                    <User_courses_step_video step={step}/>
+                    <User_courses_step_video step={step} setValue={setValue}/>
                 )
             case "exercise/qcm":
                 return (
-                    <User_courses_step_exercise_qcm step={step}/>
+                    <User_courses_step_exercise_qcm step={step} setValue={setValue}/>
                 )
             case "exercise/bind_list":
                 return (
-                    <User_courses_step_exercise_bindlist step={step}/>
+                    <User_courses_step_exercise_bindlist step={step} setValue={setValue}/>
                 )
             case "review":
                 return (
-                    <User_courses_step_review step={step}/>
+                    <User_courses_step_review step={step} setValue={setValue}/>
                 )
         }
     }
