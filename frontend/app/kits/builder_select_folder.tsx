@@ -90,6 +90,7 @@ export default function Builder_select_folder({icon, folderType, idType, buttonM
       }
     }
 
+    console.log(idType)
     return (
         <div className={"builder_select_folder"}>
             <div className={"preview_container"}>

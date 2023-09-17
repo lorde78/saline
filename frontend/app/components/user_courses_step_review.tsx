@@ -27,7 +27,7 @@ export default function User_courses_step_review({step, setValue}: Props) {
     }
 
     const setFileInfo = (value:any) => {
-        const fileType = "documentations";
+        const fileType = "review";
 
         const existingIndex = filesData.findIndex((entry: { fileType: string; }) => entry.fileType === fileType);
 
@@ -45,12 +45,13 @@ export default function User_courses_step_review({step, setValue}: Props) {
                 ...prevData,
                 {
                     file: value,
-                    fileType: "fileType",
-                    stepId: 1
+                    fileType: fileType,
+                    stepId: step.id+1
                 },
             ]);
         }
     }
+    console.log(step)
 
     return (
         <>
