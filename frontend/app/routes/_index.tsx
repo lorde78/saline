@@ -18,6 +18,7 @@ import styleRefacto from "~/styles/styleRefacto.css";
 import Builder_select_folder from "~/kits/builder_select_folder";
 import Select_image from "~/kits/select_image";
 import {useGlobalEffect} from "~/helper/globalHelper";
+// import InfiniteSlider from "~/components/infiniteSlider";
 
 
 
@@ -89,7 +90,7 @@ export default function Index() {
     return (
         <div style={{fontFamily: "system-ui, sans-serif", lineHeight: "1.8"}}>
             <Header search={false}/>
-            {/* <InfiniteSlider slides={slides}/> */}
+             {/*<InfiniteSlider slides={slides}/> */}
             <Slider slides={slides}></Slider>
             <SectionInstrument/>
             <MiniSlider slides={slides}/>

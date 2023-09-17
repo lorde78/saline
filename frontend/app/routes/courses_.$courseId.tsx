@@ -52,12 +52,11 @@ export default function Courses_CourseId() {
     useGlobalEffect()
     isLogged("user");
     const [loader, setLoader] = useState(false);
-    const navigate = useNavigate();
     const location = useLocation();
     const getCurrentId = getIdFromUrl(0);
     // @ts-ignore
     const [signin, setSignin] = useContext(signinContext);
-    const [currentUserId, setCurrentUserId] = useState("")
+    const [currentUserId, setCurrentUserId] = useState("");
 
     const [course, setCourse] = useState<Course | null>(null);
     const getCurrentCourse = useGetCurrentElement();
@@ -72,12 +71,14 @@ export default function Courses_CourseId() {
         const currentProgressCourse = await getCurrentProgressCourse("progressLesson", "lessonId", getCurrentId);
         //@ts-ignore
         setCourse(currentClassroom);
-        setProgressCourse(currentProgressCourse);
+        setProgressCourse(currentProgressCourse[0]);
         if (currentProgressCourse.length === 0) {
             setHasToStart(true);
         }
         setLoader(true);
     };
+
+    const [bannerHeight, setBannerHeight] = useState(400)
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -85,7 +86,6 @@ export default function Courses_CourseId() {
                 if (signin) {
                     const userId = await useGetCurrentUserId(signin);
                     setCurrentUserId(userId)
-                    setLoader(true);
                 }
             } catch (error) {
                 console.error(error);
@@ -94,8 +94,6 @@ export default function Courses_CourseId() {
 
         fetchUser()
     }, [signin])
-
-    const [bannerHeight, setBannerHeight] = useState(400)
 
     useEffect(() => {
         window.onscroll = function () {
@@ -129,7 +127,7 @@ export default function Courses_CourseId() {
             {loader ? (
                 <>
                     <Header/>
-                    <Header_section_page numberUndoPage={1} title={course?.title || ""}/>
+                    <Header_section_page numberUndoPage={1} title={course?.title || ""} status={progressCourse ? progressCourse.status : "A faire"}/>
                     <main className={"max_width_container"}>
                         <div className={"main_section_container-flex max_width"}>
                             <div className={"big_banner_image"} style={{height: bannerHeight}}>
