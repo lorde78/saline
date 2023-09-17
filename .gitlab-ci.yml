@@ -102,7 +102,7 @@ build-code-all:
     - echo "BASE_URL=${BASE_URL}" >> .env
     - fi
     - cd app/axios
-    - sed -i '2s/.*/'"const baseURL = \${BASE_URL}"'/' "axiosInstance.tsx"
+    - sed -i '2s#.*#const baseURL = "'"$BASE_URL"'"#' "axiosInstance.tsx"
     - cat axiosInstance.tsx
     - cd ../../..
     - pwd
