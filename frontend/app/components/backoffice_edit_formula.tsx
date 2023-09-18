@@ -11,14 +11,14 @@ type Props = {
     id: number,
     name: string,
     rates_price: string
-    musts: any
+    access: any
     setValue: any
 };
 export default function Backoffice_edit_formula({
                                                     id,
                                                     name,
                                                     rates_price,
-                                                    musts,
+                                                    access,
                                                     setValue,
                                                 }: Props) {
     const [targets, setTargets] = useState([
@@ -70,16 +70,16 @@ export default function Backoffice_edit_formula({
                 </div>
                 <h1>Droits</h1>
                 {
-                    musts.map((must: any, i: number) => {
+                    access.map((access: any, i: number) => {
                         return (
                             <div>
                                 <Checkbox
                                     name={"mustActive" + i}
                                     type={"checkbox"}
-                                    text={must.name}
+                                    text={access.name}
                                     setValue={setValue}
                                     propsSetValue={{id: id, valuToChange: "musts", mustID: i}}
-                                    value={must.active}/>
+                                    value={access.active}/>
                             </div>
                         )
                     })

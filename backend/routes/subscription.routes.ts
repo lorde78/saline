@@ -1,19 +1,20 @@
 var express = require('express');
+// @ts-ignore
 const { database } = require('../config/db.ts');
 
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { title, subscriptionType, subscriptionStatus, price, userId } = req.body;
+    const { title, target, rates_price, rates_time, access } = req.body;
     const subscription = await database.subscription.create({
         data: {
-            userId: parseInt(userId),
             title: title,
-            price: price,
-            subscriptionType: subscriptionType,
-            subscriptionStatus: subscriptionStatus,
+            rates_price: parseInt(rates_price),
+            rates_time: rates_time,
+            target: target,
             nbSubscribers: 0,
-            nbCertified: 0
+            nbCertified: 0,
+            access: access
         }
     })
 

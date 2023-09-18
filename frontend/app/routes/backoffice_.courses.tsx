@@ -50,8 +50,8 @@ export let loader: LoaderFunction = ({ request }) => {
 }
 
 export default function Backoffice_Courses() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
+
     const loaderData = useLoaderData() as LoaderData;
 
     const [courses, setCourses] = useState<Course[]>([]);

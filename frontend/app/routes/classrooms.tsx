@@ -36,8 +36,8 @@ interface Classrooms {
 }
 
 export default function Classroom() {
-    useGlobalEffect()
-    isLogged("user");
+    useGlobalEffect("user");
+
     const [loader, setLoader] = useState(false);
     // @ts-ignore
     const [signin, setSignin] = useContext(signinContext);

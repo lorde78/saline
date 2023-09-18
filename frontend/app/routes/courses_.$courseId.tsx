@@ -49,8 +49,8 @@ interface Step {
 }
 
 export default function Courses_CourseId() {
-    useGlobalEffect()
-    isLogged("user");
+    useGlobalEffect("user");
+
     const [loader, setLoader] = useState(false);
     const location = useLocation();
     const getCurrentId = getIdFromUrl(0);

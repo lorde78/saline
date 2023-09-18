@@ -34,8 +34,7 @@ interface Assessment {
 }
 
 export default function Backoffice_Classroom_ClassroomId_Edit_Assessments() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
 
     const [assessments, setAssessments] = useState<Assessment[]>([
         {

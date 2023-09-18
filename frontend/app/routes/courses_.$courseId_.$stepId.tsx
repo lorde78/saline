@@ -38,8 +38,8 @@ interface Step {
 }
 
 export default function Courses_CourseId_StepId() {
-    useGlobalEffect()
-    isLogged("user");
+    useGlobalEffect("user");
+
     // @ts-ignore
     const [signin, setSignin] = useContext(signinContext);
     const [currentUserId, setCurrentUserId] = useState("")

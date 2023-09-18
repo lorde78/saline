@@ -69,6 +69,7 @@ export default function User_courses_step_video({step, setValue}: Props) {
     useEffect(() => {
         setValue(step.id, 'video', {watched: true});
     }, []);
+
     return (
         <>
             <div className={"courses_preview_video"}>

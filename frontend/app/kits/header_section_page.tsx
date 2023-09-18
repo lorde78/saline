@@ -1,5 +1,6 @@
 import {NavLink, useLocation} from "@remix-run/react";
 import editLink from "~/helper/editLink";
+import useLogout from "~/hook/useLogout";
 
 type Props = {
     title: string;
@@ -13,6 +14,8 @@ type Props = {
 export default function Header_section_page({title, status, numberUndoPage, edit, logout}: Props) {
     const editPath = editLink(numberUndoPage);
     const editPagePath = editLink(1);
+
+    const logoutAction = useLogout();
 
     const setStatus = () => {
         let statusColor;
@@ -63,9 +66,9 @@ export default function Header_section_page({title, status, numberUndoPage, edit
             }
             {logout ?
                 <nav>
-                    <NavLink to={"/logout"}>
+                    <button onClick={logoutAction}>
                         <i className="ri-logout-circle-line"></i>
-                    </NavLink>
+                    </button>
                 </nav>
                 :
                 <></>

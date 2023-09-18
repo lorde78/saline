@@ -34,8 +34,7 @@ export function links() {
 }
 
 export default function Backoffice_Assessments() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
 
     const [assessments, setAssessments] = useState<Assessment[]>([
         {

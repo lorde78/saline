@@ -35,8 +35,7 @@ export function links() {
 }
 
 export default function Backoffice() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
 
     return (
         <>
@@ -63,9 +62,9 @@ export default function Backoffice() {
                     <NavLink className={"button"} to={"formulas"}>
                         Formules
                     </NavLink>
-                    <NavLink className={"button"} to={"banners"}>
-                        Bannières
-                    </NavLink>
+                    {/*<NavLink className={"button"} to={"banners"}>*/}
+                    {/*    Bannières*/}
+                    {/*</NavLink>*/}
                 </div>
             </section>
         </>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -6,80 +6,60 @@ import formule from "~/styles/formule.css";
 import backofficeFormula from "~/styles/backofficeFormula.css";
 import Backoffice_edit_formula from "~/components/backoffice_edit_formula";
 import Header_section_page from "~/kits/header_section_page";
-import { useGlobalEffect } from "~/helper/globalHelper";
-import {isLogged} from "~/helper/isLogged";
+import {useGlobalEffect} from "~/helper/globalHelper";
+import getIdFromUrl from "~/helper/getIdFromUrl";
+import useGetCurrentElement from "~/hook/useGetCurrentElement";
+import Loader from "~/kits/loader";
 
-type FormulaMust = {
+interface FormulaMust {
     name: string;
     active: boolean;
-};
+}
 
-type Formula = {
+interface Formula {
     id: number;
-    name: string;
+    title: string;
     target: string;
     rates_price: string;
     rates_time: string;
-    musts: FormulaMust[];
-};
+    access: FormulaMust[];
+}
 
 export function links() {
     return [
-        { rel: 'stylesheet', href: resetStyles },
-        { rel: 'stylesheet', href: styles },
-        { rel: 'stylesheet', href: input },
-        { rel: 'stylesheet', href: formule },
-        { rel: 'stylesheet', href: backofficeFormula }
+        {rel: 'stylesheet', href: resetStyles},
+        {rel: 'stylesheet', href: styles},
+        {rel: 'stylesheet', href: input},
+        {rel: 'stylesheet', href: formule},
+        {rel: 'stylesheet', href: backofficeFormula}
     ];
 }
 
 export default function Backoffice_Formulas() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
 
-    const [formula, setFormula] = useState<Formula>({
-        id: 1,
-        name: "Gratuit",
-        target: "utilisateur",
-        rates_price: "0",
-        rates_time: "mois",
-        musts: [
-            {
-                name: "Accès illimité à toutes nos masterclasses.",
-                active: false
-            },
-            {
-                name: "De nouvelles vidéos sont disponibles chaque mois.",
-                active: false
-            },
-            {
-                name: "Des interviews exclusives avec les plus grands professeurs du monde.",
-                active: false
-            },
-            {
-                name: "Partitions annotées par nos professeurs et prêtes à être téléchargées.",
-                active: false
-            },
-            {
-                name: "Vidéos multi-angles disponibles en HD sur tous vos appareils.",
-                active: false
-            },
-            {
-                name: "Contacter le professeurs",
-                active: false
-            },
-            {
-                name: "Partition expliqué par le professeur",
-                active: false
-            }
-        ]
-    });
+    const [loader, setLoader] = useState(false);
+    const getCurrentId = getIdFromUrl(0);
+
+    const [formula, setFormula] = useState<Formula | null>(null);
+    const getCurrentFormula = useGetCurrentElement();
+
+    const getFormula = async () => {
+        const currentFormula = await getCurrentFormula("subscription", getCurrentId);
+        //@ts-ignore
+        setFormula(currentFormula);
+        setLoader(true);
+    }
+
+    useEffect(() => {
+        getFormula();
+    }, []);
 
     const changeValue = (value: any, props: any) => {
-        let newFormula = { ...formula };
+        let newFormula = {...formula};
         switch (props.valuToChange) {
             case "name":
-                newFormula.name = value;
+                newFormula.title = value;
                 break;
             case "target":
                 newFormula.target = value;
@@ -90,27 +70,35 @@ export default function Backoffice_Formulas() {
             case "rates_time":
                 newFormula.rates_time = value;
                 break;
-            case "musts":
-                newFormula.musts[props.mustID].active = value;
+            case "access":
+                // @ts-ignore
+                newFormula.access[props.mustID].active = value;
                 break;
         }
+        // @ts-ignore
         setFormula(newFormula);
     };
 
     return (
         <>
-            <Header_section_page numberUndoPage={1} title={formula.name} logout={true} />
-            <section className={"max_width_container"}>
-                <div className={"backoffice_formulas_container max_width"}>
-                    <Backoffice_edit_formula
-                        id={formula.id}
-                        name={formula.name}
-                        rates_price={formula.rates_price}
-                        musts={formula.musts}
-                        setValue={changeValue}
-                    />
-                </div>
-            </section>
+            {loader ? (
+                <>
+                    <Header_section_page numberUndoPage={1} title={formula?.title || ""} logout={true}/>
+                    <section className={"max_width_container"}>
+                        <div className={"backoffice_formulas_container max_width"}>
+                            <Backoffice_edit_formula
+                                id={formula?.id || parseInt("")}
+                                name={formula?.title || ""}
+                                rates_price={formula?.rates_price || ""}
+                                access={formula?.access}
+                                setValue={changeValue}
+                            />
+                        </div>
+                    </section>
+                </>
+            ) : (
+                <Loader/>
+            )}
         </>
     );
 }

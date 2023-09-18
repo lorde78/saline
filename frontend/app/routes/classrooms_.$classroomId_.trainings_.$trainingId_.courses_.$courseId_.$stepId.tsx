@@ -36,8 +36,8 @@ interface Step {
 }
 
 export default function Classrooms_ClassroomId_Trainings_TrainingId_Courses_CourseId_StepId() {
-    useGlobalEffect()
-    isLogged("user");
+    useGlobalEffect("user");
+
     const [loader, setLoader] = useState(false);
     const getCurrentId = getIdFromUrl(1)
     const getStepId = getIdFromUrl(0)

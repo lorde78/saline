@@ -32,8 +32,8 @@ export function links() {
 }
 
 export default function Profile() {
-    useGlobalEffect()
-    isLogged("user");
+    useGlobalEffect("user");
+
     const [loader, setLoader] = useState(false);
     const navigate = useNavigate()
     // @ts-ignore

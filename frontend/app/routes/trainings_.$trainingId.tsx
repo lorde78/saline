@@ -62,8 +62,8 @@ interface progressTraining {
 }
 
 export default function Trainings_TrainingId() {
-    useGlobalEffect()
-    isLogged("user");
+    useGlobalEffect("user");
+
     const [loader, setLoader] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
@@ -111,7 +111,7 @@ export default function Trainings_TrainingId() {
             }
         }
 
-        fetchUser()
+        fetchUser();
     }, [signin])
 
 
@@ -124,7 +124,7 @@ export default function Trainings_TrainingId() {
             }
         };
 
-        getTraining()
+        getTraining();
     }, []);
 
     const startTraining = (e:any) => {

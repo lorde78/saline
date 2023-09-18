@@ -48,8 +48,8 @@ interface Step {
 }
 
 export default function Classrooms_ClassroomId_Trainings_TrainingId_Courses_CourseId() {
-    useGlobalEffect()
-    isLogged("user");
+    useGlobalEffect("user");
+
     const [loader, setLoader] = useState(false);
     const getCurrentId = getIdFromUrl(0)
     // @ts-ignore

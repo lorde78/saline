@@ -20,8 +20,7 @@ export function links() {
 }
 
 export default function BackofficeAssessmentsEvaluationId() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
 
     return (
         <div className={"backoffice_assessment_id_container "}>

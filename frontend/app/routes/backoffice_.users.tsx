@@ -23,8 +23,8 @@ export function links() {
 }
 
 export default function Backoffice_Users() {
-    useGlobalEffect()
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
+
     const [loader, setLoader] = useState(false);
     // @ts-ignore
     const [signin, setSignin] = useContext(signinContext);

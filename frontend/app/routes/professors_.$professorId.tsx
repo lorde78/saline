@@ -38,8 +38,8 @@ interface Professor {
     lessons: any;
 }
 export default function Professors() {
-    useGlobalEffect()
-    isLogged("user");
+    useGlobalEffect("user");
+
     const [loader, setLoader] = useState(false);
     const getCurrentId = getIdFromUrl(0)
 

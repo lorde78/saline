@@ -31,8 +31,7 @@ export let loader: LoaderFunction = ({ request }) => {
 }
 
 export default function Backoffice_Trainings_New() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
     const loaderData = useLoaderData<LoaderData>();
 
     return (

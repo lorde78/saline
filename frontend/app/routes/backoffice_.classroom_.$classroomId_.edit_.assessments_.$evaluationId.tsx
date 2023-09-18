@@ -18,8 +18,7 @@ export function links() {
 }
 
 export default function Backoffice_Classroom_ClassroomId_Edit_Assessments_EvaluationId() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
 
     return (
         <div className={"backoffice_assessment_id_container"}>

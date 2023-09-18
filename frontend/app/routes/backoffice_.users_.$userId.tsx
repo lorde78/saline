@@ -33,8 +33,8 @@ export function links() {
 
 
 export default function Backoffice_Users_UserId() {
-    useGlobalEffect()
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
+
     const [loader, setLoader] = useState(false);
     const navigate = useNavigate()
     const location = useLocation()

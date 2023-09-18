@@ -37,8 +37,8 @@ export let loader: LoaderFunction = ({ request }) => {
 }
 
 export default function BackofficeTrainingsTrainingId_CourseId() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
+
     const loaderData = useLoaderData();
 
     return (

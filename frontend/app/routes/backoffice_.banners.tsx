@@ -27,8 +27,7 @@ interface Banner {
 }
 
 export default function Backoffice_Banners() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
 
     const [banners, setBanners] = useState<Banner[]>([
         {

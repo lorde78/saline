@@ -46,8 +46,8 @@ export function links() {
 }
 
 export default function Backoffice_Trainings_TrainingId_Edit() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
+
     const getCurrentId = getIdFromUrl(1);
     const [loader, setLoader] = useState(false);
 

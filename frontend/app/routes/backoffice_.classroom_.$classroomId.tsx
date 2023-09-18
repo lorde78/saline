@@ -19,8 +19,7 @@ export function links() {
 }
 
 export default function Backoffice_Classroom_New() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
 
     return (
         <>

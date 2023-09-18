@@ -36,8 +36,8 @@ interface Course {
 }
 
 export default function Courses() {
-    useGlobalEffect();
-    isLogged("user");
+    useGlobalEffect("user");
+
     const [loader, setLoader] = useState(false);
     const [courses, setCourses] = useState<Course[]>([]);
     const [searchTerm, setSearchTerm] = useState("");

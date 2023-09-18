@@ -26,8 +26,7 @@ export function links() {
 }
 
 export default function Backoffice_Login() {
-    useGlobalEffect();
-    redirectFromLoginIfLogged("backoffice");
+    useGlobalEffect("backoffice");
 
     return (
         <div className={"authentication_container"}>

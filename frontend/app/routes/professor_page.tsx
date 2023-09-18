@@ -17,6 +17,7 @@ import ProfessorInfos from '~/kits/professorInfos';
 import Professor_profile from '~/components/professorProfile';
 import SearchProfessor from '~/components/searchProfessor';
 import {isLogged} from "~/helper/isLogged";
+import {useGlobalEffect} from "~/helper/globalHelper";
 
 
 const fakeProfessorsData = [
@@ -45,7 +46,8 @@ export function links() {
 }
 
 export default function Professor_page() {
-    isLogged("user");
+    useGlobalEffect("user");
+
     return (
         <div className="professor-profile">
             {/* <Professor_profile /> */}

@@ -3,10 +3,8 @@ import {useContext, useEffect} from "react";
 import {signinContext} from "~/context/signinContext";
 import useGetCurrentUserRoles from "~/hook/useGetCurrentRoles";
 
-export function isLogged(isFrom: string) {
+export function isLogged(isFrom: string, signin: string) {
     const navigate = useNavigate()
-    // @ts-ignore
-    const [signin, setSignin] = useContext(signinContext);
     const getcurrentUserRoles = () => {
         try {
             if (signin) {
@@ -17,25 +15,23 @@ export function isLogged(isFrom: string) {
         }
     }
 
-    useEffect(() => {
-        if (!signin) {
-            switch (isFrom) {
-                case 'backoffice':
-                    navigate('/backoffice/login');
-                    break;
+    if (!signin) {
+        switch (isFrom) {
+            case 'backoffice':
+                navigate('/backoffice/login');
+                break;
 
-                case 'user':
-                    navigate('/authentication');
-                    break;
-            }
-        } else {
-            if (isFrom === 'backoffice') {
-                const currentUserRoles = getcurrentUserRoles()
-                console.log(currentUserRoles)
-                if (currentUserRoles.length === 1) {
-                    navigate("/")
-                }
+            case 'user':
+                navigate('/authentication');
+                break;
+        }
+    } else {
+        if (isFrom === 'backoffice') {
+            const currentUserRoles = getcurrentUserRoles()
+            console.log(currentUserRoles)
+            if (currentUserRoles.length === 1) {
+                navigate("/")
             }
         }
-    }, [signin]);
+    }
 }
