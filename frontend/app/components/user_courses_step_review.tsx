@@ -51,7 +51,6 @@ export default function User_courses_step_review({step, setValue}: Props) {
             ]);
         }
     }
-    console.log(step)
 
     return (
         <>

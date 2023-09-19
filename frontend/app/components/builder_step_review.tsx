@@ -37,7 +37,7 @@ export default function Builder_step_review({courseData, setCoursesData, stepSel
         }
     }
 
-    const [fileType, setFileType] = useState("")
+    const [fileType, setFileType] = useState("pdf")
     const [fileTypeData, setFileTypeData] = useState([
         {value: "PDF", option: "PDF"},
         {value: "Video", option: "Video"}
@@ -48,7 +48,7 @@ export default function Builder_step_review({courseData, setCoursesData, stepSel
         setFileTypeSelected(id)
 
         let newCourseData = [...courseData];
-        newCourseData[stepSelected].data.fileType = value
+        newCourseData[stepSelected].data.fileType = value.toLowerCase()
 
         setCoursesData(newCourseData)
     }
@@ -68,6 +68,13 @@ export default function Builder_step_review({courseData, setCoursesData, stepSel
                 break;
         }
     },[fileTypeSelected])
+
+    useEffect(() => {
+        let newCourseData = [...courseData];
+        newCourseData[stepSelected].data.fileType = "PDF";
+
+        setCoursesData(newCourseData);
+    }, []);
 
     return (
         <section className={"builder_step_container"}>

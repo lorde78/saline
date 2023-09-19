@@ -40,10 +40,6 @@ export default function Builder_navigation_step_video({ description, setDescript
                         />
                     </div>
                 )
-            case "Professeurs":
-                return (
-                    "Professeurs"
-                )
             default:
                 return
         }
@@ -54,7 +50,6 @@ export default function Builder_navigation_step_video({ description, setDescript
             <nav>
                 <button onClick={() => setStepsNav("Description")}>Description</button>
                 <button onClick={() => setStepsNav("Information")}>Information</button>
-                <button onClick={() => setStepsNav("Professeurs")}>Professeurs</button>
             </nav>
             <div>
                 {displayNav()}

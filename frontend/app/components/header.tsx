@@ -55,7 +55,6 @@ export default function Header({search, setActiveFilters, onSearch}: Props) {
         };
 
         fetchUser();
-        console.log(signin)
     }, [signin, currentUser, getCurrentUser]);
 
     useEffect(() => {
