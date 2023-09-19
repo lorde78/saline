@@ -78,7 +78,7 @@ export default function Header({ search, setActiveFilters, onSearch }: Props) {
     return (
         <header>
             <nav className="header_nav">
-                <div>
+                <div className='header_nav_items'>
                     <Link to="/">
                         <svg width="35" height="48" viewBox="0 0 35 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -119,7 +119,7 @@ export default function Header({ search, setActiveFilters, onSearch }: Props) {
                         </ul>
                     </div>
                 </div>
-                <div>
+                <div className='language_select'>
                     <LanguageSelect />
                     {isMenuOpen || windowInnerWidth <= 750 ?
                         <></>
