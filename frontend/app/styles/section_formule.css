@@ -68,6 +68,9 @@
 	.section_formule_container h2{
 		text-align: center;
 	}
+	.swiper-wrapper{
+		pointer-events: none;
+	}
 }
 
 .items {
