@@ -23,6 +23,9 @@ export default function User_preview_card_noimage({
             case "En cours":
                 statusColor = "yellow";
                 break;
+            case "Validation":
+                statusColor = "orange";
+                break;
             case "Terminé":
                 statusColor = "green";
                 break;

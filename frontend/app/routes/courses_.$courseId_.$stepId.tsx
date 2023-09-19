@@ -163,15 +163,6 @@ export default function Courses_CourseId_StepId() {
         updateProgress(formData, progressCourse.id);
     }
 
-    useEffect(() => {
-        if (answerSteps.userId != "") {
-            // @ts-ignore
-            console.log(answerSteps.responses[step.id].response.success)
-            // @ts-ignore
-            console.log(answerSteps)
-        }
-    }, [answerSteps]);
-
     console.log(step)
     const typeStep = () => {
         switch (step?.type) {

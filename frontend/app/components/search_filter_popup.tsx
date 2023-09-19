@@ -5,9 +5,10 @@ import Checkbox from "~/kits/checkbox";
 type Props = {
     setIsFilter: any,
     isFilter: boolean,
-    setActiveFilters: any
+    setActiveFilters: any,
+    tagsData: any,
 }
-export default function Search_filter_popup({setIsFilter, isFilter,setActiveFilters}: Props) {
+export default function Search_filter_popup({setIsFilter, isFilter,setActiveFilters, tagsData}: Props) {
 
     const [filters, setFilter] = useState({
         "Instruments": [

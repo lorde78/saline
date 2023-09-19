@@ -12,6 +12,9 @@ import { useGlobalEffect } from "~/helper/globalHelper";
 import { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import {isLogged} from "~/helper/isLogged";
+import {useEffect, useState} from "react";
+import getIdFromUrl from "~/helper/getIdFromUrl";
+import useGetCurrentElement from "~/hook/useGetCurrentElement";
 
 export const meta: V2_MetaFunction = () => {
     return [
@@ -36,17 +39,44 @@ export let loader: LoaderFunction = ({ request }) => {
     return { relId, relType };
 }
 
+interface Course {
+    id: number;
+    title: string;
+    bannerPicture: string;
+    description: string;
+    author: {
+        name: string,
+        firstName: string
+    },
+    steps: any;
+    progressLesson: any;
+}
+
 export default function BackofficeTrainingsTrainingId_CourseId() {
     useGlobalEffect("backoffice");
-
     const loaderData = useLoaderData();
+    const [loader, setLoader] = useState(false);
+    const getCurrentId = getIdFromUrl(0);
+
+    const [course, setCourse] = useState<Course | null>(null);
+    const getCurrentCourse = useGetCurrentElement();
+
+    const getCourse = async () => {
+        const currentCourse = await getCurrentCourse("lesson", getCurrentId);
+        setCourse(currentCourse);
+        setLoader(true);
+    }
+
+    useEffect(() => {
+        getCourse();
+    }, []);
 
     return (
         <>
             <Header_section_page numberUndoPage={1} title={"Créer un cours"} />
             <section className={"max_width_container"}>
                 <div className={"builder_container max_width"}>
-                    <Builder_creation creation_type={"lesson"} relId={loaderData.relId} relType={loaderData.relType} />
+                    <Builder_creation creation_type={"lesson"} relId={loaderData.relId} relType={loaderData.relType} elementData={course}/>
                 </div>
             </section>
         </>

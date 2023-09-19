@@ -14,11 +14,14 @@ import editLink from "~/helper/editLink";
 import {LoaderFunction} from "@remix-run/node";
 import useUploadFile from "~/hook/useUploadFile";
 import Select_multiple from "~/kits/select_multiple";
+import useGetAllElements from "~/hook/useGetAllElements";
+import Loader from "~/kits/loader";
 
 type Props = {
     creation_type: string,
     relId?: number,
-    relType?: string
+    relType?: string,
+    elementData?: any,
 }
 
 
@@ -27,44 +30,67 @@ interface TagData {
     option: string;
 }
 
-export default function Builder_creation({creation_type, relId, relType}: Props) {
-    const editPath = editLink(1)
+export default function Builder_creation({creation_type, relId, relType, elementData}: Props) {
+    const editPath = editLink(1);
+    const [loader, setLoader] = useState(false);
 
-    const [id, setId] = useState(10)
-    const [banner, setBanner] = useState()
-    const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
+    const [id, setId] = useState(10);
+    const [banner, setBanner] = useState();
+    const [defaultBanner, setDefaultBanner] = useState("");
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+
+    const getTags = useGetAllElements();
+
+    const getTagsDB = async () => {
+        const currentTagsDB = await getTags("tag", "");
+        const tagList = currentTagsDB.map((tag:any) => ({
+            value: tag.title,
+            option: tag.title
+        }))
+
+        setTagsData(tagList)
+        setLoader(true);
+    }
+
+    useEffect(() => {
+        getTagsDB();
+    }, []);
+
+    useEffect(() => {
+        if (elementData) {
+            switch (creation_type) {
+                case 'lesson':
+                    setTitle(elementData.title);
+                    setDescription(elementData.description);
+                    setDefaultBanner(elementData.bannerPicture);
+                    setDifficultySelected(elementData.difficultyLevel - 1);
+                    const tagList = elementData.tags.map((tag:any) => {
+                        return tag.id - 1;
+                    })
+                    setTagsSelected(tagList);
+                    break;
+            }
+        }
+    }, [elementData]);
 
     // Difficulty Select
-    const [difficulty, setDifficulty] = useState(1)
+    const [difficulty, setDifficulty] = useState(1);
     const [difficultyData, setDifficultyData] = useState([
         {value: "1", option: "1"},
         {value: "2", option: "2"},
         {value: "3", option: "3"},
         {value: "4", option: "4"},
         {value: "5", option: "5"}
-    ])
-    const [difficultySelected, setDifficultySelected] = useState(0)
+    ]);
+    const [difficultySelected, setDifficultySelected] = useState(0);
     // Difficulty Select
 
     // tag Select
     const [tags, setTags] = useState<string[]>([]);
-    const [tagsData, setTagsData] = useState<TagData[]>([
-        {value: "Piano", option: "Piano"},
-        {value: "Batterie", option: "Drum"},
-        {value: "Basse", option: "Bass"},
-        {value: "Chant", option: "Singing"},
-        {value: "Violon", option: "Violin"},
-        {value: "Saxophone", option: "Saxophone"},
-        {value: "Trompette", option: "Trumpet"},
-        {value: "Flûte", option: "Flute"},
-        {value: "Guitare", option: "Guitar"},
-    ]);
+    const [tagsData, setTagsData] = useState<TagData[]>([]);
     const [tagsSelected, setTagsSelected] = useState<number[]>([]);
 
-    useEffect(() => {
-        console.log(tagsSelected);
-    }, [tagsSelected]);
     const changeTags = (value: string, id: number) => {
         if (tagsSelected.includes(id)) {
             setTagsSelected(tagsSelected.filter(optionId => optionId !== id));
@@ -74,7 +100,6 @@ export default function Builder_creation({creation_type, relId, relType}: Props)
             setTags([...tags, value]);
         }
     }
-
 
     const location = useLocation()
     const navigate = useNavigate()
@@ -92,8 +117,8 @@ export default function Builder_creation({creation_type, relId, relType}: Props)
         }
     }
 
-    const uploadHook = useUploadFile()
-    const creationHook = useCreateBuilderElement()
+    const uploadHook = useUploadFile();
+    const creationHook = useCreateBuilderElement();
     let createdId: any = null;
     let bannerUrl: any = null;
 
@@ -102,9 +127,9 @@ export default function Builder_creation({creation_type, relId, relType}: Props)
         const currentUserId = getcurrentUserId()
         const fileUpload = new FormData();
 
+        const tagsList = tagsSelected.map((tag:any) => tag+1);
         // @ts-ignore
         fileUpload.append("fileToUpload", banner);
-        console.log(banner);
         try {
             bannerUrl = await uploadHook(fileUpload, "image")
         } catch (err) {
@@ -115,8 +140,8 @@ export default function Builder_creation({creation_type, relId, relType}: Props)
             "title": title,
             "userId": currentUserId,
             "bannerPicture": bannerUrl,
-            "description": description
-
+            "description": description,
+            "tags": tagsList
         }
 
         switch (creation_type) {
@@ -193,25 +218,31 @@ export default function Builder_creation({creation_type, relId, relType}: Props)
 
 
     return (
-        <form className={"builder_creation"} onSubmit={submit}>
-            <Select_image setValue={setBanner}/>
-            <Input
-                name={"title"}
-                type={'text'}
-                placeholder={"Titre"}
-                setValue={setTitle}
-                propsSetValue={""}
-                value={title}
-            />
-            <Textarea
-                name={"Description"}
-                placeholder={"Description"}
-                setValue={setDescription}
-                propsSetValue={""}
-                value={description}
-            />
-            {complementaryForm()}
-            <button type="submit" className={"button"}>Créer</button>
-        </form>
+        <>
+            {loader ? (
+                <form className={"builder_creation"} onSubmit={submit}>
+                    <Select_image setValue={setBanner} defaultUrl={defaultBanner}/>
+                    <Input
+                        name={"title"}
+                        type={'text'}
+                        placeholder={"Titre"}
+                        setValue={setTitle}
+                        propsSetValue={""}
+                        value={title}
+                    />
+                    <Textarea
+                        name={"Description"}
+                        placeholder={"Description"}
+                        setValue={setDescription}
+                        propsSetValue={""}
+                        value={description}
+                    />
+                    {complementaryForm()}
+                    <button type="submit" className={"button"}>Créer</button>
+                </form>
+            ) : (
+                <Loader/>
+            )}
+        </>
     )
 }

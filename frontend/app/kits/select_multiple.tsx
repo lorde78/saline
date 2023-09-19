@@ -16,9 +16,7 @@ interface Props {
 export default function Select_multiple({optionsSelected, setOptionsSelected, contents, setValue}: Props) {
     const [showOptionTrue, setShowOptionTrue] = useState(false);
 
-
     const showOptions = () => {
-        console.log(showOptionTrue)
         setShowOptionTrue(!showOptionTrue);
     }
 

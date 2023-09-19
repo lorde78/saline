@@ -39,6 +39,7 @@ interface Course {
         firstName: string
     },
     steps: any;
+    progressLesson: any;
 }
 
 interface Step {
@@ -144,12 +145,29 @@ export default function Courses_CourseId() {
                             <div className={"main_section_container-flex max_width"}>
                                 {(course?.steps ?? []).length !== 0 ? (
                                     course?.steps.map((step: Step, i: number) => {
+                                        let stepsStatus = course.progressLesson.filter((progress:any) => progress.lessonId === getCurrentId);
+                                        let status = "A faire";
+                                        if (stepsStatus && stepsStatus[0].progress.responses[step.id]) {
+                                            switch (stepsStatus[0].progress.responses[step.id].type) {
+                                                case 'video':
+                                                case 'exercise/qcm':
+                                                case 'exercise/bind_list':
+                                                    if (stepsStatus[0].progress.responses[step.id].success) {
+                                                        status = "Terminé";
+                                                    }
+                                                    break;
+
+                                                case 'review':
+                                                    status = "A faire";
+                                                    break;
+                                            }
+                                        }
                                         return (
                                             <User_preview_card_noimage
                                                 id={step.id}
                                                 title={step.value}
                                                 type={step.type}
-                                                status={"A faire"}
+                                                status={status}
                                                 disable={hasToStart}
                                             />
                                         )

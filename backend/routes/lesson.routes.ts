@@ -4,7 +4,7 @@ const { database } = require('../config/db.ts');
 var router = express.Router();
 
 router.post('/',async function (req, res, next) {
-    const { title, description, difficultyLevel, userId, bannerPicture, relType, relId } = req.body;
+    const { title, description, difficultyLevel, userId, bannerPicture, relType, relId, tags } = req.body;
     let lesson = null;
 
     if (!relType) {
@@ -16,7 +16,12 @@ router.post('/',async function (req, res, next) {
                 difficultyLevel: String(difficultyLevel),
                 nbViews: 0,
                 nbCompleted: 0,
-                bannerPicture: bannerPicture
+                bannerPicture: bannerPicture,
+                tags: {
+                    connect: tags.split(",").map(tag => {
+                            return {id: parseInt(tag)}
+                        })
+                }
             }
         })
     } else {
@@ -138,7 +143,8 @@ router.get('/', async function (req, res, next) {
                         firstName: true
                     }
                 },
-                trainings: true
+                trainings: true,
+                tags: true
             }
         })
     } else {
@@ -153,7 +159,9 @@ router.get('/', async function (req, res, next) {
                         firstName: true
                     }
                 },
-                trainings: true
+                trainings: true,
+                progressLesson: true,
+                tags: true
             }
         })
     }

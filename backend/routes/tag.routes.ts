@@ -1,10 +1,11 @@
 var express = require('express');
-const { database } = require('../config/db.ts');
+// @ts-ignore
+const {database} = require('../config/db.ts');
 
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { title } = req.body;
+    const {title} = req.body;
     const tag = await database.tag.create({
         data: {
             title: title,
@@ -18,7 +19,7 @@ router.post('/', async function (req, res, next) {
 });
 
 router.delete('/', async function (req, res, next) {
-    const { id } = req.query;
+    const {id} = req.query;
     const deletetag = await database.tag.delete({
         where: {
             id: parseInt(id),
@@ -30,12 +31,7 @@ router.delete('/', async function (req, res, next) {
 });
 
 router.put('/', async function (req, res, next) {
-    const { id } = req.query;
-
-    if (!id) {
-        res.status(400);
-        throw new Error('You must provide an id ');
-    }
+    const {id} = req.query;
 
     const updatetag = await database.tag.update({
         where: {
@@ -44,22 +40,26 @@ router.put('/', async function (req, res, next) {
         data: req.body
     })
 
+
     res.json({
         message: 'tag updated',
     });
 });
 
 router.get('/', async function (req, res, next) {
-    const { id } = req.query;
+    const {id} = req.query;
+    let tags = null;
+
     if (!id) {
-        res.status(400);
-        throw new Error('You must provide an id ');
+        tags = await database.tag.findMany()
+    } else {
+        tags = await database.tag.findMany({
+            where: {
+                id: parseInt(id),
+            },
+        })
     }
-    const tags = await database.tag.findMany({
-        where: {
-            tagId: parseInt(id),
-        },
-    })
+
     res.json({
         "tags": tags
     });
