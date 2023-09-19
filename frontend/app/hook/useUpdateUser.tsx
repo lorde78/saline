@@ -12,7 +12,7 @@ export default function useUpdateUser() {
                 },
                 data: new URLSearchParams(formData)
             });
-            return console.log(res.data);
+            return res.data;
         } catch (err) {
             return console.log(err);
         }

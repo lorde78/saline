@@ -104,7 +104,7 @@ export default function Builder_creation({creation_type, relId, relType}: Props)
 
         // @ts-ignore
         fileUpload.append("fileToUpload", banner);
-
+        console.log(banner);
         try {
             bannerUrl = await uploadHook(fileUpload, "image")
         } catch (err) {

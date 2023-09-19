@@ -66,6 +66,7 @@ export default function User_courses_step_exercise_qcm({ step, setValue }: Props
 
     const validateAnswers = () => {
         let correctAnswersCount = 0;
+        let success = false;
         for (let i = 0; i < step.data.length; i++) {
             const questionData = step.data[i];
             const userAnswers = exerciseAnswer[i];
@@ -96,11 +97,14 @@ export default function User_courses_step_exercise_qcm({ step, setValue }: Props
             }
         }
         if (correctAnswersCount === step.data.length) {
+            // @ts-ignore
+            success = true;
             alert("Toutes les réponses sont correctes!");
         } else {
+            // @ts-ignore
             alert(`Vous avez ${correctAnswersCount} bonnes réponses sur ${step.data.length} questions.`);
         }
-        setValue(step.id, 'exercise/qcm', exerciseAnswer)
+        setValue(step.id, 'exercise/qcm', exerciseAnswer, success);
     }
 
 

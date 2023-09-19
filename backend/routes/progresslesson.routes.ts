@@ -97,10 +97,10 @@ router.delete('/', async function (req, res, next) {
 });
 
 router.put('/', async function (req, res, next) {
-    const {id} = req.query;
+    const {id,lessonId} = req.query;
     let updateProgressLesson = null;
 
-    if (!id) {
+    if (!id && !lessonId) {
         res.status(400);
         throw new Error('You must provide an id ');
     }

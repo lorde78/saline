@@ -67,7 +67,7 @@ export default function User_courses_step_video({step, setValue}: Props) {
     }, [])
 
     useEffect(() => {
-        setValue(step.id, 'video', {watched: true});
+        setValue(step.id, 'video', {success: true}, true);
     }, []);
 
     return (

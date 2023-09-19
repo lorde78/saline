@@ -92,19 +92,19 @@ export default function Courses_CourseId() {
             }
         }
 
-        fetchUser()
+        fetchUser();
     }, [signin])
 
     useEffect(() => {
         window.onscroll = function () {
             if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-                setBannerHeight(200)
+                setBannerHeight(200);
             } else {
-                setBannerHeight(400)
+                setBannerHeight(400);
             }
         };
 
-        getCourse()
+        getCourse();
     }, []);
 
     const startCourse = (e: any) => {
