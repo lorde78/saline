@@ -66,7 +66,7 @@ export default function Header_section_page({title, status, numberUndoPage, edit
             }
             {logout ?
                 <nav>
-                    <button onClick={logoutAction}>
+                    <button onClick={logoutAction} title={"Déconnexion"}>
                         <i className="ri-logout-circle-line"></i>
                     </button>
                 </nav>

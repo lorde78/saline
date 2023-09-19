@@ -134,7 +134,9 @@ export default function Header({search, setActiveFilters, onSearch}: Props) {
                                 ) : (
                                     <div className={"pp_card_small"}/>
                                 )}
-                                <button onClick={logoutAction} className={"text_alert"}>Déconnexion</button>
+                                <button onClick={logoutAction} title={"Déconnexion"}>
+                                    <i className="ri-logout-circle-line"></i>
+                                </button>
                             </>
                     ) : (
                         <NavLink to={"/authentication"} className={"button"}>Connexion</NavLink>
