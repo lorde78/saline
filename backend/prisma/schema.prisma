@@ -54,7 +54,6 @@ model Lesson {
   students        User[]         @relation("LessonStudents")
   tags            Tag[]
   trainings       Training[]
-  comments        Comment[]
   subscriptions   Subscription[]
   videos          Video[]
   annotations     Annotation[]
@@ -128,8 +127,8 @@ model Comment {
   nbUpvotes   Int?     @default(0)
   nbDownvotes Int?
   userId      Int?
-  lessonId    Int?
-  lesson      Lesson?  @relation(fields: [lessonId], references: [id])
+  videoId    Int?
+  video      Video?  @relation(fields: [videoId], references: [id])
   answer      Answer[]
   user        User?    @relation(fields: [userId], references: [id], onDelete: NoAction)
 }
@@ -220,6 +219,7 @@ model Video {
   createdAt   DateTime     @default(now())
   lastUpdate  DateTime     @updatedAt
   professors  Professor[]
+  comments    Comment[]
   tags        Tag[]
   lessons     Lesson[]
   shortVideos ShortVideo[]

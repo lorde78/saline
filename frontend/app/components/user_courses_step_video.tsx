@@ -42,16 +42,20 @@ type Props = {
 }
 
 interface Video {
+    id: number;
     title: string;
     url: string;
     professors: any;
+    comments: any;
 }
 
 export default function User_courses_step_video({step, setValue}: Props) {
     const [video, setVideo] = useState<Video>({
+        id: 0,
         title: "",
         url: "",
-        professors: ""
+        professors: "",
+        comments: ""
     });
 
     const [loader, setLoader] = useState(false);
@@ -95,7 +99,8 @@ export default function User_courses_step_video({step, setValue}: Props) {
                             informations={step.data.infoDescription}
                             professors={video.professors}
                             description={step.data.description}
-                            comments={""}
+                            comments={video.comments}
+                            videoId={video.id}
                         />
                     </div>
                 </>

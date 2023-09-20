@@ -73,7 +73,12 @@ router.get('/', async function (req, res, next) {
         videos = await database.video.findMany({
             include: {
                 lessons: true,
-                professors: true
+                professors: true,
+                comments: {
+                    include: {
+                        user: true
+                    }
+                }
             }
         })
     } else {
@@ -83,7 +88,12 @@ router.get('/', async function (req, res, next) {
             },
             include: {
                 lessons: true,
-                professors: true
+                professors: true,
+                comments: {
+                    include: {
+                        user: true
+                    }
+                }
             }
         })
     }

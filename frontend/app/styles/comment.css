@@ -61,3 +61,7 @@
     align-self: center;
     padding-left: 10px;
 }
+
+.comment_response_form > textarea {
+    color: black;
+}
