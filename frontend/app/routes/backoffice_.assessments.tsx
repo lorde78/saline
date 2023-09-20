@@ -62,14 +62,14 @@ export default function Backoffice_Assessments() {
         <>
             {loader ? (
                 <>
-                    <Header_section_page numberUndoPage={1} title={"évaluations"} logout={true}/>
+                    <Header_section_page numberUndoPage={1} title={"Evaluations"} logout={true}/>
                     <section className={"max_width_container"}>
                         <div className={"main_section_container-flex max_width margin-top-20"}>
                             {(progressLesson ?? []).length !== 0 ? (
                                 progressLesson.filter((progress:any) => progress.status === "Validation").map((progress:any, i) => (
                                     <Backoffice_assessment
                                         key={i}
-                                        id={progress.student.id}
+                                        id={progress.id}
                                         student={progress.student}
                                         course={progress.lesson.title}
                                         status={progress.status}

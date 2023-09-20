@@ -63,7 +63,7 @@ router.get('/', async function (req, res, next) {
         if (id) {
             progressLesson = await database.progressLesson.findMany({
                 where: {
-                    id: id
+                    id: parseInt(id)
                 },
                 include : {
                     lesson: true,

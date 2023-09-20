@@ -13,6 +13,7 @@ type Props = {
     status?: string;
     redirectTo: string;
     disable?: boolean;
+    tags?: any;
 };
 export default function User_preview_card({
                                               id,
@@ -22,7 +23,8 @@ export default function User_preview_card({
                                               imgLink,
                                               status,
                                               redirectTo,
-                                              disable
+                                              disable,
+                                              tags
                                           }: Props) {
     const setStatus = () => {
         let statusColor
@@ -68,6 +70,18 @@ export default function User_preview_card({
                             <p className={"training_description"}>
                                 {description}
                             </p>
+                            <div className={"header_tags"}>
+                                {(tags ?? []).length != 0 ? (
+                                    <>
+                                        <p>Tags:</p>
+                                        {tags.map((tag: any) => {
+                                            return <p>{tag.title}</p>
+                                        })}
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+                            </div>
                         </div>
                     </div>
                 ) : (
@@ -83,6 +97,18 @@ export default function User_preview_card({
                             <p className={"training_description"}>
                                 {description}
                             </p>
+                            <div className={"header_tags"}>
+                                {(tags ?? []).length != 0 ? (
+                                    <>
+                                        <p>Tags:</p>
+                                        {tags.map((tag: any) => {
+                                            return <p>{tag.title}</p>
+                                        })}
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+                            </div>
                         </div>
                     </NavLink>
                 )

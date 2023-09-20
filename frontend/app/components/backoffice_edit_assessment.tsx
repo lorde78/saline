@@ -8,26 +8,15 @@ import Textarea from "~/kits/textarea";
 import {NavLink, useNavigate} from "@remix-run/react";
 import Header_section_page from "~/kits/header_section_page";
 
-export default function Backoffice_edit_assessment() {
-    const [assessment, setAssessment] = useState({
-        studen: "Jean Paul",
-        course: "Cour de flute baroke",
-        evaluationType: "video",
-        contente: "https://www.youtube.com/embed/GwhXOrygQWk",
-        note: "",
-        isValidate: false,
-        isNotValidate: false,
-        ratragage: false,
-        noRatragage: false,
-        status: "en attente"
-    })
+export default function Backoffice_edit_assessment(assessmentData: any,setAssessmentData:any) {
+    assessmentData = assessmentData.assessmentData;
     const [isValidate, setIsValidate] = useState(false)
     const [isNotValidate, setIsNotValidate] = useState(false)
-    const [ratragage, setRatragage] = useState(false)
-    const [noRatragage, setNoRatragage] = useState(false)
+    const [rattrapage, setRattrapage] = useState(false)
+    const [noRattrapage, setNoRattrapage] = useState(false)
 
     const changeValue = (value:any, props:{valuToChange:string}) => {
-        let newData = {...assessment}
+        let newData = {...assessmentData}
         switch (props.valuToChange) {
             case "note" :
                 newData.note = value
@@ -46,52 +35,60 @@ export default function Backoffice_edit_assessment() {
                 setIsNotValidate(value)
                 changeStatus(newData)
                 break
-            case "ratragage" :
-                newData.ratragage = value
-                newData.noRatragage = false
-                setRatragage(value)
-                setNoRatragage(false)
+            case "rattrapage" :
+                newData.rattrapage = value
+                newData.noRattrapage = false
+                setRattrapage(value)
+                setNoRattrapage(false)
                 break
-            case "noRatragage" :
-                newData.ratragage = false
-                newData.noRatragage = value
-                setRatragage(false)
-                setNoRatragage(value)
+            case "noRattrapage" :
+                newData.rattrapage = false
+                newData.noRattrapage = value
+                setRattrapage(false)
+                setNoRattrapage(value)
                 break
         }
-        setAssessment(newData)
+        setAssessmentData(newData)
     }
 
     const changeStatus = (newData:any) => {
         if (newData.isValidate) {
             newData.ratragage = false
             newData.noRatragage = false
-            setRatragage(false)
-            setNoRatragage(false)
-            newData.status = "validé"
+            setRattrapage(false)
+            setNoRattrapage(false)
+            newData.status = "Terminé"
         } else if (newData.isNotValidate) {
             newData.ratragage = true
             newData.noRatragage = false
-            setRatragage(true)
-            setNoRatragage(false)
-            newData.status = "raté"
+            setRattrapage(true)
+            setNoRattrapage(false)
+            newData.status = "Echec"
         } else {
             newData.ratragage = false
             newData.noRatragage = false
-            setRatragage(false)
-            setNoRatragage(false)
-            newData.status = "en attente"
+            setRattrapage(false)
+            setNoRattrapage(false)
+            newData.status = "Validation"
         }
         // console.log(newData)
     }
 
     const displayContent = () => {
-        switch (assessment.evaluationType) {
-            case "video":
+        switch (assessmentData.urlEval.split(".")[1]) {
+            case "pdf":
                 return (
                     <iframe
                         className={"content"}
-                        src={assessment.contente}
+                        src={assessmentData.urlEval}
+                        title="PDF player">
+                    </iframe>
+                )
+            default:
+                return (
+                    <iframe
+                        className={"content"}
+                        src={assessmentData.urlEval}
                         title="YouTube video player"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen>
@@ -99,13 +96,16 @@ export default function Backoffice_edit_assessment() {
                 )
         }
     }
+
+    const studentName = assessmentData.student.firstName + " " + assessmentData.student.name;
+
     return (
         <>
-            <Header_section_page numberUndoPage={1}  title={assessment.studen}  logout={true}/>
+            <Header_section_page numberUndoPage={1}  title={studentName}  logout={true}/>
             <section className={"max_width_container"}>
                 <div className={"assessment_container-open max_width"}>
                     <h1>Contenu :</h1>
-                    <h3>{assessment.course}</h3>
+                    <h3>{assessmentData.lesson.title}</h3>
                     {displayContent()}
                     <div className={"assessment_section"}>
                         <p>Valider</p>
@@ -122,7 +122,7 @@ export default function Backoffice_edit_assessment() {
                                 />
                             </span>
                             <span>
-                                <p>Nom</p>
+                                <p>Non</p>
                                 <Checkbox
                                     name={"checkNo"}
                                     type={"checkbox"}
@@ -134,7 +134,7 @@ export default function Backoffice_edit_assessment() {
                             </span>
                         </div>
                     </div>
-                    {assessment.isNotValidate ?
+                    {assessmentData.isNotValidate ?
                         <div className={"assessment_section"}>
                             <p>Ratrapage</p>
                             <div>
@@ -145,19 +145,19 @@ export default function Backoffice_edit_assessment() {
                                     type={"checkbox"}
                                     text={""}
                                     setValue={changeValue}
-                                    propsSetValue={{valuToChange: "ratragage"}}
-                                    value={ratragage}
+                                    propsSetValue={{valuToChange: "rattrapage"}}
+                                    value={rattrapage}
                                 />
                             </span>
                                 <span>
-                                <p>Nom</p>
+                                <p>Non</p>
                                 <Checkbox
                                     name={"checkNo"}
                                     type={"checkbox"}
                                     text={""}
                                     setValue={changeValue}
-                                    propsSetValue={{valuToChange: "noRatragage"}}
-                                    value={noRatragage}
+                                    propsSetValue={{valuToChange: "noRattrapage"}}
+                                    value={noRattrapage}
                                 />
                             </span>
                             </div>
@@ -171,12 +171,12 @@ export default function Backoffice_edit_assessment() {
                             placeholder={"Remarque"}
                             setValue={changeValue}
                             propsSetValue={{valuToChange: "note"}}
-                            value={assessment.note}
+                            value={assessmentData.note}
                         />
                     </div>
 
                     <button className={"button"} onClick={() => {
-                        console.log(assessment)
+                        console.log(assessmentData)
                     }}>Valider
                     </button>
                 </div>

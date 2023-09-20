@@ -98,6 +98,7 @@ export default function Courses() {
                                             id={course.id}
                                             title={course.title}
                                             author={course.author}
+                                            tags={course.tags}
                                             imgLink={course.bannerPicture}
                                             description={course.description}
                                             status={currentProgress[0] ? currentProgress[0].status : "A faire"}
