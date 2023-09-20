@@ -39,6 +39,7 @@ export default function BackofficeAssessmentsEvaluationId() {
 
     useEffect(() => {
         getProgress();
+        console.log("hello");
     }, []);
 
     return (

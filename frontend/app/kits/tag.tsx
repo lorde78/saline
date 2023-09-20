@@ -6,7 +6,6 @@ type Props = {
 };
 
 export default function Tag({roles}: Props) {
-    console.log("job :", roles)
     return (
         <div className="tag">
             {(typeof roles === "string" ? (

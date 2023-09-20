@@ -63,10 +63,6 @@ export default function Courses() {
         return matchesSearchTerm && matchesInstrument;
     });
 
-    useEffect(() => {
-        console.log(activeFilters);
-    }, [activeFilters]);
-
     const getAllCourses = useGetAllElements();
 
     const getCourses = async () => {
