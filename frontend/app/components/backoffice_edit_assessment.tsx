@@ -107,7 +107,7 @@ export default function Backoffice_edit_assessment(assessmentData: any,setAssess
                     <h1>Contenu :</h1>
                     <h3>{assessmentData.lesson.title}</h3>
                     {displayContent()}
-                    <div className={"assessment_section"}>
+                    <div className={"assessment_section" }>
                         <p>Valider</p>
                         <div>
                             <span>
