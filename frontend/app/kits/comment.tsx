@@ -77,9 +77,6 @@ export default function Comment({
                         <i className="ri-arrow-down-s-line" onClick={handleDownvote}></i>
                         <div>{downvote}</div>
                     </div>
-                    <div className="comment_response_button" role="button">
-                        Répondre
-                    </div>
                 </div>
                 {needResponses && (
                     <div>
