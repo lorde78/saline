@@ -14,10 +14,10 @@ import Loader from "~/kits/loader";
 import {isLogged} from "~/helper/isLogged";
 import {useNavigate} from "react-router-dom";
 import {NavLink, useLocation} from "@remix-run/react";
-import useGetProgress from "~/hook/useGetProgress";
-import useStartProgress from "~/hook/useStartProgress";
 import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
 import {signinContext} from "~/context/signinContext";
+import useGetProgress from "~/hook/useGetProgress";
+import useStartProgress from "~/hook/useStartProgress";
 
 
 export function links() {
@@ -39,6 +39,7 @@ interface Course {
         firstName: string
     },
     steps: any;
+    progressLesson: any;
 }
 
 interface Step {
@@ -49,8 +50,8 @@ interface Step {
 }
 
 export default function Courses_CourseId() {
-    useGlobalEffect()
-    isLogged("user");
+    useGlobalEffect("user");
+
     const [loader, setLoader] = useState(false);
     const location = useLocation();
     const getCurrentId = getIdFromUrl(0);
@@ -92,19 +93,19 @@ export default function Courses_CourseId() {
             }
         }
 
-        fetchUser()
+        fetchUser();
     }, [signin])
 
     useEffect(() => {
         window.onscroll = function () {
             if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-                setBannerHeight(200)
+                setBannerHeight(200);
             } else {
-                setBannerHeight(400)
+                setBannerHeight(400);
             }
         };
 
-        getCourse()
+        getCourse();
     }, []);
 
     const startCourse = (e: any) => {
@@ -144,12 +145,28 @@ export default function Courses_CourseId() {
                             <div className={"main_section_container-flex max_width"}>
                                 {(course?.steps ?? []).length !== 0 ? (
                                     course?.steps.map((step: Step, i: number) => {
+                                        let stepsStatus = course.progressLesson.filter((progress:any) => progress.lessonId === getCurrentId);
+                                        let status = "A faire";
+                                        if (stepsStatus && stepsStatus[0].progress.responses[step.id]) {
+                                            switch (stepsStatus[0].progress.responses[step.id].type) {
+                                                case 'video':
+                                                case 'exercise/qcm':
+                                                case 'exercise/bind_list':
+                                                    if (stepsStatus[0].progress.responses[step.id].success) {
+                                                        status = "Terminé";
+                                                    }
+                                                    break;
+                                            }
+                                        }
+                                        if (step.type === "review") {
+                                            status = stepsStatus[0].status;
+                                        }
                                         return (
                                             <User_preview_card_noimage
                                                 id={step.id}
                                                 title={step.value}
                                                 type={step.type}
-                                                status={"A faire"}
+                                                status={status}
                                                 disable={hasToStart}
                                             />
                                         )

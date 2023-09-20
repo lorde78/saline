@@ -14,6 +14,7 @@ function generateAccessToken(user) {
 }
 
 
+// @ts-ignore
 function generateToken(user) {
   const accessToken = generateAccessToken(user);
 

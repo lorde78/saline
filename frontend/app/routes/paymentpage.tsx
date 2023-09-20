@@ -2,11 +2,14 @@ import React from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import '../styles/section_formule.css';
 import '../styles/style.css';
+import {useGlobalEffect} from "~/helper/globalHelper";
 
 
 
 
 function PaymentForm() {
+    useGlobalEffect("user");
+
     const stripe = useStripe();
     const elements = useElements();
 

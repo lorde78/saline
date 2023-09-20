@@ -1,6 +1,6 @@
 import Builder_select_folder from "~/kits/builder_select_folder";
 import Select from "~/kits/select";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {registerContext} from "~/context/registerContext";
 
 type Props = {
@@ -37,7 +37,7 @@ export default function Builder_step_review({courseData, setCoursesData, stepSel
         }
     }
 
-    const [fileType, setFileType] = useState("")
+    const [fileType, setFileType] = useState("pdf")
     const [fileTypeData, setFileTypeData] = useState([
         {value: "PDF", option: "PDF"},
         {value: "Video", option: "Video"}
@@ -48,11 +48,34 @@ export default function Builder_step_review({courseData, setCoursesData, stepSel
         setFileTypeSelected(id)
 
         let newCourseData = [...courseData];
-        newCourseData[stepSelected].data.fileType = value
+        newCourseData[stepSelected].data.fileType = value.toLowerCase()
 
         setCoursesData(newCourseData)
     }
-    
+
+    useEffect(() => {
+        switch(fileTypeSelected) {
+            case 0:
+                setFileType("pdf")
+                break;
+
+            case 1:
+                setFileType("video")
+                break;
+
+            default:
+                setFileType("pdf")
+                break;
+        }
+    },[fileTypeSelected])
+
+    useEffect(() => {
+        let newCourseData = [...courseData];
+        newCourseData[stepSelected].data.fileType = "PDF";
+
+        setCoursesData(newCourseData);
+    }, []);
+
     return (
         <section className={"builder_step_container"}>
             <Builder_select_folder

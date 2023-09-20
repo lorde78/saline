@@ -35,8 +35,8 @@ interface Training {
 }
 
 export default function Trainings() {
-    useGlobalEffect()
-    isLogged("user");
+    useGlobalEffect("user");
+
     const [loader, setLoader] = useState(false);
 
     const [trainings, setTrainings] = useState<Training[]>([]);

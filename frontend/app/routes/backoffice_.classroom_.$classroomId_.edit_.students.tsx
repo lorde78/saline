@@ -24,8 +24,8 @@ export function links() {
 }
 
 export default function Backoffice_Classroom_ClassroomId_Edit_Students() {
-    useGlobalEffect()
-    isLogged("backoffice");
+    useGlobalEffect("backoffice")
+
     const getCurrentId = getIdFromUrl(2)
     const [loader,setLoader] = useState(false)
 

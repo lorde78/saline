@@ -61,3 +61,16 @@
     align-self: center;
     padding-left: 10px;
 }
+
+.comment_response_form {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: var(--secondary-color);
+}
+
+.comment_response_form > textarea {
+    color: black;
+}

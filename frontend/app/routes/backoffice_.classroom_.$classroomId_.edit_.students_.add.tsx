@@ -26,8 +26,8 @@ export function links() {
 }
 
 export default function Backoffice_Classroom_ClassroomId_Edit_Students_Add() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
+
     const addStudents = useAddStudentsToClassroom();
     const navigate = useNavigate();
     const editPath = editLink(4);

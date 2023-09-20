@@ -1,7 +1,10 @@
 .popup-profile_container {
     position: absolute;
-    top: calc(35px + 1.25rem);
+    top: calc(60px + 1.25rem);
     right: 25px;
+}
+
+.popup-profile_contain {
     padding: 20px;
     background-color: white;
     box-shadow: 0px 2px 10px 0px #00000040;
@@ -13,14 +16,14 @@
     z-index:1000;
 }
 
-.popup-profile_container > p {
+.popup-profile_contain > p {
     cursor: pointer;
 }
 
-.popup-profile_container > p + p {
+.popup-profile_contain > p + p {
     padding-top: 10px;
 }
 
-.popup-profile_container > .delete-button {
+.popup-profile_contain > .delete-button {
     color: #FF5050;
 }

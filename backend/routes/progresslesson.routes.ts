@@ -53,12 +53,21 @@ router.get('/', async function (req, res, next) {
     let progressLesson = null;
 
     if (!id && !userId && !lessonId) {
-        progressLesson = await database.progressLesson.findMany()
+        progressLesson = await database.progressLesson.findMany({
+            include: {
+                lesson: true,
+                student: true
+            }
+        })
     } else {
         if (id) {
             progressLesson = await database.progressLesson.findMany({
                 where: {
-                    id: id
+                    id: parseInt(id)
+                },
+                include : {
+                    lesson: true,
+                    student: true
                 }
             })
         } else {
@@ -66,6 +75,10 @@ router.get('/', async function (req, res, next) {
                 progressLesson = await database.progressLesson.findMany({
                     where: {
                         studentId: parseInt(userId),
+                    },
+                    include : {
+                        lesson: true,
+                        student: true
                     }
                 })
             }
@@ -73,6 +86,10 @@ router.get('/', async function (req, res, next) {
                 progressLesson = await database.progressLesson.findMany({
                     where: {
                         lessonId: parseInt(lessonId),
+                    },
+                    include : {
+                        lesson: true,
+                        student: true
                     }
                 })
             }
@@ -97,10 +114,10 @@ router.delete('/', async function (req, res, next) {
 });
 
 router.put('/', async function (req, res, next) {
-    const {id} = req.query;
+    const {id,lessonId} = req.query;
     let updateProgressLesson = null;
 
-    if (!id) {
+    if (!id && !lessonId) {
         res.status(400);
         throw new Error('You must provide an id ');
     }

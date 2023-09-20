@@ -11,12 +11,13 @@ type Props = {
     title: string,
     author: {
         firstName: string,
-        name: string
+        name: string,
     },
-    description: string
-    imgLink: string
+    description: string,
+    imgLink: string,
     showButton: boolean,
-    creation_type: string
+    creation_type: string,
+    tags?: any,
 };
 export default function Backoffice_edit_training({
                                                      id,
@@ -25,18 +26,19 @@ export default function Backoffice_edit_training({
                                                      description,
                                                      imgLink,
                                                      showButton,
-                                                     creation_type
+                                                     creation_type,
+                                                     tags
                                                  }: Props) {
 
     const deleteElement = useDeleteElement()
     const removeLesson = useRemoveLessonFromTraining()
     const getCurrentId = getIdFromUrl(1)
 
-    const submit = (e:any) => {
-        if(!getCurrentId) {
-            deleteElement(creation_type,id)
+    const submit = (e: any) => {
+        if (!getCurrentId) {
+            deleteElement(creation_type, id)
         } else {
-            removeLesson(id,false,getCurrentId)
+            removeLesson(id, false, getCurrentId)
         }
 
         window.location.reload()
@@ -55,12 +57,25 @@ export default function Backoffice_edit_training({
                 <p className={"training_description margin-top-20"}>
                     {description}
                 </p>
+                <div className={"header_tags"}>
+                    {(tags ?? []).length != 0 ? (
+                        <>
+                            <p>Tags:</p>
+                            {tags.map((tag: any) => {
+                                return <p>{tag.title}</p>
+                            })}
+                        </>
+                    ) : (
+                        <></>
+                    )}
+                </div>
                 {showButton ?
                     <div className={"preview_card_button margin-top-20"}>
                         <NavLink className={"button"} to={`/backoffice/courses/${id}/edit`}>
                             Modifier
                         </NavLink>
-                        <button className={"button button_alert"} type="submit" onClick={(e) => submit(e)}>Supprimer</button>
+                        <button className={"button button_alert"} type="submit" onClick={(e) => submit(e)}>Supprimer
+                        </button>
                     </div>
                     : ""
                 }

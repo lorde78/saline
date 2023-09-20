@@ -8,8 +8,9 @@ import getIdFromUrl from "~/helper/getIdFromUrl";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
 
 type Props = {
-    videoSelect: any;
-    setVideoSelect: any;
+    courseData: any;
+    setCoursesData: any;
+    stepSelected: number;
 }
 
 interface Video {
@@ -17,7 +18,7 @@ interface Video {
     url: string
 }
 
-export default function Builder_select_video({videoSelect, setVideoSelect}:Props) {
+export default function Builder_select_video({courseData, setCoursesData, stepSelected}:Props) {
     const [videoSelectOpen, setVideoSelectOpen] = useState(false)
 
     const [video, setVideo] = useState<Video>({
@@ -28,17 +29,24 @@ export default function Builder_select_video({videoSelect, setVideoSelect}:Props
     // @ts-ignore
     const getCurrentVideo = useGetCurrentElement();
 
+    const selectVideo = (value:any) => {
+        let newCourseData = [...courseData]
+        newCourseData[stepSelected].data.video.title = value.title
+        newCourseData[stepSelected].data.video.id = value.id
+        setCoursesData(newCourseData)
+    }
+
     const getVideo = async () => {
-        if (videoSelect.id === "") {
+        if (courseData[stepSelected].data.video.id === "") {
             return;
         }
-        const currentVideo = await getCurrentVideo("video", videoSelect.id);
+        const currentVideo = await getCurrentVideo("video", courseData[stepSelected].data.video.id);
         setVideo(currentVideo);
     };
 
     useEffect(() => {
-        getVideo()
-    }, [])
+        getVideo();
+    }, [courseData])
 
     const openPopup = () => {
         setVideoSelectOpen(true)
@@ -48,7 +56,7 @@ export default function Builder_select_video({videoSelect, setVideoSelect}:Props
 
     return (
         <div className={"builder_select_folder"}>
-            {videoSelectOpen ? <Builder_popup_choose_video  videoSelect={videoSelectOpen} setVideoSelect={setVideoSelect} setVideoSelectOpen={setVideoSelectOpen}/>: ""}
+            {videoSelectOpen ? <Builder_popup_choose_video  setVideoSelect={selectVideo} setVideoSelectOpen={setVideoSelectOpen}/>: ""}
             <div className={"preview_container"}>
                 <iframe src={video.url}
                         title="YouTube video player" frameBorder="0"

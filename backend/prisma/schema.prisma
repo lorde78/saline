@@ -34,7 +34,7 @@ model User {
   lessonsCreated      Lesson[]        @relation("LessonAuthor")
   attendingLessons    Lesson[]        @relation("LessonStudents")
   Discounts           Discount[]
-  Subscriptions       Subscription[]
+  Subscriptions       Subscription[]  @relation("Subscribers")
   progressLesson      ProgressLesson[]
   progressTraining    ProgressTraining[]
 }
@@ -54,7 +54,6 @@ model Lesson {
   students        User[]         @relation("LessonStudents")
   tags            Tag[]
   trainings       Training[]
-  comments        Comment[]
   subscriptions   Subscription[]
   videos          Video[]
   annotations     Annotation[]
@@ -128,8 +127,8 @@ model Comment {
   nbUpvotes   Int?     @default(0)
   nbDownvotes Int?
   userId      Int?
-  lessonId    Int?
-  lesson      Lesson?  @relation(fields: [lessonId], references: [id])
+  videoId    Int?
+  video      Video?  @relation(fields: [videoId], references: [id])
   answer      Answer[]
   user        User?    @relation(fields: [userId], references: [id], onDelete: NoAction)
 }
@@ -169,18 +168,18 @@ model Tag {
 model Subscription {
   id                 Int        @id @default(autoincrement())
   title              String?
-  subscriptionType   String?
-  subscriptionTarget String?
-  subscriptionStatus Boolean
+  rates_price        Int?
+  rates_time         String?
+  target             String?
   createdAt          DateTime   @default(now())
   lastUpdate         DateTime   @updatedAt
+  nbSubscribers      Int?
+  nbCertified        Int?
+  access             Json?
   lessons            Lesson[]
   trainings          Training[]
   discounts          Discount[]
-  user               User?      @relation(fields: [userId], references: [id])
-  nbSubscribers      Int?
-  nbCertified        Int?
-  userId             Int?
+  subscribers        User[]       @relation("Subscribers")
 }
 
 model Discount {
@@ -220,6 +219,7 @@ model Video {
   createdAt   DateTime     @default(now())
   lastUpdate  DateTime     @updatedAt
   professors  Professor[]
+  comments    Comment[]
   tags        Tag[]
   lessons     Lesson[]
   shortVideos ShortVideo[]

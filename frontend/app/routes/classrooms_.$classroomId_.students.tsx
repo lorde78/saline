@@ -34,8 +34,8 @@ interface Student {
     firstName: string;
 }
 export default function Classroom_ClassroomId_Students() {
-    useGlobalEffect()
-    isLogged("user");
+    useGlobalEffect("user");
+
     const [loader, setLoader] = useState(false);
     const getCurrentId = getIdFromUrl(1)
 

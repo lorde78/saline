@@ -31,8 +31,7 @@ interface Classroom {
 }
 
 export default function Backoffice_Classroom() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
 
     const [classrooms, setClassrooms] = useState<Classroom[]>([]);
     const getAllClassrooms = useGetAllElements();

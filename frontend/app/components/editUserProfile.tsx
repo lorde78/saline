@@ -74,8 +74,6 @@ export default function EditUserProfile({userInfo}: Props) {
             case "Address":
                 setAddress(value);
                 break;
-                break;
-            // Ajoutez d'autres cas si vous avez d'autres champs
             default:
                 break;
         }

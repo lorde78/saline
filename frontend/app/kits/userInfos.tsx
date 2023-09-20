@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "~/styles/userInfos.css";
 import Tag from "./tag";
 import PopupProfile from "./popupProfile";
@@ -9,8 +9,8 @@ type Props = {
 };
 
 export default function UserInfos({data}: Props) {
-
-    const [showPopup, setShowPopup] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const popupRef = useRef(null);
 
     const togglePopup = () => {
         setShowPopup(!showPopup);
@@ -37,18 +37,8 @@ export default function UserInfos({data}: Props) {
                 </div>
                 <div className="lessons-progress_container">
                     <p>Formations</p>
-                    <div className="lessons-progress">
-                        <div className="lessons-in-progress">
-                            <p>En cours</p>
-                            <p>2</p>
-                        </div>
-                        <div className="lessons_done">
-                            <p>Achevées</p>
-                            <p>2</p>
-                        </div>
-                    </div>
                 </div>
             </div>
-        </div>
+          </div>
     );
 };

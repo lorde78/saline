@@ -5,19 +5,11 @@ import UserInfos from "~/kits/userInfos";
 import resetStyles from "~/styles/reset.css";
 import globalStyles from "~/styles/style.css";
 import profileStyles from "~/styles/profileStyle.css";
-import EditUserProfile from "~/components/editUserProfile";
-import Form_login from "~/components/form_login";
-import Form_register from "~/components/form_register";
-import Form_register_complementary from "~/components/form_register_complementary";
 import inputStyles from "~/styles/input.css";
-import EditPassword from "~/components/editPassword";
-import EditFormule from '~/components/editFormule';
 import formuleStyles from "~/styles/formule.css";
-import Formation from '~/kits/formations';
+import userInfos from "~/styles/userInfos.css";
 import Header from "~/components/header";
 import Footer from "~/components/footer";
-
-
 import { useGlobalEffect } from '~/helper/globalHelper';
 import {useContext, useEffect, useState} from "react";
 import {signinContext} from "~/context/signinContext";
@@ -25,15 +17,14 @@ import useGetCurrentElement from "~/hook/useGetCurrentElement";
 import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
 import Loader from "~/kits/loader";
 import {useNavigate} from "react-router-dom";
-import {isLogged} from "~/helper/isLogged";
 
 export function links() {
-  return [{rel: 'stylesheet', href: resetStyles}, {rel: 'stylesheet', href: profileStyles}, {rel: 'stylesheet', href: globalStyles}, {rel: 'stylesheet', href: inputStyles}, {rel: 'stylesheet', href: formuleStyles}]
+  return [{rel: 'stylesheet', href: resetStyles},  {rel: 'stylesheet', href: globalStyles}, {rel: 'stylesheet', href: profileStyles}, {rel: 'stylesheet', href: userInfos}, {rel: 'stylesheet', href: inputStyles}, {rel: 'stylesheet', href: formuleStyles}]
 }
 
 export default function Profile() {
-    useGlobalEffect()
-    isLogged("user");
+    useGlobalEffect("user");
+
     const [loader, setLoader] = useState(false);
     const navigate = useNavigate()
     // @ts-ignore
@@ -51,9 +42,9 @@ export default function Profile() {
                     getCurrentUser("user",currentUserId).then((r: any) => {
                         if (currentUser === "") {
                             setCurrentUser(r);
-                            setLoader(true)
                         }
                     });
+                    setLoader(true);
                 }
             } catch (error) {
                 console.error(error);
@@ -75,14 +66,7 @@ export default function Profile() {
                             <div className="profile-page">
                                 <UserInfos data={currentUser}/>
                                 <Formule subscription="Annuel" />
-                                <Accordion type="formations" title="Vos formations" picto="ri-book-mark-line" />
-                                <Accordion type="comments" title="Vos commentaires" picto="ri-message-3-line" />
-                                <Accordion type="graduations" title="Vos certifications" picto="ri-graduation-cap-line" />
-                                {/* <Formation /> */}
-                                {/* <EditUserProfile userInfo={userInfo} /> */}
-                                {/* <EditPassword /> */}
-                                {/* <Form_register_complementary /> */}
-                                {/* <EditFormule /> */}
+                                {/*<Accordion type="formations" title="Vos formations" picto="ri-book-mark-line" data={currentUser}/>*/}
                             </div>
                         </div>
                     </main>

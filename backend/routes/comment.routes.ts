@@ -1,17 +1,18 @@
 var express = require('express');
+// @ts-ignore
 const { database } = require('../config/db.ts');
 
 var router = express.Router();
 
 router.post('/', async function (req, res, next) {
-    const { content, userId, nbUpVotes, nbDownVotes, lessonId } = req.body;
+    const { content, userId, videoId } = req.body;
     const comment = await database.comment.create({
         data: {
             content: content,
             userId: parseInt(userId),
-            nbUpVotes: nbUpVotes,
-            nbDownVotes: nbDownVotes,
-            lessonId: parseInt(lessonId),
+            nbUpvotes: 0,
+            nbDownvotes: 0,
+            videoId: parseInt(videoId),
         }
     })
 
@@ -54,19 +55,32 @@ router.put('/', async function (req, res, next) {
 });
 
 router.get('/', async function (req, res, next) {
-    const { id, lessonId } = req.query;
-    if (!id || !lessonId) {
-        res.status(400);
-        throw new Error('You must provide an id.');
+    const { id, videoId } = req.query;
+    let comments = null;
+    
+    if (!id && !videoId) {
+        comments = await database.comment.findMany({
+            include: {
+                answer: true,
+                user: true
+            }
+        })
+    } else {
+        comments = await database.comment.findMany({
+            where: {
+                OR: [
+                    { id: parseInt(id), },
+                    { videoId: parseInt(videoId) },
+                ],
+                include: {
+                    answer: true,
+                    user: true
+                }
+            },
+        })
     }
-    const comments = await database.comment.findMany({
-        where: {
-            OR: [
-                { id: parseInt(id), },
-                { lessonId: parseInt(lessonId) },
-            ],
-        },
-    })
+
+
     res.json({
         "comments": comments
     });

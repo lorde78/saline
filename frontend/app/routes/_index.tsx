@@ -44,7 +44,7 @@ export function links() {
 
 
 export default function Index() {
-    useGlobalEffect()
+    useGlobalEffect("home");
 
     const slides = [
         {

@@ -49,7 +49,8 @@ interface Course {
     author: {
         name: string,
         firstName: string
-    }
+    };
+    tags: any;
 }
 
 interface progressTraining {
@@ -62,8 +63,8 @@ interface progressTraining {
 }
 
 export default function Trainings_TrainingId() {
-    useGlobalEffect()
-    isLogged("user");
+    useGlobalEffect("user");
+
     const [loader, setLoader] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
@@ -111,7 +112,7 @@ export default function Trainings_TrainingId() {
             }
         }
 
-        fetchUser()
+        fetchUser();
     }, [signin])
 
 
@@ -124,7 +125,7 @@ export default function Trainings_TrainingId() {
             }
         };
 
-        getTraining()
+        getTraining();
     }, []);
 
     const startTraining = (e:any) => {
@@ -167,6 +168,7 @@ export default function Trainings_TrainingId() {
                                                 id={course.id}
                                                 title={course.title}
                                                 author={course.author}
+                                                tags={course.tags}
                                                 imgLink={course.bannerPicture}
                                                 description={course.description}
                                                 status={currentProgress[0] ? currentProgress[0].status : "A faire"}

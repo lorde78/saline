@@ -325,6 +325,9 @@ a:hover {
 .status_color-yellow {
     background-color: var(--action-color);
 }
+.status_color-orange {
+     background-color: var(--action-hover-color);
+ }
 .status_color-green {
     background-color: var(--success-color);
 }

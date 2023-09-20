@@ -102,6 +102,7 @@ export default function User_courses_step_exercise_bindlist({step, setValue}: Pr
 
     const validateAnswers = () => {
         let isCorrect = true;
+        let success = false;
 
         for (let item of step.data) {
             if (answers[item.bind1] !== item.bind2) {
@@ -111,11 +112,13 @@ export default function User_courses_step_exercise_bindlist({step, setValue}: Pr
         }
 
         if (isCorrect) {
+            // @ts-ignore
+            success = true;
             alert("Toutes les réponses sont correctes!");
         } else {
             alert("Certaines réponses sont incorrectes.");
         }
-        setValue(step.id, 'exercise/qcm', answers)
+        setValue(step.id, 'exercise/qcm', answers, success)
     }
 
     useEffect(() => {

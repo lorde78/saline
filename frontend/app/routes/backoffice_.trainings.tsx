@@ -31,8 +31,7 @@ export function links() {
 }
 
 export default function Backoffice_Trainings() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
 
     const [trainings, setTrainings] = useState<Training[]>([]);
     // @ts-ignore

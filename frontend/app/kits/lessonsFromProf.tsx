@@ -5,12 +5,11 @@ type Props = {
 };
 
 export default function LessonsFromProf({ lessonData }: Props) {
-
     return (
         <div className="graduations">
             <div className="graduations_container">
 
-                {lessonData.length !== 0 ? (
+                {typeof lessonData !== 'undefined' ? (
                     lessonData.map((video, i) => {
                         return video.lessons.map((lesson: any, i: number) => {
                             return (

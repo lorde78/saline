@@ -40,8 +40,8 @@ export function links() {
 }
 
 export default function Backoffice_Trainings_TrainingId_Edit_Add() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
+
     const addLesson = useAddLessonsToTraining();
     const navigate = useNavigate();
     const editPath = editLink(3);

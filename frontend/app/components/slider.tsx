@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import '../styles/slider.css';
 import '../styles/style.css';
+import {NavLink} from "@remix-run/react";
 
 interface Slide {
     src: string;
@@ -93,7 +94,7 @@ export const Slider: React.FunctionComponent<SliderProps> = ({ slides }) => {
                 <div className="custom_text_socket">
                     Faites partie des meilleurs musiciens au monde.
                 </div>
-                <a className="button">La suite</a>
+                <NavLink className="button" to={"/courses"}>La suite</NavLink>
             </div>
         </div>
     );

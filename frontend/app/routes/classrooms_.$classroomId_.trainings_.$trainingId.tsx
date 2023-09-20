@@ -51,8 +51,8 @@ interface Course {
 }
 
 export default function Classrooms_ClassroomId_Trainings_TrainingId() {
-    useGlobalEffect()
-    isLogged("user");
+    useGlobalEffect("user");
+
     const [loader, setLoader] = useState(false);
     const getCurrentId = getIdFromUrl(0);
     // @ts-ignore

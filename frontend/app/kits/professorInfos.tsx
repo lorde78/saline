@@ -34,7 +34,7 @@ export default function ProfessorInfos({ profilePicture, jobs, instruments, awar
                     <p>Rôle:</p>
                     {jobs.map((job:Job, i:number) => {
                         return (
-                            <Tag role={job.title} key={i}/>
+                            <Tag roles={job.title} key={i}/>
                         )
                     })}
                 </div>
@@ -43,7 +43,7 @@ export default function ProfessorInfos({ profilePicture, jobs, instruments, awar
                     <p>Instrument:</p>
                     {instruments.map((instrument:Instrument, i:number) => {
                         return (
-                            <Tag role={instrument.title} key={i}/>
+                            <Tag roles={instrument.title} key={i}/>
                         )
                     })}
                 </div>

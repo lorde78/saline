@@ -22,7 +22,8 @@ router.get('/', async function (req, res, next) {
                 id: parseInt(id),
             },
             include: {
-                attendingClassrooms: true
+                attendingClassrooms: true,
+                progressLesson: true
             }
         })
     }

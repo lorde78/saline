@@ -27,7 +27,8 @@ interface Course {
     author: {
         name: string,
         firstName: string
-    }
+    };
+    tags: any;
 }
 
 export function links() {
@@ -50,8 +51,8 @@ export let loader: LoaderFunction = ({ request }) => {
 }
 
 export default function Backoffice_Courses() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
+
     const loaderData = useLoaderData() as LoaderData;
 
     const [courses, setCourses] = useState<Course[]>([]);
@@ -89,6 +90,7 @@ export default function Backoffice_Courses() {
                                     id={course.id}
                                     title={course.title}
                                     author={course.author}
+                                    tags={course.tags}
                                     imgLink={course.bannerPicture}
                                     description={course.description}
                                     showButton={true}

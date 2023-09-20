@@ -115,11 +115,20 @@
     gap: 10px;
 }
 
+.header_tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    padding-top: 20px;
+}
+
 .preview_card_status {
     display: flex;
     justify-content: center;
     align-items: center;
     width: auto;
+    min-width: 100px;
     gap: 10px;
 }
 

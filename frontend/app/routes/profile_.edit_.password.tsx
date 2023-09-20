@@ -29,8 +29,8 @@ export function links() {
 }
 
 export default function Profile_Edit_Password() {
-    useGlobalEffect()
-    isLogged("user");
+    useGlobalEffect("user");
+
     const [loader, setLoader] = useState(false);
     // @ts-ignore
     const [signin, setSignin] = useContext(signinContext);

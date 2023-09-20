@@ -29,8 +29,8 @@ interface Classroom {
 }
 
 export default function Backoffice_Classroom_ClassroomId_Edit() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
+
     const getCurrentId = getIdFromUrl(1);
     const [loader, setLoader] = useState(false);
 

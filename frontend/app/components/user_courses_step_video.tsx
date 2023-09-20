@@ -1,6 +1,7 @@
 import User_course_video_nav from "~/components/user_course_video_nav";
 import {useEffect, useState} from "react";
 import useGetCurrentElement from "~/hook/useGetCurrentElement";
+import Loader from "~/kits/loader";
 
 interface Comment {
     id: number;
@@ -41,16 +42,23 @@ type Props = {
 }
 
 interface Video {
+    id: number;
     title: string;
-    url: string
+    url: string;
+    professors: any;
+    comments: any;
 }
 
 export default function User_courses_step_video({step, setValue}: Props) {
     const [video, setVideo] = useState<Video>({
+        id: 0,
         title: "",
-        url: ""
+        url: "",
+        professors: "",
+        comments: ""
     });
 
+    const [loader, setLoader] = useState(false);
     // @ts-ignore
     const getCurrentVideo = useGetCurrentElement();
 
@@ -60,6 +68,7 @@ export default function User_courses_step_video({step, setValue}: Props) {
         }
         const currentVideo = await getCurrentVideo("video", step.data.video.id);
         setVideo(currentVideo);
+        setLoader(true);
     };
 
     useEffect(() => {
@@ -67,29 +76,37 @@ export default function User_courses_step_video({step, setValue}: Props) {
     }, [])
 
     useEffect(() => {
-        setValue(step.id, 'video', {watched: true});
+        setValue(step.id, 'video', {success: true}, true);
     }, []);
+
     return (
         <>
-            <div className={"courses_preview_video"}>
-                <iframe
-                    src={video.url}
-                    frameBorder='0'
-                    allow='autoplay; encrypted-media'
-                    allowFullScreen
-                    title='video'
-                    className={"backoffice_training_preview_video_iframe"}
-                />
-            </div>
-            <div className={"courses_content_container"}>
-                <User_course_video_nav
-                    id={step.id}
-                    informations={step.data.infoDescription}
-                    professors={""}
-                    description={step.data.description}
-                    comments={""}
-                />
-            </div>
+            {loader ? (
+                <>
+                    <div className={"courses_preview_video"}>
+                        <iframe
+                            src={video.url}
+                            frameBorder='0'
+                            allow='autoplay; encrypted-media'
+                            allowFullScreen
+                            title='video'
+                            className={"backoffice_training_preview_video_iframe"}
+                        />
+                    </div>
+                    <div className={"courses_content_container"}>
+                        <User_course_video_nav
+                            id={step.id}
+                            informations={step.data.infoDescription}
+                            professors={video.professors}
+                            description={step.data.description}
+                            comments={video.comments}
+                            videoId={video.id}
+                        />
+                    </div>
+                </>
+            ) : (
+                <Loader/>
+            )}
         </>
     )
 }

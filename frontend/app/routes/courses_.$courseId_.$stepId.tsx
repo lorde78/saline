@@ -18,6 +18,8 @@ import builder from "~/styles/builder.css";
 import {isLogged} from "~/helper/isLogged";
 import useGetCurrentUserId from "~/hook/useGetCurrentUserId";
 import {signinContext} from "~/context/signinContext";
+import useUpdateProgress from "~/hook/useUpdateProgress";
+import useGetProgress from "~/hook/useGetProgress";
 
 
 export function links() {
@@ -38,22 +40,32 @@ interface Step {
 }
 
 export default function Courses_CourseId_StepId() {
-    useGlobalEffect()
-    isLogged("user");
+    useGlobalEffect("user");
+
     // @ts-ignore
     const [signin, setSignin] = useContext(signinContext);
-    const [currentUserId, setCurrentUserId] = useState("")
+    const [currentUserId, setCurrentUserId] = useState("");
     const [loader, setLoader] = useState(false);
-    const getCurrentId = getIdFromUrl(1)
-    const getStepId = getIdFromUrl(0)
+    const getCurrentId = getIdFromUrl(1);
+    const getStepId = getIdFromUrl(0);
 
     const [step, setStep] = useState<Step | null>(null);
     const getCurrentCourse = useGetCurrentElement();
 
+    const updateProgress = useUpdateProgress();
+
+    const [progressCourse, setProgressCourse] = useState<any>();
+    const getCurrentProgressCourse = useGetProgress();
+
     const getCourse = async () => {
         const currentClassroom = await getCurrentCourse("lesson", getCurrentId);
+        const currentProgressCourse = await getCurrentProgressCourse("progressLesson", "lessonId", getCurrentId);
         //@ts-ignore
         setStep(currentClassroom.steps[getStepId - 1]);
+        setProgressCourse(currentProgressCourse[0]);
+        if (currentProgressCourse[0].progress) {
+            setAnswerSteps(currentProgressCourse[0].progress)
+        }
         setLoader(true);
     };
 
@@ -76,7 +88,7 @@ export default function Courses_CourseId_StepId() {
             try {
                 if (signin) {
                     const userId = await useGetCurrentUserId(signin);
-                    setCurrentUserId(userId)
+                    setCurrentUserId(userId);
                     setLoader(true);
                 }
             } catch (error) {
@@ -90,7 +102,7 @@ export default function Courses_CourseId_StepId() {
     type StepType = 'video' | 'exercise/qcm' | 'exercise/bind_list' | 'review';
 
     type ResponseValue =
-        | { watched: boolean }
+        | { success: boolean }
         | Array<Array<{ value: boolean }>>
         | { [key: string]: string }
         | { reviewUrl: string };
@@ -99,6 +111,7 @@ export default function Courses_CourseId_StepId() {
         stepId: number;
         type: StepType;
         response: ResponseValue;
+        success: boolean;
     };
 
     type ResponsesType = {
@@ -109,22 +122,25 @@ export default function Courses_CourseId_StepId() {
         userId: string;
         courseId: number;
         responses: ResponsesType;
+        success: boolean;
     };
 
     const [answerSteps, setAnswerSteps] = useState<AnswerStepsType>({
         userId: "",
         courseId: 0,
-        responses: {}
+        responses: {},
+        success: false
     });
 
-    const setValue = (stepId: number, type: StepType, value: ResponseValue) => {
+    const setValue = (stepId: number, type: StepType, value: ResponseValue, success: boolean) => {
         let newAnswerSteps = {...answerSteps};
         newAnswerSteps.userId = currentUserId;
         newAnswerSteps.courseId = getCurrentId;
         const responseItem: ResponseItem = {
             stepId,
             type,
-            response: value
+            response: value,
+            success: success
         };
 
         switch (type) {
@@ -138,15 +154,13 @@ export default function Courses_CourseId_StepId() {
                 console.error(`Unknown step type: ${type}`);
                 break;
         }
-
         setAnswerSteps(newAnswerSteps);
-    }
 
-    useEffect(() => {
-        if (answerSteps.userId != "") {
-            console.log(answerSteps)
+        let formData: any = {
+            "progress": newAnswerSteps
         }
-    }, [answerSteps]);
+        updateProgress(formData, progressCourse.id);
+    }
 
     const typeStep = () => {
         switch (step?.type) {
@@ -164,7 +178,7 @@ export default function Courses_CourseId_StepId() {
                 )
             case "review":
                 return (
-                    <User_courses_step_review step={step} setValue={setValue}/>
+                    <User_courses_step_review step={step} setValue={setValue} courseId={getCurrentId}/>
                 )
         }
     }

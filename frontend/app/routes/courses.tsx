@@ -32,12 +32,13 @@ interface Course {
     author: {
         name: string,
         firstName: string
-    }
+    };
+    tags: any;
 }
 
 export default function Courses() {
-    useGlobalEffect();
-    isLogged("user");
+    useGlobalEffect("user");
+
     const [loader, setLoader] = useState(false);
     const [courses, setCourses] = useState<Course[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
@@ -54,16 +55,13 @@ export default function Courses() {
             course.description.toLowerCase().includes(searchTerm.toLowerCase())
 
         const matchesInstrument = activeFilters.instruments.length === 0 ||
-            activeFilters.instruments.includes(course.instrument)
-        const matchesStatus = activeFilters.status.length === 0 ||
-            activeFilters.status.includes(course.status);
+            //@ts-ignore
+            activeFilters.instruments.some(instrument => {
+                return course.tags.some((tag:any) => tag.title === instrument);
+            })
 
-        return matchesSearchTerm && matchesInstrument && matchesStatus;
+        return matchesSearchTerm && matchesInstrument;
     });
-
-    useEffect(() => {
-        console.log(activeFilters);
-    }, [activeFilters]);
 
     const getAllCourses = useGetAllElements();
 
@@ -96,6 +94,7 @@ export default function Courses() {
                                             id={course.id}
                                             title={course.title}
                                             author={course.author}
+                                            tags={course.tags}
                                             imgLink={course.bannerPicture}
                                             description={course.description}
                                             status={currentProgress[0] ? currentProgress[0].status : "A faire"}

@@ -1,13 +1,13 @@
 import { AxiosInstance } from "~/axios/axiosInstance";
 
-export default function useCreateBuilderElement() {
-    return async (formData: any, creation_type: string) => {
+export default function useUpdateBuilderElement() {
+    return async (formData: any, creation_type: string,elementId: number) => {
         switch(creation_type) {
             case 'subscription':
                 try {
                     const res = await AxiosInstance({
-                        url: `/${creation_type}`,
-                        method: 'post',
+                        url: `/${creation_type}?id=${elementId}`,
+                        method: 'put',
                         headers: {
                             'Content-Type': 'application/json'
                         },
@@ -27,12 +27,12 @@ export default function useCreateBuilderElement() {
             default:
                 try {
                     const res = await AxiosInstance({
-                        url: `/${creation_type}`,
-                        method: 'post',
+                        url: `/${creation_type}?id=${elementId}`,
+                        method: 'put',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
                         },
-                        data: new URLSearchParams(formData).toString()
+                        data: new URLSearchParams(formData)
                     });
                     return res.data[creation_type];
                 } catch (err) {

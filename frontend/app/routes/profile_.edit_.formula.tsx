@@ -15,6 +15,7 @@ import EditFormule from '~/components/editFormule';
 import formuleStyles from "~/styles/formule.css";
 import Formation from '~/kits/formations';
 import {isLogged} from "~/helper/isLogged";
+import {useGlobalEffect} from "~/helper/globalHelper";
 
 
 
@@ -33,7 +34,8 @@ export function links() {
 }
 
 export default function Profile() {
-    isLogged("user");
+    useGlobalEffect("user");
+
     return (
         <div className="profile-page">
           <EditFormule />

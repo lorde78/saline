@@ -1,5 +1,6 @@
 import Builder_select_video from "~/kits/builder_select_video";
 import Builder_navigation_step_video from "~/components/builder_navigation_step_video";
+import {useEffect} from "react";
 
 type Props = {
     courseData: any;
@@ -9,12 +10,6 @@ type Props = {
     setFilesData: any;
 }
 export default function Builder_step_video({courseData, setCoursesData, stepSelected, filesData, setFilesData}: Props) {
-    const selectVideo = (value:any) => {
-        let newCourseData = [...courseData]
-        newCourseData[stepSelected].data.video.title = value.title
-        newCourseData[stepSelected].data.video.id = value.id
-        setCoursesData(newCourseData)
-    }
     const setDescription = (value:string) => {
         let newCourseData = [...courseData]
         newCourseData[stepSelected].data.description = value
@@ -56,8 +51,9 @@ export default function Builder_step_video({courseData, setCoursesData, stepSele
     return (
         <section className={"builder_step_container"}>
             <Builder_select_video
-                setVideoSelect={selectVideo}
-                videoSelect={courseData[stepSelected].data.video}
+                courseData={courseData}
+                stepSelected={stepSelected}
+                setCoursesData={setCoursesData}
             />
             <Builder_navigation_step_video
                 description={courseData[stepSelected].data.description}

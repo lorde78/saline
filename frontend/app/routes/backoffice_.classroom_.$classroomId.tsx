@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import resetStyles from "~/styles/reset.css";
 import styles from "~/styles/style.css";
 import input from "~/styles/input.css";
@@ -8,6 +8,8 @@ import Builder_creation from "~/components/builder_creation";
 import { useGlobalEffect } from "~/helper/globalHelper";
 import { Outlet, useLocation } from "@remix-run/react";
 import {isLogged} from "~/helper/isLogged";
+import getIdFromUrl from "~/helper/getIdFromUrl";
+import useGetCurrentElement from "~/hook/useGetCurrentElement";
 
 export function links() {
     return [
@@ -18,16 +20,36 @@ export function links() {
     ];
 }
 
+interface Classroom {
+    title: string;
+    bannerPicture: string;
+    description: string;
+}
+
 export default function Backoffice_Classroom_New() {
-    useGlobalEffect();
-    isLogged("backoffice");
+    useGlobalEffect("backoffice");
+    const [loader, setLoader] = useState(false);
+    const getCurrentId = getIdFromUrl(0);
+
+    const [classroom, setClassroom] = useState<Classroom | null>(null);
+    const getCurrentClassroom = useGetCurrentElement();
+
+    const getClassroom = async () => {
+        const currentClassroom = await getCurrentClassroom("classroom", getCurrentId);
+        setClassroom(currentClassroom);
+        setLoader(true);
+    }
+
+    useEffect(() => {
+        getClassroom();
+    }, []);
 
     return (
         <>
             <Header_section_page numberUndoPage={1} title={"Créer une classe"} logout={true} />
             <section className={"max_width_container"}>
                 <div className={"builder_container max_width"}>
-                    <Builder_creation creation_type={"classroom"}/>
+                    <Builder_creation creation_type={"classroom"} elementData={classroom} hookType={"update"}/>
                 </div>
             </section>
         </>

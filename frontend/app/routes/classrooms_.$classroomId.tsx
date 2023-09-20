@@ -45,8 +45,8 @@ interface Training {
     status: string | undefined;
 }
 export default function Classroom_ClassroomId() {
-    useGlobalEffect()
-    isLogged("user");
+    useGlobalEffect("user");
+
     const [loader, setLoader] = useState(false);
     const getCurrentId = getIdFromUrl(0)
 

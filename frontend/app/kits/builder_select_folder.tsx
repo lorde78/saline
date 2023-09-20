@@ -74,7 +74,7 @@ export default function Builder_select_folder({icon, folderType, idType, buttonM
     }
 
     const typePreview = () => {
-      switch (idType) {
+      switch (idType.toLowerCase()) {
           case "video":
               return (
                   <video id={"preview_" + idType} className={"preview"}>

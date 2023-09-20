@@ -6,7 +6,6 @@ import useGetAllElements from "~/hook/useGetAllElements";
 
 
 interface Props {
-    videoSelect: any
     setVideoSelect: any
     setVideoSelectOpen: any
 }
@@ -17,7 +16,7 @@ interface Video {
     url: string;
 }
 
-export default function Builder_popup_choose_video({videoSelect, setVideoSelect, setVideoSelectOpen}: Props) {
+export default function Builder_popup_choose_video({setVideoSelect, setVideoSelectOpen}: Props) {
     const [loader, setLoader] = useState(false);
 
     const [videos, setVideos] = useState<Video>();
@@ -34,11 +33,11 @@ export default function Builder_popup_choose_video({videoSelect, setVideoSelect,
         getVideos()
     }, [])
 
-    const chooseVideo = (video:Video) => {
-        setVideoSelect(video)
+    const chooseVideo = async (video:Video) => {
+        await setVideoSelect(video)
         setVideoSelectOpen(false)
         const body = document.body;
-        body.style.overflow = "scroll"
+        body.style.overflow = "scroll";
     }
 
     const closePopup = () => {
@@ -62,7 +61,7 @@ export default function Builder_popup_choose_video({videoSelect, setVideoSelect,
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                             allowFullScreen ></iframe>
                                     <button onClick={() => chooseVideo(video)} className={"button"}>
-                                        Sélectioner
+                                        Sélectionner
                                     </button>
                                 </div>
                             )
