@@ -2,17 +2,16 @@ import React, { useState } from "react";
 import "~/styles/formations.css";
 
 type Props = {
-  formationData: any[];
+  formationData: any;
 };
 
 export default function Formation({ formationData }: Props) {
   const [activeStatus, setActiveStatus] = useState("en cours");
-
   // Filter the data based on the activeStatus
   const filteredFormations =
     activeStatus === "en cours"
-      ? formationData.filter((formation) => formation.status === "en cours")
-      : formationData.filter((formation) => formation.status === "terminée");
+      ? formationData.filter((formation: { status: string; }) => formation.status === "en cours")
+      : formationData.filter((formation: { status: string; }) => formation.status === "terminée");
 
   return (
     <div className="formations">
@@ -32,8 +31,9 @@ export default function Formation({ formationData }: Props) {
       </div>
       <div className="formations_container">
 
-        {filteredFormations.map((formation, i) => {
-          return (
+        {filteredFormations.map((formation: { thumbnail: string | undefined; title: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined; progress: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Iterable<React.ReactNode> | null | undefined; }, i: React.Key | null | undefined) => {
+
+            return (
             <div key={i} className="formation">
               <figure className="formation-pic">
                 <img

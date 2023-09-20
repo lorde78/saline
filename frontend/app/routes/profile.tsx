@@ -42,9 +42,9 @@ export default function Profile() {
                     getCurrentUser("user",currentUserId).then((r: any) => {
                         if (currentUser === "") {
                             setCurrentUser(r);
-                            setLoader(true)
                         }
                     });
+                    setLoader(true);
                 }
             } catch (error) {
                 console.error(error);
@@ -66,14 +66,7 @@ export default function Profile() {
                             <div className="profile-page">
                                 <UserInfos data={currentUser}/>
                                 <Formule subscription="Annuel" />
-                                <Accordion type="formations" title="Vos formations" picto="ri-book-mark-line" />
-                                <Accordion type="comments" title="Vos commentaires" picto="ri-message-3-line" />
-                                <Accordion type="graduations" title="Vos certifications" picto="ri-graduation-cap-line" />
-                                {/* <Formation /> */}
-                                {/* <EditUserProfile userInfo={userInfo} /> */}
-                                {/* <EditPassword /> */}
-                                {/* <Form_register_complementary /> */}
-                                {/* <EditFormule /> */}
+                                {/*<Accordion type="formations" title="Vos formations" picto="ri-book-mark-line" data={currentUser}/>*/}
                             </div>
                         </div>
                     </main>

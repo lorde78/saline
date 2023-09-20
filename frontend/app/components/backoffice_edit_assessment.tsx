@@ -9,64 +9,52 @@ import {NavLink, useNavigate} from "@remix-run/react";
 import Header_section_page from "~/kits/header_section_page";
 
 export default function Backoffice_edit_assessment(assessmentData: any,setAssessmentData:any) {
-    assessmentData = assessmentData.assessmentData;
+    const data = assessmentData.assessmentData;
+    const setData = assessmentData.setAssessmentData;
+
     const [isValidate, setIsValidate] = useState(false)
     const [isNotValidate, setIsNotValidate] = useState(false)
     const [rattrapage, setRattrapage] = useState(false)
     const [noRattrapage, setNoRattrapage] = useState(false)
 
     const changeValue = (value:any, props:{valuToChange:string}) => {
-        let newData = {...assessmentData}
+        let newData = {...data}
+        console.log(newData);
         switch (props.valuToChange) {
             case "note" :
-                newData.note = value
                 break
             case "isValidate" :
-                newData.isValidate = value
-                newData.isNotValidate = false
                 setIsValidate(value)
                 setIsNotValidate(false)
                 changeStatus(newData)
                 break
             case "isNotValidate" :
-                newData.isValidate = false
-                newData.isNotValidate = value
                 setIsValidate(false)
                 setIsNotValidate(value)
                 changeStatus(newData)
                 break
             case "rattrapage" :
-                newData.rattrapage = value
-                newData.noRattrapage = false
                 setRattrapage(value)
                 setNoRattrapage(false)
                 break
             case "noRattrapage" :
-                newData.rattrapage = false
-                newData.noRattrapage = value
                 setRattrapage(false)
                 setNoRattrapage(value)
                 break
         }
-        setAssessmentData(newData)
+        setData(newData)
     }
 
     const changeStatus = (newData:any) => {
         if (newData.isValidate) {
-            newData.ratragage = false
-            newData.noRatragage = false
             setRattrapage(false)
             setNoRattrapage(false)
             newData.status = "Terminé"
         } else if (newData.isNotValidate) {
-            newData.ratragage = true
-            newData.noRatragage = false
             setRattrapage(true)
             setNoRattrapage(false)
             newData.status = "Echec"
         } else {
-            newData.ratragage = false
-            newData.noRatragage = false
             setRattrapage(false)
             setNoRattrapage(false)
             newData.status = "Validation"
@@ -75,12 +63,12 @@ export default function Backoffice_edit_assessment(assessmentData: any,setAssess
     }
 
     const displayContent = () => {
-        switch (assessmentData.urlEval.split(".")[1]) {
+        switch (data.urlEval.split(".")[1]) {
             case "pdf":
                 return (
                     <iframe
                         className={"content"}
-                        src={assessmentData.urlEval}
+                        src={data.urlEval}
                         title="PDF player">
                     </iframe>
                 )
@@ -88,7 +76,7 @@ export default function Backoffice_edit_assessment(assessmentData: any,setAssess
                 return (
                     <iframe
                         className={"content"}
-                        src={assessmentData.urlEval}
+                        src={data.urlEval}
                         title="YouTube video player"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen>
@@ -97,7 +85,7 @@ export default function Backoffice_edit_assessment(assessmentData: any,setAssess
         }
     }
 
-    const studentName = assessmentData.student.firstName + " " + assessmentData.student.name;
+    const studentName = data.student.firstName + " " + data.student.name;
 
     return (
         <>
@@ -105,7 +93,7 @@ export default function Backoffice_edit_assessment(assessmentData: any,setAssess
             <section className={"max_width_container"}>
                 <div className={"assessment_container-open max_width"}>
                     <h1>Contenu :</h1>
-                    <h3>{assessmentData.lesson.title}</h3>
+                    <h3>{data.lesson.title}</h3>
                     {displayContent()}
                     <div className={"assessment_section" }>
                         <p>Valider</p>
@@ -134,7 +122,7 @@ export default function Backoffice_edit_assessment(assessmentData: any,setAssess
                             </span>
                         </div>
                     </div>
-                    {assessmentData.isNotValidate ?
+                    {data.isNotValidate ?
                         <div className={"assessment_section"}>
                             <p>Ratrapage</p>
                             <div>
@@ -171,12 +159,12 @@ export default function Backoffice_edit_assessment(assessmentData: any,setAssess
                             placeholder={"Remarque"}
                             setValue={changeValue}
                             propsSetValue={{valuToChange: "note"}}
-                            value={assessmentData.note}
+                            value={data.note}
                         />
                     </div>
 
                     <button className={"button"} onClick={() => {
-                        console.log(assessmentData)
+                        console.log(data)
                     }}>Valider
                     </button>
                 </div>

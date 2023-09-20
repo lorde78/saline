@@ -100,7 +100,7 @@ export default function Accordion({type, title, picto, data}: Props) {
         return <Comments commentsData={fakeCommentData} needResponses={false}/>
       
       case "formations":
-        return <Formation formationData={fakeFormationsData}/>
+        return <Formation formationData={data}/>
 
       case "graduations":
         return <Graduation graduationData={fakeGraduationsData}/>
