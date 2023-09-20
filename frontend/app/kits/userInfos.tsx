@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "~/styles/userInfos.css";
 import Tag from "./tag";
 import PopupProfile from "./popupProfile";
@@ -9,8 +9,8 @@ type Props = {
 };
 
 export default function UserInfos({data}: Props) {
-
-    const [showPopup, setShowPopup] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const popupRef = useRef(null);
 
     const togglePopup = () => {
         setShowPopup(!showPopup);
@@ -49,6 +49,6 @@ export default function UserInfos({data}: Props) {
                     </div>
                 </div>
             </div>
-        </div>
+          </div>
     );
 };

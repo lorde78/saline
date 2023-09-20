@@ -56,6 +56,7 @@ export default function EditUserProfile({userInfo}: Props) {
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
         switch (name) {
+<<<<<<< HEAD
             case "email":
                 setEmail(value);
                 break;
@@ -78,6 +79,31 @@ export default function EditUserProfile({userInfo}: Props) {
             // Ajoutez d'autres cas si vous avez d'autres champs
             default:
                 break;
+=======
+          case "email":
+            setEmail(value);
+            break;
+          case "firstname":
+            setFirstName(value);
+            break;
+          case "lastname":
+            setLastName(value);
+            break;
+          case "BirthDate":
+            setBirthDate(value);
+            break;
+          case "Country":
+            setCountry(value);
+            break;
+          case "Address":
+            setAddress(value);
+            break;
+          case "PostalCode":
+            setPostalCode(value);
+            break;
+          default:
+            break;
+>>>>>>> comments
         }
     };
 
