@@ -41,9 +41,13 @@ export default function Textarea({name, placeholder, setValue, propsSetValue, va
 
     return (
         <div className="input-container">
-            <textarea onChange={(e) => {setValue(e.target.value, propsSetValue)}}  id={name} className={"input"} placeholder=" ">
-                {value}
-            </textarea>
+            <textarea
+                onChange={(e) => {setValue(e.target.value, propsSetValue)}}
+                id={name}
+                className={"input"}
+                placeholder=" "
+                value={value}
+            />
             <label htmlFor={name} className="placeholder">{placeholder}</label>
         </div>
     )

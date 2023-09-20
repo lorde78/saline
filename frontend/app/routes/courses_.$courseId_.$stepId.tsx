@@ -159,11 +159,9 @@ export default function Courses_CourseId_StepId() {
         let formData: any = {
             "progress": newAnswerSteps
         }
-        console.log(formData)
         updateProgress(formData, progressCourse.id);
     }
 
-    console.log(step)
     const typeStep = () => {
         switch (step?.type) {
             case "video":

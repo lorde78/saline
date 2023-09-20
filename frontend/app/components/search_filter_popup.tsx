@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Input from "~/kits/input";
 import Checkbox from "~/kits/checkbox";
 
@@ -10,78 +10,39 @@ type Props = {
 }
 export default function Search_filter_popup({setIsFilter, isFilter,setActiveFilters, tagsData}: Props) {
 
+    const setFiltersList = tagsData.map((tag:any) => {
+        return { name: tag.value, value: false }
+    })
+
     const [filters, setFilter] = useState({
-        "Instruments": [
-            {
-                name: "Guitare",
-                value: false
-            },
-            {
-                name: "Basse",
-                value: false
-            },
-            {
-                name: "Batterie",
-                value: false
-            },
-            {
-                name: "Piano",
-                value: false
-            },
-            {
-                name: "Chant",
-                value: false
-            },
-            {
-                name: "Violon",
-                value: false
-            },
-            {
-                name: "Saxophone",
-                value: false
-            },
-            {
-                name: "Trompette",
-                value: false
-            },
-        ],
-        "Status": [
-            {
-                name: "En cours",
-                value: false
-            },
-            {
-                name: "Terminé",
-                value: false
-            }
-        ]
+        "Instruments": setFiltersList
     });
 
     const [search, setSearch] = useState("Instruments");
 
 
-    const changeValue = (value, props) => {
+    const changeValue = (value:any, props:any) => {
         let newFilters = { ...filters };
+        // @ts-ignore
         newFilters[search][props.index].value = value;
         setFilter(newFilters);
 
+        // @ts-ignore
         let updatedFilters = newFilters[search].filter(item => item.value).map(item => item.name);
         if (search === "Instruments") {
-            setActiveFilters(prev => ({ ...prev, instruments: updatedFilters }));
-        } else if (search === "Status") {
-            setActiveFilters(prev => ({ ...prev, status: updatedFilters }));
+            setActiveFilters((prev:any) => ({ ...prev, instruments: updatedFilters }));
         }
     }
     const resetFilter = () => {
         let newFilters = {...filters}
+        // @ts-ignore
         newFilters[search].map((filter, i) => {
+            // @ts-ignore
             newFilters[search][i].value = false
         });
         setFilter(newFilters);
         if (search === "Instruments") {
-            setActiveFilters(prev => ({ ...prev, instruments: [] }))
-        } else if (search === "Status") {
-            setActiveFilters(prev => ({ ...prev, status: [] }))
+            setActiveFilters((prev:any) => ({ ...prev, instruments: [] }))
         }
     }
 
@@ -100,17 +61,12 @@ export default function Search_filter_popup({setIsFilter, isFilter,setActiveFilt
                         >
                             Instruments
                         </button>
-                        <button
-                            className={search === "Status" ? "active" : ""}
-                            onClick={() => setSearch("Status")}
-                        >
-                            Status
-                        </button>
                     </div>
                     <span onClick={resetFilter}><i className="ri-refresh-line"></i></span>
                 </nav>
                 <div>
-                    {filters[search].map((filter, i) => {
+                    {//@ts-ignore
+                        filters[search].map((filter, i) => {
                         return (
                             <label>
                                 <Checkbox

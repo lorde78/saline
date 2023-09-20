@@ -32,7 +32,8 @@ interface Course {
     author: {
         name: string,
         firstName: string
-    }
+    };
+    tags: any;
 }
 
 export default function Courses() {
@@ -54,11 +55,12 @@ export default function Courses() {
             course.description.toLowerCase().includes(searchTerm.toLowerCase())
 
         const matchesInstrument = activeFilters.instruments.length === 0 ||
-            activeFilters.instruments.includes(course.instrument)
-        const matchesStatus = activeFilters.status.length === 0 ||
-            activeFilters.status.includes(course.status);
+            //@ts-ignore
+            activeFilters.instruments.some(instrument => {
+                return course.tags.some((tag:any) => tag.title === instrument);
+            })
 
-        return matchesSearchTerm && matchesInstrument && matchesStatus;
+        return matchesSearchTerm && matchesInstrument;
     });
 
     useEffect(() => {

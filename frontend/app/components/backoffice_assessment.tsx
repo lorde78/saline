@@ -9,30 +9,30 @@ import {NavLink, Outlet, useLocation} from "@remix-run/react";
 
 type Props = {
     id: number,
-    studen: string,
+    student: any,
     course: string,
     status: string
 };
 export default function Backoffice_assessment({
                                                   id,
-                                                  studen,
+                                                  student,
                                                   course,
                                                   status,
                                               }: Props) {
 
     const statusColor = () => {
         switch (status) {
-            case "en attente": {
+            case "Validation": {
                 return (
-                    <span className={"status_color status_color-yellow"}></span>
+                    <span className={"status_color status_color-orange"}></span>
                 )
             }
-            case "validé": {
+            case "Terminé": {
                 return (
                     <span className={"status_color status_color-green"}></span>
                 )
             }
-            case "raté": {
+            case "Echec": {
                 return (
                     <span className={"status_color status_color-red"}></span>
                 )
@@ -46,7 +46,7 @@ export default function Backoffice_assessment({
                 <div className={"preview_card_content"}>
                     <div className={"content_header"}>
                         <div className={"header_content-left"}>
-                            <p>{studen}</p>
+                            <p>{student.firstName} {student.name}</p>
                             <p>{course}</p>
                         </div>
                         <div className={"preview_card_status"}>

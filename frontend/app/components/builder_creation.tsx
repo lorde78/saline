@@ -16,12 +16,14 @@ import useUploadFile from "~/hook/useUploadFile";
 import Select_multiple from "~/kits/select_multiple";
 import useGetAllElements from "~/hook/useGetAllElements";
 import Loader from "~/kits/loader";
+import useUpdateBuilderElement from "~/hook/useUpdateBuilderElement";
 
 type Props = {
     creation_type: string,
     relId?: number,
     relType?: string,
     elementData?: any,
+    hookType?: string;
 }
 
 
@@ -30,7 +32,7 @@ interface TagData {
     option: string;
 }
 
-export default function Builder_creation({creation_type, relId, relType, elementData}: Props) {
+export default function Builder_creation({creation_type, relId, relType, elementData, hookType}: Props) {
     const editPath = editLink(1);
     const [loader, setLoader] = useState(false);
 
@@ -62,6 +64,7 @@ export default function Builder_creation({creation_type, relId, relType, element
             switch (creation_type) {
                 case 'lesson':
                     setTitle(elementData.title);
+                    setDescription(""); // reset la description
                     setDescription(elementData.description);
                     setDefaultBanner(elementData.bannerPicture);
                     setDifficultySelected(elementData.difficultyLevel - 1);
@@ -70,6 +73,15 @@ export default function Builder_creation({creation_type, relId, relType, element
                     })
                     setTagsSelected(tagList);
                     break;
+
+                case 'training':
+                case 'classroom':
+                    setTitle(elementData.title);
+                    setDescription(""); // reset la description
+                    setDescription(elementData.description);
+                    setDefaultBanner(elementData.bannerPicture);
+                    break;
+
             }
         }
     }, [elementData]);
@@ -117,8 +129,18 @@ export default function Builder_creation({creation_type, relId, relType, element
         }
     }
 
+    let creationHook:any = null;
+
+    switch(hookType) {
+        case "update":
+            creationHook = useUpdateBuilderElement();
+            break;
+
+        default:
+            creationHook = useCreateBuilderElement();
+            break;
+    }
     const uploadHook = useUploadFile();
-    const creationHook = useCreateBuilderElement();
     let createdId: any = null;
     let bannerUrl: any = null;
 
@@ -126,22 +148,32 @@ export default function Builder_creation({creation_type, relId, relType, element
         e.preventDefault()
         const currentUserId = getcurrentUserId()
         const fileUpload = new FormData();
-
         const tagsList = tagsSelected.map((tag:any) => tag+1);
-        // @ts-ignore
-        fileUpload.append("fileToUpload", banner);
-        try {
-            bannerUrl = await uploadHook(fileUpload, "image")
-        } catch (err) {
-            console.log("Erreur lors de l'envoi du fichier :", err);
+
+        if (typeof banner === "string") {
+            bannerUrl = banner;
+        } else {
+            // @ts-ignore
+            fileUpload.append("fileToUpload", banner);
+            try {
+                bannerUrl = await uploadHook(fileUpload, "image")
+            } catch (err) {
+                console.log("Erreur lors de l'envoi du fichier :", err);
+            }
         }
 
         let formData: any = {
             "title": title,
-            "userId": currentUserId,
             "bannerPicture": bannerUrl,
             "description": description,
             "tags": tagsList
+        };
+
+        if (!hookType) {
+            formData = {
+                ...formData,
+                "userId": currentUserId
+            }
         }
 
         switch (creation_type) {
@@ -175,12 +207,16 @@ export default function Builder_creation({creation_type, relId, relType, element
         }
 
         try {
-            createdId = await creationHook(formData, creation_type).then(res => res.id)
+            createdId = await creationHook(formData, creation_type, elementData.id).then((res: any) => res.id)
         } catch (err) {
-            console.log("Erreur lors de l'envoi du fichier :", err);
+            //
         }
 
-        navigate(editPath + "/" + createdId + "/edit")
+        if (hookType === "update") {
+            navigate(editPath + "/edit")
+        } else {
+            navigate(editPath + "/" + createdId + "/edit")
+        }
     }
 
     const complementaryForm = () => {
@@ -238,7 +274,7 @@ export default function Builder_creation({creation_type, relId, relType, element
                         value={description}
                     />
                     {complementaryForm()}
-                    <button type="submit" className={"button"}>Créer</button>
+                    <button type="submit" className={"button"}>{hookType === "update" ? "Mettre à jour" : "Créer"}</button>
                 </form>
             ) : (
                 <Loader/>

@@ -36,9 +36,9 @@ router.delete('/', async function (req, res, next) {
 
 router.put('/', async function (req, res, next) {
     const { id, addStudent, studentsIdList, addTraining, trainingsIdList } = req.query;
+    const {title, description, bannerPicture } = req.body;
     let updateClassroom = null;
-    const decodedTrainingsIdList = trainingsIdList ? JSON.parse(decodeURIComponent(trainingsIdList)) : ""
-    const decodedStudentsIdList = studentsIdList ? JSON.parse(decodeURIComponent(studentsIdList)) : ""
+    let decodedStudentsIdList = null;
 
     if (!id) {
         res.status(400);
@@ -50,11 +50,16 @@ router.put('/', async function (req, res, next) {
             where: {
                 id: parseInt(id),
             },
-            data: req.body
+            data: {
+                title: title,
+                description: description,
+                bannerPicture: bannerPicture
+            }
         })
     } else {
         if (addStudent) {
             if (JSON.parse(addStudent) === true) {
+                decodedStudentsIdList = studentsIdList ? JSON.parse(decodeURIComponent(studentsIdList)) : ""
                 updateClassroom = await database.classroom.update({
                     where: {
                         id: parseInt(id)
@@ -84,6 +89,7 @@ router.put('/', async function (req, res, next) {
         }
         if (addTraining) {
             if (JSON.parse(addTraining) === true) {
+                const decodedTrainingsIdList = trainingsIdList ? JSON.parse(decodeURIComponent(trainingsIdList)) : ""
                 updateClassroom = await database.classroom.update({
                     where: {
                         id: parseInt(id)

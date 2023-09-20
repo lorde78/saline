@@ -76,7 +76,7 @@ export default function BackofficeTrainingsTrainingId_CourseId() {
             <Header_section_page numberUndoPage={1} title={"Créer un cours"} />
             <section className={"max_width_container"}>
                 <div className={"builder_container max_width"}>
-                    <Builder_creation creation_type={"lesson"} relId={loaderData.relId} relType={loaderData.relType} elementData={course}/>
+                    <Builder_creation creation_type={"lesson"} relId={loaderData.relId} relType={loaderData.relType} elementData={course} hookType={"update"}/>
                 </div>
             </section>
         </>

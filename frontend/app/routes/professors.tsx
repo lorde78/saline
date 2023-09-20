@@ -21,7 +21,7 @@ export function links() {
     ]
 }
 
-interface Role {
+interface Job {
     id: number;
     title: string;
 }
@@ -35,33 +35,26 @@ interface Formation {
     id: number;
     title: string;
 }
-
-interface ProfessorInformation {
+interface Professor {
     id: number;
-    firstName: string;
-    lastName: string;
-    imageLink: string;
+    firstname: string;
+    lastname: string;
+    profilePicture: string;
     description: string;
-    roles: Role[];
+    jobs: Job[];
     instruments: Instrument[];
 }
 
-interface Professor {
-    informations: ProfessorInformation;
-    formations: Formation[];
-}
-
 export default function Professors() {
-    useGlobalEffect();
-    isLogged("user");
+    useGlobalEffect("user");
     const [loader, setLoader] = useState(false);
     const [professors, setProfessors] = useState<Professor[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
 
 
     const filteredProfessors = professors.filter(prof =>
-        prof.informations.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        prof.informations.lastName.toLowerCase().includes(searchTerm.toLowerCase())
+        prof.firstname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        prof.lastname.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const getAllProfessors = useGetAllElements();
@@ -88,13 +81,13 @@ export default function Professors() {
                             {(filteredProfessors ?? []).length !== 0 ?
                                 filteredProfessors.map((professor, i) => {  // Change to filteredProfessors here
                                     return (
-                                        <NavLink to={professor.informations.id.toString()}
+                                        <NavLink to={professor.id.toString()}
                                                  className={"professor_card_container"}>
                                             <div className={"professors_card"}>
-                                                <img src={professor.informations.imageLink}/>
+                                                <img src={professor.profilePicture}/>
                                             </div>
                                             <div>
-                                                <p>{professor.informations.firstName} {professor.informations.lastName}</p>
+                                                <p>{professor.firstname} {professor.lastname}</p>
                                             </div>
                                         </NavLink>
                                     )

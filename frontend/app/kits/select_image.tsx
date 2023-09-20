@@ -35,7 +35,7 @@ export default function Select_image({setValue, defaultUrl}:props) {
                 <input type="file" id="images" accept="image/*" onChange={(event: object) => {
                     // @ts-ignore
                     showPreview(event.target.files[0])
-                }} required/>
+                }}/>
                 <i className="ri-image-add-line"></i>
             </label>
         </div>

@@ -18,6 +18,7 @@ export default function User_course_video_nav({
                                                   comments
 
                                               }: Props) {
+    console.log("prof :",professors);
     const [active, setActive] = useState("Description")
     const setData = () => {
         switch (active) {
@@ -62,17 +63,17 @@ export default function User_course_video_nav({
                                     return (
                                         <div className={"preview_courses_profesor"}>
                                             <div className={"professors_card"}>
-                                                <img src={professor.img}/>
+                                                <img src={professor.profilePicture}/>
                                             </div>
                                             <div className={""}>
-                                                <h1>{professor.name}</h1>
+                                                <h1>{professor.firstname} {professor.lastname}</h1>
                                                 <div>
                                                     <div>
                                                         <p>Rôle :</p>
                                                         <div>
-                                                            {professor.roles.map((role: string, id: number) => {
+                                                            {professor.jobs.map((job: any, id: number) => {
                                                                     return (
-                                                                        <Tag role={role} />
+                                                                        <Tag roles={job.title} />
                                                                     )
                                                                 }
                                                             )}
@@ -81,9 +82,9 @@ export default function User_course_video_nav({
                                                     <div>
                                                         <p>Instruments :</p>
                                                         <div>
-                                                            {professor.instruments.map((instrument: string, id: number) => {
+                                                            {professor.instruments.map((instrument: any, id: number) => {
                                                                     return (
-                                                                        <Tag role={instrument} />
+                                                                        <Tag roles={instrument.title} />
                                                                     )
                                                                 }
                                                             )}

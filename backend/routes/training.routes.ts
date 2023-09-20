@@ -60,8 +60,8 @@ router.delete('/', async function (req, res, next) {
 
 router.put('/', async function (req, res, next) {
     const { id, addToTraining, lessonsIdList } = req.query;
+    const {title, description, bannerPicture } = req.body;
     let updateTraining = null;
-    const decodedLessonsIdList = JSON.parse(lessonsIdList) ? JSON.parse(decodeURIComponent(lessonsIdList)) : ""
 
     if (!id) {
         res.status(400);
@@ -73,10 +73,15 @@ router.put('/', async function (req, res, next) {
             where: {
                 id: parseInt(id),
             },
-            data: req.body
+            data: {
+                title: title,
+                description: description,
+                bannerPicture: bannerPicture
+            }
         })
     } else {
         if(JSON.parse(addToTraining) === true) {
+            const decodedLessonsIdList = JSON.parse(lessonsIdList) ? JSON.parse(decodeURIComponent(lessonsIdList)) : ""
             updateTraining = await database.training.update({
                 where: {
                     id: parseInt(id),

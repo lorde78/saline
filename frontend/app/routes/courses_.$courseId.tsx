@@ -156,11 +156,10 @@ export default function Courses_CourseId() {
                                                         status = "Terminé";
                                                     }
                                                     break;
-
-                                                case 'review':
-                                                    status = "A faire";
-                                                    break;
                                             }
+                                        }
+                                        if (step.type === "review") {
+                                            status = stepsStatus[0].status;
                                         }
                                         return (
                                             <User_preview_card_noimage
