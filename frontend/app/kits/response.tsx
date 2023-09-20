@@ -46,7 +46,6 @@ export default function Response ({ username, content, userpic, date, upvote, do
                   <i className="ri-arrow-down-s-line"></i>
                   <div>{downvote}</div>
                   </div>
-              <div className="comment_response_button" role="button">Répondre</div>
           </div>
 
         </div>
