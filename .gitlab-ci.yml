@@ -102,8 +102,18 @@ build-code-all:
     - echo "BASE_URL=${BASE_URL}" >> .env
     - fi
     - cd app/axios
+    - if [ "$CI_COMMIT_REF_NAME" = "main" ]; then
     - sed -i '2s#.*#const baseURL = "'"$BASE_URL"'"#' "axiosInstance.tsx"
     - cat axiosInstance.tsx
+    - fi
+    - if [ "$CI_COMMIT_REF_NAME" = "dev" ]; then
+    - sed -i '2s#.*#const baseURL = "'"$DEV_BASE_URL"'"#' "axiosInstance.tsx"
+    - cat axiosInstance.tsx
+    - fi
+    - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
+    - sed -i '2s#.*#const baseURL = "'"$PREPROD_BASE_URL"'"#' "axiosInstance.tsx"
+    - cat axiosInstance.tsx
+    - fi
     - cd ../../..
     - pwd
     - docker compose up -d db && docker compose up -d express && docker compose up -d remix
