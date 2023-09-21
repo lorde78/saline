@@ -63,6 +63,7 @@ build-code-all:
     - echo "JWT_REFRESH_SECRET=${DEV_JWT_REFRESH_SECRET}" >> .env
     - echo "JWT_ACCESS_SECRET=${DEV_JWT_ACCESS_SECRET}" >> .env
     - echo "PORT=${DEV_PORT}" >> .env
+    - echo "BASE_URL_REMIX=${DEV_BASE_URL_REMIX}" >> .env
     - fi
     - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
     - echo "DATABASE_URL=${PREPROD_DATABASE_URL}" >> .env
@@ -70,6 +71,7 @@ build-code-all:
     - echo "JWT_REFRESH_SECRET=${PREPROD_REFRESH_SECRET}" >> .env
     - echo "JWT_ACCESS_SECRET=${PREPROD_JWT_ACCESS_SECRET}" >> .env
     - echo "PORT=${PREPROD_PORT}" >> .env
+    - echo "BASE_URL_REMIX=${PREPROD_BASE_URL_REMIX}" >> .env
     - fi
     - if [ "$CI_COMMIT_REF_NAME" = "main" ]; then
     - echo "DATABASE_URL=${DATABASE_URL}" >> .env
@@ -77,6 +79,7 @@ build-code-all:
     - echo "JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}" >> .env
     - echo "JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}" >> .env
     - echo "PORT=${PORT}" >> .env
+    - echo "BASE_URL_REMIX=${BASE_URL_REMIX}" >> .env
     - fi
     - cd ..  && touch .env
     - if [ "$CI_COMMIT_REF_NAME" = "dev" ]; then
@@ -88,6 +91,21 @@ build-code-all:
     - if [ "$CI_COMMIT_REF_NAME" = "main" ]; then
     - echo "ENV_TARGET=production" >> .env
     - fi
+    - cd frontend && touch .env
+    - if [ "$CI_COMMIT_REF_NAME" = "dev" ]; then
+    - echo "BASE_URL=${DEV_BASE_URL}" >> .env
+    - fi
+    - if [ "$CI_COMMIT_REF_NAME" = "preprod" ]; then
+    - echo "BASE_URL=${PREPROD_BASE_URL}" >> .env
+    - fi
+    - if [ "$CI_COMMIT_REF_NAME" = "main" ]; then
+    - echo "BASE_URL=${BASE_URL}" >> .env
+    - fi
+    - cd app/axios
+    - sed -i '2s#.*#const baseURL = "'"$BASE_URL"'"#' "axiosInstance.tsx"
+    - cat axiosInstance.tsx
+    - cd ../../..
+    - pwd
     - docker compose up -d db && docker compose up -d express && docker compose up -d remix
     - docker ps -a
     - docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} 
@@ -171,7 +189,7 @@ deploy-containers:
     - if [ "$CI_COMMIT_REF_NAME" = "main" ]; then
     - ssh -v -T -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker stop saline_db_${CI_COMMIT_REF_NAME} || true && docker rm saline_db_${CI_COMMIT_REF_NAME} || true && docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} || true && docker pull ${URL_GIT}db-${CI_COMMIT_REF_NAME} || true && docker run -e MYSQL_DATABASE=saline_db -e MYSQL_ROOT_USERNAME=root -e MYSQL_ROOT_PASSWORD=root -d --name saline_db_${CI_COMMIT_REF_NAME} -d -p 3306:3306 ${URL_GIT}db-${CI_COMMIT_REF_NAME} || true"
     - ssh -v -T -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker stop express-${CI_COMMIT_REF_NAME} || true && docker rm express-${CI_COMMIT_REF_NAME} || true && docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} || true && docker pull ${URL_GIT}express-${CI_COMMIT_REF_NAME} || true && docker run -d --name express-${CI_COMMIT_REF_NAME} -p 3000:3000 ${URL_GIT}express-${CI_COMMIT_REF_NAME} npm run start:prod || true"
-    - ssh -v -T -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker stop remix-${CI_COMMIT_REF_NAME} || true && docker rm remix-${CI_COMMIT_REF_NAME} || true && docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} || true && docker pull ${URL_GIT}remix-${CI_COMMIT_REF_NAME} || true && docker run -d --name remix-${CI_COMMIT_REF_NAME} -p 3001:3001 ${URL_GIT}remix-${CI_COMMIT_REF_NAME} npm run prod || true"
+    - ssh -v -T -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker stop remix-${CI_COMMIT_REF_NAME} || true && docker rm remix-${CI_COMMIT_REF_NAME} || true && docker login registry.gitlab.com -u ${USERNAME} -p ${SALINE_TOKEN} || true && docker pull ${URL_GIT}remix-${CI_COMMIT_REF_NAME} || true && docker run -d --name remix-${CI_COMMIT_REF_NAME} -p 3001:3001 ${URL_GIT}remix-${CI_COMMIT_REF_NAME} npm run production || true"
     - ssh -v -T -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker exec -it express-${CI_COMMIT_REF_NAME} sh -c 'npx prisma db push && exit' || true "
     - fi
     - ssh -v -T -o StrictHostKeyChecking=no salinedeploy@hetic-projects.arcplex.tech -p 9117 "docker restart nginx_conf || true "
