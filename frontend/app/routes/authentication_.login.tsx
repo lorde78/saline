@@ -32,8 +32,7 @@ export function links(): LinkProps[] {
 }
 
 export default function Authentication_Login() {
-    useGlobalEffect();
-    redirectFromLoginIfLogged("user");
+    useGlobalEffect("");
 
     return (
         <div className={"authentication_container"}>

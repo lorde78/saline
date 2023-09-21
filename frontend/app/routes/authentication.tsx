@@ -35,8 +35,7 @@ export function links() {
 }
 
 export default function Authentication() {
-    useGlobalEffect();
-    redirectFromLoginIfLogged("user");
+    useGlobalEffect("");
 
     return (
         <>
