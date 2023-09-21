@@ -15,23 +15,26 @@ export function isLogged(isFrom: string, signin: string) {
         }
     }
 
-    if (!signin) {
-        switch (isFrom) {
-            case 'backoffice':
-                navigate('/backoffice/login');
-                break;
+    useEffect(() => {
+        if (!signin) {
+            switch (isFrom) {
+                case 'backoffice':
+                    navigate('/backoffice/login');
+                    break;
 
-            case 'user':
-                navigate('/authentication');
-                break;
-        }
-    } else {
-        if (isFrom === 'backoffice') {
-            const currentUserRoles = getcurrentUserRoles()
-            console.log(currentUserRoles)
-            if (currentUserRoles.length === 1) {
-                navigate("/")
+                case 'user':
+                    navigate('/authentication');
+                    break;
+            }
+        } else {
+            if (isFrom === 'backoffice') {
+                const currentUserRoles = getcurrentUserRoles()
+                console.log(currentUserRoles)
+                if (currentUserRoles.length === 1) {
+                    navigate("/")
+                }
             }
         }
-    }
+    }, [signin]);
+
 }
